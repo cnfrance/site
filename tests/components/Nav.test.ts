@@ -5,7 +5,7 @@ import Nav from '../../src/components/Nav.astro';
 test('la nav rend les rubriques et le CTA', async () => {
   const container = await AstroContainer.create();
   const html = await container.renderToString(Nav);
-  for (const item of ['Le club', 'Pratiquer', 'Infos pratiques', 'Actualités', '150 ans', 'Partenariat', 'Nous rejoindre']) {
+  for (const item of ['Le club', 'Pratiquer', 'Infos pratiques', 'Actualités', 'Résultats', '150 ans', 'Partenariat', 'Nous rejoindre']) {
     expect(html).toContain(item);
   }
 });
