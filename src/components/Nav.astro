@@ -1,75 +1,92 @@
 ---
+// Structure calquée VERBATIM sur la navigation de l'ancien site (libellés et
+// ordre), avec les URLs pointant vers les pages migrées sur ce site.
 const rubriques = [
   {
     label: "Le club",
     href: "/le-club/notre-club-centre-nautique-de-paris",
     sousMenu: [
-      { label: "Notre club", href: "/le-club/notre-club-centre-nautique-de-paris" },
+      { label: "Activités et historique", href: "/le-club/notre-club-centre-nautique-de-paris" },
       { label: "Nos valeurs", href: "/le-club/nos-valeurs" },
       { label: "Encadrement", href: "/le-club/encadrement" },
       { label: "Équipements", href: "/le-club/equipements" },
-      { label: "Médiathèque", href: "/le-club/mediatheque" },
       { label: "Règlement intérieur & statuts", href: "/le-club/reglement-interieur-statuts" },
+      { label: "Médiathèque", href: "/le-club/mediatheque" },
+    ],
+  },
+  {
+    label: "Infos Pratiques",
+    href: "/infos-pratiques/horaires",
+    sousMenu: [
+      { label: "Horaires", href: "/infos-pratiques/horaires" },
+      { label: "Tarifs", href: "/infos-pratiques/tarifs" },
+      { label: "Adhérer au CNF", href: "/infos-pratiques/adherez-au-cnf" },
+      { label: "Plan de navigation général", href: "/infos-pratiques/plan-de-navigation-general" },
+      { label: "Info Seine", href: "/infos-pratiques/info-seine" },
+      { label: "Brevets & diplômes", href: "/infos-pratiques/brevets-diplomes" },
+      { label: "Calendrier", href: "/infos-pratiques/calendrier" },
     ],
   },
   {
     label: "Pratiquer",
     href: "/pratiquer/aviron-competition",
     sousMenu: [
-      { label: "Aviron compétition", href: "/pratiquer/aviron-competition" },
-      { label: "Aviron loisirs", href: "/pratiquer/aviron-loisirs" },
-      { label: "Aviron indoor", href: "/pratiquer/aviron-in-door" },
+      { label: "Aviron Compétition", href: "/pratiquer/aviron-competition" },
+      { label: "Aviron Loisirs", href: "/pratiquer/aviron-loisirs" },
+      { label: "Aviron Indoor", href: "/pratiquer/aviron-in-door" },
       { label: "Aviron santé", href: "/pratiquer/aviron-sante" },
+    ],
+  },
+  {
+    label: "Découvrir",
+    href: "/pratiquer/randonnees",
+    sousMenu: [
       { label: "Randonnées", href: "/pratiquer/randonnees" },
       { label: "Stages découverte", href: "/pratiquer/stages-decouverte" },
     ],
   },
   {
-    label: "Infos pratiques",
-    href: "/infos-pratiques/horaires",
+    label: "Espace adhérents",
+    href: "/espace-adherents/renouveler-son-adhesion2",
     sousMenu: [
-      { label: "Horaires", href: "/infos-pratiques/horaires" },
-      { label: "Tarifs", href: "/infos-pratiques/tarifs" },
-      { label: "Adhérer au CNF", href: "/infos-pratiques/adherez-au-cnf" },
-      { label: "Brevets & diplômes", href: "/infos-pratiques/brevets-diplomes" },
-      { label: "Nous trouver", href: "/infos-pratiques/nous-trouver" },
-      { label: "Nous contacter", href: "/infos-pratiques/contacter-le-cercle-nautique-de-france" },
-    ],
-  },
-  {
-    label: "Actualités",
-    href: "/actualites",
-    sousMenu: [],
-  },
-  {
-    label: "Résultats",
-    href: "/resultats",
-    sousMenu: [],
-  },
-  {
-    label: "Galerie",
-    href: "/galerie",
-    sousMenu: [],
-  },
-  {
-    label: "150 ans",
-    href: "/150-ans/150-ans",
-    sousMenu: [
-      { label: "150 ans du CNF", href: "/150-ans/150-ans" },
-      { label: "Histoire : 150 ans d'aviron", href: "/150-ans/histoire-150-d-aviron" },
-      { label: "Row 500 — spéciale 150 ans", href: "/150-ans/row-500-edition-speciale-150-ans" },
-      { label: "Boutique", href: "/150-ans/boutique" },
+      { label: "Renouveler mon inscription", href: "/espace-adherents/renouveler-son-adhesion2" },
+      { label: "Bon usage du matériel", href: "/espace-adherents/du-bon-usage-du-materiel" },
+      { label: "Sécurité & navigation", href: "/espace-adherents/securite-navigation" },
+      { label: "Résultats", href: "/resultats" },
+      { label: "Actualités", href: "/actualites" },
+      { label: "Ligne Vestimentaire", href: "/espace-adherents/ligne-vestimentaire" },
+      { label: "Formation / Perfectionnement", href: "/espace-adherents/formation-perfectionnement" },
+      { label: "Randon'Aviron : programme 2024", href: "/espace-adherents/randon-aviron-programme-du-cnf" },
+      { label: "Faire un don", href: "/espace-adherents/faire-un-don" },
     ],
   },
   {
     label: "Partenariat",
-    href: "/partenariat/sponsor",
+    href: "/partenariat/aviron-comites-d-entreprises",
     sousMenu: [
-      { label: "Sponsors", href: "/partenariat/sponsor" },
-      { label: "Comités d'entreprises", href: "/partenariat/aviron-comites-d-entreprises" },
+      { label: "Aviron Comités d'entreprises", href: "/partenariat/aviron-comites-d-entreprises" },
       { label: "Aviron universitaire", href: "/partenariat/aviron-universitaire" },
       { label: "Aviron scolaire", href: "/partenariat/aviron-scolaire" },
-      { label: "Team building", href: "/partenariat/team-building" },
+      { label: "Sponsors club", href: "/partenariat/sponsor" },
+    ],
+  },
+  {
+    label: "Team Building",
+    href: "/partenariat/team-building",
+    sousMenu: [],
+  },
+  {
+    label: "150 Ans du Cercle Nautique de France",
+    href: "/150-ans/150-ans",
+    long: true,
+    sousMenu: [
+      { label: "Photos vidéos du week end 150 ans ICI", href: "/150-ans/photos-videos-du-week-end-150-ans-ici" },
+      { label: "Grande soirée du 12 Juillet 2025", href: "/150-ans/grande-soiree-du-12-juillet-2025" },
+      { label: "ROW 500 : 14 juillet spéciale 150 ans", href: "/150-ans/row-500-edition-speciale-150-ans" },
+      { label: "Partenaires de la row 500", href: "/150-ans/sponsors-de-la-row-500" },
+      { label: "Relais Indoor 21 juin 2025 : édition spéciale 150 ans", href: "/150-ans/relais-indoor-sur-100-km-21-juin-2025-edition-speciale-150-ans" },
+      { label: "Histoire : 150 d'aviron", href: "/150-ans/histoire-150-d-aviron" },
+      { label: "Boutique 150 ans cercle Nautique de France", href: "/150-ans/boutique" },
     ],
   },
 ];
@@ -81,9 +98,10 @@ const rubriques = [
       <span class="nav__name">Cercle Nautique de France</span>
     </a>
     <nav class="nav__links" aria-label="Navigation principale">
+      <a href="/">Accueil</a>
       {rubriques.map((r, i) => (
         r.sousMenu.length > 0 ? (
-          <div class="nav__item" data-nav-item>
+          <div class:list={["nav__item", { "nav__item--long": r.long }]} data-nav-item>
             <a href={r.href}>{r.label}</a>
             <button
               type="button"
@@ -103,7 +121,6 @@ const rubriques = [
           <a href={r.href}>{r.label}</a>
         )
       ))}
-      <a class="btn nav__cta" href="/infos-pratiques/adherez-au-cnf">Nous rejoindre</a>
     </nav>
   </div>
 </header>
@@ -144,7 +161,17 @@ const rubriques = [
   .nav__brand { display: flex; align-items: center; gap: 0.6rem; font-weight: 700; }
   .nav__logo { width: 34px; height: 34px; border-radius: 50%; background: var(--rouge); color: var(--blanc); display: grid; place-items: center; font-family: var(--font-titre); font-size: 0.8rem; }
   .nav__name { font-family: var(--font-titre); font-size: 0.95rem; }
-  .nav__links { margin-left: auto; display: flex; align-items: center; gap: 1.1rem; font-weight: 600; font-size: 0.92rem; }
+  .nav__links {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    row-gap: 0.4rem;
+    gap: 1.1rem;
+    font-weight: 600;
+    font-size: 0.92rem;
+  }
   .nav__links > a:not(.btn):hover { color: var(--rouge); }
 
   .nav__item { position: relative; display: flex; align-items: center; }
@@ -169,10 +196,27 @@ const rubriques = [
   .nav__toggle:focus-visible { outline: 2px solid var(--rouge); border-radius: 4px; }
   .nav__item.nav__item--ouvert .nav__chevron { transform: rotate(180deg); }
   .nav__chevron { display: inline-block; transition: transform 0.15s ease; }
+
+  /* Libellé long ("150 Ans du Cercle Nautique de France") : autorise le
+     retour à la ligne et réduit légèrement la police, sans changer le texte
+     ni casser l'alignement du reste de la nav. */
+  .nav__item--long { font-size: 0.82rem; }
+  .nav__item--long > a {
+    white-space: normal;
+    max-width: 11rem;
+    line-height: 1.15;
+    text-align: left;
+  }
+
   .nav__dropdown {
     display: none;
     flex-direction: column;
     position: absolute;
+    /* top:100% (au lieu de top:100% + margin-top) : le bloc touche
+       immédiatement la ligne de nav, l'espace visuel est recréé par le
+       ::before ci-dessous, qui sert aussi de "pont" survolable comblant le
+       trou entre l'entrée de menu et le sous-menu (bug de fermeture au
+       survol). */
     top: 100%;
     left: 0;
     min-width: 240px;
@@ -183,6 +227,19 @@ const rubriques = [
     padding: 0.5rem 0;
     margin-top: 0.6rem;
     z-index: 110;
+  }
+  .nav__dropdown::before {
+    content: "";
+    position: absolute;
+    top: -0.6rem;
+    left: 0;
+    right: 0;
+    height: 0.6rem;
+    /* zone tampon invisible mais survolable : elle appartient au
+       sous-menu (donc ne s'affiche que quand celui-ci est affiché) et
+       permet à la souris de passer de l'entrée de nav au sous-menu sans
+       jamais quitter une zone survolée. */
+    background: transparent;
   }
   .nav__dropdown a {
     padding: 0.5rem 1rem;
@@ -199,5 +256,7 @@ const rubriques = [
     .nav__name { display: none; }
     .nav__links { gap: 0.7rem; font-size: 0.8rem; flex-wrap: wrap; }
     .nav__dropdown { position: static; box-shadow: none; margin-top: 0.3rem; border: none; padding-left: 0.5rem; }
+    .nav__dropdown::before { content: none; }
+    .nav__item--long > a { max-width: none; }
   }
 </style>
