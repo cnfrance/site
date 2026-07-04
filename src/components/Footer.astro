@@ -1,0 +1,37 @@
+---
+const annee = 2026;
+const reseaux = [
+  { label: "Facebook", href: "https://www.facebook.com/cerclenautiquedefrance" },
+  { label: "Instagram", href: "https://www.instagram.com/cerclenautiquedefrance" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/cercle-nautique-de-france" },
+];
+---
+<footer class="ft">
+  <div class="wrap ft__inner">
+    <div>
+      <div class="ft__title">Cercle Nautique de France</div>
+      <p class="ft__muted">Île de la Jatte, Neuilly-sur-Seine<br />contact@cnfrance.fr</p>
+    </div>
+    <nav class="ft__col" aria-label="Réseaux sociaux">
+      <span class="ft__h">Suivez-nous</span>
+      {reseaux.map((r) => <a href={r.href} rel="noopener" target="_blank">{r.label}</a>)}
+    </nav>
+    <nav class="ft__col" aria-label="Informations légales">
+      <span class="ft__h">Le site</span>
+      <a href="/plan-du-site">Plan du site</a>
+      <a href="/mentions-legales">Mentions légales</a>
+    </nav>
+  </div>
+  <div class="wrap ft__base">© {annee} Cercle Nautique de France — L'aviron aux portes de Paris</div>
+</footer>
+<style>
+  .ft { background: var(--texte); color: color-mix(in srgb, var(--blanc) 82%, transparent); margin-top: 4rem; padding-block: 2.5rem 1.5rem; }
+  .ft__inner { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2rem; }
+  .ft__title { font-family: var(--font-titre); font-size: 1.15rem; color: var(--blanc); margin-bottom: 0.4rem; }
+  .ft__muted { font-size: 0.9rem; opacity: 0.8; }
+  .ft__col { display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.9rem; }
+  .ft__h { font-family: var(--font-titre); color: var(--blanc); margin-bottom: 0.3rem; }
+  .ft__col a:hover { color: var(--blanc); }
+  .ft__base { margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid color-mix(in srgb, var(--blanc) 15%, transparent); font-size: 0.82rem; opacity: 0.7; }
+  @media (max-width: 700px) { .ft__inner { grid-template-columns: 1fr; } }
+</style>
