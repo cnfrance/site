@@ -26,6 +26,7 @@ export const actualiteSchema = z.object({
   date: z.coerce.date(),
   resume: z.string(),
   image: z.string().optional(),
+  photos: z.array(z.string()).optional(),
 });
 
 export const partenaireSchema = z.object({
@@ -46,6 +47,7 @@ export const resultatSchema = z.object({
   date: z.coerce.date(),
   resume: z.string().optional(),
   image: z.string().optional(),
+  photos: z.array(z.string()).optional(),
 });
 
 const reglages = defineCollection({
