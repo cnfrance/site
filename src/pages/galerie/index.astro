@@ -1,38 +1,58 @@
 ---
+import { getCollection } from "astro:content";
 import PageLayout from "../../layouts/PageLayout.astro";
 
-// Photos du club, migrées depuis cnfrance.fr (public/images/galerie/).
-const photos: string[] = [
-  "/images/galerie/galerie-01.jpg",
-  "/images/galerie/galerie-02.jpg",
-  "/images/galerie/galerie-03.jpg",
-  "/images/galerie/galerie-04.jpg",
-  "/images/galerie/galerie-05.jpg",
-  "/images/galerie/galerie-06.jpg",
-  "/images/galerie/galerie-07.jpg",
-  "/images/galerie/galerie-08.jpg",
-  "/images/galerie/galerie-09.jpg",
-  "/images/galerie/galerie-10.jpg",
-  "/images/galerie/galerie-11.jpg",
-  "/images/galerie/galerie-12.jpg",
-  "/images/galerie/galerie-13.jpg",
-  "/images/galerie/galerie-14.jpg",
-  "/images/galerie/galerie-15.jpg",
-  "/images/galerie/galerie-16.png",
-  "/images/galerie/galerie-17.png",
-  "/images/galerie/galerie-18.png",
-];
+// Galerie = photos des actualités et résultats, légendées par le nom de l'événement
+// et pointant vers l'article correspondant (migration cnfrance.fr).
+const [actualitesArr, resultatsArr] = await Promise.all([
+  getCollection("actualites"),
+  getCollection("resultats"),
+]);
+
+const photosActualites = actualitesArr
+  .filter((e) => e.data.image)
+  .map((e) => ({ titre: e.data.titre, date: e.data.date, image: e.data.image as string, href: `/actualites/${e.id}` }));
+
+const photosResultats = resultatsArr
+  .filter((e) => e.data.image)
+  .map((e) => ({ titre: e.data.titre, date: e.data.date, image: e.data.image as string, href: `/resultats/${e.id}` }));
+
+const photos = [...photosActualites, ...photosResultats].sort((a, b) => b.date.getTime() - a.date.getTime());
 ---
 <PageLayout
   titre="En images"
   section="Galerie"
-  chapo="Régates, randonnées, entraînements et vie du club : un aperçu en photos du Cercle Nautique de France."
+  chapo="Retour en images sur la vie du club : régates, randonnées et événements du CNF."
 >
   <div class="grid">
-    {photos.map((p) => <img class="grid__img" src={p} alt="Photo du club" loading="lazy" />)}
+    {photos.map((p) => (
+      <a class="grid__item" href={p.href}>
+        <img class="grid__img" src={p.image} alt={p.titre} loading="lazy" />
+        <span class="grid__legende">{p.titre}</span>
+      </a>
+    ))}
   </div>
 </PageLayout>
 <style>
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.8rem; }
-  .grid__img { aspect-ratio: 1; width: 100%; object-fit: cover; border-radius: var(--radius); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.9rem; }
+  .grid__item {
+    position: relative;
+    display: block;
+    aspect-ratio: 1;
+    border-radius: var(--radius);
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .grid__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+  .grid__item:hover .grid__img { transform: scale(1.05); }
+  .grid__legende {
+    position: absolute;
+    inset: auto 0 0 0;
+    padding: 1.6rem 0.8rem 0.6rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    line-height: 1.3;
+  }
 </style>

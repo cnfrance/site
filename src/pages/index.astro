@@ -12,11 +12,12 @@ import SectionGalerie from "../components/SectionGalerie.astro";
 import SectionInfosPratiques from "../components/SectionInfosPratiques.astro";
 import SectionPartenaires from "../components/SectionPartenaires.astro";
 
-const [reglagesArr, evenementsArr, actualitesArr, partenairesArr] = await Promise.all([
+const [reglagesArr, evenementsArr, actualitesArr, partenairesArr, resultatsArr] = await Promise.all([
   getCollection("reglages"),
   getCollection("evenements"),
   getCollection("actualites"),
   getCollection("partenaires"),
+  getCollection("resultats"),
 ]);
 
 const reglages = reglagesArr[0]?.data;
@@ -37,7 +38,7 @@ const actus = actualitesArr
 
 const partenaires = partenairesArr.map((p) => p.data);
 
-// Pool de photos hero et galerie (photos du club, migrées depuis cnfrance.fr).
+// Pool de photos hero (photos du club, migrées depuis cnfrance.fr).
 const poolHero: string[] = [
   "/images/hero/hero-1.jpeg",
   "/images/hero/hero-2.jpeg",
@@ -46,16 +47,20 @@ const poolHero: string[] = [
   "/images/hero/hero-5.jpeg",
   "/images/hero/hero-6.jpg",
 ];
-const poolGalerie: string[] = [
-  "/images/galerie/galerie-01.jpg",
-  "/images/galerie/galerie-02.jpg",
-  "/images/galerie/galerie-03.jpg",
-  "/images/galerie/galerie-04.jpg",
-  "/images/galerie/galerie-05.jpg",
-  "/images/galerie/galerie-06.jpg",
-  "/images/galerie/galerie-07.jpg",
-  "/images/galerie/galerie-08.jpg",
-];
+// Pool de la galerie home : photos des actualités et résultats, légendées par
+// le nom de l'événement et pointant vers l'article correspondant.
+const photosActualites = actualitesArr
+  .filter((e) => e.data.image)
+  .map((e) => ({ titre: e.data.titre, date: e.data.date, src: e.data.image as string, href: `/actualites/${e.id}` }));
+
+const photosResultats = resultatsArr
+  .filter((e) => e.data.image)
+  .map((e) => ({ titre: e.data.titre, date: e.data.date, src: e.data.image as string, href: `/resultats/${e.id}` }));
+
+const poolGalerie = [...photosActualites, ...photosResultats]
+  .sort((a, b) => b.date.getTime() - a.date.getTime())
+  .slice(0, 8)
+  .map(({ src, titre, href }) => ({ src, alt: titre, href }));
 ---
 <BaseLayout title="Cercle Nautique de France — L'aviron aux portes de Paris">
   <Nav slot="header" />

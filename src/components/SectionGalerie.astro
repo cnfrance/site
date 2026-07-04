@@ -1,5 +1,6 @@
 ---
-interface Props { photos: string[]; }
+interface Photo { src: string; alt: string; href?: string; }
+interface Props { photos: Photo[]; }
 const { photos } = Astro.props;
 const vignettes = photos.slice(0, 8);
 const manquantes = Math.max(0, 8 - vignettes.length);
@@ -11,7 +12,15 @@ const manquantes = Math.max(0, 8 - vignettes.length);
       <a class="gal__all" href="/galerie">Toute la galerie →</a>
     </div>
     <div class="gal__grid">
-      {vignettes.map((p) => <img class="gal__img" src={p} alt="Photo du club" loading="lazy" />)}
+      {vignettes.map((p) => (
+        p.href ? (
+          <a class="gal__link" href={p.href}>
+            <img class="gal__img" src={p.src} alt={p.alt} loading="lazy" />
+          </a>
+        ) : (
+          <img class="gal__img" src={p.src} alt={p.alt} loading="lazy" />
+        )
+      ))}
       {Array.from({ length: manquantes }).map(() => <div class="gal__ph"></div>)}
     </div>
   </div>
@@ -22,7 +31,9 @@ const manquantes = Math.max(0, 8 - vignettes.length);
   .gal__h { font-size: clamp(1.6rem, 3.5vw, 2.4rem); }
   .gal__all { font-weight: 700; color: var(--rouge); font-size: 0.9rem; }
   .gal__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; }
+  .gal__link { display: block; aspect-ratio: 1; border-radius: 8px; overflow: hidden; }
   .gal__img, .gal__ph { aspect-ratio: 1; border-radius: 8px; object-fit: cover; width: 100%; }
+  .gal__link .gal__img { border-radius: 0; }
   .gal__ph { background: var(--gris-bord); }
   @media (max-width: 640px) { .gal__grid { grid-template-columns: repeat(2, 1fr); } }
 </style>
