@@ -2,7 +2,13 @@
 titre: "CHAMPIONNATS DE FRANCE J18 / SENIOR SPRINT"
 date: 2025-06-06
 resume: "Les équipages junior et sénior du CNF ont disputé les championnats de France J18/Sénior sprint sur le lac des Dageys à Libourne."
-image: "/images/resultats/championnats-de-france-j18-senior-sprint.jpg"
+image: "/images/resultats/championnats-de-france-j18-senior-sprint/01.jpeg"
+photos:
+  - "/images/resultats/championnats-de-france-j18-senior-sprint/01.jpeg"
+  - "/images/resultats/championnats-de-france-j18-senior-sprint/02.jpeg"
+  - "/images/resultats/championnats-de-france-j18-senior-sprint/03.jpeg"
+  - "/images/resultats/championnats-de-france-j18-senior-sprint/04.jpeg"
+  - "/images/resultats/championnats-de-france-j18-senior-sprint/05.jpeg"
 ---
 
 Du 6 au 8 juin se sont déroulés sur le lac des Dageys à Libourne les championnats junior et sénior sprint. Le bassin était assez venteux malgré un grand soleil tout au long du Week-end ☀️.

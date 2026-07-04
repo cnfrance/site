@@ -2,7 +2,17 @@
 titre: "Championnat de Ligue LIFA Benjamins-Minimes"
 date: 2025-05-25
 resume: "Les jeunes rameurs du CNF ont participé au Championnat de Ligue LIFA Benjamins-Minimes à Mantes-la-Jolie, malgré des conditions venteuses."
-image: "/images/resultats/championnat-de-ligue-lifa-benjamins-minimes.jpg"
+image: "/images/resultats/championnat-de-ligue-lifa-benjamins-minimes/01.jpeg"
+photos:
+  - "/images/resultats/championnat-de-ligue-lifa-benjamins-minimes/01.jpeg"
+  - "/images/resultats/championnat-de-ligue-lifa-benjamins-minimes/02.jpeg"
+  - "/images/resultats/championnat-de-ligue-lifa-benjamins-minimes/03.jpeg"
+  - "/images/resultats/championnat-de-ligue-lifa-benjamins-minimes/04.jpeg"
+  - "/images/resultats/championnat-de-ligue-lifa-benjamins-minimes/05.jpeg"
+  - "/images/resultats/championnat-de-ligue-lifa-benjamins-minimes/06.jpeg"
+  - "/images/resultats/championnat-de-ligue-lifa-benjamins-minimes/07.jpeg"
+  - "/images/resultats/championnat-de-ligue-lifa-benjamins-minimes/08.jpeg"
+  - "/images/resultats/championnat-de-ligue-lifa-benjamins-minimes/09.jpeg"
 ---
 
 Le 25 mai se tenait le Championnat de Ligue Bejamin Minime organisé par la LIFA sur le bassin de Mantes la Jolie.

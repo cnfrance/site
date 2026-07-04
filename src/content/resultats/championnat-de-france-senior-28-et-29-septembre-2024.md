@@ -2,7 +2,14 @@
 titre: "Championnats de France Senior 28 et 29 septembre 2024"
 date: 2024-09-28
 resume: "Le CNF a présenté 5 embarcations aux championnats de France Senior, avec plusieurs qualifications en finale B et en finale C."
-image: "/images/resultats/championnat-de-france-senior-28-et-29-septembre-2024.png"
+image: "/images/resultats/championnat-de-france-senior-28-et-29-septembre-2024/01.png"
+photos:
+  - "/images/resultats/championnat-de-france-senior-28-et-29-septembre-2024/01.png"
+  - "/images/resultats/championnat-de-france-senior-28-et-29-septembre-2024/02.jpeg"
+  - "/images/resultats/championnat-de-france-senior-28-et-29-septembre-2024/03.jpeg"
+  - "/images/resultats/championnat-de-france-senior-28-et-29-septembre-2024/04.jpeg"
+  - "/images/resultats/championnat-de-france-senior-28-et-29-septembre-2024/05.jpeg"
+  - "/images/resultats/championnat-de-france-senior-28-et-29-septembre-2024/06.jpeg"
 ---
 
 Le week-end dernier se deroulait le dernier championnat de la saison. Il concernait nos seniors qui ont présentés 5 embarcations. Ils se sont qualifiés en finale B pour 4 d´entre eux ainsi qu´en Finale C.
