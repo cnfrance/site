@@ -1,0 +1,6 @@
+[
+  { "id": "ffa", "nom": "Fédération Française d'Aviron", "url": "https://www.ffaviron.fr" },
+  { "id": "ville-neuilly", "nom": "Ville de Neuilly-sur-Seine", "url": "https://www.neuillysurseine.fr" },
+  { "id": "lifa", "nom": "Ligue Île-de-France d'Aviron" },
+  { "id": "mairie-paris-1", "nom": "Mairie de Paris 1er" }
+]

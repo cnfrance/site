@@ -1,0 +1,18 @@
+{
+  "reglages": {
+    "accroche": "Depuis 1875, le Cercle Nautique de France fait ramer Paris sur la Seine. Compétition, loisir ou découverte : venez pousser sur les avirons dans un cadre de verdure aux portes de la capitale.",
+    "chiffres": [
+      { "valeur": "1875", "label": "fondé en" },
+      { "valeur": "150 ans", "label": "en 2025" },
+      { "valeur": "+300", "label": "adhérents" },
+      { "valeur": "FFA", "label": "club affilié" }
+    ],
+    "infos": {
+      "horaires": "Séances le midi, le soir et le week-end, toute l'année.",
+      "tarifs": "À partir de 300 €/an. Tarifs réduits étudiants et jeunes.",
+      "adresse": "Île de la Jatte, Neuilly-sur-Seine",
+      "email": "contact@cnfrance.fr",
+      "telephone": ""
+    }
+  }
+}
