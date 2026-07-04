@@ -34,6 +34,13 @@ export const partenaireSchema = z.object({
   logo: z.string().optional(),
 });
 
+export const pageSchema = z.object({
+  titre: z.string(),
+  section: z.string(),
+  chapo: z.string().optional(),
+  ordre: z.number().optional(),
+});
+
 const reglages = defineCollection({
   loader: file('src/content/site/reglages.json'),
   schema: reglagesSchema,
@@ -54,4 +61,9 @@ const partenaires = defineCollection({
   schema: partenaireSchema,
 });
 
-export const collections = { reglages, evenements, actualites, partenaires };
+const pages = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/pages' }),
+  schema: pageSchema,
+});
+
+export const collections = { reglages, evenements, actualites, partenaires, pages };

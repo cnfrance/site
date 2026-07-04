@@ -1,0 +1,53 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+  titre: string;
+  section: string;
+  chapo?: string;
+  description?: string;
+}
+const { titre, section, chapo, description } = Astro.props;
+---
+<BaseLayout title={`${titre} — Cercle Nautique de France`} description={description ?? chapo}>
+  <Nav slot="header" />
+  <article class="page">
+    <header class="page__head">
+      <div class="wrap">
+        <p class="page__section">{section}</p>
+        <h1 class="page__titre">{titre}</h1>
+        {chapo && <p class="page__chapo">{chapo}</p>}
+      </div>
+    </header>
+    <div class="wrap">
+      <div class="prose">
+        <slot />
+      </div>
+    </div>
+  </article>
+  <Footer slot="footer" />
+</BaseLayout>
+<style>
+  .page__head { padding-block: 2.5rem 1.5rem; border-bottom: 1px solid var(--gris-bord); background: var(--blanc); }
+  .page__section { color: var(--rouge); text-transform: uppercase; font-weight: 700; letter-spacing: 0.06em; font-size: 0.82rem; margin-bottom: 0.5rem; }
+  .page__titre { font-size: clamp(1.8rem, 4vw, 2.6rem); }
+  .page__chapo { margin-top: 0.8rem; font-size: 1.1rem; color: var(--muted); max-width: 60ch; }
+
+  .prose { max-width: 70ch; margin-inline: auto; padding-block: 2.5rem 4rem; }
+  .prose :global(h2) { font-size: 1.5rem; margin-top: 2.2rem; margin-bottom: 0.9rem; color: var(--texte); }
+  .prose :global(h3) { font-size: 1.2rem; margin-top: 1.6rem; margin-bottom: 0.7rem; color: var(--texte); }
+  .prose :global(p) { margin-bottom: 1.1rem; }
+  .prose :global(ul), .prose :global(ol) { margin-bottom: 1.1rem; padding-left: 1.4rem; }
+  .prose :global(li) { margin-bottom: 0.4rem; }
+  .prose :global(a) { color: var(--rouge); text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--rouge) 40%, transparent); }
+  .prose :global(a:hover) { color: var(--rouge-sombre); }
+  .prose :global(blockquote) { border-left: 3px solid var(--rouge); padding-left: 1rem; color: var(--muted); font-style: italic; margin-bottom: 1.1rem; }
+  .prose :global(strong) { font-weight: 700; }
+  .prose :global(table) { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; font-size: 0.92rem; }
+  .prose :global(th), .prose :global(td) { border: 1px solid var(--gris-bord); padding: 0.55rem 0.7rem; text-align: left; }
+  .prose :global(th) { background: var(--fond); font-family: var(--font-titre); }
+  .prose :global(img) { border-radius: var(--radius); margin-block: 1.2rem; }
+  .prose :global(hr) { border: none; border-top: 1px solid var(--gris-bord); margin-block: 2rem; }
+</style>
