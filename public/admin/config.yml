@@ -152,6 +152,22 @@ collections:
       - { label: "Ordre", name: "ordre", widget: "number", required: false, value_type: "int" }
       - { label: "Contenu", name: "body", widget: "markdown" }
 
+  - name: "pages_espace_adherents"
+    label: "Pages · Espace adhérents"
+    label_singular: "Page"
+    folder: "src/content/pages/espace-adherents"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Titre", name: "titre", widget: "string" }
+      - { label: "Section", name: "section", widget: "hidden", default: "Espace adhérents" }
+      - { label: "Chapô", name: "chapo", widget: "text", required: false }
+      - { label: "Ordre", name: "ordre", widget: "number", required: false, value_type: "int" }
+      - { label: "Contenu", name: "body", widget: "markdown" }
+
   - name: "pages_partenariat"
     label: "Pages · Partenariat"
     label_singular: "Page"
