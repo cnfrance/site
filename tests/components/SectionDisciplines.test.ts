@@ -9,4 +9,13 @@ test('rend les disciplines', async () => {
     expect(html).toContain(d);
   }
   expect(html).toContain('id="disciplines"');
+  for (const href of [
+    '/pratiquer/aviron-competition',
+    '/pratiquer/aviron-loisirs',
+    '/pratiquer/aviron-in-door',
+    '/pratiquer/aviron-sante',
+    '/pratiquer/stages-decouverte',
+  ]) {
+    expect(html).toContain(href);
+  }
 });
