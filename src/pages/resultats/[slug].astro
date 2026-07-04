@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import PageLayout from "../../layouts/PageLayout.astro";
+import Carousel from "../../components/Carousel.astro";
 
 export async function getStaticPaths() {
   const entries = await getCollection("resultats");
@@ -13,13 +14,18 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const { titre, date, image, resume } = entry.data;
+const photos = entry.data.photos ?? (image ? [image] : []);
 
 const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric", timeZone: "Europe/Paris" });
 ---
 <PageLayout titre={titre} section="Compétition" chapo={fmt.format(date)} description={resume ?? titre}>
-  {image && <img class="article__image" src={image} alt={titre} />}
+  {photos.length > 0 && (
+    <div class="article__carousel">
+      <Carousel photos={photos} alt={titre} ratio="16 / 9" />
+    </div>
+  )}
   <Content />
 </PageLayout>
 <style>
-  .article__image { width: 100%; border-radius: var(--radius); margin-bottom: 1.5rem; }
+  .article__carousel { margin-bottom: 1.5rem; }
 </style>

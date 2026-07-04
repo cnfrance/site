@@ -1,58 +1,64 @@
 ---
 import { getCollection } from "astro:content";
 import PageLayout from "../../layouts/PageLayout.astro";
+import Carousel from "../../components/Carousel.astro";
 
-// Galerie = photos des actualités et résultats, légendées par le nom de l'événement
-// et pointant vers l'article correspondant (migration cnfrance.fr).
+// Galerie = mini-carrousels par événement (actualités et résultats), légendés par le nom
+// de l'événement et pointant vers l'article correspondant (migration cnfrance.fr).
 const [actualitesArr, resultatsArr] = await Promise.all([
   getCollection("actualites"),
   getCollection("resultats"),
 ]);
 
-const photosActualites = actualitesArr
-  .filter((e) => e.data.image)
-  .map((e) => ({ titre: e.data.titre, date: e.data.date, image: e.data.image as string, href: `/actualites/${e.id}` }));
+function toEvenement(e: (typeof actualitesArr)[number] | (typeof resultatsArr)[number], href: string) {
+  const photos = e.data.photos ?? (e.data.image ? [e.data.image] : []);
+  return { titre: e.data.titre, date: e.data.date, photos: photos.slice(0, 6), href };
+}
 
-const photosResultats = resultatsArr
-  .filter((e) => e.data.image)
-  .map((e) => ({ titre: e.data.titre, date: e.data.date, image: e.data.image as string, href: `/resultats/${e.id}` }));
+const evenements = [
+  ...actualitesArr.map((e) => toEvenement(e, `/actualites/${e.id}`)),
+  ...resultatsArr.map((e) => toEvenement(e, `/resultats/${e.id}`)),
+]
+  .filter((e) => e.photos.length > 0)
+  .sort((a, b) => b.date.getTime() - a.date.getTime());
 
-const photos = [...photosActualites, ...photosResultats].sort((a, b) => b.date.getTime() - a.date.getTime());
+const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric", timeZone: "Europe/Paris" });
 ---
 <PageLayout
   titre="En images"
   section="Galerie"
-  chapo="Retour en images sur la vie du club : régates, randonnées et événements du CNF."
+  chapo="Retrouvez en images les événements et sorties du club."
 >
   <div class="grid">
-    {photos.map((p) => (
-      <a class="grid__item" href={p.href}>
-        <img class="grid__img" src={p.image} alt={p.titre} loading="lazy" />
-        <span class="grid__legende">{p.titre}</span>
-      </a>
+    {evenements.map((e) => (
+      <figure class="grid__item">
+        <Carousel variant="mini" ratio="4 / 3" photos={e.photos} alt={e.titre} />
+        <figcaption class="grid__legende">
+          <a href={e.href}>{e.titre}</a> · {fmt.format(e.date)}
+        </figcaption>
+      </figure>
     ))}
   </div>
 </PageLayout>
 <style>
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.9rem; }
-  .grid__item {
-    position: relative;
-    display: block;
-    aspect-ratio: 1;
-    border-radius: var(--radius);
-    overflow: hidden;
-    isolation: isolate;
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.4rem;
   }
-  .grid__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
-  .grid__item:hover .grid__img { transform: scale(1.05); }
+  @media (max-width: 480px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+  .grid__item { margin: 0; }
   .grid__legende {
-    position: absolute;
-    inset: auto 0 0 0;
-    padding: 1.6rem 0.8rem 0.6rem;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
-    color: #fff;
-    font-size: 0.85rem;
-    font-weight: 600;
-    line-height: 1.3;
+    margin-top: 0.6rem;
+    font-size: 0.9rem;
+    color: var(--muted);
   }
+  .grid__legende a {
+    font-weight: 700;
+    color: var(--texte);
+    text-decoration: none;
+  }
+  .grid__legende a:hover { color: var(--rouge); text-decoration: underline; }
 </style>
