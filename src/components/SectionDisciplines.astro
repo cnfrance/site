@@ -1,0 +1,33 @@
+---
+const disciplines = [
+  { titre: "Compétition", desc: "Régates régionales et championnats de France, en équipage ou en solo.", href: "/pratiquer#competition" },
+  { titre: "Loisir / Rando", desc: "Sorties sur la Seine et randonnées aviron partout en France.", href: "/pratiquer#loisir" },
+  { titre: "Indoor / Ergo", desc: "L'aviron toute l'année sur ergomètre, en salle.", href: "/pratiquer#indoor" },
+  { titre: "Aviron santé", desc: "Une pratique douce et encadrée, adaptée à chacun.", href: "/pratiquer#sante" },
+  { titre: "Découverte", desc: "Séances d'initiation et stages pour débuter l'aviron.", href: "/pratiquer#decouverte" },
+];
+---
+<section id="disciplines" class="disc">
+  <div class="wrap">
+    <h2 class="disc__h">Pratiquer l'aviron</h2>
+    <div class="disc__grid">
+      {disciplines.map((d) => (
+        <a class="disc__card" href={d.href}>
+          <h3 class="disc__title">{d.titre}</h3>
+          <p class="disc__desc">{d.desc}</p>
+          <span class="disc__more">En savoir plus →</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+<style>
+  .disc { padding-block: 3.5rem; background: var(--blanc); }
+  .disc__h { font-size: clamp(1.6rem, 3.5vw, 2.4rem); margin-bottom: 1.8rem; }
+  .disc__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1.1rem; }
+  .disc__card { border: 1px solid var(--gris-bord); border-radius: var(--radius); padding: 1.3rem; transition: transform .15s, box-shadow .15s; background: var(--fond); }
+  .disc__card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(138,12,12,.1); }
+  .disc__title { color: var(--rouge); font-size: 1.15rem; margin-bottom: 0.4rem; }
+  .disc__desc { font-size: 0.9rem; color: var(--muted); }
+  .disc__more { display: inline-block; margin-top: 0.8rem; font-weight: 700; font-size: 0.85rem; color: var(--rouge-sombre); }
+</style>
