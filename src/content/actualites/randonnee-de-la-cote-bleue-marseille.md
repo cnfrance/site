@@ -2,7 +2,7 @@
 titre: "Randonnée de la côte bleue* - Marseille"
 date: 2026-05-09
 resume: "Trois équipages du CNF ramment en mer sur la rade de Marseille, entre l'île de la Tortue et les îles du Frioul."
-image: "https://www.cnfrance.fr/media/nextend/cache/image/static/98db0a4cdf8d3bc87e1dcb5beaee4c00.jpg"
+image: "/images/actus/randonnee-de-la-cote-bleue-marseille.jpg"
 ---
 
 Le CNF lors d'une magnifique randonnée à Marseille le 9 mai

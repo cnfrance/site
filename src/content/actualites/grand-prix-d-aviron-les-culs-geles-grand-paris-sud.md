@@ -2,7 +2,7 @@
 titre: "Grand Prix d'Aviron Les culs gelés Grand-Paris-Sud"
 date: 2025-01-19
 resume: "Deux équipages du CNF au 28e Grand Prix « Les culs gelés » du Coudray-Montceaux, 25 km contre la montre dans le froid."
-image: "https://www.cnfrance.fr/media/nextend/cache/image/static/2c1b28db5d5ce03e806952921ee7f6f1.jpg"
+image: "/images/actus/grand-prix-d-aviron-les-culs-geles-grand-paris-sud.jpg"
 ---
 
 Le 19 janvier une matinée très froide deux valeureux équipages du CNF ont pris le départ du fameux 28eme Grand prix d'Aviron : « les culs gelés » organisé par l'Aviron du Coudray-Montceaux.

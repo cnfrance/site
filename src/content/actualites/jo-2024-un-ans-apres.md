@@ -2,7 +2,7 @@
 titre: "JO 2024 un ans après"
 date: 2025-07-26
 resume: "Deux équipages du CNF ont célébré le premier anniversaire des JO de Paris 2024 lors d'une descente de la Seine en yolette."
-image: "https://www.cnfrance.fr/media/nextend/cache/image/static/171cdd20679ea5f50be12d1f14a88bcf.jpg"
+image: "/images/actus/jo-2024-un-ans-apres.jpg"
 ---
 
 Le samedi 26 juillet 2025, la Seine était mise à l'honneur! Des Kayaks, des paddles, 1 dragon Boat et 22 yolettes ont accompagné l'armada des 1 an des Jeux olympiques et paralympiques de Paris 2024 sur la Seine en plein cœur de Paris!

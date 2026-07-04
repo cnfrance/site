@@ -2,7 +2,7 @@
 titre: "CHAMPIONNATS DE FRANCE J16 ET U23"
 date: 2025-07-05
 resume: "Championnats de France J16 et U23 à Vichy : les cadets du CNF décrochent la 3e place en finale."
-image: "https://www.cnfrance.fr/media/nextend/cache/image/static/576746232180669ffdfb8f34872f1b14.jpg"
+image: "/images/actus/championnats-de-france-j16-et-u23.jpg"
 ---
 
 À Vichy le week-end dernier, les J16 et les moins de 23 ans se sont réunis pour leur championnat respectif.

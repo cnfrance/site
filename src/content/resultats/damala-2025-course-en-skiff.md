@@ -2,7 +2,7 @@
 titre: "Damala 2025 : course en skiff"
 date: 2025-11-11
 resume: "Le CNF était représenté par trois rameurs Masters et sept U17 lors du Damala, tête de rivière en skiff sur la Marne."
-image: "https://www.cnfrance.fr/media/nextend/cache/image/static/4f62fbc21ed9147c0b77524f86126612.jpg"
+image: "/images/resultats/damala-2025-course-en-skiff.jpg"
 ---
 
 Le Damala, vieille régate en skiff uniquement et sous forme d'une tête de rivière (4500m pour les U17 et 7500m pour les adultes) s'est déroulée sur la Marne le 11 novembre.

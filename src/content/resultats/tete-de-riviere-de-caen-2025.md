@@ -2,7 +2,7 @@
 titre: "Tête de Rivière de Caen 2025"
 date: 2025-11-08
 resume: "Les rameurs du CNF ont participé à la première échéance de la saison bateaux courts, la Tête de Rivière de Caen."
-image: "https://www.cnfrance.fr/media/nextend/cache/image/static/197a5179c6629a76a9d541485f5ad3a0.jpg"
+image: "/images/resultats/tete-de-riviere-de-caen-2025.jpg"
 ---
 
 Le Week-end 8 et 9 novembre dernier avait lieu, à Caen, la première échéance de la saison pour la préparation bateaux courts.

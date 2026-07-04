@@ -2,7 +2,6 @@
 titre: "Challenge bateaux courts 2"
 date: 2025-02-16
 resume: "Deux rameurs seniors du CNF ont participé au challenge BTC 2 pour préparer les championnats bateaux courts à venir."
-image: "https://www.cnfrance.fr/images/PHOTOS/EVENEMENTS/2025_BTC_2/BTC2.jpeg"
 ---
 
 Dimanche 16 Fevrier pendant que nos rameurs étaient à Cordelle pour le 1er stage de préparation, deux de nos rameurs senior ont participé au challenge BTC 2 pour préparer eux aussi les championnats BTC. Leurs résultats sont aussi prometteurs que le bon déroulé du stage pour le championnats à venir !

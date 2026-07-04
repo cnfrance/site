@@ -2,7 +2,7 @@
 titre: "Bayonne - Randonnée des 3 Rivières"
 date: 2026-04-04
 resume: "Trois yolettes du CNF à Bayonne pour une version allégée des 3 Rivières : 22 km puis 14 km entre Adour et Nive."
-image: "https://www.cnfrance.fr/media/nextend/cache/image/static/309ad21625d68103cf446371287a6359.jpg"
+image: "/images/actus/bayonne-randonnee-des-3-rivieres.jpg"
 ---
 
 Du 4 au 6 avril 2026, le CNF de Neuilly a posé ses pelles à Bayonne avec trois yolettes… et une motivation presque intacte (2 rivières sur 3, on valide le format "light").

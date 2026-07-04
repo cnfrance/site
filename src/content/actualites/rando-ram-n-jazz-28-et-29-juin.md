@@ -2,7 +2,7 @@
 titre: "Rando Ram n'Jazz : 28 et 29 juin"
 date: 2025-06-29
 resume: "51 yolettes à la Rando Ram n'Jazz près de Fontainebleau : deux boucles sur la Seine entre Héricy et Moret-sur-Loing."
-image: "https://www.cnfrance.fr/media/nextend/cache/image/static/a466da104a0012547ec11dbc3c9cfbb1.jpg"
+image: "/images/actus/rando-ram-n-jazz-28-et-29-juin.jpg"
 ---
 
 Rando Ram n'Jazz : belle randonnée organisé les 28 et 29 juin par le club @anfa_aviron

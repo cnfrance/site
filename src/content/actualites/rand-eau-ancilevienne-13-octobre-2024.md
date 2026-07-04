@@ -2,7 +2,7 @@
 titre: "Rand'eau Ancilevienne 13 octobre 2024"
 date: 2024-10-13
 resume: "Deux yolettes et dix rameurs du CNF ont participé à la Rand'eau Ancilevienne sur le lac d'Annecy, 34 km au programme."
-image: "https://www.cnfrance.fr/media/nextend/cache/image/static/2d343300dc8bdcd934e311d4a27cda03.jpg"
+image: "/images/actus/rand-eau-ancilevienne-13-octobre-2024.jpg"
 ---
 
 Nouvelle participation du CNF à une très belle randonnée du catalogue rando' aviron : Rand'eau Ancilevienne 2024, le 13 octobre 2024 ; 60 bateaux engagés, donc 300 participants !

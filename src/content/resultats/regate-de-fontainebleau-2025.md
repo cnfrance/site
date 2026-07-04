@@ -2,7 +2,7 @@
 titre: "Régate de Fontainebleau 2025"
 date: 2025-11-11
 resume: "Le collectif régate du CNF termine 3e sur 6 en 8 de couple lors de la régate de Fontainebleau, forte de 33 équipages engagés."
-image: "https://www.cnfrance.fr/media/nextend/cache/image/static/11334fe37ed79f5a62ac89eeef1220d7.jpg"
+image: "/images/resultats/regate-de-fontainebleau-2025.jpg"
 ---
 
 Le 11 novembre, le collectif régate était engagé en 8 de couple dans la régate de Fontainebleau, avec un équipage composé de 8 hommes deux femmes, donc en catégorie homme.

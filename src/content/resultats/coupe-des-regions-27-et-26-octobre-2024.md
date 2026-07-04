@@ -2,7 +2,7 @@
 titre: "Coupe des Régions 27 et 26 octobre 2024"
 date: 2024-10-26
 resume: "Six rameurs du CNF ont défendu les couleurs de la ligue Île-de-France à la Coupe de France des régions à Vichy, remportant une médaille de chaque métal."
-image: "https://www.cnfrance.fr/media/nextend/cache/image/static/acb4fea873dce020047d43ba95c46b53.jpg"
+image: "/images/resultats/coupe-des-regions-27-et-26-octobre-2024.jpg"
 ---
 
 🔴 Coupe de France des régions 🔴

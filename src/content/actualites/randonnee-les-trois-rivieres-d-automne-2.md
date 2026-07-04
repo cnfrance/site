@@ -2,7 +2,7 @@
 titre: "Randonnée « les trois rivières d'automne »"
 date: 2024-10-27
 resume: "11 rameurs du CNF à la randonnée « Les 3 Rivières » de Bayonne : 26 km le samedi puis 14 km sur la Nive le dimanche."
-image: "https://www.cnfrance.fr/media/nextend/cache/image/static/40092911972e09c8a4a17fb70cb54b5a.jpg"
+image: "/images/actus/randonnee-les-trois-rivieres-d-automne-2.jpg"
 ---
 
 Le week-end du 26 et 27 octobre, 11 rameurs du CNF ont participé à la randonnée d'aviron « Les 3 Rivières » à Bayonne : Philippe, Franck, Frank, Julianne, Sabine, Pascale, Lise, Thibault, Margot, Cyril et Caroline.

@@ -2,7 +2,7 @@
 titre: "Assemblée Générale 2025"
 date: 2025-12-13
 resume: "Assemblée générale du CNF : bilan de l'année des 150 ans, approbation des comptes et élection de deux nouvelles membres."
-image: "https://www.cnfrance.fr/media/nextend/cache/image/static/ef2293cf5cb64a2360d053bd071a7546.jpg"
+image: "/images/actus/assemblee-generale-2025.jpg"
 ---
 
 Le samedi 13 Décembre s'est tenue l'assemblée générale du Cercle Nautique de France suivi d'un délicieux déjeuner.

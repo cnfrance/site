@@ -2,7 +2,7 @@
 titre: "LIFA 1 12 janvier 2025 Stade Olympique de Vaires sur Marne"
 date: 2025-01-12
 resume: "Premier challenge LIFA en bateaux courts à Vaires-sur-Marne : bons résultats pour les jeunes rameurs du CNF sur 2000 m."
-image: "https://www.cnfrance.fr/images/PHOTOS/EVENEMENTS/LIFA1_2025/unnamed_1.jpg"
+image: "/images/actus/lifa-1-12-janvier-2025-stade-olympique-de-vaires-sur-marne.jpg"
 ---
 
 Ce dimanche 12 janvier était organisé par la LIFA le premier challenge en bateaux courts de l´année.

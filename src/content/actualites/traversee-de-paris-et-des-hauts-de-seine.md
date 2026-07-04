@@ -2,7 +2,7 @@
 titre: "Traversée de Paris et des Hauts de Seine"
 date: 2024-09-15
 resume: "Record de participation pour la 39e Traversée de Paris et des Hauts-de-Seine : 269 yolettes et 7 équipages du CNF sur 28 km de Seine."
-image: "https://www.cnfrance.fr/media/nextend/cache/image/static/424211ee400a043b40db482713ce5983.jpg"
+image: "/images/actus/traversee-de-paris-et-des-hauts-de-seine.jpg"
 ---
 
 Le dimanche 15 septembre était organisé la 39eme édition de la TRAVERSEE DE PARIS ET DES HAUTS-DE-SEINE

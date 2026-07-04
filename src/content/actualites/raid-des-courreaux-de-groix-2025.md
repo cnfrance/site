@@ -2,7 +2,7 @@
 titre: "Raid des Courreaux de Groix 2025"
 date: 2025-05-25
 resume: "7 rameurs du CNF au 24e Raid des Courreaux de Groix : 27,5 km de mer engagée autour de l'île le premier jour."
-image: "https://www.cnfrance.fr/media/nextend/cache/image/static/2c2fbeee4259929fbea0a9e7a93083e1.png"
+image: "/images/actus/raid-des-courreaux-de-groix-2025.png"
 ---
 
 Ce WE des 24 et 25 Mai, 7 rameurs du CNF ont participé à la 24ème édition du Raid des Courreaux de Groix.

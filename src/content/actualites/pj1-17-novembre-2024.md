@@ -2,7 +2,7 @@
 titre: "PJ1 17 novembre 2024"
 date: 2024-11-17
 resume: "Première étape du programme jeunes de la LIFA au CNF : 7 yolettes et un double canoë sur 3000 m autour de la Jatte."
-image: "https://www.cnfrance.fr/media/nextend/cache/image/static/f7c3f5b7138e8f2edd8ea94ca3f36dd1.jpg"
+image: "/images/actus/pj1-17-novembre-2024.jpg"
 ---
 
 La première étape du programme jeune était organisée le dimanche 17 novembre au CNF. Au menu, un parcours de 3000 mètres en yolette autour de la Jatte entre les jeunes Rameurs du 92.

@@ -2,7 +2,7 @@
 titre: "Les culs gelés Grand-Paris-Sud 18 janvier 2026"
 date: 2026-01-18
 resume: "Deux équipages du CNF aux Culs Gelés du Grand Paris Sud : 25 km contre la montre dans le froid en yolette."
-image: "https://www.cnfrance.fr/media/nextend/cache/image/static/a20bb0f19a478b8457399af44897d5e1.jpg"
+image: "/images/actus/les-culs-geles-grand-paris-sud-18-janvier-2026.jpg"
 ---
 
 Le 18 janvier 2026 était organisée par l'@avironcmtcx, la nouvelle édition du Grand Prix d'aviron - Grand Paris Sud

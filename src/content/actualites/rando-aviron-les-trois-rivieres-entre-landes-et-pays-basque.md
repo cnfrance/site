@@ -2,7 +2,7 @@
 titre: "Rando aviron « Les Trois Rivières » entre Landes et Pays Basque"
 date: 2025-06-09
 resume: "20 rameurs du CNF aux mythiques 3 Rivières de Bayonne pour le week-end de Pentecôte : 63 km sur l'Adour, la Bidouze et la Nive."
-image: "https://www.cnfrance.fr/media/nextend/cache/image/static/67c6d6de09241bad773cc82616afa0bd.jpg"
+image: "/images/actus/rando-aviron-les-trois-rivieres-entre-landes-et-pays-basque.jpg"
 ---
 
 Le week-end de la Pentecôte est chargé en Randonnées 😄. La Vogalonga bien sûr mais aussi les « Les Trois Rivières » entre Landes et Pays Basque.

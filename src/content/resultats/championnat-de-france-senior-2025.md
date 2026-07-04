@@ -2,7 +2,7 @@
 titre: "Championnat de France Senior 2025"
 date: 2025-10-11
 resume: "Deux équipages du CNF se sont qualifiés en finale au Championnat de France Sénior bateaux longs à Mâcon."
-image: "https://www.cnfrance.fr/media/nextend/cache/image/static/dc575b1631f3d5f24b630608c53f1bec.jpg"
+image: "/images/resultats/championnat-de-france-senior-2025.jpg"
 ---
 
 🔴 Championnats de France sénior bateaux long 🔴
