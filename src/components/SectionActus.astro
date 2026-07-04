@@ -1,0 +1,38 @@
+---
+interface Actu { titre: string; date: Date; resume: string; slug: string; }
+interface Props { actus: Actu[]; }
+const { actus } = Astro.props;
+const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric" });
+---
+<section id="actus" class="act">
+  <div class="wrap">
+    <div class="act__head">
+      <h2 class="act__h">Actualités</h2>
+      <a class="act__all" href="/actualites">Toutes les actus →</a>
+    </div>
+    {actus.length === 0
+      ? <p class="act__vide">Pas encore d'article publié.</p>
+      : <div class="act__grid">
+          {actus.map((a) => (
+            <a class="act__card" href={`/actualites/${a.slug}`}>
+              <time class="act__date" datetime={a.date.toISOString()}>{fmt.format(a.date)}</time>
+              <h3 class="act__title">{a.titre}</h3>
+              <p class="act__resume">{a.resume}</p>
+            </a>
+          ))}
+        </div>}
+  </div>
+</section>
+<style>
+  .act { padding-block: 3.5rem; background: var(--blanc); }
+  .act__head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 1.8rem; gap: 1rem; }
+  .act__h { font-size: clamp(1.6rem, 3.5vw, 2.4rem); }
+  .act__all { font-weight: 700; color: var(--rouge); font-size: 0.9rem; }
+  .act__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; }
+  .act__card { border: 1px solid var(--gris-bord); border-radius: var(--radius); padding: 1.3rem; transition: transform .15s; background: var(--fond); }
+  .act__card:hover { transform: translateY(-3px); }
+  .act__date { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; }
+  .act__title { font-size: 1.15rem; color: var(--rouge-sombre); margin: 0.3rem 0; }
+  .act__resume { font-size: 0.9rem; color: var(--muted); }
+  .act__vide { color: var(--muted); }
+</style>

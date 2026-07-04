@@ -1,0 +1,34 @@
+---
+interface Evenement { titre: string; date: Date; lieu?: string; description: string; }
+interface Props { evenements: Evenement[]; }
+const { evenements } = Astro.props;
+const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric" });
+---
+<section id="evenements" class="evt">
+  <div class="wrap">
+    <h2 class="evt__h">Événements à venir</h2>
+    {evenements.length === 0
+      ? <p class="evt__vide">Aucun événement à venir pour le moment. Revenez bientôt !</p>
+      : <div class="evt__grid">
+          {evenements.map((e) => (
+            <article class="evt__card">
+              <time class="evt__date" datetime={e.date.toISOString()}>{fmt.format(e.date)}</time>
+              <h3 class="evt__title">{e.titre}</h3>
+              {e.lieu && <p class="evt__lieu">📍 {e.lieu}</p>}
+              <p class="evt__desc">{e.description}</p>
+            </article>
+          ))}
+        </div>}
+  </div>
+</section>
+<style>
+  .evt { padding-block: 3.5rem; }
+  .evt__h { font-size: clamp(1.6rem, 3.5vw, 2.4rem); margin-bottom: 1.8rem; }
+  .evt__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem; }
+  .evt__card { background: var(--blanc); border: 1px solid var(--gris-bord); border-left: 4px solid var(--rouge); border-radius: var(--radius); padding: 1.3rem; }
+  .evt__date { font-weight: 700; color: var(--rouge); font-size: 0.85rem; text-transform: uppercase; }
+  .evt__title { font-size: 1.2rem; margin: 0.3rem 0; }
+  .evt__lieu { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.5rem; }
+  .evt__desc { font-size: 0.92rem; color: var(--texte); }
+  .evt__vide { color: var(--muted); }
+</style>
