@@ -2,9 +2,5 @@
   { "id": "ffa", "nom": "Fédération Française d'Aviron", "url": "https://www.ffaviron.fr", "logo": "/images/partenaires/ffa.png" },
   { "id": "ville-neuilly", "nom": "Ville de Neuilly-sur-Seine", "url": "https://www.neuillysurseine.fr", "logo": "/images/partenaires/neuilly.png" },
   { "id": "lifa", "nom": "Ligue Île-de-France d'Aviron", "logo": "/images/partenaires/lifa.gif" },
-  { "id": "mairie-paris-1", "nom": "Mairie de Paris 1er", "logo": "/images/partenaires/paris1.png" },
-  { "id": "trilogiq", "nom": "Trilogiq" },
-  { "id": "hsbc", "nom": "HSBC" },
-  { "id": "airbus", "nom": "Airbus" },
-  { "id": "cmcas92", "nom": "CMCAS 92" }
+  { "id": "mairie-paris-1", "nom": "Mairie de Paris 1er", "logo": "/images/partenaires/paris1.png" }
 ]
