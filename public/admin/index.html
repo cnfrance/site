@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Admin — Cercle Nautique de France</title>
+    <!-- Sveltia CMS : successeur moderne de Decap CMS, même format de configuration (config.yml). -->
+    <!-- Version pinnée pour éviter les régressions inattendues lors des mises à jour du CDN. -->
+    <!-- Le script doit être chargé en script classique (PAS type="module") : la build UMD expose -->
+    <!-- `window.CMS`, alors que la build .mjs (module) ne le fait pas. -->
+    <script>
+      // Initialisation manuelle : on doit enregistrer un format de fichier personnalisé pour la
+      // collection "Partenaires" (voir config.yml) AVANT que Sveltia ne monte l'interface,
+      // sans quoi la collection utiliserait le format JSON par défaut.
+      window.CMS_MANUAL_INIT = true;
+    </script>
+    <script src="https://unpkg.com/@sveltia/cms@0.170.0/dist/sveltia-cms.js"></script>
+    <script>
+      // src/content/partenaires/partenaires.json est un tableau JSON "nu" (pas enveloppé dans un
+      // objet), ce que ni Decap CMS ni Sveltia CMS ne savent lire/écrire nativement pour une
+      // collection "file" (le format "json" intégré suppose toujours un objet en racine). On
+      // enregistre donc un format personnalisé qui fait la conversion dans les deux sens :
+      // - lecture (fromFile) : tableau du fichier -> { partenaires: [...] } pour les champs du CMS
+      // - écriture (toFile)  : { partenaires: [...] } des champs du CMS -> tableau réécrit tel quel
+      // Voir https://decapcms.org/docs/custom-formatters/ (API identique dans Sveltia CMS).
+      CMS.registerCustomFormat('partenaires-array', 'json', {
+        fromFile: (text) => ({ partenaires: JSON.parse(text) }),
+        toFile: (content) => `${JSON.stringify(content.partenaires ?? [], null, 2)}\n`,
+      });
+
+      CMS.init();
+    </script>
+  </head>
+  <body></body>
+</html>

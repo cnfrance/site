@@ -1,0 +1,271 @@
+# Configuration Sveltia CMS (compatible format Decap CMS).
+# Documentation : https://github.com/sveltia/sveltia-cms
+#                 https://docs.astro.build/en/guides/cms/decap-cms/
+
+backend:
+  name: github
+  repo: cnfrance/site
+  branch: main
+  # L'authentification GitHub (OAuth) N'EST PAS configurée ici : aucun secret
+  # ne doit jamais figurer dans ce fichier. Il faut fournir un point d'entrée
+  # OAuth externe, via l'UNE des deux options suivantes (voir docs/CMS-SETUP.md
+  # pour la procédure complète pas à pas) :
+  #
+  #   1) Provider OAuth de Netlify ("Access control" > OAuth / Git Gateway
+  #      d'un site Netlify servant de relais, indépendant de Netlify Identity
+  #      qui est déprécié) : dans ce cas ne rien ajouter ici, Sveltia utilise
+  #      par défaut https://api.netlify.com/auth comme point d'entrée OAuth
+  #      (comportement hérité de Decap CMS).
+  #
+  #   2) Un relais OAuth auto-hébergé (ex. Cloudflare Worker "sveltia-cms-auth"
+  #      ou "decap-cms-github-oauth-provider") : décommenter et renseigner les
+  #      deux lignes ci-dessous avec l'URL de votre worker.
+  #
+  # base_url: "https://votre-worker-oauth.exemple.workers.dev"
+  # auth_endpoint: "auth"
+
+# Permet de prévisualiser/publier directement depuis la branche main (pas de PR
+# intermédiaire). Mettre à true si vous préférez un flux de relecture par PR.
+publish_mode: simple
+
+media_folder: "public/images"
+public_folder: "/images"
+
+locale: "fr"
+
+collections:
+  # ---------------------------------------------------------------------
+  # Actualités — src/content/actualites/*.md
+  # ---------------------------------------------------------------------
+  - name: "actualites"
+    label: "Actualités"
+    label_singular: "Actualité"
+    folder: "src/content/actualites"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Titre", name: "titre", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Résumé", name: "resume", widget: "text" }
+      - { label: "Image", name: "image", widget: "image", required: false }
+      - { label: "Contenu", name: "body", widget: "markdown" }
+
+  # ---------------------------------------------------------------------
+  # Résultats — src/content/resultats/*.md
+  # ---------------------------------------------------------------------
+  - name: "resultats"
+    label: "Résultats"
+    label_singular: "Résultat"
+    folder: "src/content/resultats"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Titre", name: "titre", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Résumé", name: "resume", widget: "text", required: false }
+      - { label: "Image", name: "image", widget: "image", required: false }
+      - { label: "Contenu", name: "body", widget: "markdown" }
+
+  # ---------------------------------------------------------------------
+  # Événements — src/content/evenements/*.md
+  # ---------------------------------------------------------------------
+  - name: "evenements"
+    label: "Événements"
+    label_singular: "Événement"
+    folder: "src/content/evenements"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Titre", name: "titre", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Lieu", name: "lieu", widget: "string", required: false }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Image", name: "image", widget: "image", required: false }
+
+  # ---------------------------------------------------------------------
+  # Pages — src/content/pages/<section>/*.md
+  #
+  # Le loader Astro (glob récursif) accepte des sous-dossiers, mais une seule
+  # collection "folder" Sveltia/Decap ne cible qu'un seul dossier de premier
+  # niveau (pas de récursion multi-dossiers avec des valeurs par défaut
+  # différentes par sous-dossier). La solution qui fonctionne de façon fiable
+  # est de déclarer UNE collection Sveltia par sous-dossier/section, chacune
+  # avec son propre `folder` et un champ `section` caché préempli avec la
+  # valeur exacte utilisée dans le frontmatter existant. Le champ `section`
+  # reste modifiable en cas de besoin mais n'est plus affiché par défaut afin
+  # d'éviter les incohérences de saisie.
+  # ---------------------------------------------------------------------
+  - name: "pages_le_club"
+    label: "Pages · Le club"
+    label_singular: "Page"
+    folder: "src/content/pages/le-club"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Titre", name: "titre", widget: "string" }
+      - { label: "Section", name: "section", widget: "hidden", default: "Le club" }
+      - { label: "Chapô", name: "chapo", widget: "text", required: false }
+      - { label: "Ordre", name: "ordre", widget: "number", required: false, value_type: "int" }
+      - { label: "Contenu", name: "body", widget: "markdown" }
+
+  - name: "pages_pratiquer"
+    label: "Pages · Pratiquer"
+    label_singular: "Page"
+    folder: "src/content/pages/pratiquer"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Titre", name: "titre", widget: "string" }
+      - { label: "Section", name: "section", widget: "hidden", default: "Pratiquer" }
+      - { label: "Chapô", name: "chapo", widget: "text", required: false }
+      - { label: "Ordre", name: "ordre", widget: "number", required: false, value_type: "int" }
+      - { label: "Contenu", name: "body", widget: "markdown" }
+
+  - name: "pages_infos_pratiques"
+    label: "Pages · Infos pratiques"
+    label_singular: "Page"
+    folder: "src/content/pages/infos-pratiques"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Titre", name: "titre", widget: "string" }
+      - { label: "Section", name: "section", widget: "hidden", default: "Infos pratiques" }
+      - { label: "Chapô", name: "chapo", widget: "text", required: false }
+      - { label: "Ordre", name: "ordre", widget: "number", required: false, value_type: "int" }
+      - { label: "Contenu", name: "body", widget: "markdown" }
+
+  - name: "pages_partenariat"
+    label: "Pages · Partenariat"
+    label_singular: "Page"
+    folder: "src/content/pages/partenariat"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Titre", name: "titre", widget: "string" }
+      - { label: "Section", name: "section", widget: "hidden", default: "Partenariat" }
+      - { label: "Chapô", name: "chapo", widget: "text", required: false }
+      - { label: "Ordre", name: "ordre", widget: "number", required: false, value_type: "int" }
+      - { label: "Contenu", name: "body", widget: "markdown" }
+
+  - name: "pages_150_ans"
+    label: "Pages · 150 ans"
+    label_singular: "Page"
+    folder: "src/content/pages/150-ans"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Titre", name: "titre", widget: "string" }
+      - { label: "Section", name: "section", widget: "hidden", default: "150 ans" }
+      - { label: "Chapô", name: "chapo", widget: "text", required: false }
+      - { label: "Ordre", name: "ordre", widget: "number", required: false, value_type: "int" }
+      - { label: "Contenu", name: "body", widget: "markdown" }
+
+  - name: "pages_legal"
+    label: "Pages · Légal"
+    label_singular: "Page"
+    folder: "src/content/pages/legal"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Titre", name: "titre", widget: "string" }
+      - { label: "Section", name: "section", widget: "hidden", default: "Légal" }
+      - { label: "Chapô", name: "chapo", widget: "text", required: false }
+      - { label: "Ordre", name: "ordre", widget: "number", required: false, value_type: "int" }
+      - { label: "Contenu", name: "body", widget: "markdown" }
+
+  # ---------------------------------------------------------------------
+  # Partenaires — src/content/partenaires/partenaires.json (liste d'objets)
+  #
+  # LIMITATION RÉELLE : le fichier est un tableau JSON "nu" ([...]) et non un
+  # objet. Ni Decap CMS ni Sveltia CMS ne supportent nativement un tableau à
+  # la racine d'une collection "file" (le format "json" intégré exige un
+  # objet). On contourne cela avec un format de fichier personnalisé
+  # "partenaires-array", enregistré via `CMS.registerCustomFormat(...)` dans
+  # public/admin/index.html, qui convertit le tableau en `{ partenaires: [...] }`
+  # à la lecture et inversement à l'écriture — le fichier réécrit reste donc
+  # bien un tableau nu, compatible avec le loader Astro `file()`.
+  #
+  # Le champ "id" existant dans le fichier n'est pas requis par le schéma
+  # Astro mais est conservé ici (optionnel, masqué) pour éviter qu'il ne
+  # soit supprimé des entrées existantes lors d'une prochaine sauvegarde.
+  # ---------------------------------------------------------------------
+  - name: "partenaires"
+    label: "Partenaires"
+    files:
+      - name: "partenaires"
+        label: "Partenaires"
+        file: "src/content/partenaires/partenaires.json"
+        format: "partenaires-array"
+        fields:
+          - label: "Partenaires"
+            name: "partenaires"
+            widget: "list"
+            fields:
+              - { label: "Nom", name: "nom", widget: "string" }
+              - { label: "Site web", name: "url", widget: "string", required: false }
+              - { label: "Logo", name: "logo", widget: "image", required: false }
+              - { label: "Identifiant", name: "id", widget: "hidden", required: false }
+
+  # ---------------------------------------------------------------------
+  # Réglages — src/content/site/reglages.json
+  # Le contenu réel est enveloppé sous une clé racine "reglages". Ce n'est
+  # PAS une limitation : il suffit de déclarer un unique champ racine de
+  # type "object" nommé "reglages" qui contient tous les sous-champs. Le
+  # fichier JSON généré par le widget reproduit alors exactement l'enveloppe
+  # attendue par le loader Astro (file('src/content/site/reglages.json')).
+  # ---------------------------------------------------------------------
+  - name: "reglages"
+    label: "Réglages du site"
+    files:
+      - name: "reglages"
+        label: "Réglages du site"
+        file: "src/content/site/reglages.json"
+        format: "json"
+        fields:
+          - label: "Réglages"
+            name: "reglages"
+            widget: "object"
+            fields:
+              - { label: "Accroche", name: "accroche", widget: "text" }
+              - label: "Chiffres clés"
+                name: "chiffres"
+                widget: "list"
+                fields:
+                  - { label: "Valeur", name: "valeur", widget: "string" }
+                  - { label: "Libellé", name: "label", widget: "string" }
+              - label: "Infos pratiques"
+                name: "infos"
+                widget: "object"
+                fields:
+                  - { label: "Horaires", name: "horaires", widget: "text" }
+                  - { label: "Tarifs", name: "tarifs", widget: "text" }
+                  - { label: "Adresse", name: "adresse", widget: "string" }
+                  - { label: "Email", name: "email", widget: "string" }
+                  - { label: "Téléphone", name: "telephone", widget: "string", required: false }
