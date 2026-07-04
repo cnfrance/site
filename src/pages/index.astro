@@ -37,9 +37,25 @@ const actus = actualitesArr
 
 const partenaires = partenairesArr.map((p) => p.data);
 
-// Pool de photos hero : à alimenter avec les vraies photos (Plan 4). Vide = fallback dégradé.
-const poolHero: string[] = [];
-const poolGalerie: string[] = [];
+// Pool de photos hero et galerie (photos du club, migrées depuis cnfrance.fr).
+const poolHero: string[] = [
+  "/images/hero/hero-1.jpeg",
+  "/images/hero/hero-2.jpeg",
+  "/images/hero/hero-3.jpeg",
+  "/images/hero/hero-4.jpeg",
+  "/images/hero/hero-5.jpeg",
+  "/images/hero/hero-6.jpg",
+];
+const poolGalerie: string[] = [
+  "/images/galerie/galerie-01.jpg",
+  "/images/galerie/galerie-02.jpg",
+  "/images/galerie/galerie-03.jpg",
+  "/images/galerie/galerie-04.jpg",
+  "/images/galerie/galerie-05.jpg",
+  "/images/galerie/galerie-06.jpg",
+  "/images/galerie/galerie-07.jpg",
+  "/images/galerie/galerie-08.jpg",
+];
 ---
 <BaseLayout title="Cercle Nautique de France — L'aviron aux portes de Paris">
   <Nav slot="header" />

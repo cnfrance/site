@@ -12,3 +12,23 @@ test('rend les partenaires, avec lien quand url présente', async () => {
   expect(html).toContain('Ville de Neuilly');
   expect(html).toContain('id="partenaires"');
 });
+
+test('affiche le logo (img avec alt) quand présent', async () => {
+  const container = await AstroContainer.create();
+  const html = await container.renderToString(SectionPartenaires, {
+    props: { partenaires: [{ nom: 'Trilogiq', url: 'https://trilogiq.com', logo: '/images/partenaires/trilogiq.gif' }] },
+  });
+  expect(html).toContain('<img');
+  expect(html).toContain('src="/images/partenaires/trilogiq.gif"');
+  expect(html).toContain('alt="Trilogiq"');
+  expect(html).not.toContain('>Trilogiq<');
+});
+
+test('affiche le nom en texte seul quand aucun logo n\'est fourni', async () => {
+  const container = await AstroContainer.create();
+  const html = await container.renderToString(SectionPartenaires, {
+    props: { partenaires: [{ nom: 'HSBC' }] },
+  });
+  expect(html).not.toContain('<img');
+  expect(html).toMatch(/<span[^>]*>HSBC<\/span>/);
+});

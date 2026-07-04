@@ -1,5 +1,5 @@
 ---
-interface Partenaire { nom: string; url?: string; }
+interface Partenaire { nom: string; url?: string; logo?: string; }
 interface Props { partenaires: Partenaire[]; }
 const { partenaires } = Astro.props;
 ---
@@ -7,13 +7,18 @@ const { partenaires } = Astro.props;
   <div class="wrap">
     <h2 class="part__h">Nos partenaires</h2>
     <ul class="part__grid">
-      {partenaires.map((p) => (
-        <li class="part__item">
-          {p.url
-            ? <a href={p.url} rel="noopener" target="_blank">{p.nom}</a>
-            : <span>{p.nom}</span>}
-        </li>
-      ))}
+      {partenaires.map((p) => {
+        const contenu = p.logo
+          ? <img class="part__logo" src={p.logo} alt={p.nom} loading="lazy" />
+          : <span>{p.nom}</span>;
+        return (
+          <li class="part__item">
+            {p.url
+              ? <a href={p.url} rel="noopener" target="_blank">{contenu}</a>
+              : contenu}
+          </li>
+        );
+      })}
     </ul>
   </div>
 </section>
@@ -24,4 +29,6 @@ const { partenaires } = Astro.props;
   .part__item { font-family: var(--font-titre); font-size: 1.05rem; color: var(--texte); opacity: 0.75; transition: opacity .15s; }
   .part__item:hover { opacity: 1; }
   .part__item a:hover { color: var(--rouge); }
+  .part__logo { height: 48px; width: auto; max-width: 160px; object-fit: contain; filter: grayscale(1); opacity: 0.8; transition: filter .2s, opacity .2s; }
+  .part__item:hover .part__logo { filter: grayscale(0); opacity: 1; }
 </style>
