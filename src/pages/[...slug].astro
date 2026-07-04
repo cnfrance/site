@@ -13,7 +13,8 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const { titre, section, chapo } = entry.data;
+const description = chapo ?? `${titre} — ${section}, Cercle Nautique de France`;
 ---
-<PageLayout titre={titre} section={section} chapo={chapo}>
+<PageLayout titre={titre} section={section} chapo={chapo} description={description}>
   <Content />
 </PageLayout>

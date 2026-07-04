@@ -12,11 +12,11 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
-const { titre, date, image } = entry.data;
+const { titre, date, image, resume } = entry.data;
 
-const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric" });
+const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric", timeZone: "Europe/Paris" });
 ---
-<PageLayout titre={titre} section="Actualités" chapo={fmt.format(date)}>
+<PageLayout titre={titre} section="Actualités" chapo={fmt.format(date)} description={resume}>
   {image && <img class="article__image" src={image} alt={titre} />}
   <Content />
 </PageLayout>
