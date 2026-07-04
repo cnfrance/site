@@ -1,0 +1,51 @@
+---
+interface Props { photos: string[]; }
+const { photos } = Astro.props;
+const principale = photos[0] ?? "";
+// Le pool complet est exposé en JSON pour une rotation client optionnelle (progressive enhancement).
+const poolJson = JSON.stringify(photos);
+---
+<section class="hero">
+  <div class="hero__media">
+    {principale
+      ? <img class="hero__img" src={principale} alt="Aviron sur la Seine près de Neuilly" fetchpriority="high" data-pool={poolJson} />
+      : <div class="hero__img hero__img--placeholder" data-pool={poolJson}></div>}
+    <div class="hero__overlay"></div>
+  </div>
+  <div class="wrap hero__copy">
+    <p class="hero__kicker">Cercle Nautique de France · depuis 1875</p>
+    <h1 class="hero__title">L'aviron aux<br />portes de Paris</h1>
+    <a class="btn hero__cta" href="/#infos">Nous rejoindre</a>
+  </div>
+</section>
+<script>
+  // Rotation aléatoire du pool côté client (n'affecte pas le LCP : l'image initiale est déjà rendue).
+  const el = document.querySelector<HTMLElement>(".hero__img");
+  if (el) {
+    try {
+      const pool: string[] = JSON.parse(el.dataset.pool || "[]");
+      if (pool.length > 1 && el instanceof HTMLImageElement) {
+        el.src = pool[Math.floor(Math.random() * pool.length)];
+      }
+    } catch {}
+  }
+</script>
+<style>
+  .hero { position: relative; height: min(82vh, 680px); overflow: hidden; display: flex; align-items: flex-end; }
+  .hero__media { position: absolute; inset: 0; }
+  .hero__img { width: 100%; height: 120%; object-fit: cover; will-change: transform; }
+  .hero__img--placeholder { background: linear-gradient(#0a3d62, #1e6091 70%, #2a7fb0); }
+  .hero__overlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(6,30,50,.72), rgba(6,30,50,.15) 55%, transparent); }
+  .hero__copy { position: relative; padding-bottom: 3rem; color: var(--blanc); }
+  .hero__kicker { text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; font-weight: 700; color: #cfe6f4; }
+  .hero__title { font-size: clamp(2.2rem, 6vw, 4.2rem); margin: 0.4rem 0 1.4rem; text-shadow: 0 2px 18px rgba(0,0,0,.45); }
+  .hero__cta { font-size: 1.05rem; }
+
+  /* Parallax : scroll-driven animation native, avec fallback silencieux */
+  @supports (animation-timeline: scroll()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .hero__img { animation: hero-parallax linear both; animation-timeline: scroll(root); animation-range: 0 600px; }
+      @keyframes hero-parallax { to { transform: translateY(-16%); } }
+    }
+  }
+</style>
