@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hero — 3 directions</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#0f172a;color:#e2e8f0;padding:28px;}
+  h2{font-size:24px;margin-bottom:6px}
+  .subtitle{color:#94a3b8;font-size:14px;margin-bottom:22px;max-width:820px;line-height:1.5}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+  .card{background:#1e293b;border:2px solid #334155;border-radius:14px;overflow:hidden;cursor:pointer;transition:.18s}
+  .card:hover{border-color:#38bdf8;transform:translateY(-3px)}
+  .card.selected{border-color:#22d3ee;box-shadow:0 0 0 3px rgba(34,211,238,.3)}
+  .hero{position:relative;height:220px;overflow:hidden}
+  .body{padding:14px 16px}
+  .body h3{font-size:16px;margin-bottom:6px}
+  .body p{font-size:13px;color:#cbd5e1;line-height:1.5}
+  b{color:#fff}
+  .badge{position:absolute;top:10px;left:10px;background:rgba(0,0,0,.4);color:#fff;font-size:10px;padding:3px 9px;border-radius:20px;letter-spacing:1px;z-index:5}
+  .ov-title{position:absolute;left:16px;bottom:14px;color:#fff;font-weight:800;font-size:19px;line-height:1.1;text-shadow:0 2px 12px rgba(0,0,0,.6);z-index:5}
+  .ov-sub{position:absolute;left:16px;bottom:2px;color:#fff;opacity:.85;font-size:11px;z-index:5}
+  @keyframes drift{to{background-position:120px 0}}
+  @keyframes bob{0%,100%{transform:translate(-50%,0) rotate(-1deg)}50%{transform:translate(-50%,-6px) rotate(1deg)}}
+  @keyframes glide{0%,100%{transform:translateX(-72%)}50%{transform:translateX(-28%)}}
+  @keyframes row{0%,100%{transform:rotate(30deg)}50%{transform:rotate(-30deg)}}
+
+  /* A photo */
+  .pa-sky{position:absolute;inset:0;background:linear-gradient(#bfe0f5,#eaf6fd 55%,#dff0f8)}
+  .pa-sun{position:absolute;top:22px;right:34px;width:44px;height:44px;border-radius:50%;background:radial-gradient(#fff6d8,#ffe69a);box-shadow:0 0 30px #ffe9a6}
+  .pa-hills{position:absolute;bottom:74px;left:-5%;right:-5%;height:60px;background:linear-gradient(#9fc7a8,#7fb18d);border-radius:50%;opacity:.7}
+  .pa-water{position:absolute;bottom:0;left:0;right:0;height:88px;background:linear-gradient(#5fa8d6,#2e6f9e)}
+  .pa-shimmer{position:absolute;bottom:0;left:0;right:0;height:88px;background:repeating-linear-gradient(90deg,transparent,transparent 16px,rgba(255,255,255,.18) 16px,rgba(255,255,255,.18) 20px);animation:drift 6s linear infinite}
+  .pa-boat{position:absolute;bottom:46px;left:50%;animation:bob 3.2s ease-in-out infinite}
+
+  /* B illustration */
+  .il{position:absolute;inset:0;background:linear-gradient(#0a3d62,#1e6091 70%,#2a7fb0)}
+  .il-sun{position:absolute;top:26px;left:50%;transform:translateX(-50%);width:74px;height:74px;border-radius:50%;background:#ffd97d;box-shadow:0 0 50px #ffcf66}
+  .il-water{position:absolute;bottom:0;left:0;right:0;height:66px;background:#06324f}
+  .il-w2{position:absolute;bottom:0;left:0;right:0;height:66px;background:repeating-linear-gradient(90deg,transparent,transparent 24px,rgba(255,255,255,.1) 24px,rgba(255,255,255,.1) 30px);animation:drift 5s linear infinite}
+  .il-scull{position:absolute;bottom:50px;left:50%;animation:glide 7s ease-in-out infinite}
+  .il-hull{width:150px;height:9px;background:#f2c14e;border-radius:50%;position:relative}
+  .il-oar{position:absolute;top:2px;left:74px;width:58px;height:3px;background:#e0e0e0;transform-origin:left center}
+  .il-oar.l{animation:row 1.5s ease-in-out infinite}
+  .il-oar.r{animation:row 1.5s ease-in-out infinite reverse}
+
+  /* C video */
+  .cv{position:absolute;inset:0;background:radial-gradient(circle at 60% 38%,rgba(255,255,255,.18),transparent 55%),linear-gradient(120deg,#0d2b3a,#367a9c)}
+  .cv-grain{position:absolute;inset:0;background:repeating-linear-gradient(120deg,transparent,transparent 3px,rgba(255,255,255,.04) 3px,rgba(255,255,255,.04) 5px)}
+  .cv-play{position:absolute;top:46%;left:50%;transform:translate(-50%,-50%);width:46px;height:46px;border-radius:50%;border:2px solid rgba(255,255,255,.85)}
+  .cv-play:after{content:'';position:absolute;top:50%;left:55%;transform:translate(-50%,-50%);border-left:14px solid #fff;border-top:9px solid transparent;border-bottom:9px solid transparent}
+
+  .note{color:#94a3b8;font-size:13px;margin-top:20px;line-height:1.5}
+</style>
+</head>
+<body>
+  <h2>Le hero d'accueil : 3 directions pour le bateau qui rame</h2>
+  <p class="subtitle">Toutes en parallax (les plans bougent à des vitesses différentes au scroll). La différence est le style visuel et le média à fournir. Clique pour sélectionner.</p>
+
+  <div class="grid">
+    <div class="card" data-choice="a" onclick="toggleSelect(this)">
+      <div class="hero">
+        <div class="pa-sky"></div><div class="pa-sun"></div><div class="pa-hills"></div>
+        <div class="pa-water"></div><div class="pa-shimmer"></div>
+        <div class="pa-boat">
+          <svg viewBox="0 0 120 40" width="120" height="40"><ellipse cx="60" cy="28" rx="55" ry="7" fill="#333"/><rect x="20" y="21" width="80" height="4" rx="2" fill="#c0392b"/><line x1="60" y1="23" x2="94" y2="9" stroke="#999" stroke-width="2"/><line x1="60" y1="23" x2="26" y2="9" stroke="#999" stroke-width="2"/><circle cx="60" cy="19" r="4" fill="#1e6091"/></svg>
+        </div>
+        <span class="badge">PHOTO</span>
+        <div class="ov-title">L'aviron aux<br>portes de Paris</div>
+      </div>
+      <div class="body"><h3>A · Photo réaliste</h3>
+        <p>Une vraie photo Seine/skiff découpée en plans (ciel, berges, eau, bateau) qui glissent au scroll ; le bateau oscille. Chaleureux, authentique. <b>Besoin : 1 belle photo HD.</b></p></div>
+    </div>
+
+    <div class="card" data-choice="b" onclick="toggleSelect(this)">
+      <div class="hero">
+        <div class="il"></div><div class="il-sun"></div>
+        <div class="il-water"></div><div class="il-w2"></div>
+        <div class="il-scull"><div class="il-hull"><div class="il-oar l"></div><div class="il-oar r"></div></div></div>
+        <span class="badge">ILLUSTRATION</span>
+        <div class="ov-title">Cercle Nautique<br>de France</div>
+      </div>
+      <div class="body"><h3>B · Illustration animée</h3>
+        <p>Un skiff stylisé dont les <b>avirons rament réellement</b> en glissant sur l'eau. Moderne, graphique, intemporel, ultra-léger (SVG). Aucune photo requise.</p></div>
+    </div>
+
+    <div class="card" data-choice="c" onclick="toggleSelect(this)">
+      <div class="hero">
+        <div class="cv"></div><div class="cv-grain"></div><div class="cv-play"></div>
+        <span class="badge">VIDÉO</span>
+        <div class="ov-title">150 ans d'aviron</div>
+        <div class="ov-sub">— Neuilly-sur-Seine</div>
+      </div>
+      <div class="body"><h3>C · Vidéo cinématique</h3>
+        <p>Vidéo plein écran d'un équipage qui rame, en boucle muette, léger parallax du titre par-dessus. Très immersif et premium. <b>Besoin : une vidéo de qualité.</b></p></div>
+    </div>
+  </div>
+
+  <p class="note">On peut aussi <b>combiner</b> : illustration animée pour l'effet « waouh » immédiat, puis sections photo en dessous. La direction B est la plus sûre si on n'a pas encore de média pro.</p>
+
+<script>
+  function toggleSelect(el){
+    el.classList.toggle('selected');
+  }
+</script>
+</body>
+</html>

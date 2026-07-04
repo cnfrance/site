@@ -42,5 +42,5 @@ test('la nav expose des sous-menus avec les liens des pages migrées', async () 
   ]) {
     expect(html).toContain(href);
   }
-  expect(html).toContain('nav__dropdown');
+  expect(html).toContain('nav__menu');
 });

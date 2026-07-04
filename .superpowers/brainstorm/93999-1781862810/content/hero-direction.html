@@ -1,0 +1,95 @@
+<h2>Le hero d'accueil : 3 directions pour le bateau qui rame</h2>
+<p class="subtitle">Toutes en parallax (les plans bougent à des vitesses différentes au scroll). La différence est le <b>style visuel</b> et le type de média à fournir. Survole/clique pour choisir.</p>
+
+<style>
+  .hero-card { position: relative; height: 230px; border-radius: 12px; overflow: hidden; }
+  .hero-card * { box-sizing: border-box; }
+
+  /* ---- A : Photo réaliste multi-couches ---- */
+  .pa-sky { position:absolute; inset:0; background:linear-gradient(#bfe0f5,#eaf6fd 60%,#dff0f8); }
+  .pa-sun { position:absolute; top:24px; right:36px; width:46px; height:46px; border-radius:50%; background:radial-gradient(#fff6d8,#ffe69a); box-shadow:0 0 30px #ffe9a6; }
+  .pa-hills{ position:absolute; bottom:78px; left:0; right:0; height:60px; background:linear-gradient(#9fc7a8,#7fb18d); border-radius:50% 50% 0 0/40px; opacity:.7;}
+  .pa-water{ position:absolute; bottom:0; left:0; right:0; height:92px; background:linear-gradient(#5fa8d6,#2e6f9e); }
+  .pa-shimmer{ position:absolute; bottom:0; left:0; right:0; height:92px; background:repeating-linear-gradient(90deg,transparent,transparent 16px,rgba(255,255,255,.18) 16px,rgba(255,255,255,.18) 20px); animation:drift 6s linear infinite;}
+  @keyframes drift{to{background-position:120px 0}}
+  .pa-boat{ position:absolute; bottom:48px; left:50%; width:120px; transform:translateX(-50%); animation:bob 3.2s ease-in-out infinite; }
+  @keyframes bob{0%,100%{transform:translate(-50%,0) rotate(-1deg)}50%{transform:translate(-50%,-5px) rotate(1deg)}}
+
+  /* ---- B : Illustration stylisée animée ---- */
+  .il { position:absolute; inset:0; background:linear-gradient(#0a3d62,#1e6091 70%,#2a7fb0); }
+  .il-sun{ position:absolute; top:30px; left:50%; transform:translateX(-50%); width:80px;height:80px;border-radius:50%; background:#ffd97d; box-shadow:0 0 50px #ffcf66;}
+  .il-water{ position:absolute; bottom:0;left:0;right:0;height:70px;background:#06324f;}
+  .il-w2{ position:absolute; bottom:0;left:0;right:0;height:70px;background:repeating-linear-gradient(90deg,transparent,transparent 24px,rgba(255,255,255,.1) 24px,rgba(255,255,255,.1) 30px);animation:drift 5s linear infinite;}
+  .il-scull{ position:absolute; bottom:52px; left:50%; transform:translateX(-50%); animation:glide 7s ease-in-out infinite;}
+  @keyframes glide{0%,100%{transform:translateX(-70%)}50%{transform:translateX(-30%)}}
+  .il-hull{ width:150px;height:10px;background:#f2c14e;border-radius:50%; position:relative;}
+  .il-oar{ position:absolute; top:3px; width:60px;height:3px;background:#e0e0e0;transform-origin:left center;}
+  .il-oar.l{ left:74px; animation:row 1.6s ease-in-out infinite;}
+  .il-oar.r{ left:74px; animation:row 1.6s ease-in-out infinite reverse;}
+  @keyframes row{0%,100%{transform:rotate(28deg)}50%{transform:rotate(-28deg)}}
+  .il-rower{ position:absolute; bottom:60px; left:50%; width:8px;height:14px;background:#fff;border-radius:4px; animation:glide 7s ease-in-out infinite; }
+
+  /* ---- C : Vidéo cinématique plein écran ---- */
+  .cv{ position:absolute; inset:0; background:linear-gradient(120deg,#16384a,#2e5f7a); }
+  .cv-img{ position:absolute; inset:0; background:radial-gradient(circle at 60% 40%, rgba(255,255,255,.18), transparent 55%), linear-gradient(120deg,#0d2b3a,#367a9c); filter:contrast(1.05);}
+  .cv-grain{ position:absolute; inset:0; background:repeating-linear-gradient(120deg,transparent,transparent 3px,rgba(255,255,255,.03) 3px,rgba(255,255,255,.03) 5px);}
+  .cv-play{ position:absolute; top:50%;left:50%;transform:translate(-50%,-50%); width:46px;height:46px;border-radius:50%;border:2px solid rgba(255,255,255,.8); }
+  .cv-play:after{ content:''; position:absolute; top:50%;left:54%;transform:translate(-50%,-50%); border-left:14px solid #fff; border-top:9px solid transparent;border-bottom:9px solid transparent;}
+  .ov-title{ position:absolute; left:18px; bottom:16px; color:#fff; font-weight:800; font-size:20px; line-height:1.1; text-shadow:0 2px 12px rgba(0,0,0,.5);}
+  .ov-sub{ position:absolute; left:18px; bottom:0; color:#fff; opacity:.8; font-size:11px; }
+  .badge{ position:absolute; top:12px; left:12px; background:rgba(0,0,0,.35); color:#fff; font-size:10px; padding:3px 8px; border-radius:20px; letter-spacing:.5px;}
+</style>
+
+<div class="cards">
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0">
+      <div class="hero-card">
+        <div class="pa-sky"></div><div class="pa-sun"></div><div class="pa-hills"></div>
+        <div class="pa-water"></div><div class="pa-shimmer"></div>
+        <div class="pa-boat">
+          <svg viewBox="0 0 120 40" width="120"><ellipse cx="60" cy="28" rx="55" ry="7" fill="#3a3a3a"/><rect x="20" y="22" width="80" height="3" fill="#c0392b"/><line x1="60" y1="24" x2="92" y2="10" stroke="#888" stroke-width="2"/><line x1="60" y1="24" x2="28" y2="10" stroke="#888" stroke-width="2"/><circle cx="60" cy="20" r="4" fill="#1e6091"/></svg>
+        </div>
+        <span class="badge">PHOTO</span>
+        <div class="ov-title">L'aviron aux<br>portes de Paris</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A · Photo réaliste</h3>
+      <p>Une vraie photo Seine/skiff découpée en plans (ciel, berges, eau, bateau) qui glissent au scroll. Le bateau oscille doucement. Chaleureux, authentique. <b>Besoin : 1 belle photo HD.</b></p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0">
+      <div class="hero-card">
+        <div class="il"></div><div class="il-sun"></div>
+        <div class="il-water"></div><div class="il-w2"></div>
+        <div class="il-scull"><div class="il-hull"><div class="il-oar l"></div><div class="il-oar r"></div></div></div>
+        <span class="badge">ILLUSTRATION</span>
+        <div class="ov-title">Cercle Nautique<br>de France</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B · Illustration animée</h3>
+      <p>Un skiff stylisé dont les <b>avirons rament réellement</b> (animation des palettes) en glissant sur l'eau. Moderne, graphique, intemporel, 100% léger (SVG). Aucune photo requise.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0">
+      <div class="hero-card">
+        <div class="cv"></div><div class="cv-img"></div><div class="cv-grain"></div>
+        <div class="cv-play"></div>
+        <span class="badge">VIDÉO</span>
+        <div class="ov-title">150 ans d'aviron</div>
+        <div class="ov-sub">— Neuilly-sur-Seine</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C · Vidéo cinématique</h3>
+      <p>Une vidéo plein écran d'un équipage qui rame, en boucle muette, avec léger parallax du titre par-dessus. Très immersif et premium. <b>Besoin : une vidéo de qualité.</b></p>
+    </div>
+  </div>
+</div>
+
+<p class="subtitle" style="margin-top:18px">On peut aussi <b>combiner</b> (ex. illustration animée pour l'effet « waouh » immédiat, puis sections photo en dessous). Dis-moi ce qui te parle.</p>

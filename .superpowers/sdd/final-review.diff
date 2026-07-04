@@ -1,0 +1,1613 @@
+diff --git a/astro.config.mjs b/astro.config.mjs
+new file mode 100644
+index 0000000..300370d
+--- /dev/null
++++ b/astro.config.mjs
+@@ -0,0 +1,6 @@
++import { defineConfig } from 'astro/config';
++
++export default defineConfig({
++  site: 'https://www.cnfrance.fr',
++  output: 'static',
++});
+diff --git a/netlify.toml b/netlify.toml
+new file mode 100644
+index 0000000..139990e
+--- /dev/null
++++ b/netlify.toml
+@@ -0,0 +1,6 @@
++[build]
++  command = "npm run build"
++  publish = "dist"
++
++[build.environment]
++  NODE_VERSION = "20"
+diff --git a/package.json b/package.json
+new file mode 100644
+index 0000000..9cd5b42
+--- /dev/null
++++ b/package.json
+@@ -0,0 +1,21 @@
++{
++  "name": "cnfrance",
++  "type": "module",
++  "version": "0.1.0",
++  "private": true,
++  "scripts": {
++    "dev": "astro dev",
++    "build": "astro build",
++    "preview": "astro preview",
++    "check": "astro check",
++    "test": "vitest run"
++  },
++  "dependencies": {
++    "astro": "^5.0.0"
++  },
++  "devDependencies": {
++    "@astrojs/check": "^0.9.0",
++    "typescript": "^5.6.0",
++    "vitest": "^3.2.0"
++  }
++}
+diff --git a/src/components/Footer.astro b/src/components/Footer.astro
+new file mode 100644
+index 0000000..075694b
+--- /dev/null
++++ b/src/components/Footer.astro
+@@ -0,0 +1,37 @@
++---
++const annee = 2026;
++const reseaux = [
++  { label: "Facebook", href: "https://www.facebook.com/cerclenautiquedefrance" },
++  { label: "Instagram", href: "https://www.instagram.com/cerclenautiquedefrance" },
++  { label: "LinkedIn", href: "https://www.linkedin.com/company/cercle-nautique-de-france" },
++];
++---
++<footer class="ft">
++  <div class="wrap ft__inner">
++    <div>
++      <div class="ft__title">Cercle Nautique de France</div>
++      <p class="ft__muted">Île de la Jatte, Neuilly-sur-Seine<br />contact@cnfrance.fr</p>
++    </div>
++    <nav class="ft__col" aria-label="Réseaux sociaux">
++      <span class="ft__h">Suivez-nous</span>
++      {reseaux.map((r) => <a href={r.href} rel="noopener" target="_blank">{r.label}</a>)}
++    </nav>
++    <nav class="ft__col" aria-label="Informations légales">
++      <span class="ft__h">Le site</span>
++      <a href="/legal/plan-du-site">Plan du site</a>
++      <a href="/legal/mentions-legales">Mentions légales</a>
++    </nav>
++  </div>
++  <div class="wrap ft__base">© {annee} Cercle Nautique de France — L'aviron aux portes de Paris</div>
++</footer>
++<style>
++  .ft { background: var(--texte); color: color-mix(in srgb, var(--blanc) 82%, transparent); margin-top: 4rem; padding-block: 2.5rem 1.5rem; }
++  .ft__inner { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2rem; }
++  .ft__title { font-family: var(--font-titre); font-size: 1.15rem; color: var(--blanc); margin-bottom: 0.4rem; }
++  .ft__muted { font-size: 0.9rem; opacity: 0.8; }
++  .ft__col { display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.9rem; }
++  .ft__h { font-family: var(--font-titre); color: var(--blanc); margin-bottom: 0.3rem; }
++  .ft__col a:hover { color: var(--blanc); }
++  .ft__base { margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid color-mix(in srgb, var(--blanc) 15%, transparent); font-size: 0.82rem; opacity: 0.7; }
++  @media (max-width: 700px) { .ft__inner { grid-template-columns: 1fr; } }
++</style>
+diff --git a/src/components/Hero.astro b/src/components/Hero.astro
+new file mode 100644
+index 0000000..5ed2cf2
+--- /dev/null
++++ b/src/components/Hero.astro
+@@ -0,0 +1,51 @@
++---
++interface Props { photos: string[]; }
++const { photos } = Astro.props;
++const principale = photos[0] ?? "";
++// Le pool complet est exposé en JSON pour une rotation client optionnelle (progressive enhancement).
++const poolJson = JSON.stringify(photos);
++---
++<section class="hero">
++  <div class="hero__media">
++    {principale
++      ? <img class="hero__img" src={principale} alt="Aviron sur la Seine près de Neuilly" fetchpriority="high" data-pool={poolJson} />
++      : <div class="hero__img hero__img--placeholder" data-pool={poolJson}></div>}
++    <div class="hero__overlay"></div>
++  </div>
++  <div class="wrap hero__copy">
++    <p class="hero__kicker">Cercle Nautique de France · depuis 1875</p>
++    <h1 class="hero__title">L'aviron aux<br />portes de Paris</h1>
++    <a class="btn hero__cta" href="/#infos">Nous rejoindre</a>
++  </div>
++</section>
++<script>
++  // Rotation aléatoire du pool côté client (n'affecte pas le LCP : l'image initiale est déjà rendue).
++  const el = document.querySelector<HTMLElement>(".hero__img");
++  if (el) {
++    try {
++      const pool: string[] = JSON.parse(el.dataset.pool || "[]");
++      if (pool.length > 1 && el instanceof HTMLImageElement) {
++        el.src = pool[Math.floor(Math.random() * pool.length)];
++      }
++    } catch {}
++  }
++</script>
++<style>
++  .hero { position: relative; height: min(82vh, 680px); overflow: hidden; display: flex; align-items: flex-end; }
++  .hero__media { position: absolute; inset: 0; }
++  .hero__img { width: 100%; height: 120%; object-fit: cover; will-change: transform; }
++  .hero__img--placeholder { background: linear-gradient(#0a3d62, #1e6091 70%, #2a7fb0); }
++  .hero__overlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(6,30,50,.72), rgba(6,30,50,.15) 55%, transparent); }
++  .hero__copy { position: relative; padding-bottom: 3rem; color: var(--blanc); }
++  .hero__kicker { text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; font-weight: 700; color: #cfe6f4; }
++  .hero__title { font-size: clamp(2.2rem, 6vw, 4.2rem); margin: 0.4rem 0 1.4rem; text-shadow: 0 2px 18px rgba(0,0,0,.45); }
++  .hero__cta { font-size: 1.05rem; }
++
++  /* Parallax : scroll-driven animation native, avec fallback silencieux */
++  @supports (animation-timeline: scroll()) {
++    @media (prefers-reduced-motion: no-preference) {
++      .hero__img { animation: hero-parallax linear both; animation-timeline: scroll(root); animation-range: 0 600px; }
++      @keyframes hero-parallax { to { transform: translateY(-16%); } }
++    }
++  }
++</style>
+diff --git a/src/components/Nav.astro b/src/components/Nav.astro
+new file mode 100644
+index 0000000..de457ea
+--- /dev/null
++++ b/src/components/Nav.astro
+@@ -0,0 +1,146 @@
++---
++const rubriques = [
++  {
++    label: "Le club",
++    href: "/le-club/notre-club-centre-nautique-de-paris",
++    sousMenu: [
++      { label: "Notre club", href: "/le-club/notre-club-centre-nautique-de-paris" },
++      { label: "Nos valeurs", href: "/le-club/nos-valeurs" },
++      { label: "Encadrement", href: "/le-club/encadrement" },
++      { label: "Équipements", href: "/le-club/equipements" },
++      { label: "Médiathèque", href: "/le-club/mediatheque" },
++      { label: "Règlement intérieur & statuts", href: "/le-club/reglement-interieur-statuts" },
++    ],
++  },
++  {
++    label: "Pratiquer",
++    href: "/pratiquer/aviron-competition",
++    sousMenu: [
++      { label: "Aviron compétition", href: "/pratiquer/aviron-competition" },
++      { label: "Aviron loisirs", href: "/pratiquer/aviron-loisirs" },
++      { label: "Aviron indoor", href: "/pratiquer/aviron-in-door" },
++      { label: "Aviron santé", href: "/pratiquer/aviron-sante" },
++      { label: "Randonnées", href: "/pratiquer/randonnees" },
++      { label: "Stages découverte", href: "/pratiquer/stages-decouverte" },
++    ],
++  },
++  {
++    label: "Infos pratiques",
++    href: "/infos-pratiques/horaires",
++    sousMenu: [
++      { label: "Horaires", href: "/infos-pratiques/horaires" },
++      { label: "Tarifs", href: "/infos-pratiques/tarifs" },
++      { label: "Adhérer au CNF", href: "/infos-pratiques/adherez-au-cnf" },
++      { label: "Brevets & diplômes", href: "/infos-pratiques/brevets-diplomes" },
++      { label: "Nous trouver", href: "/infos-pratiques/nous-trouver" },
++      { label: "Nous contacter", href: "/infos-pratiques/contacter-le-cercle-nautique-de-france" },
++    ],
++  },
++  {
++    label: "Actualités",
++    href: "/actualites",
++    sousMenu: [],
++  },
++  {
++    label: "Résultats",
++    href: "/resultats",
++    sousMenu: [],
++  },
++  {
++    label: "Galerie",
++    href: "/galerie",
++    sousMenu: [],
++  },
++  {
++    label: "150 ans",
++    href: "/150-ans/150-ans",
++    sousMenu: [
++      { label: "150 ans du CNF", href: "/150-ans/150-ans" },
++      { label: "Histoire : 150 ans d'aviron", href: "/150-ans/histoire-150-d-aviron" },
++      { label: "Row 500 — spéciale 150 ans", href: "/150-ans/row-500-edition-speciale-150-ans" },
++      { label: "Boutique", href: "/150-ans/boutique" },
++    ],
++  },
++  {
++    label: "Partenariat",
++    href: "/partenariat/sponsor",
++    sousMenu: [
++      { label: "Sponsors", href: "/partenariat/sponsor" },
++      { label: "Comités d'entreprises", href: "/partenariat/aviron-comites-d-entreprises" },
++      { label: "Aviron universitaire", href: "/partenariat/aviron-universitaire" },
++      { label: "Aviron scolaire", href: "/partenariat/aviron-scolaire" },
++      { label: "Team building", href: "/partenariat/team-building" },
++    ],
++  },
++];
++---
++<header class="nav">
++  <div class="wrap nav__inner">
++    <a class="nav__brand" href="/">
++      <span class="nav__logo">CNF</span>
++      <span class="nav__name">Cercle Nautique de France</span>
++    </a>
++    <nav class="nav__links" aria-label="Navigation principale">
++      {rubriques.map((r) => (
++        r.sousMenu.length > 0 ? (
++          <div class="nav__item">
++            <a href={r.href} aria-haspopup="true">{r.label}</a>
++            <div class="nav__dropdown">
++              {r.sousMenu.map((s) => <a href={s.href}>{s.label}</a>)}
++            </div>
++          </div>
++        ) : (
++          <a href={r.href}>{r.label}</a>
++        )
++      ))}
++      <a class="btn nav__cta" href="/infos-pratiques/adherez-au-cnf">Nous rejoindre</a>
++    </nav>
++  </div>
++</header>
++<style>
++  .nav { position: sticky; top: 0; z-index: 100; background: color-mix(in srgb, var(--blanc) 92%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--gris-bord); }
++  .nav__inner { display: flex; align-items: center; gap: 1.5rem; padding-block: 0.6rem; }
++  .nav__brand { display: flex; align-items: center; gap: 0.6rem; font-weight: 700; }
++  .nav__logo { width: 34px; height: 34px; border-radius: 50%; background: var(--rouge); color: var(--blanc); display: grid; place-items: center; font-family: var(--font-titre); font-size: 0.8rem; }
++  .nav__name { font-family: var(--font-titre); font-size: 0.95rem; }
++  .nav__links { margin-left: auto; display: flex; align-items: center; gap: 1.1rem; font-weight: 600; font-size: 0.92rem; }
++  .nav__links > a:not(.btn):hover { color: var(--rouge); }
++
++  .nav__item { position: relative; }
++  .nav__item:hover .nav__dropdown,
++  .nav__item:focus-within .nav__dropdown {
++    display: flex;
++  }
++  .nav__item > a:hover { color: var(--rouge); }
++  .nav__dropdown {
++    display: none;
++    flex-direction: column;
++    position: absolute;
++    top: 100%;
++    left: 0;
++    min-width: 240px;
++    background: var(--blanc);
++    border: 1px solid var(--gris-bord);
++    border-radius: var(--radius);
++    box-shadow: 0 12px 28px rgba(42, 5, 5, 0.12);
++    padding: 0.5rem 0;
++    margin-top: 0.6rem;
++    z-index: 110;
++  }
++  .nav__dropdown a {
++    padding: 0.5rem 1rem;
++    font-weight: 500;
++    white-space: nowrap;
++  }
++  .nav__dropdown a:hover,
++  .nav__dropdown a:focus-visible {
++    background: var(--fond);
++    color: var(--rouge);
++  }
++
++  @media (max-width: 820px) {
++    .nav__name { display: none; }
++    .nav__links { gap: 0.7rem; font-size: 0.8rem; flex-wrap: wrap; }
++    .nav__dropdown { position: static; box-shadow: none; margin-top: 0.3rem; border: none; padding-left: 0.5rem; }
++  }
++</style>
+diff --git a/src/components/SectionActus.astro b/src/components/SectionActus.astro
+new file mode 100644
+index 0000000..99a27a5
+--- /dev/null
++++ b/src/components/SectionActus.astro
+@@ -0,0 +1,38 @@
++---
++interface Actu { titre: string; date: Date; resume: string; slug: string; }
++interface Props { actus: Actu[]; }
++const { actus } = Astro.props;
++const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric" });
++---
++<section id="actus" class="act">
++  <div class="wrap">
++    <div class="act__head">
++      <h2 class="act__h">Actualités</h2>
++      <a class="act__all" href="/actualites">Toutes les actus →</a>
++    </div>
++    {actus.length === 0
++      ? <p class="act__vide">Pas encore d'article publié.</p>
++      : <div class="act__grid">
++          {actus.map((a) => (
++            <a class="act__card" href={`/actualites/${a.slug}`}>
++              <time class="act__date" datetime={a.date.toISOString()}>{fmt.format(a.date)}</time>
++              <h3 class="act__title">{a.titre}</h3>
++              <p class="act__resume">{a.resume}</p>
++            </a>
++          ))}
++        </div>}
++  </div>
++</section>
++<style>
++  .act { padding-block: 3.5rem; background: var(--blanc); }
++  .act__head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 1.8rem; gap: 1rem; }
++  .act__h { font-size: clamp(1.6rem, 3.5vw, 2.4rem); }
++  .act__all { font-weight: 700; color: var(--rouge); font-size: 0.9rem; }
++  .act__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; }
++  .act__card { border: 1px solid var(--gris-bord); border-radius: var(--radius); padding: 1.3rem; transition: transform .15s; background: var(--fond); }
++  .act__card:hover { transform: translateY(-3px); }
++  .act__date { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; }
++  .act__title { font-size: 1.15rem; color: var(--rouge-sombre); margin: 0.3rem 0; }
++  .act__resume { font-size: 0.9rem; color: var(--muted); }
++  .act__vide { color: var(--muted); }
++</style>
+diff --git a/src/components/SectionChiffres.astro b/src/components/SectionChiffres.astro
+new file mode 100644
+index 0000000..c152581
+--- /dev/null
++++ b/src/components/SectionChiffres.astro
+@@ -0,0 +1,26 @@
++---
++interface Props { accroche: string; chiffres: { valeur: string; label: string }[]; }
++const { accroche, chiffres } = Astro.props;
++---
++<section id="club" class="chiffres">
++  <div class="wrap chiffres__inner">
++    <p class="chiffres__accroche">{accroche}</p>
++    <ul class="chiffres__grid">
++      {chiffres.map((c) => (
++        <li class="chiffres__item">
++          <span class="chiffres__val">{c.valeur}</span>
++          <span class="chiffres__lab">{c.label}</span>
++        </li>
++      ))}
++    </ul>
++  </div>
++</section>
++<style>
++  .chiffres { padding-block: 3.5rem; }
++  .chiffres__accroche { font-size: clamp(1.15rem, 2.4vw, 1.5rem); max-width: 60ch; margin-inline: auto; text-align: center; color: var(--texte); }
++  .chiffres__grid { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 2.5rem; }
++  .chiffres__item { text-align: center; }
++  .chiffres__val { display: block; font-family: var(--font-titre); font-size: clamp(1.8rem, 4vw, 2.8rem); color: var(--rouge); }
++  .chiffres__lab { display: block; font-size: 0.85rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
++  @media (max-width: 640px) { .chiffres__grid { grid-template-columns: repeat(2, 1fr); } }
++</style>
+diff --git a/src/components/SectionDisciplines.astro b/src/components/SectionDisciplines.astro
+new file mode 100644
+index 0000000..f97d0de
+--- /dev/null
++++ b/src/components/SectionDisciplines.astro
+@@ -0,0 +1,33 @@
++---
++const disciplines = [
++  { titre: "Compétition", desc: "Régates régionales et championnats de France, en équipage ou en solo.", href: "/pratiquer/aviron-competition" },
++  { titre: "Loisir / Rando", desc: "Sorties sur la Seine et randonnées aviron partout en France.", href: "/pratiquer/aviron-loisirs" },
++  { titre: "Indoor / Ergo", desc: "L'aviron toute l'année sur ergomètre, en salle.", href: "/pratiquer/aviron-in-door" },
++  { titre: "Aviron santé", desc: "Une pratique douce et encadrée, adaptée à chacun.", href: "/pratiquer/aviron-sante" },
++  { titre: "Découverte", desc: "Séances d'initiation et stages pour débuter l'aviron.", href: "/pratiquer/stages-decouverte" },
++];
++---
++<section id="disciplines" class="disc">
++  <div class="wrap">
++    <h2 class="disc__h">Pratiquer l'aviron</h2>
++    <div class="disc__grid">
++      {disciplines.map((d) => (
++        <a class="disc__card" href={d.href}>
++          <h3 class="disc__title">{d.titre}</h3>
++          <p class="disc__desc">{d.desc}</p>
++          <span class="disc__more">En savoir plus →</span>
++        </a>
++      ))}
++    </div>
++  </div>
++</section>
++<style>
++  .disc { padding-block: 3.5rem; background: var(--blanc); }
++  .disc__h { font-size: clamp(1.6rem, 3.5vw, 2.4rem); margin-bottom: 1.8rem; }
++  .disc__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1.1rem; }
++  .disc__card { border: 1px solid var(--gris-bord); border-radius: var(--radius); padding: 1.3rem; transition: transform .15s, box-shadow .15s; background: var(--fond); }
++  .disc__card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(138,12,12,.1); }
++  .disc__title { color: var(--rouge); font-size: 1.15rem; margin-bottom: 0.4rem; }
++  .disc__desc { font-size: 0.9rem; color: var(--muted); }
++  .disc__more { display: inline-block; margin-top: 0.8rem; font-weight: 700; font-size: 0.85rem; color: var(--rouge-sombre); }
++</style>
+diff --git a/src/components/SectionEvenements.astro b/src/components/SectionEvenements.astro
+new file mode 100644
+index 0000000..22cb1f7
+--- /dev/null
++++ b/src/components/SectionEvenements.astro
+@@ -0,0 +1,34 @@
++---
++interface Evenement { titre: string; date: Date; lieu?: string; description: string; }
++interface Props { evenements: Evenement[]; }
++const { evenements } = Astro.props;
++const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric" });
++---
++<section id="evenements" class="evt">
++  <div class="wrap">
++    <h2 class="evt__h">Événements à venir</h2>
++    {evenements.length === 0
++      ? <p class="evt__vide">Aucun événement à venir pour le moment. Revenez bientôt !</p>
++      : <div class="evt__grid">
++          {evenements.map((e) => (
++            <article class="evt__card">
++              <time class="evt__date" datetime={e.date.toISOString()}>{fmt.format(e.date)}</time>
++              <h3 class="evt__title">{e.titre}</h3>
++              {e.lieu && <p class="evt__lieu">📍 {e.lieu}</p>}
++              <p class="evt__desc">{e.description}</p>
++            </article>
++          ))}
++        </div>}
++  </div>
++</section>
++<style>
++  .evt { padding-block: 3.5rem; }
++  .evt__h { font-size: clamp(1.6rem, 3.5vw, 2.4rem); margin-bottom: 1.8rem; }
++  .evt__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem; }
++  .evt__card { background: var(--blanc); border: 1px solid var(--gris-bord); border-left: 4px solid var(--rouge); border-radius: var(--radius); padding: 1.3rem; }
++  .evt__date { font-weight: 700; color: var(--rouge); font-size: 0.85rem; text-transform: uppercase; }
++  .evt__title { font-size: 1.2rem; margin: 0.3rem 0; }
++  .evt__lieu { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.5rem; }
++  .evt__desc { font-size: 0.92rem; color: var(--texte); }
++  .evt__vide { color: var(--muted); }
++</style>
+diff --git a/src/components/SectionGalerie.astro b/src/components/SectionGalerie.astro
+new file mode 100644
+index 0000000..952bf85
+--- /dev/null
++++ b/src/components/SectionGalerie.astro
+@@ -0,0 +1,28 @@
++---
++interface Props { photos: string[]; }
++const { photos } = Astro.props;
++const vignettes = photos.slice(0, 8);
++const manquantes = Math.max(0, 8 - vignettes.length);
++---
++<section id="galerie" class="gal">
++  <div class="wrap">
++    <div class="gal__head">
++      <h2 class="gal__h">En images</h2>
++      <a class="gal__all" href="/galerie">Toute la galerie →</a>
++    </div>
++    <div class="gal__grid">
++      {vignettes.map((p) => <img class="gal__img" src={p} alt="Photo du club" loading="lazy" />)}
++      {Array.from({ length: manquantes }).map(() => <div class="gal__ph"></div>)}
++    </div>
++  </div>
++</section>
++<style>
++  .gal { padding-block: 3.5rem; }
++  .gal__head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 1.5rem; gap: 1rem; }
++  .gal__h { font-size: clamp(1.6rem, 3.5vw, 2.4rem); }
++  .gal__all { font-weight: 700; color: var(--rouge); font-size: 0.9rem; }
++  .gal__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; }
++  .gal__img, .gal__ph { aspect-ratio: 1; border-radius: 8px; object-fit: cover; width: 100%; }
++  .gal__ph { background: var(--gris-bord); }
++  @media (max-width: 640px) { .gal__grid { grid-template-columns: repeat(2, 1fr); } }
++</style>
+diff --git a/src/components/SectionInfosPratiques.astro b/src/components/SectionInfosPratiques.astro
+new file mode 100644
+index 0000000..f8d15aa
+--- /dev/null
++++ b/src/components/SectionInfosPratiques.astro
+@@ -0,0 +1,32 @@
++---
++interface Props { horaires: string; tarifs: string; adresse: string; email: string; }
++const { horaires, tarifs, adresse, email } = Astro.props;
++---
++<section id="infos" class="infos">
++  <div class="wrap infos__inner">
++    <div class="infos__col">
++      <h2 class="infos__h">Nous rejoindre</h2>
++      <p class="infos__lead">Envie d'essayer l'aviron ? Le club accueille débutants comme confirmés toute l'année.</p>
++      <a class="btn" href={`mailto:${email}`}>Écrire au club</a>
++    </div>
++    <ul class="infos__list">
++      <li><span class="infos__ic">🕐</span><div><b>Horaires</b><p>{horaires}</p></div></li>
++      <li><span class="infos__ic">💶</span><div><b>Tarifs</b><p>{tarifs}</p></div></li>
++      <li><span class="infos__ic">📍</span><div><b>Où nous trouver</b><p>{adresse}</p></div></li>
++      <li><span class="infos__ic">✉️</span><div><b>Contact</b><p><a class="infos__mail" href={`mailto:${email}`}>{email}</a></p></div></li>
++    </ul>
++  </div>
++</section>
++<style>
++  .infos { padding-block: 3.5rem; background: var(--blanc); }
++  .infos__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; }
++  .infos__h { font-size: clamp(1.6rem, 3.5vw, 2.4rem); color: var(--rouge); }
++  .infos__lead { margin: 0.8rem 0 1.4rem; color: var(--muted); max-width: 40ch; }
++  .infos__list { list-style: none; display: grid; gap: 1.1rem; }
++  .infos__list li { display: flex; gap: 0.8rem; }
++  .infos__ic { font-size: 1.3rem; }
++  .infos__list b { font-family: var(--font-titre); }
++  .infos__list p { font-size: 0.92rem; color: var(--muted); }
++  .infos__mail { color: var(--rouge); font-weight: 600; }
++  @media (max-width: 700px) { .infos__inner { grid-template-columns: 1fr; } }
++</style>
+diff --git a/src/components/SectionPartenaires.astro b/src/components/SectionPartenaires.astro
+new file mode 100644
+index 0000000..088e33f
+--- /dev/null
++++ b/src/components/SectionPartenaires.astro
+@@ -0,0 +1,34 @@
++---
++interface Partenaire { nom: string; url?: string; logo?: string; }
++interface Props { partenaires: Partenaire[]; }
++const { partenaires } = Astro.props;
++---
++<section id="partenaires" class="part">
++  <div class="wrap">
++    <h2 class="part__h">Nos partenaires</h2>
++    <ul class="part__grid">
++      {partenaires.map((p) => {
++        const contenu = p.logo
++          ? <img class="part__logo" src={p.logo} alt={p.nom} loading="lazy" />
++          : <span>{p.nom}</span>;
++        return (
++          <li class="part__item">
++            {p.url
++              ? <a href={p.url} rel="noopener" target="_blank">{contenu}</a>
++              : contenu}
++          </li>
++        );
++      })}
++    </ul>
++  </div>
++</section>
++<style>
++  .part { padding-block: 3rem; }
++  .part__h { text-align: center; font-size: 1.3rem; color: var(--muted); margin-bottom: 1.5rem; }
++  .part__grid { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem 2.5rem; }
++  .part__item { font-family: var(--font-titre); font-size: 1.05rem; color: var(--texte); opacity: 0.75; transition: opacity .15s; }
++  .part__item:hover { opacity: 1; }
++  .part__item a:hover { color: var(--rouge); }
++  .part__logo { height: 48px; width: auto; max-width: 160px; object-fit: contain; filter: grayscale(1); opacity: 0.8; transition: filter .2s, opacity .2s; }
++  .part__item:hover .part__logo { filter: grayscale(0); opacity: 1; }
++</style>
+diff --git a/src/content.config.ts b/src/content.config.ts
+new file mode 100644
+index 0000000..1dc35e5
+--- /dev/null
++++ b/src/content.config.ts
+@@ -0,0 +1,81 @@
++import { defineCollection, z } from 'astro:content';
++import { glob, file } from 'astro/loaders';
++
++export const reglagesSchema = z.object({
++  accroche: z.string(),
++  chiffres: z.array(z.object({ valeur: z.string(), label: z.string() })),
++  infos: z.object({
++    horaires: z.string(),
++    tarifs: z.string(),
++    adresse: z.string(),
++    email: z.string(),
++    telephone: z.string().optional(),
++  }),
++});
++
++export const evenementSchema = z.object({
++  titre: z.string(),
++  date: z.coerce.date(),
++  lieu: z.string().optional(),
++  description: z.string(),
++  image: z.string().optional(),
++});
++
++export const actualiteSchema = z.object({
++  titre: z.string(),
++  date: z.coerce.date(),
++  resume: z.string(),
++  image: z.string().optional(),
++});
++
++export const partenaireSchema = z.object({
++  nom: z.string(),
++  url: z.string().optional(),
++  logo: z.string().optional(),
++});
++
++export const pageSchema = z.object({
++  titre: z.string(),
++  section: z.string(),
++  chapo: z.string().optional(),
++  ordre: z.number().optional(),
++});
++
++export const resultatSchema = z.object({
++  titre: z.string(),
++  date: z.coerce.date(),
++  resume: z.string().optional(),
++  image: z.string().optional(),
++});
++
++const reglages = defineCollection({
++  loader: file('src/content/site/reglages.json'),
++  schema: reglagesSchema,
++});
++
++const evenements = defineCollection({
++  loader: glob({ pattern: '**/*.md', base: './src/content/evenements' }),
++  schema: evenementSchema,
++});
++
++const actualites = defineCollection({
++  loader: glob({ pattern: '**/*.md', base: './src/content/actualites' }),
++  schema: actualiteSchema,
++});
++
++const partenaires = defineCollection({
++  loader: file('src/content/partenaires/partenaires.json'),
++  schema: partenaireSchema,
++});
++
++const pages = defineCollection({
++  loader: glob({ pattern: '**/*.md', base: './src/content/pages' }),
++  schema: pageSchema,
++});
++
++const resultats = defineCollection({
++  loader: glob({ pattern: '**/*.md', base: './src/content/resultats' }),
++  schema: resultatSchema,
++});
++
++export const collections = { reglages, evenements, actualites, partenaires, pages, resultats };
+diff --git a/src/layouts/BaseLayout.astro b/src/layouts/BaseLayout.astro
+new file mode 100644
+index 0000000..a6bb210
+--- /dev/null
++++ b/src/layouts/BaseLayout.astro
+@@ -0,0 +1,25 @@
++---
++import "../styles/global.css";
++interface Props { title: string; description?: string; }
++const { title, description = "Cercle Nautique de France — l'aviron aux portes de Paris. Club d'aviron à Neuilly-sur-Seine depuis 1875." } = Astro.props;
++---
++<!doctype html>
++<html lang="fr">
++  <head>
++    <meta charset="utf-8" />
++    <meta name="viewport" content="width=device-width, initial-scale=1" />
++    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
++    <title>{title}</title>
++    <meta name="description" content={description} />
++    <meta property="og:title" content={title} />
++    <meta property="og:description" content={description} />
++    <meta property="og:type" content="website" />
++  </head>
++  <body>
++    <slot name="header" />
++    <main>
++      <slot />
++    </main>
++    <slot name="footer" />
++  </body>
++</html>
+diff --git a/src/layouts/PageLayout.astro b/src/layouts/PageLayout.astro
+new file mode 100644
+index 0000000..9085ad6
+--- /dev/null
++++ b/src/layouts/PageLayout.astro
+@@ -0,0 +1,53 @@
++---
++import BaseLayout from "./BaseLayout.astro";
++import Nav from "../components/Nav.astro";
++import Footer from "../components/Footer.astro";
++
++interface Props {
++  titre: string;
++  section: string;
++  chapo?: string;
++  description?: string;
++}
++const { titre, section, chapo, description } = Astro.props;
++---
++<BaseLayout title={`${titre} — Cercle Nautique de France`} description={description ?? chapo}>
++  <Nav slot="header" />
++  <article class="page">
++    <header class="page__head">
++      <div class="wrap">
++        <p class="page__section">{section}</p>
++        <h1 class="page__titre">{titre}</h1>
++        {chapo && <p class="page__chapo">{chapo}</p>}
++      </div>
++    </header>
++    <div class="wrap">
++      <div class="prose">
++        <slot />
++      </div>
++    </div>
++  </article>
++  <Footer slot="footer" />
++</BaseLayout>
++<style>
++  .page__head { padding-block: 2.5rem 1.5rem; border-bottom: 1px solid var(--gris-bord); background: var(--blanc); }
++  .page__section { color: var(--rouge); text-transform: uppercase; font-weight: 700; letter-spacing: 0.06em; font-size: 0.82rem; margin-bottom: 0.5rem; }
++  .page__titre { font-size: clamp(1.8rem, 4vw, 2.6rem); }
++  .page__chapo { margin-top: 0.8rem; font-size: 1.1rem; color: var(--muted); max-width: 60ch; }
++
++  .prose { max-width: 70ch; margin-inline: auto; padding-block: 2.5rem 4rem; }
++  .prose :global(h2) { font-size: 1.5rem; margin-top: 2.2rem; margin-bottom: 0.9rem; color: var(--texte); }
++  .prose :global(h3) { font-size: 1.2rem; margin-top: 1.6rem; margin-bottom: 0.7rem; color: var(--texte); }
++  .prose :global(p) { margin-bottom: 1.1rem; }
++  .prose :global(ul), .prose :global(ol) { margin-bottom: 1.1rem; padding-left: 1.4rem; }
++  .prose :global(li) { margin-bottom: 0.4rem; }
++  .prose :global(a) { color: var(--rouge); text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--rouge) 40%, transparent); }
++  .prose :global(a:hover) { color: var(--rouge-sombre); }
++  .prose :global(blockquote) { border-left: 3px solid var(--rouge); padding-left: 1rem; color: var(--muted); font-style: italic; margin-bottom: 1.1rem; }
++  .prose :global(strong) { font-weight: 700; }
++  .prose :global(table) { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; font-size: 0.92rem; }
++  .prose :global(th), .prose :global(td) { border: 1px solid var(--gris-bord); padding: 0.55rem 0.7rem; text-align: left; }
++  .prose :global(th) { background: var(--fond); font-family: var(--font-titre); }
++  .prose :global(img) { border-radius: var(--radius); margin-block: 1.2rem; }
++  .prose :global(hr) { border: none; border-top: 1px solid var(--gris-bord); margin-block: 2rem; }
++</style>
+diff --git a/src/pages/[...slug].astro b/src/pages/[...slug].astro
+new file mode 100644
+index 0000000..f0258f1
+--- /dev/null
++++ b/src/pages/[...slug].astro
+@@ -0,0 +1,19 @@
++---
++import { getCollection, render } from "astro:content";
++import PageLayout from "../layouts/PageLayout.astro";
++
++export async function getStaticPaths() {
++  const entries = await getCollection("pages");
++  return entries.map((entry) => ({
++    params: { slug: entry.id },
++    props: { entry },
++  }));
++}
++
++const { entry } = Astro.props;
++const { Content } = await render(entry);
++const { titre, section, chapo } = entry.data;
++---
++<PageLayout titre={titre} section={section} chapo={chapo}>
++  <Content />
++</PageLayout>
+diff --git a/src/pages/actualites/[slug].astro b/src/pages/actualites/[slug].astro
+new file mode 100644
+index 0000000..d5beb51
+--- /dev/null
++++ b/src/pages/actualites/[slug].astro
+@@ -0,0 +1,25 @@
++---
++import { getCollection, render } from "astro:content";
++import PageLayout from "../../layouts/PageLayout.astro";
++
++export async function getStaticPaths() {
++  const entries = await getCollection("actualites");
++  return entries.map((entry) => ({
++    params: { slug: entry.id },
++    props: { entry },
++  }));
++}
++
++const { entry } = Astro.props;
++const { Content } = await render(entry);
++const { titre, date, image } = entry.data;
++
++const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric" });
++---
++<PageLayout titre={titre} section="Actualités" chapo={fmt.format(date)}>
++  {image && <img class="article__image" src={image} alt={titre} />}
++  <Content />
++</PageLayout>
++<style>
++  .article__image { width: 100%; border-radius: var(--radius); margin-bottom: 1.5rem; }
++</style>
+diff --git a/src/pages/actualites/index.astro b/src/pages/actualites/index.astro
+new file mode 100644
+index 0000000..958db46
+--- /dev/null
++++ b/src/pages/actualites/index.astro
+@@ -0,0 +1,37 @@
++---
++import { getCollection } from "astro:content";
++import PageLayout from "../../layouts/PageLayout.astro";
++
++const entries = await getCollection("actualites");
++const actus = entries
++  .map((e) => ({ ...e.data, slug: e.id }))
++  .sort((a, b) => b.date.getTime() - a.date.getTime());
++
++const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric" });
++---
++<PageLayout
++  titre="Actualités"
++  section="Actualités"
++  chapo="Toute l'actualité du Cercle Nautique de France : régates, randonnées, vie du club."
++>
++  {actus.length === 0
++    ? <p class="vide">Pas encore d'article publié.</p>
++    : <div class="grid">
++        {actus.map((a) => (
++          <a class="card" href={`/actualites/${a.slug}`}>
++            <time class="card__date" datetime={a.date.toISOString()}>{fmt.format(a.date)}</time>
++            <h2 class="card__title">{a.titre}</h2>
++            <p class="card__resume">{a.resume}</p>
++          </a>
++        ))}
++      </div>}
++</PageLayout>
++<style>
++  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; }
++  .card { border: 1px solid var(--gris-bord); border-radius: var(--radius); padding: 1.3rem; transition: transform .15s; background: var(--blanc); }
++  .card:hover { transform: translateY(-3px); }
++  .card__date { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; }
++  .card__title { font-size: 1.15rem; color: var(--rouge-sombre); margin: 0.3rem 0; }
++  .card__resume { font-size: 0.9rem; color: var(--muted); }
++  .vide { color: var(--muted); }
++</style>
+diff --git a/src/pages/galerie/index.astro b/src/pages/galerie/index.astro
+new file mode 100644
+index 0000000..217c58b
+--- /dev/null
++++ b/src/pages/galerie/index.astro
+@@ -0,0 +1,38 @@
++---
++import PageLayout from "../../layouts/PageLayout.astro";
++
++// Photos du club, migrées depuis cnfrance.fr (public/images/galerie/).
++const photos: string[] = [
++  "/images/galerie/galerie-01.jpg",
++  "/images/galerie/galerie-02.jpg",
++  "/images/galerie/galerie-03.jpg",
++  "/images/galerie/galerie-04.jpg",
++  "/images/galerie/galerie-05.jpg",
++  "/images/galerie/galerie-06.jpg",
++  "/images/galerie/galerie-07.jpg",
++  "/images/galerie/galerie-08.jpg",
++  "/images/galerie/galerie-09.jpg",
++  "/images/galerie/galerie-10.jpg",
++  "/images/galerie/galerie-11.jpg",
++  "/images/galerie/galerie-12.jpg",
++  "/images/galerie/galerie-13.jpg",
++  "/images/galerie/galerie-14.jpg",
++  "/images/galerie/galerie-15.jpg",
++  "/images/galerie/galerie-16.png",
++  "/images/galerie/galerie-17.png",
++  "/images/galerie/galerie-18.png",
++];
++---
++<PageLayout
++  titre="En images"
++  section="Galerie"
++  chapo="Régates, randonnées, entraînements et vie du club : un aperçu en photos du Cercle Nautique de France."
++>
++  <div class="grid">
++    {photos.map((p) => <img class="grid__img" src={p} alt="Photo du club" loading="lazy" />)}
++  </div>
++</PageLayout>
++<style>
++  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.8rem; }
++  .grid__img { aspect-ratio: 1; width: 100%; object-fit: cover; border-radius: var(--radius); }
++</style>
+diff --git a/src/pages/index.astro b/src/pages/index.astro
+new file mode 100644
+index 0000000..8d49601
+--- /dev/null
++++ b/src/pages/index.astro
+@@ -0,0 +1,71 @@
++---
++import { getCollection } from "astro:content";
++import BaseLayout from "../layouts/BaseLayout.astro";
++import Nav from "../components/Nav.astro";
++import Footer from "../components/Footer.astro";
++import Hero from "../components/Hero.astro";
++import SectionChiffres from "../components/SectionChiffres.astro";
++import SectionDisciplines from "../components/SectionDisciplines.astro";
++import SectionEvenements from "../components/SectionEvenements.astro";
++import SectionActus from "../components/SectionActus.astro";
++import SectionGalerie from "../components/SectionGalerie.astro";
++import SectionInfosPratiques from "../components/SectionInfosPratiques.astro";
++import SectionPartenaires from "../components/SectionPartenaires.astro";
++
++const [reglagesArr, evenementsArr, actualitesArr, partenairesArr] = await Promise.all([
++  getCollection("reglages"),
++  getCollection("evenements"),
++  getCollection("actualites"),
++  getCollection("partenaires"),
++]);
++
++const reglages = reglagesArr[0]?.data;
++
++// Événements : uniquement à venir, triés par date croissante, max 3.
++const maintenant = new Date();
++const evenements = evenementsArr
++  .map((e) => e.data)
++  .filter((e) => e.date >= maintenant)
++  .sort((a, b) => a.date.getTime() - b.date.getTime())
++  .slice(0, 3);
++
++// Actus : 3 plus récentes, avec slug depuis l'id de collection.
++const actus = actualitesArr
++  .map((e) => ({ ...e.data, slug: e.id }))
++  .sort((a, b) => b.date.getTime() - a.date.getTime())
++  .slice(0, 3);
++
++const partenaires = partenairesArr.map((p) => p.data);
++
++// Pool de photos hero et galerie (photos du club, migrées depuis cnfrance.fr).
++const poolHero: string[] = [
++  "/images/hero/hero-1.jpeg",
++  "/images/hero/hero-2.jpeg",
++  "/images/hero/hero-3.jpeg",
++  "/images/hero/hero-4.jpeg",
++  "/images/hero/hero-5.jpeg",
++  "/images/hero/hero-6.jpg",
++];
++const poolGalerie: string[] = [
++  "/images/galerie/galerie-01.jpg",
++  "/images/galerie/galerie-02.jpg",
++  "/images/galerie/galerie-03.jpg",
++  "/images/galerie/galerie-04.jpg",
++  "/images/galerie/galerie-05.jpg",
++  "/images/galerie/galerie-06.jpg",
++  "/images/galerie/galerie-07.jpg",
++  "/images/galerie/galerie-08.jpg",
++];
++---
++<BaseLayout title="Cercle Nautique de France — L'aviron aux portes de Paris">
++  <Nav slot="header" />
++  <Hero photos={poolHero} />
++  {reglages && <SectionChiffres accroche={reglages.accroche} chiffres={reglages.chiffres} />}
++  <SectionDisciplines />
++  <SectionEvenements evenements={evenements} />
++  <SectionActus actus={actus} />
++  <SectionGalerie photos={poolGalerie} />
++  {reglages && <SectionInfosPratiques horaires={reglages.infos.horaires} tarifs={reglages.infos.tarifs} adresse={reglages.infos.adresse} email={reglages.infos.email} />}
++  <SectionPartenaires partenaires={partenaires} />
++  <Footer slot="footer" />
++</BaseLayout>
+diff --git a/src/pages/resultats/[slug].astro b/src/pages/resultats/[slug].astro
+new file mode 100644
+index 0000000..52217b1
+--- /dev/null
++++ b/src/pages/resultats/[slug].astro
+@@ -0,0 +1,25 @@
++---
++import { getCollection, render } from "astro:content";
++import PageLayout from "../../layouts/PageLayout.astro";
++
++export async function getStaticPaths() {
++  const entries = await getCollection("resultats");
++  return entries.map((entry) => ({
++    params: { slug: entry.id },
++    props: { entry },
++  }));
++}
++
++const { entry } = Astro.props;
++const { Content } = await render(entry);
++const { titre, date, image } = entry.data;
++
++const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric" });
++---
++<PageLayout titre={titre} section="Compétition" chapo={fmt.format(date)}>
++  {image && <img class="article__image" src={image} alt={titre} />}
++  <Content />
++</PageLayout>
++<style>
++  .article__image { width: 100%; border-radius: var(--radius); margin-bottom: 1.5rem; }
++</style>
+diff --git a/src/pages/resultats/index.astro b/src/pages/resultats/index.astro
+new file mode 100644
+index 0000000..54256d1
+--- /dev/null
++++ b/src/pages/resultats/index.astro
+@@ -0,0 +1,37 @@
++---
++import { getCollection } from "astro:content";
++import PageLayout from "../../layouts/PageLayout.astro";
++
++const entries = await getCollection("resultats");
++const resultats = entries
++  .map((e) => ({ ...e.data, slug: e.id }))
++  .sort((a, b) => b.date.getTime() - a.date.getTime());
++
++const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric" });
++---
++<PageLayout
++  titre="Résultats"
++  section="Compétition"
++  chapo="Comptes rendus et résultats des compétitions du Cercle Nautique de France."
++>
++  {resultats.length === 0
++    ? <p class="vide">Pas encore de résultat publié.</p>
++    : <div class="grid">
++        {resultats.map((r) => (
++          <a class="card" href={`/resultats/${r.slug}`}>
++            <time class="card__date" datetime={r.date.toISOString()}>{fmt.format(r.date)}</time>
++            <h2 class="card__title">{r.titre}</h2>
++            {r.resume && <p class="card__resume">{r.resume}</p>}
++          </a>
++        ))}
++      </div>}
++</PageLayout>
++<style>
++  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; }
++  .card { border: 1px solid var(--gris-bord); border-radius: var(--radius); padding: 1.3rem; transition: transform .15s; background: var(--blanc); }
++  .card:hover { transform: translateY(-3px); }
++  .card__date { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; }
++  .card__title { font-size: 1.15rem; color: var(--rouge-sombre); margin: 0.3rem 0; }
++  .card__resume { font-size: 0.9rem; color: var(--muted); }
++  .vide { color: var(--muted); }
++</style>
+diff --git a/src/styles/global.css b/src/styles/global.css
+new file mode 100644
+index 0000000..fadb0a5
+--- /dev/null
++++ b/src/styles/global.css
+@@ -0,0 +1,20 @@
++@import "./tokens.css";
++
++*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
++html { scroll-behavior: smooth; }
++body {
++  font-family: var(--font-corps);
++  color: var(--texte);
++  background: var(--fond);
++  line-height: 1.55;
++  -webkit-font-smoothing: antialiased;
++}
++h1, h2, h3 { font-family: var(--font-titre); line-height: 1.1; font-weight: 700; }
++a { color: inherit; text-decoration: none; }
++img { max-width: 100%; display: block; }
++.wrap { max-width: var(--maxw); margin-inline: auto; padding-inline: var(--space); }
++.btn {
++  display: inline-block; background: var(--rouge); color: var(--blanc);
++  font-weight: 700; padding: 0.7em 1.3em; border-radius: 999px; transition: background .15s;
++}
++.btn:hover { background: var(--rouge-sombre); }
+diff --git a/src/styles/tokens.css b/src/styles/tokens.css
+new file mode 100644
+index 0000000..fc2e4fd
+--- /dev/null
++++ b/src/styles/tokens.css
+@@ -0,0 +1,20 @@
++:root {
++  /* Couleurs de marque */
++  --rouge: #c0392b;
++  --rouge-sombre: #8a0c0c;
++  --rouge-vif: #b01010;
++  --texte: #2a0505;
++  --fond: #f7f4f2;
++  --blanc: #ffffff;
++  --gris-bord: #e6dcd8;
++  --muted: #6b5d5a;
++
++  /* Typographie (polices système, aucune requête réseau) */
++  --font-titre: "Oswald", "Arial Narrow", system-ui, sans-serif;
++  --font-corps: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
++
++  /* Layout */
++  --maxw: 1180px;
++  --radius: 12px;
++  --space: 1.25rem;
++}
+diff --git a/tests/components/Footer.test.ts b/tests/components/Footer.test.ts
+new file mode 100644
+index 0000000..416d748
+--- /dev/null
++++ b/tests/components/Footer.test.ts
+@@ -0,0 +1,13 @@
++import { experimental_AstroContainer as AstroContainer } from 'astro/container';
++import { expect, test } from 'vitest';
++import Footer from '../../src/components/Footer.astro';
++
++test('le footer rend réseaux et mentions', async () => {
++  const container = await AstroContainer.create();
++  const html = await container.renderToString(Footer);
++  expect(html).toContain('Facebook');
++  expect(html).toContain('Instagram');
++  expect(html).toContain('LinkedIn');
++  expect(html).toContain('Mentions légales');
++  expect(html).toContain('Cercle Nautique de France');
++});
+diff --git a/tests/components/Hero.test.ts b/tests/components/Hero.test.ts
+new file mode 100644
+index 0000000..71ddf47
+--- /dev/null
++++ b/tests/components/Hero.test.ts
+@@ -0,0 +1,20 @@
++import { experimental_AstroContainer as AstroContainer } from 'astro/container';
++import { expect, test } from 'vitest';
++import Hero from '../../src/components/Hero.astro';
++
++test('le hero rend le titre, le slogan et une image du pool', async () => {
++  const container = await AstroContainer.create();
++  const html = await container.renderToString(Hero, {
++    props: { photos: ['/img/seine-1.jpg', '/img/seine-2.jpg'] },
++  });
++  expect(html).toContain('portes de Paris');
++  expect(html).toContain('Cercle Nautique de France');
++  expect(html).toContain('/img/seine-1.jpg');
++  expect(html).toContain('Nous rejoindre');
++});
++
++test('le hero gère un pool vide sans planter', async () => {
++  const container = await AstroContainer.create();
++  const html = await container.renderToString(Hero, { props: { photos: [] } });
++  expect(html).toContain('portes de Paris');
++});
+diff --git a/tests/components/Nav.test.ts b/tests/components/Nav.test.ts
+new file mode 100644
+index 0000000..82e9344
+--- /dev/null
++++ b/tests/components/Nav.test.ts
+@@ -0,0 +1,25 @@
++import { experimental_AstroContainer as AstroContainer } from 'astro/container';
++import { expect, test } from 'vitest';
++import Nav from '../../src/components/Nav.astro';
++
++test('la nav rend les rubriques et le CTA', async () => {
++  const container = await AstroContainer.create();
++  const html = await container.renderToString(Nav);
++  for (const item of ['Le club', 'Pratiquer', 'Infos pratiques', 'Actualités', 'Résultats', '150 ans', 'Partenariat', 'Nous rejoindre']) {
++    expect(html).toContain(item);
++  }
++});
++
++test('la nav expose des sous-menus avec les liens des pages migrées', async () => {
++  const container = await AstroContainer.create();
++  const html = await container.renderToString(Nav);
++  for (const href of [
++    '/le-club/nos-valeurs',
++    '/pratiquer/aviron-in-door',
++    '/infos-pratiques/adherez-au-cnf',
++    '/partenariat/sponsor',
++  ]) {
++    expect(html).toContain(href);
++  }
++  expect(html).toContain('nav__dropdown');
++});
+diff --git a/tests/components/SectionActus.test.ts b/tests/components/SectionActus.test.ts
+new file mode 100644
+index 0000000..fc4d97e
+--- /dev/null
++++ b/tests/components/SectionActus.test.ts
+@@ -0,0 +1,14 @@
++import { experimental_AstroContainer as AstroContainer } from 'astro/container';
++import { expect, test } from 'vitest';
++import SectionActus from '../../src/components/SectionActus.astro';
++
++test('rend les actualités avec lien vers article', async () => {
++  const container = await AstroContainer.create();
++  const html = await container.renderToString(SectionActus, {
++    props: { actus: [{ titre: 'Randonnée Côte Bleue', date: new Date('2026-05-18'), resume: 'Retour en images', slug: 'randonnee-cote-bleue' }] },
++  });
++  expect(html).toContain('Randonnée Côte Bleue');
++  expect(html).toContain('Retour en images');
++  expect(html).toContain('/actualites/randonnee-cote-bleue');
++  expect(html).toContain('id="actus"');
++});
+diff --git a/tests/components/SectionChiffres.test.ts b/tests/components/SectionChiffres.test.ts
+new file mode 100644
+index 0000000..8141a11
+--- /dev/null
++++ b/tests/components/SectionChiffres.test.ts
+@@ -0,0 +1,18 @@
++import { experimental_AstroContainer as AstroContainer } from 'astro/container';
++import { expect, test } from 'vitest';
++import SectionChiffres from '../../src/components/SectionChiffres.astro';
++
++test('rend accroche et chiffres', async () => {
++  const container = await AstroContainer.create();
++  const html = await container.renderToString(SectionChiffres, {
++    props: {
++      accroche: 'Bienvenue au club',
++      chiffres: [{ valeur: '1875', label: 'fondé en' }, { valeur: '+300', label: 'adhérents' }],
++    },
++  });
++  expect(html).toContain('Bienvenue au club');
++  expect(html).toContain('1875');
++  expect(html).toContain('fondé en');
++  expect(html).toContain('+300');
++  expect(html).toContain('id="club"');
++});
+diff --git a/tests/components/SectionDisciplines.test.ts b/tests/components/SectionDisciplines.test.ts
+new file mode 100644
+index 0000000..9c6e7bb
+--- /dev/null
++++ b/tests/components/SectionDisciplines.test.ts
+@@ -0,0 +1,21 @@
++import { experimental_AstroContainer as AstroContainer } from 'astro/container';
++import { expect, test } from 'vitest';
++import SectionDisciplines from '../../src/components/SectionDisciplines.astro';
++
++test('rend les disciplines', async () => {
++  const container = await AstroContainer.create();
++  const html = await container.renderToString(SectionDisciplines);
++  for (const d of ['Compétition', 'Loisir', 'Indoor', 'santé', 'Découverte']) {
++    expect(html).toContain(d);
++  }
++  expect(html).toContain('id="disciplines"');
++  for (const href of [
++    '/pratiquer/aviron-competition',
++    '/pratiquer/aviron-loisirs',
++    '/pratiquer/aviron-in-door',
++    '/pratiquer/aviron-sante',
++    '/pratiquer/stages-decouverte',
++  ]) {
++    expect(html).toContain(href);
++  }
++});
+diff --git a/tests/components/SectionEvenements.test.ts b/tests/components/SectionEvenements.test.ts
+new file mode 100644
+index 0000000..0a6305f
+--- /dev/null
++++ b/tests/components/SectionEvenements.test.ts
+@@ -0,0 +1,20 @@
++import { experimental_AstroContainer as AstroContainer } from 'astro/container';
++import { expect, test } from 'vitest';
++import SectionEvenements from '../../src/components/SectionEvenements.astro';
++
++test('rend les événements avec date formatée', async () => {
++  const container = await AstroContainer.create();
++  const html = await container.renderToString(SectionEvenements, {
++    props: { evenements: [{ titre: '41ème Défi CNF', date: new Date('2026-06-14'), lieu: 'Neuilly', description: 'Régate annuelle' }] },
++  });
++  expect(html).toContain('41ème Défi CNF');
++  expect(html).toContain('Régate annuelle');
++  expect(html).toContain('juin');
++  expect(html).toContain('id="evenements"');
++});
++
++test('affiche un message si aucun événement', async () => {
++  const container = await AstroContainer.create();
++  const html = await container.renderToString(SectionEvenements, { props: { evenements: [] } });
++  expect(html).toContain('Aucun événement');
++});
+diff --git a/tests/components/SectionPartenaires.test.ts b/tests/components/SectionPartenaires.test.ts
+new file mode 100644
+index 0000000..0a49546
+--- /dev/null
++++ b/tests/components/SectionPartenaires.test.ts
+@@ -0,0 +1,34 @@
++import { experimental_AstroContainer as AstroContainer } from 'astro/container';
++import { expect, test } from 'vitest';
++import SectionPartenaires from '../../src/components/SectionPartenaires.astro';
++
++test('rend les partenaires, avec lien quand url présente', async () => {
++  const container = await AstroContainer.create();
++  const html = await container.renderToString(SectionPartenaires, {
++    props: { partenaires: [{ nom: 'FFA', url: 'https://ffaviron.fr' }, { nom: 'Ville de Neuilly' }] },
++  });
++  expect(html).toContain('FFA');
++  expect(html).toContain('https://ffaviron.fr');
++  expect(html).toContain('Ville de Neuilly');
++  expect(html).toContain('id="partenaires"');
++});
++
++test('affiche le logo (img avec alt) quand présent', async () => {
++  const container = await AstroContainer.create();
++  const html = await container.renderToString(SectionPartenaires, {
++    props: { partenaires: [{ nom: 'Trilogiq', url: 'https://trilogiq.com', logo: '/images/partenaires/trilogiq.gif' }] },
++  });
++  expect(html).toContain('<img');
++  expect(html).toContain('src="/images/partenaires/trilogiq.gif"');
++  expect(html).toContain('alt="Trilogiq"');
++  expect(html).not.toContain('>Trilogiq<');
++});
++
++test('affiche le nom en texte seul quand aucun logo n\'est fourni', async () => {
++  const container = await AstroContainer.create();
++  const html = await container.renderToString(SectionPartenaires, {
++    props: { partenaires: [{ nom: 'HSBC' }] },
++  });
++  expect(html).not.toContain('<img');
++  expect(html).toMatch(/<span[^>]*>HSBC<\/span>/);
++});
+diff --git a/tests/content-schemas.test.ts b/tests/content-schemas.test.ts
+new file mode 100644
+index 0000000..4b2e329
+--- /dev/null
++++ b/tests/content-schemas.test.ts
+@@ -0,0 +1,43 @@
++import { expect, test, describe } from 'vitest';
++import {
++  reglagesSchema, evenementSchema, actualiteSchema, partenaireSchema,
++} from '../src/content.config';
++
++describe('reglagesSchema', () => {
++  test('accepte des réglages valides', () => {
++    const r = reglagesSchema.parse({
++      accroche: 'Bienvenue au CNF',
++      chiffres: [{ valeur: '1875', label: 'fondé en' }],
++      infos: { horaires: '7j/7', tarifs: '300€/an', adresse: 'Neuilly', email: 'a@b.fr' },
++    });
++    expect(r.chiffres[0].valeur).toBe('1875');
++  });
++  test('rejette si email manquant', () => {
++    expect(() => reglagesSchema.parse({
++      accroche: 'x', chiffres: [], infos: { horaires: 'x', tarifs: 'x', adresse: 'x' },
++    })).toThrow();
++  });
++});
++
++describe('evenementSchema', () => {
++  test('coerce une date string', () => {
++    const e = evenementSchema.parse({ titre: 'Défi', date: '2026-06-14', description: 'x' });
++    expect(e.date instanceof Date).toBe(true);
++  });
++  test('rejette sans titre', () => {
++    expect(() => evenementSchema.parse({ date: '2026-06-14', description: 'x' })).toThrow();
++  });
++});
++
++describe('actualiteSchema', () => {
++  test('accepte une actu valide', () => {
++    const a = actualiteSchema.parse({ titre: 'Rando', date: '2026-05-01', resume: 'court' });
++    expect(a.titre).toBe('Rando');
++  });
++});
++
++describe('partenaireSchema', () => {
++  test('accepte un partenaire avec juste un nom', () => {
++    expect(partenaireSchema.parse({ nom: 'FFA' }).nom).toBe('FFA');
++  });
++});
+diff --git a/tests/fixtures/FakeContent.astro b/tests/fixtures/FakeContent.astro
+new file mode 100644
+index 0000000..625d01a
+--- /dev/null
++++ b/tests/fixtures/FakeContent.astro
+@@ -0,0 +1,3 @@
++---
++---
++<p>Contenu factice : soyons des adhérents actifs et non des consommateurs.</p>
+diff --git a/tests/pages/actualites-index.test.ts b/tests/pages/actualites-index.test.ts
+new file mode 100644
+index 0000000..b5d4ab8
+--- /dev/null
++++ b/tests/pages/actualites-index.test.ts
+@@ -0,0 +1,32 @@
++import { experimental_AstroContainer as AstroContainer } from 'astro/container';
++import { expect, test, vi } from 'vitest';
++import ActualitesIndex from '../../src/pages/actualites/index.astro';
++
++// La liste des actualités appelle getCollection('actualites') dans son frontmatter ;
++// on le mocke pour un rendu isolé, comme pour index.test.ts.
++vi.mock('astro:content', async () => {
++  return {
++    getCollection: async () => [
++      { id: 'rando-cote-bleue', data: { titre: 'Rando Côte Bleue', date: new Date('2026-05-18'), resume: 'Images' } },
++      { id: 'boat-race-2026', data: { titre: '"BOAT RACE" 2026', date: new Date('2026-04-11'), resume: 'Victoire à Cambridge.' } },
++    ],
++  };
++});
++
++test("la liste des actualités affiche plusieurs titres triés par date décroissante", async () => {
++  const container = await AstroContainer.create();
++  const html = await container.renderToString(ActualitesIndex);
++
++  expect(html).toContain('Actualités');
++  expect(html).toContain('Rando Côte Bleue');
++  expect(html).toContain('BOAT RACE');
++  expect(html).toContain('/actualites/rando-cote-bleue');
++  expect(html).toContain('/actualites/boat-race-2026');
++
++  // Tri décroissant : la plus récente (18 mai) doit précéder l'autre (11 avril) dans le HTML.
++  const posRando = html.indexOf('Rando Côte Bleue');
++  const posBoatRace = html.indexOf('BOAT RACE');
++  expect(posRando).toBeGreaterThan(-1);
++  expect(posBoatRace).toBeGreaterThan(-1);
++  expect(posRando).toBeLessThan(posBoatRace);
++});
+diff --git a/tests/pages/actualites-slug.test.ts b/tests/pages/actualites-slug.test.ts
+new file mode 100644
+index 0000000..31a46e6
+--- /dev/null
++++ b/tests/pages/actualites-slug.test.ts
+@@ -0,0 +1,26 @@
++import { experimental_AstroContainer as AstroContainer } from 'astro/container';
++import { expect, test, vi } from 'vitest';
++import ActualiteDetail from '../../src/pages/actualites/[slug].astro';
++
++// Le détail d'une actu appelle render(entry) puis <Content /> dans son frontmatter ;
++// on mocke astro:content en réutilisant le composant Content factice, comme pour slug.test.ts.
++vi.mock('astro:content', async () => {
++  const { default: FakeContent } = await import('../fixtures/FakeContent.astro');
++  return {
++    getCollection: async () => [
++      { id: 'boat-race-2026', data: { titre: '"BOAT RACE" 2026', date: new Date('2026-04-11'), resume: 'Victoire à Cambridge.', image: 'https://example.org/photo.jpg' } },
++    ],
++    render: async () => ({ Content: FakeContent }),
++  };
++});
++
++test("la page de détail d'une actualité rend le titre, la date et le contenu", async () => {
++  const container = await AstroContainer.create();
++  const entry = { id: 'boat-race-2026', data: { titre: '"BOAT RACE" 2026', date: new Date('2026-04-11'), resume: 'Victoire à Cambridge.', image: 'https://example.org/photo.jpg' } };
++  const html = await container.renderToString(ActualiteDetail, { props: { entry } });
++
++  expect(html).toContain('BOAT RACE');
++  expect(html).toContain('avril 2026');
++  expect(html).toContain('adhérents actifs');
++  expect(html).toContain('https://example.org/photo.jpg');
++});
+diff --git a/tests/pages/index.test.ts b/tests/pages/index.test.ts
+new file mode 100644
+index 0000000..e7c6b66
+--- /dev/null
++++ b/tests/pages/index.test.ts
+@@ -0,0 +1,32 @@
++import { experimental_AstroContainer as AstroContainer } from 'astro/container';
++import { expect, test } from 'vitest';
++import Index from '../../src/pages/index.astro';
++
++// getCollection est appelé dans le frontmatter de la page ; on le mocke pour un rendu isolé.
++import { vi } from 'vitest';
++vi.mock('astro:content', async () => {
++  return {
++    getCollection: async (name: string) => {
++      if (name === 'reglages') return [{ id: 'reglages', data: {
++        accroche: 'Bienvenue', chiffres: [{ valeur: '1875', label: 'fondé en' }],
++        infos: { horaires: '7j/7', tarifs: '300€', adresse: 'Neuilly', email: 'contact@cnfrance.fr' },
++      } }];
++      if (name === 'evenements') return [{ id: '41e-defi-cnf', data: { titre: '41ème Défi CNF', date: new Date('2030-06-14'), lieu: 'Neuilly', description: 'Régate' } }];
++      if (name === 'actualites') return [{ id: 'randonnee-cote-bleue', data: { titre: 'Rando Côte Bleue', date: new Date('2026-05-18'), resume: 'Images' } }];
++      if (name === 'partenaires') return [{ id: 'ffa', data: { nom: 'FFA', url: 'https://ffaviron.fr' } }];
++      return [];
++    },
++  };
++});
++
++test('la home assemble hero, sections et footer', async () => {
++  const container = await AstroContainer.create();
++  const html = await container.renderToString(Index);
++  expect(html).toContain('portes de Paris');       // hero
++  expect(html).toContain('Bienvenue');              // chiffres
++  expect(html).toContain('Pratiquer');              // disciplines/nav
++  expect(html).toContain('41ème Défi CNF');         // événements
++  expect(html).toContain('Rando Côte Bleue');       // actus
++  expect(html).toContain('FFA');                    // partenaires
++  expect(html).toContain('Mentions légales');       // footer
++});
+diff --git a/tests/pages/resultats-index.test.ts b/tests/pages/resultats-index.test.ts
+new file mode 100644
+index 0000000..b758ad5
+--- /dev/null
++++ b/tests/pages/resultats-index.test.ts
+@@ -0,0 +1,31 @@
++import { experimental_AstroContainer as AstroContainer } from 'astro/container';
++import { expect, test, vi } from 'vitest';
++import ResultatsIndex from '../../src/pages/resultats/index.astro';
++
++// La liste des résultats appelle getCollection('resultats') dans son frontmatter ;
++// on le mocke pour un rendu isolé.
++vi.mock('astro:content', async () => {
++  return {
++    getCollection: async () => [
++      { id: 'regate-de-fontainebleau-2025', data: { titre: 'Régate de Fontainebleau 2025', date: new Date('2025-11-11'), resume: '3e sur 6 en 8 de couple.' } },
++      { id: 'lifa-1-26-janvier-2025', data: { titre: 'Lifa 1 26 janvier 2025', date: new Date('2025-01-26'), resume: 'De bons résultats J16 et Masters.' } },
++    ],
++  };
++});
++
++test("la liste des résultats affiche plusieurs titres triés par date décroissante", async () => {
++  const container = await AstroContainer.create();
++  const html = await container.renderToString(ResultatsIndex);
++
++  expect(html).toContain('Résultats');
++  expect(html).toContain('Régate de Fontainebleau 2025');
++  expect(html).toContain('Lifa 1 26 janvier 2025');
++  expect(html).toContain('/resultats/regate-de-fontainebleau-2025');
++  expect(html).toContain('/resultats/lifa-1-26-janvier-2025');
++
++  const posFontainebleau = html.indexOf('Fontainebleau');
++  const posLifa = html.indexOf('Lifa 1');
++  expect(posFontainebleau).toBeGreaterThan(-1);
++  expect(posLifa).toBeGreaterThan(-1);
++  expect(posFontainebleau).toBeLessThan(posLifa);
++});
+diff --git a/tests/pages/resultats-slug.test.ts b/tests/pages/resultats-slug.test.ts
+new file mode 100644
+index 0000000..78e6869
+--- /dev/null
++++ b/tests/pages/resultats-slug.test.ts
+@@ -0,0 +1,26 @@
++import { experimental_AstroContainer as AstroContainer } from 'astro/container';
++import { expect, test, vi } from 'vitest';
++import ResultatDetail from '../../src/pages/resultats/[slug].astro';
++
++// Le détail d'un résultat appelle render(entry) puis <Content /> dans son frontmatter ;
++// on mocke astro:content en réutilisant le composant Content factice.
++vi.mock('astro:content', async () => {
++  const { default: FakeContent } = await import('../fixtures/FakeContent.astro');
++  return {
++    getCollection: async () => [
++      { id: 'regate-de-fontainebleau-2025', data: { titre: 'Régate de Fontainebleau 2025', date: new Date('2025-11-11'), resume: '3e sur 6.', image: 'https://example.org/photo.jpg' } },
++    ],
++    render: async () => ({ Content: FakeContent }),
++  };
++});
++
++test("la page de détail d'un résultat rend le titre, la date et le contenu", async () => {
++  const container = await AstroContainer.create();
++  const entry = { id: 'regate-de-fontainebleau-2025', data: { titre: 'Régate de Fontainebleau 2025', date: new Date('2025-11-11'), resume: '3e sur 6.', image: 'https://example.org/photo.jpg' } };
++  const html = await container.renderToString(ResultatDetail, { props: { entry } });
++
++  expect(html).toContain('Fontainebleau');
++  expect(html).toContain('novembre 2025');
++  expect(html).toContain('adhérents actifs');
++  expect(html).toContain('https://example.org/photo.jpg');
++});
+diff --git a/tests/pages/slug.test.ts b/tests/pages/slug.test.ts
+new file mode 100644
+index 0000000..1bc6c82
+--- /dev/null
++++ b/tests/pages/slug.test.ts
+@@ -0,0 +1,26 @@
++import { experimental_AstroContainer as AstroContainer } from 'astro/container';
++import { expect, test, vi } from 'vitest';
++import SlugPage from '../../src/pages/[...slug].astro';
++
++// La route [...slug] appelle render(entry) puis <Content /> dans son frontmatter ;
++// on mocke astro:content pour rendre la page en isolation, comme pour index.test.ts,
++// en réutilisant un composant Content factice compilé par Astro.
++vi.mock('astro:content', async () => {
++  const { default: FakeContent } = await import('../fixtures/FakeContent.astro');
++  return {
++    getCollection: async () => [
++      { id: 'le-club/nos-valeurs', data: { titre: 'Nos valeurs', section: 'Le club' } },
++    ],
++    render: async () => ({ Content: FakeContent }),
++  };
++});
++
++test('la route [...slug] rend le titre, la section et le contenu de la page', async () => {
++  const container = await AstroContainer.create();
++  const entry = { id: 'le-club/nos-valeurs', data: { titre: 'Nos valeurs', section: 'Le club' } };
++  const html = await container.renderToString(SlugPage, { props: { entry } });
++
++  expect(html).toContain('Nos valeurs');
++  expect(html).toContain('Le club');
++  expect(html).toContain('adhérents actifs');
++});
+diff --git a/tests/smoke.test.ts b/tests/smoke.test.ts
+new file mode 100644
+index 0000000..b700db6
+--- /dev/null
++++ b/tests/smoke.test.ts
+@@ -0,0 +1,8 @@
++import { experimental_AstroContainer as AstroContainer } from 'astro/container';
++import { expect, test } from 'vitest';
++
++test('AstroContainer rend du HTML', async () => {
++  const container = await AstroContainer.create();
++  expect(container).toBeDefined();
++  expect(typeof container.renderToString).toBe('function');
++});
+diff --git a/tsconfig.json b/tsconfig.json
+new file mode 100644
+index 0000000..8bf91d3
+--- /dev/null
++++ b/tsconfig.json
+@@ -0,0 +1,5 @@
++{
++  "extends": "astro/tsconfigs/strict",
++  "include": [".astro/types.d.ts", "**/*"],
++  "exclude": ["dist"]
++}
+diff --git a/vitest.config.ts b/vitest.config.ts
+new file mode 100644
+index 0000000..29828d5
+--- /dev/null
++++ b/vitest.config.ts
+@@ -0,0 +1,9 @@
++/// <reference types="vitest" />
++import { getViteConfig } from 'astro/config';
++
++export default getViteConfig({
++  test: {
++    environment: 'node',
++    include: ['tests/**/*.test.ts'],
++  },
++});

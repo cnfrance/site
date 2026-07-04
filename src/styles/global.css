@@ -18,3 +18,5 @@ img { max-width: 100%; display: block; }
   font-weight: 700; padding: 0.7em 1.3em; border-radius: 999px; transition: background .15s;
 }
 .btn:hover { background: var(--rouge-sombre); }
+/* Verrou de défilement quand le tiroir de navigation mobile est ouvert */
+html.no-scroll, html.no-scroll body { overflow: hidden; }

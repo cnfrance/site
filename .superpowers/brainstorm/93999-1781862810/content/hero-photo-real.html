@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hero photo — rendu réel + rotation aléatoire</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#0f172a;color:#e2e8f0}
+  .wrap{padding:24px}
+  h2{font-size:23px;margin-bottom:6px}
+  .subtitle{color:#94a3b8;font-size:14px;margin-bottom:18px;max-width:860px;line-height:1.5}
+
+  /* HERO preview */
+  .hero{position:relative;height:330px;border-radius:14px;overflow:hidden;border:1px solid #334155}
+  .hero .photo{position:absolute;inset:-6% -2%;background-size:cover;background-position:center 60%;animation:ken 18s ease-in-out infinite alternate;will-change:transform}
+  @keyframes ken{from{transform:scale(1.06) translate(0,0)}to{transform:scale(1.14) translate(-2%,-2%)}}
+  .hero .grad{position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,30,50,.72),rgba(6,30,50,.25) 55%,transparent),linear-gradient(0deg,rgba(6,30,50,.65),transparent 45%)}
+  .hero .nav{position:absolute;top:0;left:0;right:0;display:flex;align-items:center;gap:22px;padding:16px 22px;color:#fff;font-size:13px;font-weight:600;z-index:3}
+  .hero .nav .logo{width:34px;height:34px;border-radius:50%;background:#c0392b;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;letter-spacing:.5px}
+  .hero .nav .sp{flap:1;margin-left:auto}
+  .hero .copy{position:absolute;left:30px;bottom:34px;z-index:3;max-width:70%}
+  .hero .kick{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:#9fd2f0;font-weight:700;margin-bottom:8px}
+  .hero h1{color:#fff;font-size:36px;line-height:1.04;font-weight:800;text-shadow:0 3px 18px rgba(0,0,0,.5)}
+  .hero .cta{margin-top:18px;display:inline-block;background:#c0392b;color:#fff;padding:11px 22px;border-radius:30px;font-weight:700;font-size:13px}
+  .scroll-cue{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);color:#fff;opacity:.7;font-size:11px;z-index:3;animation:bobcue 1.8s ease-in-out infinite}
+  @keyframes bobcue{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,5px)}}
+
+  /* rotation pool strip */
+  .pool{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+  .thumb{position:relative;width:150px;height:74px;border-radius:8px;overflow:hidden;background-size:cover;background-position:center;border:1px solid #334155}
+  .thumb .tag{position:absolute;left:0;right:0;bottom:0;font-size:10px;padding:3px 5px;color:#fff;background:rgba(0,0,0,.55)}
+  .thumb.ok{outline:2px solid #22c55e}
+  .thumb.gap{outline:2px dashed #f59e0b;display:flex;align-items:center;justify-content:center;color:#fbbf24;font-size:12px;text-align:center;background:#1e293b}
+
+  .panel{margin-top:22px;background:#1e293b;border:1px solid #334155;border-radius:12px;padding:16px 18px}
+  .panel h3{font-size:15px;margin-bottom:10px}
+  .panel ul{margin-left:18px;line-height:1.7;font-size:13px;color:#cbd5e1}
+  .panel b{color:#fff}
+  .legend{font-size:12px;color:#94a3b8;margin-top:8px}
+  .dot{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:middle}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h2>Hero photo plein écran — parallax + rotation aléatoire</h2>
+  <p class="subtitle">Voici le rendu avec la vraie photo nette du club (Côte Bleue). Au scroll, la photo défile plus lentement que le contenu (parallax) et dérive doucement (effet « Ken Burns »). À chaque chargement, une photo différente du pool est tirée au hasard.</p>
+
+  <div class="hero">
+    <div class="photo" style="background-image:url('https://www.cnfrance.fr/images/PHOTOS/ACCUEIL/SLIDER/44645f79-5239-47dc-a6b8-66697b7c53cf.jpeg')"></div>
+    <div class="grad"></div>
+    <div class="nav"><div class="logo">CNF</div><span>Le club</span><span>Pratiquer</span><span>Infos</span><span>Actus</span><span style="margin-left:auto;opacity:.8">Nous rejoindre →</span></div>
+    <div class="copy">
+      <div class="kick">Cercle Nautique de France · depuis 1875</div>
+      <h1>L'aviron aux<br>portes de Paris</h1>
+      <span class="cta">Découvrir le club</span>
+    </div>
+    <div class="scroll-cue">↓ défiler</div>
+  </div>
+
+  <div class="pool">
+    <div class="thumb ok" style="background-image:url('https://www.cnfrance.fr/images/PHOTOS/ACCUEIL/SLIDER/44645f79-5239-47dc-a6b8-66697b7c53cf.jpeg')"><span class="tag">✓ Yolette (loisir)</span></div>
+    <div class="thumb gap">8 (huit)<br>à fournir</div>
+    <div class="thumb gap">Skiff<br>à fournir</div>
+    <div class="thumb gap">Double<br>à fournir</div>
+  </div>
+  <p class="legend"><span class="dot" style="background:#22c55e"></span>photo nette utilisable &nbsp; <span class="dot" style="background:#f59e0b"></span>type de bateau pas encore couvert par une photo « hero » propre</p>
+
+  <div class="panel">
+    <h3>Ce que ça implique — et la solution propre</h3>
+    <ul>
+      <li>Avec une <b>photo à plat</b>, on ne peut pas faire « ramer » le bateau indépendamment de l'eau (ça, c'était l'illustration B). Le parallax photo = la photo défile plus lentement + léger zoom/dérive + dégradé pour lisibilité du titre. C'est l'effet « waouh » classique et élégant.</li>
+      <li>Le stock actuel ne donne <b>qu'une seule</b> photo hero propre (la yolette). 8 / skiff / double n'ont pas de belle photo dédiée.</li>
+      <li><b>Solution :</b> on crée un <b>« pool de photos hero » géré depuis l'admin</b>. Le club dépose autant de belles photos qu'il veut (yolette, 8, skiff, double…), le site en tire une au hasard à chaque visite. On démarre avec la yolette + les meilleures dispo, le club enrichit ensuite.</li>
+      <li>Optionnel : garder un <b>petit aviron animé en SVG</b> comme signature de marque (séparateur de section / écran de chargement) pour le clin d'œil « rame » sans dépendre des photos.</li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Structure page d'accueil</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#0b1220;color:#e2e8f0}
+  .wrap{max-width:760px;margin:0 auto;padding:22px}
+  h2{font-size:22px;margin-bottom:4px}
+  .subtitle{color:#94a3b8;font-size:13px;margin-bottom:18px;line-height:1.5}
+  .page{border:1px solid #334155;border-radius:14px;overflow:hidden;background:#0f172a}
+  .sec{padding:20px 22px;border-bottom:1px solid #1e293b;position:relative}
+  .sec .num{position:absolute;top:14px;right:16px;font-size:11px;color:#475569;font-weight:700}
+  .tag{display:inline-block;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:2px 8px;border-radius:20px;margin-bottom:8px;font-weight:700}
+  .tag.adm{background:#7c2d12;color:#fed7aa}
+  .tag.fix{background:#1e3a5f;color:#bae6fd}
+  .sec h3{font-size:16px;margin-bottom:6px;color:#fff}
+  .sec p{font-size:12.5px;color:#94a3b8;line-height:1.5}
+  .row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+  .chip{background:#1e293b;border:1px solid #334155;border-radius:8px;padding:8px 10px;font-size:11px;color:#cbd5e1;flex:1;min-width:90px;text-align:center}
+
+  /* hero block */
+  .hero{height:200px;background-image:linear-gradient(90deg,rgba(6,30,50,.7),transparent),url('https://www.cnfrance.fr/images/PHOTOS/ACCUEIL/SLIDER/44645f79-5239-47dc-a6b8-66697b7c53cf.jpeg');background-size:cover;background-position:center 60%;position:relative;border-bottom:1px solid #1e293b}
+  .hero .nav{position:absolute;top:0;left:0;right:0;display:flex;gap:16px;padding:14px 20px;color:#fff;font-size:12px;font-weight:600}
+  .hero .logo{width:28px;height:28px;border-radius:50%;background:#c0392b;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800}
+  .hero .copy{position:absolute;bottom:22px;left:22px}
+  .hero .kick{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#9fd2f0;font-weight:700}
+  .hero h1{color:#fff;font-size:26px;font-weight:800;text-shadow:0 2px 12px rgba(0,0,0,.5);margin-top:4px}
+  .hero .badge{position:absolute;top:12px;right:14px;font-size:10px;background:rgba(0,0,0,.45);color:#fff;padding:3px 8px;border-radius:20px}
+  .mini{display:flex;gap:14px;margin-top:8px}
+  .mini b{color:#fff;font-size:18px}.mini span{font-size:10px;color:#94a3b8;display:block}
+  .gal{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px}
+  .gal div{height:46px;background:#1e293b;border-radius:6px}
+  .legend{margin-top:16px;font-size:12px;color:#94a3b8}
+  .legend .tag{margin-right:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h2>Page d'accueil — enchaînement des sections</h2>
+  <p class="subtitle">De haut en bas, comme le visiteur les découvre au scroll. <span style="color:#fed7aa">Orange = contenu géré par le club dans l'admin</span> · <span style="color:#bae6fd">Bleu = structure fixe (rarement modifiée)</span>.</p>
+
+  <div class="page">
+    <div class="hero">
+      <div class="nav"><div class="logo">CNF</div><span>Le club</span><span>Pratiquer</span><span>Infos pratiques</span><span>Actus</span><span>Galerie</span><span style="margin-left:auto">Nous rejoindre →</span></div>
+      <span class="badge">photo aléatoire du pool</span>
+      <div class="copy"><div class="kick">Cercle Nautique de France · 1875</div><h1>L'aviron aux portes de Paris</h1></div>
+    </div>
+
+    <div class="sec"><span class="num">1</span><span class="tag fix">structure</span>
+      <h3>Hero parallax</h3>
+      <p>Photo plein écran tirée au hasard, titre + bouton « Nous rejoindre ». Le pool de photos, lui, est géré dans l'admin.</p>
+    </div>
+
+    <div class="sec"><span class="num">2</span><span class="tag adm">éditable</span>
+      <h3>Accroche + chiffres clés</h3>
+      <p>Court texte de bienvenue et 3-4 chiffres (depuis 1875, 150 ans, nb d'adhérents, label club). Modifiables dans l'admin.</p>
+      <div class="mini"><div><b>1875</b><span>fondé en</span></div><div><b>150</b><span>ans en 2025</span></div><div><b>+300</b><span>adhérents</span></div><div><b>FFA</b><span>club affilié</span></div></div>
+    </div>
+
+    <div class="sec"><span class="num">3</span><span class="tag fix">structure</span>
+      <h3>Pratiquer — les disciplines</h3>
+      <p>Cartes vers les types de pratique. Lien vers les pages détaillées.</p>
+      <div class="row"><div class="chip">Compétition</div><div class="chip">Loisir / Rando</div><div class="chip">Indoor / Ergo</div><div class="chip">Aviron santé</div><div class="chip">Découverte</div></div>
+    </div>
+
+    <div class="sec"><span class="num">4</span><span class="tag adm">éditable</span>
+      <h3>Événements à venir</h3>
+      <p>Les prochains rendez-vous (ex. « 41ème Défi CNF »). Le club ajoute un événement = titre, date, photo, description. Les passés disparaissent automatiquement.</p>
+      <div class="row"><div class="chip">📅 14 juin · Défi CNF</div><div class="chip">📅 28 juin · Régate</div><div class="chip">📅 5 juil · Rando Seine</div></div>
+    </div>
+
+    <div class="sec"><span class="num">5</span><span class="tag adm">éditable</span>
+      <h3>Actualités récentes</h3>
+      <p>Les derniers articles (ex. « Randonnée de la Côte Bleue »). Le club rédige un article = titre, photo, texte. Les 3 plus récents s'affichent ici.</p>
+      <div class="row"><div class="chip">📰 Côte Bleue</div><div class="chip">📰 Régate Chine</div><div class="chip">📰 Forum des sports</div></div>
+    </div>
+
+    <div class="sec"><span class="num">6</span><span class="tag adm">éditable</span>
+      <h3>Galerie photos</h3>
+      <p>Mosaïque des dernières photos. Le club crée un album et glisse ses photos. Les photos hero peuvent venir d'ici.</p>
+      <div class="gal"><div></div><div></div><div></div><div></div></div>
+    </div>
+
+    <div class="sec"><span class="num">7</span><span class="tag fix">structure</span>
+      <h3>Infos pratiques + « Nous rejoindre »</h3>
+      <p>Horaires, tarifs, localisation (carte Neuilly), bouton inscription/contact. Les infos (horaires/tarifs) sont éditables.</p>
+      <div class="row"><div class="chip">🕐 Horaires</div><div class="chip">💶 Tarifs</div><div class="chip">📍 Carte</div><div class="chip">✉️ Contact</div></div>
+    </div>
+
+    <div class="sec"><span class="num">8</span><span class="tag adm">éditable</span>
+      <h3>Partenaires</h3>
+      <p>Logos des partenaires (Ville de Neuilly, FFA…). Le club ajoute/retire un logo facilement.</p>
+    </div>
+
+    <div class="sec" style="border-bottom:none"><span class="num">9</span><span class="tag fix">structure</span>
+      <h3>Pied de page</h3>
+      <p>Contact, réseaux sociaux (Facebook, Instagram, LinkedIn), plan du site, mentions légales.</p>
+    </div>
+  </div>
+
+  <p class="legend"><span class="tag adm">éditable</span> = le club gère ça lui-même · <span class="tag fix">structure</span> = posé une fois, on n'y touche plus. Cet enchaînement te convient-il ? On peut réordonner, retirer ou ajouter une section.</p>
+</div>
+</body>
+</html>
