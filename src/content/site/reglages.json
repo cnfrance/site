@@ -1,16 +1,16 @@
 {
   "reglages": {
-    "accroche": "Depuis 1875, le Cercle Nautique de France fait ramer Paris sur la Seine. Compétition, loisir ou découverte : venez pousser sur les avirons dans un cadre de verdure aux portes de la capitale.",
+    "accroche": "Depuis 1875, le Cercle Nautique de France fait vivre l'aviron aux portes de Paris, sur l'île de la Jatte à Neuilly-sur-Seine. Compétition, loisir ou découverte : environ 600 membres y naviguent été comme hiver, dans un cadre de verdure au pied de la Défense.",
     "chiffres": [
       { "valeur": "1875", "label": "fondé en" },
       { "valeur": "150 ans", "label": "en 2025" },
-      { "valeur": "+300", "label": "adhérents" },
-      { "valeur": "FFA", "label": "club affilié" }
+      { "valeur": "110", "label": "bateaux" },
+      { "valeur": "3★", "label": "École Française d'Aviron" }
     ],
     "infos": {
-      "horaires": "Séances le midi, le soir et le week-end, toute l'année.",
-      "tarifs": "À partir de 300 €/an. Tarifs réduits étudiants et jeunes.",
-      "adresse": "Île de la Jatte, Neuilly-sur-Seine",
+      "horaires": "Sorties sur l'eau le midi en semaine et le week-end, séances en soirée les lundi, mardi, jeudi et vendredi (horaires d'été mi-avril à mi-octobre ; les sorties du soir sont remplacées par des séances Indoor en hiver).",
+      "tarifs": "Cotisation annuelle de 290 € (mineurs/étudiants) à 525 € (majeurs), soit 370 € à 605 € licence FFA incluse pour un renouvellement (davantage pour une première inscription) ; tarifs réduits en cours de saison, pour les familles et selon situation.",
+      "adresse": "Complexe sportif de l'île du pont de Neuilly, 92200 Neuilly-sur-Seine",
       "email": "contact@cnfrance.fr",
       "telephone": ""
     }
