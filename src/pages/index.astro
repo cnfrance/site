@@ -1,16 +1,55 @@
 ---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import Hero from "../components/Hero.astro";
+import SectionChiffres from "../components/SectionChiffres.astro";
+import SectionDisciplines from "../components/SectionDisciplines.astro";
+import SectionEvenements from "../components/SectionEvenements.astro";
+import SectionActus from "../components/SectionActus.astro";
+import SectionGalerie from "../components/SectionGalerie.astro";
+import SectionInfosPratiques from "../components/SectionInfosPratiques.astro";
+import SectionPartenaires from "../components/SectionPartenaires.astro";
+
+const [reglagesArr, evenementsArr, actualitesArr, partenairesArr] = await Promise.all([
+  getCollection("reglages"),
+  getCollection("evenements"),
+  getCollection("actualites"),
+  getCollection("partenaires"),
+]);
+
+const reglages = reglagesArr[0]?.data;
+
+// Événements : uniquement à venir, triés par date croissante, max 3.
+const maintenant = new Date();
+const evenements = evenementsArr
+  .map((e) => e.data)
+  .filter((e) => e.date >= maintenant)
+  .sort((a, b) => a.date.getTime() - b.date.getTime())
+  .slice(0, 3);
+
+// Actus : 3 plus récentes, avec slug depuis l'id de collection.
+const actus = actualitesArr
+  .map((e) => ({ ...e.data, slug: e.id }))
+  .sort((a, b) => b.date.getTime() - a.date.getTime())
+  .slice(0, 3);
+
+const partenaires = partenairesArr.map((p) => p.data);
+
+// Pool de photos hero : à alimenter avec les vraies photos (Plan 4). Vide = fallback dégradé.
+const poolHero: string[] = [];
+const poolGalerie: string[] = [];
 ---
-<!doctype html>
-<html lang="fr">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Cercle Nautique de France</title>
-  </head>
-  <body>
-    <main>
-      <h1>Cercle Nautique de France</h1>
-      <p>L'aviron aux portes de Paris</p>
-    </main>
-  </body>
-</html>
+<BaseLayout title="Cercle Nautique de France — L'aviron aux portes de Paris">
+  <Nav slot="header" />
+  <Hero photos={poolHero} />
+  {reglages && <SectionChiffres accroche={reglages.accroche} chiffres={reglages.chiffres} />}
+  <SectionDisciplines />
+  <SectionEvenements evenements={evenements} />
+  <SectionActus actus={actus} />
+  <SectionGalerie photos={poolGalerie} />
+  {reglages && <SectionInfosPratiques horaires={reglages.infos.horaires} tarifs={reglages.infos.tarifs} adresse={reglages.infos.adresse} email={reglages.infos.email} />}
+  <SectionPartenaires partenaires={partenaires} />
+  <Footer slot="footer" />
+</BaseLayout>
