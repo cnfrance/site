@@ -2,7 +2,11 @@
 titre: '"BOAT RACE" 2026'
 date: 2026-04-11
 resume: "Victor Viennot-Bourgin, rameur formé au CNF, remporte la Boat Race avec l'université de Cambridge."
-image: "/images/actus/boat-race-2026.jpg"
+image: "/images/actus/boat-race-2026/01.jpeg"
+photos:
+  - "/images/actus/boat-race-2026/01.jpeg"
+  - "/images/actus/boat-race-2026/02.jpg"
+  - "/images/actus/boat-race-2026/03.jpeg"
 ---
 
 **CERCLE NAUTIQUE DE FRANCE : UN RAMEUR DU CNF REMPORTE AVEC CAMBRIDGE LA PRESTIGIEUSE "BOAT RACE"**

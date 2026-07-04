@@ -2,7 +2,14 @@
 titre: "Daniel Dupuy ancien Président et 54 ans de bénévolat au CNF"
 date: 2024-12-11
 resume: "Daniel Dupuy, ancien président du CNF, a reçu la médaille d'argent de la Jeunesse et des Sports pour 54 ans de bénévolat."
-image: "/images/actus/daniel-dupuy-ancien-president-et-54-ans-de-benevolat-au-cnf.jpg"
+image: "/images/actus/daniel-dupuy-ancien-president-et-54-ans-de-benevolat-au-cnf/01.jpeg"
+photos:
+  - "/images/actus/daniel-dupuy-ancien-president-et-54-ans-de-benevolat-au-cnf/01.jpeg"
+  - "/images/actus/daniel-dupuy-ancien-president-et-54-ans-de-benevolat-au-cnf/02.jpeg"
+  - "/images/actus/daniel-dupuy-ancien-president-et-54-ans-de-benevolat-au-cnf/03.jpeg"
+  - "/images/actus/daniel-dupuy-ancien-president-et-54-ans-de-benevolat-au-cnf/04.jpeg"
+  - "/images/actus/daniel-dupuy-ancien-president-et-54-ans-de-benevolat-au-cnf/05.jpeg"
+  - "/images/actus/daniel-dupuy-ancien-president-et-54-ans-de-benevolat-au-cnf/06.jpeg"
 ---
 
 Ce mercredi 11 décembre, à la préfecture des Hauts de Seine, c'est avec émotion que Daniel Dupuy a reçu la médaille d'argent de la Jeunesse, des Sports et de l'engagement Associatif pour ses 54 ans de bénévolats au CNF.

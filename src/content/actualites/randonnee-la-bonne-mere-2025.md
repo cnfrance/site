@@ -2,7 +2,13 @@
 titre: "Randonnée La Bonne Mère 2025"
 date: 2025-09-06
 resume: "5 rameurs du CNF à La Bonne Mère à Marseille, jusqu'à l'île Maïre puis vers le cap Canaille avec le club de Cassis."
-image: "/images/actus/randonnee-la-bonne-mere-2025.jpg"
+image: "/images/actus/randonnee-la-bonne-mere-2025/01.jpeg"
+photos:
+  - "/images/actus/randonnee-la-bonne-mere-2025/01.jpeg"
+  - "/images/actus/randonnee-la-bonne-mere-2025/02.jpeg"
+  - "/images/actus/randonnee-la-bonne-mere-2025/03.jpeg"
+  - "/images/actus/randonnee-la-bonne-mere-2025/04.jpeg"
+  - "/images/actus/randonnee-la-bonne-mere-2025/05.jpeg"
 ---
 
 Le 6 septembre, 5 rameuses et rameurs du CNF étaient à Marseille pour participer à la Bonne mère magnifique randonnée du catalogue rando Aviron.

@@ -2,7 +2,16 @@
 titre: "Yolecup 2025"
 date: 2025-05-17
 resume: "Le CNF 1 remporte la Yolecup des débutants à Meulan-les-Mureaux, devant 18 clubs engagés sur 300 m."
-image: "/images/actus/yolecup-2025.jpg"
+image: "/images/actus/yolecup-2025/01.jpeg"
+photos:
+  - "/images/actus/yolecup-2025/01.jpeg"
+  - "/images/actus/yolecup-2025/02.jpeg"
+  - "/images/actus/yolecup-2025/03.jpeg"
+  - "/images/actus/yolecup-2025/04.jpeg"
+  - "/images/actus/yolecup-2025/05.jpeg"
+  - "/images/actus/yolecup-2025/06.jpeg"
+  - "/images/actus/yolecup-2025/07.jpeg"
+  - "/images/actus/yolecup-2025/08.jpeg"
 ---
 
 Dimanche 17 mai, était organisée par le club @boulogne92aviron (vainqueur en 2024) la nouvelle édition de la Yolecup des débutants.

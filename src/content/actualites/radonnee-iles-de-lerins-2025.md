@@ -2,7 +2,16 @@
 titre: "Radonnée Iles de Lerins 2025"
 date: 2025-10-05
 resume: "Deux bateaux du CNF à la randonnée des Îles de Lérins à Cannes, le long de la côte jusqu'au cap de Théoule-sur-Mer."
-image: "/images/actus/radonnee-iles-de-lerins-2025.jpg"
+image: "/images/actus/radonnee-iles-de-lerins-2025/01.jpeg"
+photos:
+  - "/images/actus/radonnee-iles-de-lerins-2025/01.jpeg"
+  - "/images/actus/radonnee-iles-de-lerins-2025/02.jpeg"
+  - "/images/actus/radonnee-iles-de-lerins-2025/03.jpeg"
+  - "/images/actus/radonnee-iles-de-lerins-2025/04.jpeg"
+  - "/images/actus/radonnee-iles-de-lerins-2025/05.jpeg"
+  - "/images/actus/radonnee-iles-de-lerins-2025/06.jpeg"
+  - "/images/actus/radonnee-iles-de-lerins-2025/07.jpeg"
+  - "/images/actus/radonnee-iles-de-lerins-2025/08.jpeg"
 ---
 
 Nouveau lieu, nouvelle randonnée :

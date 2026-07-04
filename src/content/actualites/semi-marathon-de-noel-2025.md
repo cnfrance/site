@@ -2,7 +2,17 @@
 titre: "Semi Marathon de Noël 2025"
 date: 2025-12-14
 resume: "Plus de 60 rameurs de tous âges au semi-marathon de Noël du CNF : relais de 250 m sur 21 100 m au total."
-image: "/images/actus/semi-marathon-de-noel-2025.jpg"
+image: "/images/actus/semi-marathon-de-noel-2025/01.jpeg"
+photos:
+  - "/images/actus/semi-marathon-de-noel-2025/01.jpeg"
+  - "/images/actus/semi-marathon-de-noel-2025/02.jpeg"
+  - "/images/actus/semi-marathon-de-noel-2025/03.jpeg"
+  - "/images/actus/semi-marathon-de-noel-2025/04.jpeg"
+  - "/images/actus/semi-marathon-de-noel-2025/05.jpeg"
+  - "/images/actus/semi-marathon-de-noel-2025/06.jpeg"
+  - "/images/actus/semi-marathon-de-noel-2025/07.jpeg"
+  - "/images/actus/semi-marathon-de-noel-2025/08.jpeg"
+  - "/images/actus/semi-marathon-de-noel-2025/09.jpeg"
 ---
 
 Dimanche a eu lieu comme chaque années le semi-marathon de Noël 🎄 !

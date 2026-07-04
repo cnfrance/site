@@ -2,7 +2,10 @@
 titre: "MAIF AVIRON INDOOR - AVIROSE"
 date: 2026-01-31
 resume: "La team Sport Santé du CNF participe au défi Avirose lors des championnats d'aviron indoor à Coubertin."
-image: "/images/actus/maif-aviron-indoor-avirose.jpg"
+image: "/images/actus/maif-aviron-indoor-avirose/01.jpg"
+photos:
+  - "/images/actus/maif-aviron-indoor-avirose/01.jpg"
+  - "/images/actus/maif-aviron-indoor-avirose/02.jpg"
 ---
 
 Défi AVIROSE – Le CNF engagé pour le sport santé 💗

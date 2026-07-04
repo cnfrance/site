@@ -2,7 +2,17 @@
 titre: "Randonnée : « la Pelle de la Dordogne »"
 date: 2025-04-05
 resume: "Ouverture de la saison des randonnées : dix rameurs du CNF à la Pelle de la Dordogne, 28 km entre Sainte-Foy et Castillon."
-image: "/images/actus/randonnee-la-pelle-de-la-dordogne.jpg"
+image: "/images/actus/randonnee-la-pelle-de-la-dordogne/01.jpeg"
+photos:
+  - "/images/actus/randonnee-la-pelle-de-la-dordogne/01.jpeg"
+  - "/images/actus/randonnee-la-pelle-de-la-dordogne/02.jpeg"
+  - "/images/actus/randonnee-la-pelle-de-la-dordogne/03.jpeg"
+  - "/images/actus/randonnee-la-pelle-de-la-dordogne/04.jpeg"
+  - "/images/actus/randonnee-la-pelle-de-la-dordogne/05.jpeg"
+  - "/images/actus/randonnee-la-pelle-de-la-dordogne/06.jpeg"
+  - "/images/actus/randonnee-la-pelle-de-la-dordogne/07.jpeg"
+  - "/images/actus/randonnee-la-pelle-de-la-dordogne/08.jpeg"
+  - "/images/actus/randonnee-la-pelle-de-la-dordogne/09.jpeg"
 ---
 
 Pour l'ouverture de la saison des participations du CNF aux randonnées, Marie Anne, Bernard, Benoit, Emi, Hyojeong, Maria, Maïa, Margot, Delphine et Julie ont participé à la Pelle de la Dordogne. Un parcours de 28km entre Sainte-Foy-la-Grande et Castillon-La-Bataille.

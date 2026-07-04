@@ -2,7 +2,13 @@
 titre: "29ème Biathlon de la Sté Nautique de Lagny"
 date: 2026-03-21
 resume: "29e Biathlon de la Société Nautique de Lagny : un podium en yolette et un en ergomètre pour le CNF."
-image: "/images/actus/29eme-biathlon-de-la-ste-nautique-de-lagny.jpg"
+image: "/images/actus/29eme-biathlon-de-la-ste-nautique-de-lagny/01.jpg"
+photos:
+  - "/images/actus/29eme-biathlon-de-la-ste-nautique-de-lagny/01.jpg"
+  - "/images/actus/29eme-biathlon-de-la-ste-nautique-de-lagny/02.jpeg"
+  - "/images/actus/29eme-biathlon-de-la-ste-nautique-de-lagny/03.jpeg"
+  - "/images/actus/29eme-biathlon-de-la-ste-nautique-de-lagny/04.jpeg"
+  - "/images/actus/29eme-biathlon-de-la-ste-nautique-de-lagny/05.jpeg"
 ---
 
 21 mars 2026, le 29eme Biathlon de la société nautique de Lagny : 100% loisirs !

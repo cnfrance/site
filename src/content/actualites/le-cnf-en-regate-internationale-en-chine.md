@@ -2,7 +2,16 @@
 titre: "Le CNF en Régate Internationale en Chine"
 date: 2026-01-05
 resume: "Les rameurs du CNF affrontent de grandes équipes internationales en huit lors d'une régate en Chine."
-image: "/images/actus/le-cnf-en-regate-internationale-en-chine.jpg"
+image: "/images/actus/le-cnf-en-regate-internationale-en-chine/01.jpeg"
+photos:
+  - "/images/actus/le-cnf-en-regate-internationale-en-chine/01.jpeg"
+  - "/images/actus/le-cnf-en-regate-internationale-en-chine/02.jpeg"
+  - "/images/actus/le-cnf-en-regate-internationale-en-chine/03.jpeg"
+  - "/images/actus/le-cnf-en-regate-internationale-en-chine/04.jpeg"
+  - "/images/actus/le-cnf-en-regate-internationale-en-chine/05.jpeg"
+  - "/images/actus/le-cnf-en-regate-internationale-en-chine/06.jpeg"
+  - "/images/actus/le-cnf-en-regate-internationale-en-chine/07.jpeg"
+  - "/images/actus/le-cnf-en-regate-internationale-en-chine/08.jpeg"
 ---
 
 Une expérience incroyable en Chine, face à de grandes équipes internationales en 8+ 🇨🇳🔥

@@ -2,7 +2,19 @@
 titre: "Randonnée des Tulipes entre Haarlem et Leiden le 17 et 18 avril 2026"
 date: 2026-04-17
 resume: "Randonnée des Tulipes entre Haarlem et Leiden : canaux de Leiden puis 30 km en yolette parmi les champs fleuris."
-image: "/images/actus/randonnee-des-tulipes-entre-haarlem-et-leiden-le-17-et-18-avril-2026.jpg"
+image: "/images/actus/randonnee-des-tulipes-entre-haarlem-et-leiden-le-17-et-18-avril-2026/01.jpg"
+photos:
+  - "/images/actus/randonnee-des-tulipes-entre-haarlem-et-leiden-le-17-et-18-avril-2026/01.jpg"
+  - "/images/actus/randonnee-des-tulipes-entre-haarlem-et-leiden-le-17-et-18-avril-2026/02.jpg"
+  - "/images/actus/randonnee-des-tulipes-entre-haarlem-et-leiden-le-17-et-18-avril-2026/03.jpg"
+  - "/images/actus/randonnee-des-tulipes-entre-haarlem-et-leiden-le-17-et-18-avril-2026/04.jpg"
+  - "/images/actus/randonnee-des-tulipes-entre-haarlem-et-leiden-le-17-et-18-avril-2026/05.jpg"
+  - "/images/actus/randonnee-des-tulipes-entre-haarlem-et-leiden-le-17-et-18-avril-2026/06.jpg"
+  - "/images/actus/randonnee-des-tulipes-entre-haarlem-et-leiden-le-17-et-18-avril-2026/07.jpg"
+  - "/images/actus/randonnee-des-tulipes-entre-haarlem-et-leiden-le-17-et-18-avril-2026/08.jpg"
+  - "/images/actus/randonnee-des-tulipes-entre-haarlem-et-leiden-le-17-et-18-avril-2026/09.jpg"
+  - "/images/actus/randonnee-des-tulipes-entre-haarlem-et-leiden-le-17-et-18-avril-2026/10.jpg"
+  - "/images/actus/randonnee-des-tulipes-entre-haarlem-et-leiden-le-17-et-18-avril-2026/11.jpg"
 ---
 
 Margot nous raconte :
