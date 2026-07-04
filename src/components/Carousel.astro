@@ -1,0 +1,218 @@
+---
+interface Props {
+  photos: string[];
+  alt: string;
+  ratio?: string;
+  variant?: "full" | "mini";
+}
+
+const { photos, alt, ratio = "16 / 9", variant = "full" } = Astro.props;
+---
+
+{photos.length > 0 && (
+  <div class="carousel" data-carousel data-variant={variant} tabindex="0" role="group" aria-roledescription="carrousel" aria-label={alt}>
+    <div class="carousel__viewport">
+      <div class="carousel__track">
+        {photos.map((photo, i) => (
+          <img
+            class="carousel__img"
+            src={photo}
+            alt={`${alt} — photo ${i + 1}/${photos.length}`}
+            style={`aspect-ratio: ${ratio};`}
+            loading={i === 0 ? "eager" : "lazy"}
+            fetchpriority={i === 0 ? "high" : "auto"}
+            decoding={i === 0 ? "sync" : "async"}
+          />
+        ))}
+      </div>
+
+      {photos.length > 1 && (
+        <>
+          <button type="button" class="carousel__btn carousel__btn--prev" data-carousel-prev aria-label="Image précédente">‹</button>
+          <button type="button" class="carousel__btn carousel__btn--next" data-carousel-next aria-label="Image suivante">›</button>
+
+          {variant === "full" ? (
+            <span class="carousel__counter" data-carousel-counter aria-hidden="true">1 / {photos.length}</span>
+          ) : (
+            <span class="carousel__dots" data-carousel-dots aria-hidden="true">
+              {photos.map((_, i) => (
+                <span class="carousel__dot" data-carousel-dot={i} data-active={i === 0 ? "true" : "false"}></span>
+              ))}
+            </span>
+          )}
+        </>
+      )}
+    </div>
+  </div>
+)}
+
+<style>
+  .carousel {
+    position: relative;
+    outline: none;
+  }
+  .carousel:focus-visible .carousel__viewport {
+    outline: 2px solid var(--rouge, #c0392b);
+    outline-offset: 2px;
+  }
+  .carousel__viewport {
+    position: relative;
+    border-radius: var(--radius, 12px);
+    overflow: hidden;
+  }
+  .carousel__track {
+    display: flex;
+    width: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .carousel__track::-webkit-scrollbar {
+    display: none;
+  }
+  .carousel__img {
+    flex: 0 0 100%;
+    width: 100%;
+    object-fit: cover;
+    scroll-snap-align: center;
+  }
+  .carousel__btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.45);
+    color: #fff;
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.2s ease, opacity 0.2s ease;
+  }
+  .carousel__btn:hover {
+    background: rgba(0, 0, 0, 0.7);
+  }
+  .carousel__btn--prev {
+    left: 0.6rem;
+  }
+  .carousel__btn--next {
+    right: 0.6rem;
+  }
+  .carousel__btn[hidden] {
+    display: none;
+  }
+  [data-variant="mini"] .carousel__btn {
+    width: 1.9rem;
+    height: 1.9rem;
+    font-size: 1.1rem;
+  }
+  .carousel__counter {
+    position: absolute;
+    right: 0.7rem;
+    bottom: 0.6rem;
+    padding: 0.15rem 0.55rem;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.55);
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 600;
+  }
+  .carousel__dots {
+    position: absolute;
+    left: 50%;
+    bottom: 0.5rem;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.35rem;
+  }
+  .carousel__dot {
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.55);
+  }
+  .carousel__dot[data-active="true"] {
+    background: #fff;
+  }
+</style>
+
+<script>
+  function setupCarousel(root: HTMLElement) {
+    const track = root.querySelector<HTMLElement>(".carousel__track");
+    const prevBtn = root.querySelector<HTMLButtonElement>("[data-carousel-prev]");
+    const nextBtn = root.querySelector<HTMLButtonElement>("[data-carousel-next]");
+    const counter = root.querySelector<HTMLElement>("[data-carousel-counter]");
+    const dots = Array.from(root.querySelectorAll<HTMLElement>("[data-carousel-dot]"));
+    const images = Array.from(root.querySelectorAll<HTMLImageElement>(".carousel__img"));
+    if (!track || images.length === 0) return;
+
+    const count = images.length;
+
+    function currentIndex() {
+      if (!track) return 0;
+      const width = track.clientWidth || 1;
+      return Math.round(track.scrollLeft / width);
+    }
+
+    function update() {
+      if (!track) return;
+      const index = Math.min(Math.max(currentIndex(), 0), count - 1);
+      const atStart = track.scrollLeft <= 4;
+      const atEnd = track.scrollLeft >= track.scrollWidth - track.clientWidth - 4;
+
+      if (prevBtn) prevBtn.hidden = atStart;
+      if (nextBtn) nextBtn.hidden = atEnd;
+      if (counter) counter.textContent = `${index + 1} / ${count}`;
+      dots.forEach((dot, i) => dot.setAttribute("data-active", i === index ? "true" : "false"));
+    }
+
+    prevBtn?.addEventListener("click", () => {
+      track.scrollBy({ left: -track.clientWidth, behavior: "smooth" });
+    });
+    nextBtn?.addEventListener("click", () => {
+      track.scrollBy({ left: track.clientWidth, behavior: "smooth" });
+    });
+
+    root.addEventListener("keydown", (event) => {
+      const e = event as KeyboardEvent;
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        track.scrollBy({ left: -track.clientWidth, behavior: "smooth" });
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        track.scrollBy({ left: track.clientWidth, behavior: "smooth" });
+      }
+    });
+
+    let ticking = false;
+    track.addEventListener("scroll", () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        update();
+        ticking = false;
+      });
+    });
+
+    window.addEventListener("resize", update);
+
+    update();
+  }
+
+  function init() {
+    document.querySelectorAll<HTMLElement>("[data-carousel]").forEach(setupCarousel);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+</script>
