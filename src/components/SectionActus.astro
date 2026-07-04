@@ -2,7 +2,7 @@
 interface Actu { titre: string; date: Date; resume: string; slug: string; }
 interface Props { actus: Actu[]; }
 const { actus } = Astro.props;
-const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric" });
+const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric", timeZone: "Europe/Paris" });
 ---
 <section id="actus" class="act">
   <div class="wrap">

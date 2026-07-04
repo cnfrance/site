@@ -2,6 +2,9 @@
 import "../styles/global.css";
 interface Props { title: string; description?: string; }
 const { title, description = "Cercle Nautique de France — l'aviron aux portes de Paris. Club d'aviron à Neuilly-sur-Seine depuis 1875." } = Astro.props;
+const site = Astro.site ?? new URL("https://www.cnfrance.fr");
+const canonical = new URL(Astro.url.pathname, site).toString();
+const ogImage = new URL("/images/hero/hero-1.jpeg", site).toString();
 ---
 <!doctype html>
 <html lang="fr">
@@ -9,11 +12,14 @@ const { title, description = "Cercle Nautique de France — l'aviron aux portes 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="canonical" href={canonical} />
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={canonical} />
   </head>
   <body>
     <slot name="header" />

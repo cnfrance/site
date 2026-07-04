@@ -2,7 +2,7 @@
 interface Evenement { titre: string; date: Date; lieu?: string; description: string; }
 interface Props { evenements: Evenement[]; }
 const { evenements } = Astro.props;
-const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric" });
+const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric", timeZone: "Europe/Paris" });
 ---
 <section id="evenements" class="evt">
   <div class="wrap">

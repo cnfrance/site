@@ -2,7 +2,6 @@
   /* Couleurs de marque */
   --rouge: #c0392b;
   --rouge-sombre: #8a0c0c;
-  --rouge-vif: #b01010;
   --texte: #2a0505;
   --fond: #f7f4f2;
   --blanc: #ffffff;
@@ -10,7 +9,7 @@
   --muted: #6b5d5a;
 
   /* Typographie (polices système, aucune requête réseau) */
-  --font-titre: "Oswald", "Arial Narrow", system-ui, sans-serif;
+  --font-titre: "Arial Narrow", system-ui, sans-serif;
   --font-corps: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
   /* Layout */

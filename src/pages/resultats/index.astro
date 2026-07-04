@@ -7,7 +7,7 @@ const resultats = entries
   .map((e) => ({ ...e.data, slug: e.id }))
   .sort((a, b) => b.date.getTime() - a.date.getTime());
 
-const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric" });
+const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric", timeZone: "Europe/Paris" });
 ---
 <PageLayout
   titre="Résultats"
