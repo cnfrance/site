@@ -1,0 +1,37 @@
+---
+import { getCollection } from "astro:content";
+import PageLayout from "../../layouts/PageLayout.astro";
+
+const entries = await getCollection("actualites");
+const actus = entries
+  .map((e) => ({ ...e.data, slug: e.id }))
+  .sort((a, b) => b.date.getTime() - a.date.getTime());
+
+const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric" });
+---
+<PageLayout
+  titre="Actualités"
+  section="Actualités"
+  chapo="Toute l'actualité du Cercle Nautique de France : régates, randonnées, vie du club."
+>
+  {actus.length === 0
+    ? <p class="vide">Pas encore d'article publié.</p>
+    : <div class="grid">
+        {actus.map((a) => (
+          <a class="card" href={`/actualites/${a.slug}`}>
+            <time class="card__date" datetime={a.date.toISOString()}>{fmt.format(a.date)}</time>
+            <h2 class="card__title">{a.titre}</h2>
+            <p class="card__resume">{a.resume}</p>
+          </a>
+        ))}
+      </div>}
+</PageLayout>
+<style>
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; }
+  .card { border: 1px solid var(--gris-bord); border-radius: var(--radius); padding: 1.3rem; transition: transform .15s; background: var(--blanc); }
+  .card:hover { transform: translateY(-3px); }
+  .card__date { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; }
+  .card__title { font-size: 1.15rem; color: var(--rouge-sombre); margin: 0.3rem 0; }
+  .card__resume { font-size: 0.9rem; color: var(--muted); }
+  .vide { color: var(--muted); }
+</style>

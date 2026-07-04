@@ -1,0 +1,25 @@
+---
+import { getCollection, render } from "astro:content";
+import PageLayout from "../../layouts/PageLayout.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("actualites");
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { titre, date, image } = entry.data;
+
+const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric" });
+---
+<PageLayout titre={titre} section="Actualités" chapo={fmt.format(date)}>
+  {image && <img class="article__image" src={image} alt={titre} />}
+  <Content />
+</PageLayout>
+<style>
+  .article__image { width: 100%; border-radius: var(--radius); margin-bottom: 1.5rem; }
+</style>
