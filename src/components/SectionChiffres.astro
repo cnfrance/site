@@ -1,0 +1,26 @@
+---
+interface Props { accroche: string; chiffres: { valeur: string; label: string }[]; }
+const { accroche, chiffres } = Astro.props;
+---
+<section id="club" class="chiffres">
+  <div class="wrap chiffres__inner">
+    <p class="chiffres__accroche">{accroche}</p>
+    <ul class="chiffres__grid">
+      {chiffres.map((c) => (
+        <li class="chiffres__item">
+          <span class="chiffres__val">{c.valeur}</span>
+          <span class="chiffres__lab">{c.label}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+<style>
+  .chiffres { padding-block: 3.5rem; }
+  .chiffres__accroche { font-size: clamp(1.15rem, 2.4vw, 1.5rem); max-width: 60ch; margin-inline: auto; text-align: center; color: var(--texte); }
+  .chiffres__grid { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 2.5rem; }
+  .chiffres__item { text-align: center; }
+  .chiffres__val { display: block; font-family: var(--font-titre); font-size: clamp(1.8rem, 4vw, 2.8rem); color: var(--rouge); }
+  .chiffres__lab { display: block; font-size: 0.85rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+  @media (max-width: 640px) { .chiffres__grid { grid-template-columns: repeat(2, 1fr); } }
+</style>
