@@ -11,7 +11,7 @@ Vous avez frappé à la bonne porte.
 
 Bienvenue au Cercle Nautique de France !
 
-Si vous avez déjà été membre du CNF dans le passé [cliquer ici]
+Si vous avez déjà été membre du CNF dans le passé [cliquer ici](https://www.cnfrance.fr/index.php/espace-adherents/renouveler-son-adhesion2)
 
 ## Comment vous inscrire pour la première fois au CNF ?
 
@@ -19,7 +19,7 @@ Si vous avez déjà été membre du CNF dans le passé [cliquer ici]
 
 **Vous n'avez jamais pratiqué l'aviron :**
 
-Avant de vous inscrire au CNF vous devez faire un stage découverte organisé chaque année par le club de mi-juin à mi-octobre.
+Avant de vous inscrire au CNF vous devez faire un [stage découverte](https://www.cnfrance.fr/index.php/evenements/stages-decouverte) organisé chaque année par le club de mi-juin à mi-octobre.
 
 Pour ce faire informez vous sur les places disponibles auprès de :
 

@@ -23,6 +23,6 @@ Contact : Delphine Hermier - Gite le Marguerite / Gite Lou Baurio - 06 60 54 95 
 
 ## QUELQUES DOCUMENTS DE FORMATION
 
-- [Le guide du rameur](/images/DOCUMENTS/FORMATION/guide_du_rameur_compress.pdf)
-- [Le geste à 4 temps](/images/DOCUMENTS/FORMATION/le_geste_a_4_temps.pdf)
-- [La technique de glisse](/images/DOCUMENTS/FORMATION/technique_de_glisse.pdf)
+- [Le guide du rameur](/documents/guide_du_rameur_compress.pdf)
+- [Le geste à 4 temps](/documents/le_geste_a_4_temps.pdf)
+- [La technique de glisse](/documents/technique_de_glisse.pdf)

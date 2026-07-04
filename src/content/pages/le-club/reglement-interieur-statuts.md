@@ -13,8 +13,8 @@ Le CNF est une **association de la loi de 1901 à but non lucratif**. L'associat
 
 ## Documents disponibles
 
-- [STATUTS DU CNF](/images/DOCUMENTS/NOTRE_CLUB/Statut_CNF_signes.pdf)
-- [Règlement intérieur du CNF](/images/DOCUMENTS/NOTRE_CLUB/CNF_RI_MAJ_vF.pdf)
+- [STATUTS DU CNF](/documents/Statut_CNF_signes.pdf)
+- [Règlement intérieur du CNF](/documents/CNF_RI_MAJ_vF.pdf)
 
 ## Liens Utiles
 

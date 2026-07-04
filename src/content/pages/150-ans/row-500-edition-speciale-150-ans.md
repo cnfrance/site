@@ -29,7 +29,7 @@ Rameurs débutants, confirmés, J15 à Masters : tout le monde est le bienvenu p
 
 ## Ressources téléchargeables
 
-- Avant-programme Row 500 2025
-- Bulletin de règlement ROW 500
+- [Avant-programme Row 500 2025](/documents/Avant-programme_Row_500_2025.pdf)
+- [Bulletin de règlement ROW 500](/documents/Bulletin_de_rglement_ROW_500.pdf)
 - Tableur Engagements Row 500
-- Plan de navigation ROW 500
+- [Plan de navigation ROW 500](/documents/Plan_de_navigation_ROW_500.pdf)

@@ -57,4 +57,4 @@ Un remplacement intégral de l'ordinateur est alors nécessaire. Coût de l'opé
 
 ## Utilisation des bateaux
 
-[Consulter le document « Utilisation des bateaux »](/images/DOCUMENTS/PRATIQUER/DU_BON_USAGE/Utilisation_des_bateaux.pdf)
+[Consulter le document « Utilisation des bateaux »](/documents/Utilisation_des_bateaux.pdf)

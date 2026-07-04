@@ -11,7 +11,7 @@ En début de saison un premier programme pour l'année à venir est défini par 
 
 Les organisateurs transmettent ensuite par mail à tous les membres Loisirs une invitation à participer à leur randonnée avec toutes les instructions pour s'y inscrire.
 
-Pour voir les photos de quelques randonnées, cliquer ici.
+Pour voir les photos de quelques randonnées, [cliquer ici](https://www.cnfrance.fr/index.php/club-cnf/mediatheque).
 
 CONTACT : Caroline [adresse e-mail protégée]
 

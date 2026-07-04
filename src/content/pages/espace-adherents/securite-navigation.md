@@ -7,7 +7,7 @@ section: "Espace adhérents"
 
 Le CNF bénéficie d'une belle zone de navigation dédiée à la pratique de l'aviron. Nous devons la préserver en respectant la réglementation fluviale et en adoptant les règles définies par le club.
 
-Nous vous invitons toutes et tous à consulter dans sa totalité le guide de sécurité ci-dessous qui reprend l'ensemble des consignes de navigation entre le barrage de Suresnes et le pont de Levallois.
+Nous vous invitons toutes et tous à consulter dans sa totalité le [guide de sécurité ci-dessous](https://www.cnfrance.fr/index.php/espace-adherents/securite-navigation/14-espace-adherents/138-livret-de-navigation) qui reprend l'ensemble des consignes de navigation entre le barrage de Suresnes et le pont de Levallois.
 
 **Il s'agit en premier lieu de votre sécurité à tous**
 

@@ -19,9 +19,9 @@ Le site permet en effet de s'entraîner et de se préparer aux compétitions. Ce
 
 Pour les moins de 16 ans, le CNF propose la pratique de l'aviron en compétition uniquement. Suivis de près par des entraîneurs, ils acquièrent rapidement l'expérience de l'esprit d'équipe.
 
-Ceux qui souhaitent pratiquer en loisir disposent de multiples créneaux -10 au total- en semaine et pendant le week-end (en savoir plus cliquer ici). Ils ont aussi accès aux nombreux ergomètres en intérieur ainsi qu'au tank à ramer (en savoir plus sur les équipements, cliquer ici)
+Ceux qui souhaitent pratiquer en loisir disposent de multiples créneaux -10 au total- en semaine et pendant le week-end (en savoir plus [cliquer ici](https://www.cnfrance.fr/index.php/pratiquer/aviron-loisirs)). Ils ont aussi accès aux nombreux ergomètres en intérieur ainsi qu'au tank à ramer (en savoir plus sur les équipements, [cliquer ici](https://www.cnfrance.fr/index.php/club-cnf/equipements))
 
-Pour tout savoir sur les modalités d'inscription cliquer ici
+Pour tout savoir sur les modalités d'inscription [cliquer ici](https://www.cnfrance.fr/index.php/club-cnf-2/adherez-au-cnf)
 
 Le CNF offre aussi aux adhérents de comités d'entreprises ou d'associations sportives la possibilité de venir ramer du lundi au vendredi de 12h à 14h à des conditions avantageuses.
 
@@ -29,11 +29,11 @@ Quel que soit le niveau de chacun, débutant ou confirmé, l'objectif premier re
 
 Pour compléter cette présentation, voici deux films sur le CNF :
 
-**LE CERCLE NAUTIQUE DE FRANCE un film de Nicolas Slomowicz : regarder...**
+**LE CERCLE NAUTIQUE DE FRANCE un film de Nicolas Slomowicz : [regarder...](https://youtu.be/5gZKrJQuHs0)**
 
-**PIERRE ASSOULINE raconte ses souvenirs d'enfance dans les années 1960 lorsqu'il pratiquait l'aviron au CNF : regarder...**
+**PIERRE ASSOULINE raconte ses souvenirs d'enfance dans les années 1960 lorsqu'il pratiquait l'aviron au CNF : [regarder...](https://www.pavillon-arsenal.com/fr/actualite/11889-pierre-assouline.html)**
 
-**...et sur AIRZEN RADIO, radio numérique 100% positive trois reportages (2 mn, 4mn et 8 mn) consacrés au CNF : IMMERSION & DECOUVERTE DE L'AVIRON : écouter......**
+**...et sur AIRZEN RADIO, radio numérique 100% positive trois reportages (2 mn, 4mn et 8 mn) consacrés au CNF : IMMERSION & DECOUVERTE DE L'AVIRON : [écouter......](https://www.airzen.fr/hauts-de-seine-initiation-a-laviron-au-cercle-nautique-de-fance/)**
 
 **Pour nous joindre par mail :** Cette adresse e-mail est protégée contre les robots spammeurs. Vous devez activer le JavaScript pour la visualiser.
 
