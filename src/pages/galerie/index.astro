@@ -1,0 +1,38 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+
+// Photos du club, migrées depuis cnfrance.fr (public/images/galerie/).
+const photos: string[] = [
+  "/images/galerie/galerie-01.jpg",
+  "/images/galerie/galerie-02.jpg",
+  "/images/galerie/galerie-03.jpg",
+  "/images/galerie/galerie-04.jpg",
+  "/images/galerie/galerie-05.jpg",
+  "/images/galerie/galerie-06.jpg",
+  "/images/galerie/galerie-07.jpg",
+  "/images/galerie/galerie-08.jpg",
+  "/images/galerie/galerie-09.jpg",
+  "/images/galerie/galerie-10.jpg",
+  "/images/galerie/galerie-11.jpg",
+  "/images/galerie/galerie-12.jpg",
+  "/images/galerie/galerie-13.jpg",
+  "/images/galerie/galerie-14.jpg",
+  "/images/galerie/galerie-15.jpg",
+  "/images/galerie/galerie-16.png",
+  "/images/galerie/galerie-17.png",
+  "/images/galerie/galerie-18.png",
+];
+---
+<PageLayout
+  titre="En images"
+  section="Galerie"
+  chapo="Régates, randonnées, entraînements et vie du club : un aperçu en photos du Cercle Nautique de France."
+>
+  <div class="grid">
+    {photos.map((p) => <img class="grid__img" src={p} alt="Photo du club" loading="lazy" />)}
+  </div>
+</PageLayout>
+<style>
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.8rem; }
+  .grid__img { aspect-ratio: 1; width: 100%; object-fit: cover; border-radius: var(--radius); }
+</style>
