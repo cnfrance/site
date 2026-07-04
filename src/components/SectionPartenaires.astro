@@ -1,0 +1,27 @@
+---
+interface Partenaire { nom: string; url?: string; }
+interface Props { partenaires: Partenaire[]; }
+const { partenaires } = Astro.props;
+---
+<section id="partenaires" class="part">
+  <div class="wrap">
+    <h2 class="part__h">Nos partenaires</h2>
+    <ul class="part__grid">
+      {partenaires.map((p) => (
+        <li class="part__item">
+          {p.url
+            ? <a href={p.url} rel="noopener" target="_blank">{p.nom}</a>
+            : <span>{p.nom}</span>}
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+<style>
+  .part { padding-block: 3rem; }
+  .part__h { text-align: center; font-size: 1.3rem; color: var(--muted); margin-bottom: 1.5rem; }
+  .part__grid { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem 2.5rem; }
+  .part__item { font-family: var(--font-titre); font-size: 1.05rem; color: var(--texte); opacity: 0.75; transition: opacity .15s; }
+  .part__item:hover { opacity: 1; }
+  .part__item a:hover { color: var(--rouge); }
+</style>

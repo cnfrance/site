@@ -1,0 +1,28 @@
+---
+interface Props { photos: string[]; }
+const { photos } = Astro.props;
+const vignettes = photos.slice(0, 8);
+const manquantes = Math.max(0, 8 - vignettes.length);
+---
+<section id="galerie" class="gal">
+  <div class="wrap">
+    <div class="gal__head">
+      <h2 class="gal__h">En images</h2>
+      <a class="gal__all" href="/galerie">Toute la galerie →</a>
+    </div>
+    <div class="gal__grid">
+      {vignettes.map((p) => <img class="gal__img" src={p} alt="Photo du club" loading="lazy" />)}
+      {Array.from({ length: manquantes }).map(() => <div class="gal__ph"></div>)}
+    </div>
+  </div>
+</section>
+<style>
+  .gal { padding-block: 3.5rem; }
+  .gal__head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 1.5rem; gap: 1rem; }
+  .gal__h { font-size: clamp(1.6rem, 3.5vw, 2.4rem); }
+  .gal__all { font-weight: 700; color: var(--rouge); font-size: 0.9rem; }
+  .gal__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; }
+  .gal__img, .gal__ph { aspect-ratio: 1; border-radius: 8px; object-fit: cover; width: 100%; }
+  .gal__ph { background: var(--gris-bord); }
+  @media (max-width: 640px) { .gal__grid { grid-template-columns: repeat(2, 1fr); } }
+</style>

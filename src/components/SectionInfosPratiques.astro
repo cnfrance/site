@@ -1,0 +1,32 @@
+---
+interface Props { horaires: string; tarifs: string; adresse: string; email: string; }
+const { horaires, tarifs, adresse, email } = Astro.props;
+---
+<section id="infos" class="infos">
+  <div class="wrap infos__inner">
+    <div class="infos__col">
+      <h2 class="infos__h">Nous rejoindre</h2>
+      <p class="infos__lead">Envie d'essayer l'aviron ? Le club accueille débutants comme confirmés toute l'année.</p>
+      <a class="btn" href={`mailto:${email}`}>Écrire au club</a>
+    </div>
+    <ul class="infos__list">
+      <li><span class="infos__ic">🕐</span><div><b>Horaires</b><p>{horaires}</p></div></li>
+      <li><span class="infos__ic">💶</span><div><b>Tarifs</b><p>{tarifs}</p></div></li>
+      <li><span class="infos__ic">📍</span><div><b>Où nous trouver</b><p>{adresse}</p></div></li>
+      <li><span class="infos__ic">✉️</span><div><b>Contact</b><p><a class="infos__mail" href={`mailto:${email}`}>{email}</a></p></div></li>
+    </ul>
+  </div>
+</section>
+<style>
+  .infos { padding-block: 3.5rem; background: var(--blanc); }
+  .infos__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; }
+  .infos__h { font-size: clamp(1.6rem, 3.5vw, 2.4rem); color: var(--rouge); }
+  .infos__lead { margin: 0.8rem 0 1.4rem; color: var(--muted); max-width: 40ch; }
+  .infos__list { list-style: none; display: grid; gap: 1.1rem; }
+  .infos__list li { display: flex; gap: 0.8rem; }
+  .infos__ic { font-size: 1.3rem; }
+  .infos__list b { font-family: var(--font-titre); }
+  .infos__list p { font-size: 0.92rem; color: var(--muted); }
+  .infos__mail { color: var(--rouge); font-weight: 600; }
+  @media (max-width: 700px) { .infos__inner { grid-template-columns: 1fr; } }
+</style>
