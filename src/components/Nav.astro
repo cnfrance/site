@@ -81,11 +81,21 @@ const rubriques = [
       <span class="nav__name">Cercle Nautique de France</span>
     </a>
     <nav class="nav__links" aria-label="Navigation principale">
-      {rubriques.map((r) => (
+      {rubriques.map((r, i) => (
         r.sousMenu.length > 0 ? (
-          <div class="nav__item">
-            <a href={r.href} aria-haspopup="true">{r.label}</a>
-            <div class="nav__dropdown">
+          <div class="nav__item" data-nav-item>
+            <a href={r.href}>{r.label}</a>
+            <button
+              type="button"
+              class="nav__toggle"
+              aria-expanded="false"
+              aria-haspopup="true"
+              aria-controls={`nav-dropdown-${i}`}
+              aria-label={`Afficher le sous-menu ${r.label}`}
+            >
+              <span class="nav__chevron" aria-hidden="true">▾</span>
+            </button>
+            <div class="nav__dropdown" id={`nav-dropdown-${i}`}>
               {r.sousMenu.map((s) => <a href={s.href}>{s.label}</a>)}
             </div>
           </div>
@@ -97,6 +107,37 @@ const rubriques = [
     </nav>
   </div>
 </header>
+<script>
+  const items = document.querySelectorAll<HTMLElement>("[data-nav-item]");
+
+  function fermerTout(sauf?: HTMLElement) {
+    items.forEach((item) => {
+      if (item === sauf) return;
+      item.classList.remove("nav__item--ouvert");
+      item.querySelector(".nav__toggle")?.setAttribute("aria-expanded", "false");
+    });
+  }
+
+  items.forEach((item) => {
+    const bouton = item.querySelector<HTMLButtonElement>(".nav__toggle");
+    if (!bouton) return;
+    bouton.addEventListener("click", () => {
+      const ouvert = item.classList.toggle("nav__item--ouvert");
+      bouton.setAttribute("aria-expanded", String(ouvert));
+      fermerTout(ouvert ? item : undefined);
+    });
+  });
+
+  document.addEventListener("click", (evt) => {
+    const cible = evt.target as Node;
+    const dansUnItem = Array.from(items).some((item) => item.contains(cible));
+    if (!dansUnItem) fermerTout();
+  });
+
+  document.addEventListener("keydown", (evt) => {
+    if (evt.key === "Escape") fermerTout();
+  });
+</script>
 <style>
   .nav { position: sticky; top: 0; z-index: 100; background: color-mix(in srgb, var(--blanc) 92%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--gris-bord); }
   .nav__inner { display: flex; align-items: center; gap: 1.5rem; padding-block: 0.6rem; }
@@ -106,12 +147,28 @@ const rubriques = [
   .nav__links { margin-left: auto; display: flex; align-items: center; gap: 1.1rem; font-weight: 600; font-size: 0.92rem; }
   .nav__links > a:not(.btn):hover { color: var(--rouge); }
 
-  .nav__item { position: relative; }
+  .nav__item { position: relative; display: flex; align-items: center; }
   .nav__item:hover .nav__dropdown,
-  .nav__item:focus-within .nav__dropdown {
+  .nav__item:focus-within .nav__dropdown,
+  .nav__item.nav__item--ouvert .nav__dropdown {
     display: flex;
   }
   .nav__item > a:hover { color: var(--rouge); }
+  .nav__toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    padding: 0.2rem 0.3rem;
+    margin-left: 0.15rem;
+    cursor: pointer;
+    color: inherit;
+    font-size: 0.75rem;
+  }
+  .nav__toggle:focus-visible { outline: 2px solid var(--rouge); border-radius: 4px; }
+  .nav__item.nav__item--ouvert .nav__chevron { transform: rotate(180deg); }
+  .nav__chevron { display: inline-block; transition: transform 0.15s ease; }
   .nav__dropdown {
     display: none;
     flex-direction: column;
