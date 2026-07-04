@@ -13,7 +13,9 @@ Notre plaquette est à votre disposition pour découvrir notre offre et nous vou
 
 ## Ils nous font confiance
 
-- Trilogiq
-- HSBC
-- Airbus
-- CMCAS 92
+<div style="display:flex;flex-wrap:wrap;gap:2rem;align-items:center;margin-top:1.2rem;">
+  <img src="/images/partenaires/sponsors/trilogiq.gif" alt="Trilogiq" style="height:60px;width:auto;" />
+  <img src="/images/partenaires/sponsors/hsbc.jpg" alt="HSBC" style="height:60px;width:auto;" />
+  <img src="/images/partenaires/sponsors/airbus.jpg" alt="Airbus" style="height:60px;width:auto;" />
+  <img src="/images/partenaires/sponsors/cmcas92.jpg" alt="CMCAS 92" style="height:60px;width:auto;" />
+</div>
