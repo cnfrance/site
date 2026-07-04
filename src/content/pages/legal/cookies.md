@@ -1,0 +1,8 @@
+---
+titre: "Cookies"
+section: "Légal"
+---
+
+# Cookies
+
+VOUS POUVEZ RÉGLER LE NIVEAU D'ACCEPTATION DES COOKIES DANS LES PARAMÈTRES DE VOTRE NAVIGATEUR.
