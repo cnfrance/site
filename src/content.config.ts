@@ -41,6 +41,13 @@ export const pageSchema = z.object({
   ordre: z.number().optional(),
 });
 
+export const resultatSchema = z.object({
+  titre: z.string(),
+  date: z.coerce.date(),
+  resume: z.string().optional(),
+  image: z.string().optional(),
+});
+
 const reglages = defineCollection({
   loader: file('src/content/site/reglages.json'),
   schema: reglagesSchema,
@@ -66,4 +73,9 @@ const pages = defineCollection({
   schema: pageSchema,
 });
 
-export const collections = { reglages, evenements, actualites, partenaires, pages };
+const resultats = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/resultats' }),
+  schema: resultatSchema,
+});
+
+export const collections = { reglages, evenements, actualites, partenaires, pages, resultats };

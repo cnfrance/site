@@ -1,0 +1,37 @@
+---
+import { getCollection } from "astro:content";
+import PageLayout from "../../layouts/PageLayout.astro";
+
+const entries = await getCollection("resultats");
+const resultats = entries
+  .map((e) => ({ ...e.data, slug: e.id }))
+  .sort((a, b) => b.date.getTime() - a.date.getTime());
+
+const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric" });
+---
+<PageLayout
+  titre="Résultats"
+  section="Compétition"
+  chapo="Comptes rendus et résultats des compétitions du Cercle Nautique de France."
+>
+  {resultats.length === 0
+    ? <p class="vide">Pas encore de résultat publié.</p>
+    : <div class="grid">
+        {resultats.map((r) => (
+          <a class="card" href={`/resultats/${r.slug}`}>
+            <time class="card__date" datetime={r.date.toISOString()}>{fmt.format(r.date)}</time>
+            <h2 class="card__title">{r.titre}</h2>
+            {r.resume && <p class="card__resume">{r.resume}</p>}
+          </a>
+        ))}
+      </div>}
+</PageLayout>
+<style>
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; }
+  .card { border: 1px solid var(--gris-bord); border-radius: var(--radius); padding: 1.3rem; transition: transform .15s; background: var(--blanc); }
+  .card:hover { transform: translateY(-3px); }
+  .card__date { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; }
+  .card__title { font-size: 1.15rem; color: var(--rouge-sombre); margin: 0.3rem 0; }
+  .card__resume { font-size: 0.9rem; color: var(--muted); }
+  .vide { color: var(--muted); }
+</style>
