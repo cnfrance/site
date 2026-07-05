@@ -16,6 +16,12 @@ const reseaux = [
       <span class="ft__h">Suivez-nous</span>
       {reseaux.map((r) => <a href={r.href} rel="noopener" target="_blank">{r.label}</a>)}
     </nav>
+    <nav class="ft__col" aria-label="Nous rejoindre">
+      <span class="ft__h">Nous rejoindre</span>
+      <a href="/infos-pratiques/nous-trouver">Nous trouver</a>
+      <a href="/infos-pratiques/contacter-le-cercle-nautique-de-france">Nous contacter</a>
+      <a href="/infos-pratiques/adherez-au-cnf">Adhérer au CNF</a>
+    </nav>
     <nav class="ft__col" aria-label="Informations légales">
       <span class="ft__h">Le site</span>
       <a href="/legal/plan-du-site">Plan du site</a>
@@ -26,7 +32,7 @@ const reseaux = [
 </footer>
 <style>
   .ft { background: var(--texte); color: color-mix(in srgb, var(--blanc) 82%, transparent); margin-top: 4rem; padding-block: 2.5rem 1.5rem; }
-  .ft__inner { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2rem; }
+  .ft__inner { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2rem; }
   .ft__title { font-family: var(--font-titre); font-size: 1.15rem; color: var(--blanc); margin-bottom: 0.4rem; }
   .ft__muted { font-size: 0.9rem; opacity: 0.8; }
   .ft__col { display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.9rem; }
