@@ -62,7 +62,7 @@ import PageLayout from "../../layouts/PageLayout.astro";
 
     const group = L.featureGroup().addTo(map);
     try {
-      const fc = await (await fetch("/data/plan-navigation.geojson", { cache: "no-store" })).json();
+      const fc = await (await fetch(`${import.meta.env.BASE_URL.replace(/\/$/, "")}/data/plan-navigation.geojson`, { cache: "no-store" })).json();
       fc.features.forEach((feature: any) => {
         const g = feature.geometry, st = styleOf(feature.properties);
         let layer: any;

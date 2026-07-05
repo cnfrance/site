@@ -12,6 +12,9 @@ const [evenements, actualites, resultats] = await Promise.all([
 const isoParis = (d: Date) =>
   new Intl.DateTimeFormat("fr-CA", { timeZone: "Europe/Paris", year: "numeric", month: "2-digit", day: "2-digit" }).format(d);
 
+// Préfixe de base (vide en prod, "/site" sur la démo GitHub Pages).
+const B = import.meta.env.BASE_URL.replace(/\/$/, "");
+
 type Ev = { titre: string; debut: string; fin: string; type: "evenement" | "actualite" | "resultat"; lieu: string | null; href: string | null };
 
 const events: Ev[] = [
@@ -29,7 +32,7 @@ const events: Ev[] = [
     fin: isoParis(e.data.date),
     type: "actualite" as const,
     lieu: null,
-    href: `/actualites/${e.id}`,
+    href: `${B}/actualites/${e.id}`,
   })),
   ...resultats.map((e) => ({
     titre: e.data.titre,
@@ -37,7 +40,7 @@ const events: Ev[] = [
     fin: isoParis(e.data.date),
     type: "resultat" as const,
     lieu: null,
-    href: `/resultats/${e.id}`,
+    href: `${B}/resultats/${e.id}`,
   })),
 ].sort((a, b) => a.debut.localeCompare(b.debut));
 ---
