@@ -15,9 +15,9 @@ photos:
   - "/images/actus/semi-marathon-de-noel-2025/09.jpeg"
 ---
 
-Dimanche a eu lieu comme chaque années le semi-marathon de Noël 🎄 !
+Dimanche a eu lieu comme chaque années le semi-marathon de Noël 🎄 ! 
 
-Étaient présents plus de 60 personnes de tous les ages ainsi que des anciens compétiteurs.
+Étaient présents plus de 60 personnes de tous les ages ainsi que des anciens compétiteurs. 
 
 6 équipes se sont affrontées en relais de 250m sur 21100m au total.
 

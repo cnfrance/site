@@ -11,20 +11,27 @@ photos:
   - "/images/actus/29eme-biathlon-de-la-ste-nautique-de-lagny/05.jpeg"
 ---
 
-21 mars 2026, le 29eme Biathlon de la société nautique de Lagny : 100% loisirs !
+**21 mars 2026, le 29eme Biathlon de la société nautique de Lagny : 100% loisirs !**
 
 Cet événement, spécialement conçu pour les rameurs loisirs, propose deux épreuves :
-- Une course contre la montre en yolette – 6,5 km sur la Marne
-- Un relais 4x500m sur ergomètre
 
-Pour le CNF :
-🥇 : Équipage Mixte F : Vlada et Julie barre-nage, JB, Stéphane, Lilas
-🥉 Équipage M : Victor et Lucas barre-nage, Vincent, Raphaël, Philippe
+-   Une course contre la montre en yolette – 6,5 km sur la Marne
+-   Un relais 4x500m sur ergomètre
 
-Petit déjeuner d'accueil et déjeuner après toutes ces émotions, bassin au top, Soleil et bonne humeur au rendez-vous.
+ Pour le CNF :
 
-Les rameurs du CNF étaient ravis 🤩
+ : Équipage Mixte F : Vlada et Julie barre-nage, JB, Stéphane, Lilas
 
-Merci à la Société Nautique de Lagny pour cette journée. Nos rameurs étaient ravis.
+ Équipage M : Victor et Lucas barre-nage, Vincent, Raphaël, Philippe 
 
-À l'année prochaine pour la 30eme!
+ Petit déjeuner d’accueil et déjeuner après toutes ces émotions, bassin au top,
+
+Soleil et bonne humeur au rendez-vous.
+
+ Les rameurs du CNF étaient ravis  
+
+Merci à la Société Nautique de Lagny pour cette journée 
+
+Nos rameurs étaient ravis. 
+
+À l’année prochaine pour la 30eme!

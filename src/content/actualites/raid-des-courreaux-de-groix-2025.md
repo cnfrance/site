@@ -15,7 +15,7 @@ photos:
   - "/images/actus/raid-des-courreaux-de-groix-2025/09.jpeg"
 ---
 
-Ce WE des 24 et 25 Mai, 7 rameurs du CNF ont participé à la 24ème édition du Raid des Courreaux de Groix.
+"Ce WE des 24 et 25 Mai, 7 rameurs du CNF ont participé à la 24ème édition du Raid des Courreaux de Groix.
 
 Caroline, Marie, Thibaut, Romain B., Romain D., Eric et Frédéric sommes partis de Larmor Plage (Lorient) pour filer droit vers l'île, puis en faire le tour par la pointe Ouest de Pen-Men.
 
@@ -33,4 +33,4 @@ Au final, nous avons vécu une très belle expérience d'aviron de mer, bien rep
 
 Grand merci à tous les rameurs du CN Lorient pour leur accueil au top et pour nous avoir permis de vivre cette belle expérience !!!
 
-Frédéric
+Frédéric"

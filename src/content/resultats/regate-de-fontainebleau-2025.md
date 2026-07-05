@@ -9,12 +9,12 @@ photos:
   - "/images/resultats/regate-de-fontainebleau-2025/03.jpeg"
 ---
 
-Le 11 novembre, le collectif régate était engagé en 8 de couple dans la régate de Fontainebleau, avec un équipage composé de 8 hommes deux femmes, donc en catégorie homme.
+Le 11 novembre, le collectif régate était engagé en 8 de couple dans la régate de Fontainebleau , avec un équipage composé de 8 hommes deux femmes, donc en catégorie homme.
 
-Avec 33 équipages engagés, le régate a été un grand succès.
+Avec 33 équipages engagés , le régate a été un grand succès.
 
-Après un départ course à 3 bateaux de front, notre équipage a progressivement pris la tête, continuellement encouragés par notre barreur Victor sur les 15.5 kilomètres de la course.
+Après un départ course à 3 bateaux de front, notre équipage a progressivement pris la tête, continuellement encouragés par notre barreur Victor sur les 15.5 kilomètres de la course .
 
-Après l'annonce des résultats (3eme sur 6 dans notre catégorie), nous avons pu célébrer avec l'ensemble des participants les 100 ans du club de Fontainebleau.
+Après l’annonce des résultats (3eme sur 6 dans notre catégorie ), nous avons pu célébrer avec l’ensemble des participants les 100 ans du club de Fontainebleau 
 
-Un grand merci à tous les bénévoles de l'Anfa qui ont contribué à cette superbe journée.
+Un grand merci à tous les bénévoles de l’Anfa qui ont contribué à cette superbe journée.

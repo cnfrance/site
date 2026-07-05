@@ -12,18 +12,26 @@ photos:
   - "/images/resultats/championnat-de-france-senior-28-et-29-septembre-2024/06.jpeg"
 ---
 
-Le week-end dernier se deroulait le dernier championnat de la saison. Il concernait nos seniors qui ont présentés 5 embarcations. Ils se sont qualifiés en finale B pour 4 d´entre eux ainsi qu´en Finale C.
+Le week-end dernier se deroulait le dernier championnat de la saison. Il concernait nos seniors qui ont présentés 5 embarcations.  
+Ils se sont qualifiés en finale B pour 4 d´entre eux ainsi qu´en Finale C.
 
-Les conditions furent idéales avec un léger vent pour le samedi qui s´opposa aux courses du dimanche.
+Les conditions furent idéales avec un léger vent pour le samedi qui s´opposa aux courses du dimanche.  
+Voici les resultats;  
+4xSMixte :  
+Alexandra KHALIL, Joseph KERMANI, Paul GELOEN, Samia HIRECHE  
+3e Finale C
 
-**Résultats :**
+2xSFPL :  
+Charlotte BAUDIN, Tess HEURTAUT  
+4e Finale B
 
-**4xSMixte :** Alexandra KHALIL, Joseph KERMANI, Paul GELOEN, Samia HIRECHE – 3e Finale C
+4-SHPL :  
+Vadim MARTIN-JOHNER, Dimitri AUBRYDUMAND, Luciano FARAGGI, Vincent DOUINEAU  
+3e Finale B
 
-**2xSFPL :** Charlotte BAUDIN, Tess HEURTAUT – 4e Finale B
+Julien MARCIANO, Raphael GARDEY, Tristan SEYTRE, Arthur ROBIN-CHAMPIGNEUL  
+6e Finale B
 
-**4-SHPL :** Vadim MARTIN-JOHNER, Dimitri AUBRYDUMAND, Luciano FARAGGI, Vincent DOUINEAU – 3e Finale B
-
-Julien MARCIANO, Raphael GARDEY, Tristan SEYTRE, Arthur ROBIN-CHAMPIGNEUL – 6e Finale B
-
-**4xSH :** Oscar Morton KRAUSE, Cesar DELASSALLE, Teo TASSA, Maxime REVOL – 1e Finale B
+4xSH :  
+Oscar Morton KRAUSE, Cesar DELASSALLE, Teo TASSA, Maxime REVOL  
+1e Finale B

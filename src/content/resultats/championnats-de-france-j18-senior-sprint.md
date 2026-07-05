@@ -11,17 +11,27 @@ photos:
   - "/images/resultats/championnats-de-france-j18-senior-sprint/05.jpeg"
 ---
 
-Du 6 au 8 juin se sont déroulés sur le lac des Dageys à Libourne les championnats junior et sénior sprint. Le bassin était assez venteux malgré un grand soleil tout au long du Week-end ☀️.
+Du 6 au 8 juin se sont déroulés sur le lac des Dageys à Libourne les championnats junior et sénior sprint.
 
-Les resultats des courses 🏁 :
+Le bassin était assez venteux malgré un grand soleil tout au long du Week-end☀️.
 
-▫️ J18 :
-- 4xF : Tess HEURTAUT, Maria JESUS GOMEZ GUERRERO, Esther FUERTE CHACÓN, Charlotte BAUDIN : 4e finale A
-- 2xH : Raphael GARDEY, Julien MARCIANO : 6e finale C
-- 2xH : Cesar DELASSALLE, Dimitri AUBRYDUMAND : 1e finale D
+Les resultats des courses 🏁:
 
-▫️ Sénior :
-- 4xH : Arthur ROBIN-CHAMPIGNEUL, Paul KAPLAN, Edouard DE BLANPRE, Vincent DOUINEAU : 3e fianle D
-- 2xM : Paul KAPLAN, Samia HIRECHE : 6e finale D
+▫️J18:
 
-Bravo au coach @skandercherni ainsi qu´aux rameurs pour leur performances.
+4xF: Tess HEURTAUT, Maria JESUS GOMEZ GUERRERO, Esther FUERTE CHACÓN, Charlotte BAUDIN: 4e finale A
+
+2xH: Raphael GARDEY, Julien MARCIANO:  
+6e finale C
+
+2xH: Cesar DELASSALLE, Dimitri AUBRYDUMAND: 1e finale D
+
+▫️Sénior:
+
+4xH: Arthur ROBIN-CHAMPIGNEUL, Paul KAPLAN, Edouard DE BLANPRE, Vincent DOUINEAU: 3e fianle D
+
+2xM: Paul KAPLAN, Samia HIRECHE: 6e finale D
+
+Bravo au coach Skandercherni ainsi qu´aux rameurs pour leur performances.
+
+PHOTOS : des pelles et des bouillons

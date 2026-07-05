@@ -9,23 +9,34 @@ photos:
   - "/images/resultats/tete-de-riviere-de-caen-2025/03.jpeg"
 ---
 
+🔴Tête de rivière de Caen🔴
+
 Le Week-end 8 et 9 novembre dernier avait lieu, à Caen, la première échéance de la saison pour la préparation bateaux courts.
 
 Les resultats :
 
-● 1x sénior Homme
-Paul KAPLAN
-30e, 25.51.9
+●1x sénior Homme
 
-● 1x U19 Homme
-Dimitri AUBRYDUMAND
-37e, 27.35.2
+Paul KAPLAN 
 
-Julien MARCIANO
-51e, 28.39.9
+30e,  25.51.9
 
-● 1x U19 Femme
-Tess HEURTAUT
-21e, 31.34.0
+●1x U19 Homme
 
-Bravo aux rameurs et à l´entraîneur @skandercherni
+Dimitri AUBRYDUMAND 
+
+37e,  27.35.2
+
+Julien MARCIANO 
+
+51e,  28.39.9
+
+●1x U19 Femme
+
+Tess HEURTAUT 
+
+21e,  31.34.0
+
+Bravo aux rameurs et à l´entraîneur @skandercherni 
+
+📷 : @despellesetdesbouillons

@@ -18,18 +18,18 @@ photos:
   - "/images/actus/traversee-de-paris-et-des-hauts-de-seine/12.jpeg"
 ---
 
-Le dimanche 15 septembre était organisé la 39eme édition de la TRAVERSEE DE PARIS ET DES HAUTS-DE-SEINE
+Le dimanche 15 septembre était organisé la 39eme édition de la 𝗧𝗥𝗔𝗩𝗘𝗥𝗦𝗘𝗘 𝗗𝗘 𝗣𝗔𝗥𝗜𝗦 𝗘𝗧 𝗗𝗘𝗦 𝗛𝗔𝗨𝗧𝗦-𝗗𝗘-𝗦𝗘𝗜𝗡𝗘
 
-Caroline nous raconte son week end avec tous les équipages mais les bénévoles du CNF mobilisés pour l'occasion :
+Caroline nous raconte son week end avec tous les équipages mais les bénévoles du CNF mobilisés pour l’occasion :  
+« Une de plus... Nouveau record de participation pour ce 39ème anniversaire, 269 yolettes!  
+Une randonnée exceptionnelle. En plus d’attirer des milliers de personnes, le soleil et la bonne humeur étaient de la partie.
 
-« Une de plus... Nouveau record de participation pour ce 39ème anniversaire, 269 yolettes ! Une randonnée exceptionnelle. En plus d'attirer des milliers de personnes, le soleil et la bonne humeur étaient de la partie.
+Félicitations à nos 7 équipages CNF d’avoir parcouru ces 28kms sur la Seine. Un beau privilège et une très belle participation!
 
-Félicitations à nos 7 équipages CNF d'avoir parcouru ces 28kms sur la Seine. Un beau privilège et une très belle participation !
+Le départ a été donné à 7h15 »
 
-Le départ a été donné à 7h15 »
+Et comme chaque année :  
+« c’est dès le samedi que les équipages se sont retrouvés au CNF pour le convoyage des yolettes jusqu’au club de @boulogne92aviron  
+Sous un soleil radieux, ils ont navigué jusqu’au parc nautique de l’île Monsieur soit 8km avec franchissement de l’écluse de Suresnes et parcage des bateaux sur le site du départ de la Rand’Eau. 
 
-Et comme chaque année :
-
-« c'est dès le samedi que les équipages se sont retrouvés au CNF pour le convoyage des yolettes jusqu'au club de @boulogne92aviron Sous un soleil radieux, ils ont navigué jusqu'au parc nautique de l'île Monsieur soit 8km avec franchissement de l'écluse de Suresnes et parcage des bateaux sur le site du départ de la Rand'Eau.
-
-Ils ont fait le même parcours retour le dimanche après-midi »
+Ils ont fait le même parcours retour le dimanche après-midi »

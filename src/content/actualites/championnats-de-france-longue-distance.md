@@ -10,32 +10,34 @@ photos:
   - "/images/actus/championnats-de-france-longue-distance/04.jpg"
 ---
 
-Le week-end du 1er et 2 mars avait lieu à Macon, les championnats de france longue distance. La course se déroulait sur 8000 mètres et nos rameurs master ont su gérer l´effort et terminer avec de bons resultats dont trois médailles !
-
-MEH4x
-Benoit LE DELEZIR, Laurent STENGER, Sebastien JULIEN, Eric GROSCLAUDE : 6e
-
-MCH4-
-Luc VANNIER, Jean-Francois SEYTRE, Joseph KERMANI, Paul GELOEN : 3e
-
-MCMixte4x
-Steffen SPIELER, Johanna RICHTER, Franck MONASTERIO, Sylvie RADKO : 10e
-
-MEMixte4x
-Yves MORIN, Virginie HAZEBROUCQ, Daniel RADACK, Anne-Laure MALDAME : 3e
-
-Franck FENARD, Cecile AUTY-JACKLIN, Nathalie PIERRE, Julien LAMY : 7e
-
-MEH2x
-Franck FENARD, Eric GROSCLAUDE : 14e
-
-MCH8+
-Joseph KERMANI, Steffen SPIELER, Jean-Francois SEYTRE, Sebastien JULIEN, Franck MONASTERIO, Paul GELOEN, Luc VANNIER, Laurent STENGER, Barre: Elise RAOUL REA : 7e
-
-MCF4x
-Cecile AUTY-JACKLIN, Anne DUPUY TEZE, Johanna RICHTER, Françoise TREVISANI : 9e
-
-MEMixte8+
-Julien LAMY, Yves MORIN, Benoit LE DELEZIR, Daniel RADACK, Nathalie PIERRE, Anne-Laure MALDAME, Sylvie RADKO, Virginie HAZEBROUCQ, Barre: Elise RAOUL REA : 3e
-
-Merci aux organisateurs et aux entraineurs. Et bravo à tous les rameurs pour leurs performances.
+Le week-end du 1er et 2 mars avait lieu à Macon, les championnats de france longue distance.  
+La course se déroulait sur 8000 mètres et nos rameurs master ont su gérer l´effort et terminer avec de bons resultats dont trois médailles !  
+  
+MEH4x  
+Benoit LE DELEZIR, Laurent STENGER, Sebastien JULIEN, Eric GROSCLAUDE : 6e  
+  
+MCH4-  
+Luc VANNIER, Jean-Francois SEYTRE, Joseph KERMANI, Paul GELOEN : 3e  
+  
+MCMixte4x  
+Steffen SPIELER, Johanna RICHTER, Franck MONASTERIO, Sylvie RADKO : 10e  
+  
+MEMixte4x  
+Yves MORIN, Virginie HAZEBROUCQ, Daniel RADACK, Anne-Laure MALDAME : 3e  
+  
+Franck FENARD, Cecile AUTY-JACKLIN, Nathalie PIERRE, Julien LAMY : 7e  
+  
+MEH2x  
+Franck FENARD, Eric GROSCLAUDE : 14e  
+  
+MCH8+  
+Joseph KERMANI, Steffen SPIELER, Jean-Francois SEYTRE, Sebastien JULIEN, Franck MONASTERIO, Paul GELOEN, Luc VANNIER, Laurent STENGER, Barre: Elise RAOUL REA : 7e  
+  
+MCF4x  
+Cecile AUTY-JACKLIN, Anne DUPUY TEZE, Johanna RICHTER, Françoise TREVISANI : 9e  
+  
+MEMixte8+  
+Julien LAMY, Yves MORIN, Benoit LE DELEZIR, Daniel RADACK, Nathalie PIERRE, Anne-Laure MALDAME, Sylvie RADKO, Virginie HAZEBROUCQ, Barre: Elise RAOUL REA : 3e  
+  
+Merci aux organisateurs et aux entraineurs.  
+Et bravo à tous les rameurs pour leurs performances.

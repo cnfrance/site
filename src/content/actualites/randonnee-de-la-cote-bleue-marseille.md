@@ -13,12 +13,12 @@ photos:
   - "/images/actus/randonnee-de-la-cote-bleue-marseille/07.jpg"
 ---
 
-Le CNF lors d'une magnifique randonnée à Marseille le 9 mai
-
-Une immense joie pour les 3 trois équipages d'avoir pratiqué l'aviron en mer dans un cadre sublime.
-
-Le vent a conduit les organisateurs à modifier le parcours initial prévu sur la Côte Bleue, mais quelle belle alternative que cette randonnée sur la rade de Marseille passant par l'île de la Tortue et les îles du Frioul.
-Un cadre exceptionnel tout au long des 28 km parcourus !
-Une superbe journée mêlant sport, paysages grandioses et ambiance chaleureuse entre rameurs.
-
-Un grand merci aux organisateurs et aux bénévoles de lavisourire pour leur accueil et leur organisation au top.
+Le CNF lors d’une magnifique randonnée à Marseille le 9 mai   
+  
+Une immense joie pour les 3 trois équipages d’avoir pratiqué l’aviron en mer dans un cadre sublime.  
+  
+Le vent a conduit les organisateurs à modifier le parcours initial prévu sur la Côte Bleue, mais quelle belle alternative que cette randonnée sur la rade de Marseille passant par l’île de la Tortue et les îles du Frioul.  
+Un cadre exceptionnel tout au long des 28 km parcourus !  
+Une superbe journée mêlant sport, paysages grandioses et ambiance chaleureuse entre rameurs.  
+  
+Un grand merci aux organisateurs et aux bénévoles de lavisourire pour leur accueil et leur organisation au top .

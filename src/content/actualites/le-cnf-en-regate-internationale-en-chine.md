@@ -18,6 +18,6 @@ Une expérience incroyable en Chine, face à de grandes équipes internationales
 
 Nos rameurs reviennent plus motivés que jamais après ce voyage.
 
-Un immense merci au coach @skandercherni pour cette initiative et l'organisation de cette aventure exceptionnelle pour notre club.
+Un immense merci au coach @skandercherni pour cette initiative et l’organisation de cette aventure exceptionnelle pour notre club.
 
-D'autres défis internationaux arrivent… 🌍🚣‍♂️🔥
+D’autres défis internationaux arrivent… 🌍🚣‍♂️🔥

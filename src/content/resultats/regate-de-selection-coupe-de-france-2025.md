@@ -8,18 +8,24 @@ photos:
   - "/images/resultats/regate-de-selection-coupe-de-france-2025/02.jpeg"
 ---
 
-🔴 Régate de sélection coupe de France LIFA 🔴
+🔴Régate de sélection coupe de France LIFA🔴
 
 Le Week-end dernier à Mantes-la-Jolie avait lieu la Regate de selection LIFA-coupe de France. Tess et Raphaël se sont bien battus sur le bassin assez houleux et se sont tout les deux qualifiés !
 
-Voici les résultats
+Voici les résultats 
 
-▫️ J16 F 1X
-Tess HEURTAUT
+▫️J16 F 1X
+
+Tess HEURTAUT 
+
 2e finale B
 
-▫️ J16 H 1X
-Raphael GARDEY
+▫️J16  H 1X
+
+Raphael GARDEY 
+
 3e finale A
 
-Bravo à eux et à leur entraîneur @marcbeaugars
+Bravo à eux et à leur entraîneur @marcbeaugars 
+
+📷 : @despellesetdesbouillons

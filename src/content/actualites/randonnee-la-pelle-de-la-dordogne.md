@@ -19,4 +19,7 @@ Pour l'ouverture de la saison des participations du CNF aux randonnées, Marie A
 
 Julie organisait la randonnée pour les rameurs du CNF. Elle nous raconte son week-end :
 
-« Nous avons été accueilli par le Club de Castillon. Le jour "J" était organisé un BBQ buvette avant la rando suivi d'une super fête le soir venu. J'avais aussi organisé la visite d'un domaine viticole par son propriétaire (ancien rameur du club de Castillon) avec un déjeuner et une dégustation sur place. Le groupe était super sympa et soudé, super bonne humeur non stop. La randonnée était sublime, le paysage incroyable et l'accueil au top. Une randonnée que je conseille, vivement. »
+« Nous avons été accueilli par le Club de Castillon. Le jour "J" était organisé un BBQ buvette avant la rando suivi d’une super fête le soir venu.  
+J’avais aussi organisé la visite d'un domaine viticole par son propriétaire (ancien rameur du club de Castillon) avec un déjeuner et une dégustation sur place.  
+Le groupe était super sympa et soudé, super bonne humeur non stop. La randonnée était sublime, le paysage incroyable et l'accueil au top.  
+Une randonnée que je conseille, vivement. »

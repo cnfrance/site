@@ -10,8 +10,10 @@ photos:
   - "/images/actus/39eme-raid-jersey-carteret-2025/04.jpeg"
 ---
 
-« Samedi 19 juillet, Jersey-Carteret à la rame en mode course, 28km de lutte et de plaisir. Une belle aventure humaine avec mes coéquipiers Julien, Dan et David, notre barreuse Françoise et avec Joël, le capitaine de notre bateau suiveur.
+39eme raid international d’aviron en haute mer : Jersey Carteret commenté par Yves :
 
-Nous finissons 3èmes en 4 de couple barré homme sur 9 équipages en 2h05, cadence moyenne 26 coups par minute, temps moyen au 500 : 2mn15.
+« Samedi 19 juillet, Jersey- Carteret à la rame en mode course, 28km de lutte et de plaisir. Une belle aventure humaine avec mes coéquipiers Julien, Dan et David, notre barreuse Françoise et avec Joël, le capitaine de notre bateau suiveur. 
 
-Un ÉNORME MERCI à l'équipe organisatrice, le Club d'Aviron en Mer de Barneville-Club Aviron De Mer et au Cherbourg Club Aviron De Mer. »
+Nous finissons 3èmes en 4 de couple barré homme sur 9 équipages en 2h05, cadence moyenne 26 coups par minute, temps moyen au 500 : 2mn15. 
+
+Un ÉNORME MERCI à l’équipe organisatrice, le Club d'Aviron en Mer de Barneville-Club Aviron De Mer et au Cherbourg Club Aviron De Mer. 😎 »

@@ -19,16 +19,36 @@ photos:
   - "/images/resultats/challenge-bateaux-courts-1/13.jpeg"
 ---
 
-Ce week-end avait lieu le challenge bateaux courts 1 LIFA à Vaires sur Marne. Les conditions du bassin étaient exceptionnelles et ont permis aux rameurs de bien profiter de leurs courses. Les resultats sont très encourageants pour la suite de la saison bateaux courts !
+**🔴Challenge BTC 1 LIFA🔴**
 
-Merci aux entraîneurs @skandercherni et @marcbeaugars.
+Ce week-end avait lieu le challenge bateaux courts 1 LIFA à Vaires sur Marne.  
+Les conditions du bassin étaient exceptionnelles et ont permis aux rameurs de bien profiter de leurs courses. Les resultats sont très encourageants pour la suite de la saison bateaux courts !
 
-**Résultats :**
+Merci aux entraineurs skandercherni et marcbeaugars
 
-- 2- HU19 : LEMPERIERE Phineas, AUBRYDUMAND Dimitri — 4e finale A ; MARCIANO Julien, SCHWENDENWEIN Julien (SNBS) — 7e finale B
-- 1X FU19 : HEURTAUT Tess — 2e finale C ; LASRAM Yasmine — 4e finale C
-- 1X HU19 : SCHIFF Albert — 5e de sa série
-- 2- HU17 : CHEVALIER Clement, DILLARD Arthur — 1e finale A
-- 1X FU17 : CAPOENVANNEREAU Leonie — 3e finale B
-- 1X HU17 : CARROT-DULAC Gaspard — 4e finale C
-- 2- HS : REVOL Maxime, VOSGIEN Bartolomeo — 7e finale A
+▫️2-HU19 :  
+LEMPERIERE Phineas, AUBRYDUMAND Dimitri 4e finale A
+
+MARCIANO Julien, SCHWENDENWEIN Julien (SNBS) 7e finale B
+
+▫️1XFU19 :  
+HEURTAUT Tess 2e finale C
+
+LASRAM Yasmine 4e finale C
+
+▫️1XHU19 :  
+SCHIFF Albert 5e de sa série
+
+▫️2-HU17 :  
+CHEVALIER Clement, DILLARD Arthur🥇 1e finale A
+
+▫️1XFU17 :  
+CAPOENVANNEREAU Leonie 3e finale B
+
+▫️1XHU17 :  
+CARROT-DULAC Gaspard 4e finale C
+
+▫️2-HS :  
+REVOL Maxime, VOSGIEN Bartolomeo 7e finale A
+
+**📷 : Merci despellesetdesbouillons**

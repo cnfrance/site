@@ -15,10 +15,10 @@ photos:
 
 Le CNF était présent au Forum des Sports à Neuilly ce samedi 6 septembre.
 
-✅ nouveau stand,
+✅ nouveau stand, 
 
 ✅ nouvelle signalétique
 
 ✅ nouvelle équipe
 
-Une magnifique journée ensoleillée pour le CNF : un stand animé et très fréquenté, de nombreux contacts établis – en particulier avec des jeunes – et plein d'inspirations pour les animations à venir.
+Une magnifique journée ensoleillée pour le CNF : un stand animé et très fréquenté, de nombreux contacts établis – en particulier avec des jeunes – et plein d’inspirations pour les animations à venir.

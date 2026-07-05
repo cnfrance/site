@@ -17,8 +17,10 @@ Le Collectif Régate du CNF a participé à la 21ème édition de la Course des 
 
 Cette course a réuni 27 clubs français et étrangers, 314 participants, et 49 équipages pour les 15 courses de bateaux longs.
 
-L'équipage féminin du Collectif Régate du CNF est arrivé en 2ème position (en 01:45:05, 2:01 derrière Boulogne 92) dans la course Femme Master Huit de couple avec barreur, tandis que l'équipage masculin du Collectif Régate a fini en 3ème position (en 01:40:10, 5:41 derrière le vainqueur, AMMH) dans la course Homme Master Huit de couple avec barreur.
+L’équipage féminin du Collectif Régate du CNF est arrivé en 2ème position (en 01:45:05, 2:01 derrière Boulogne 92) dans la course Femme Master Huit de couple avec barreur,
+
+tandis que l’équipage masculin du Collectif Régate a fini en 3ème position (en 01:40:10, 5:41 derrière le vainqueur, AMMH) dans la course Homme Master Huit de couple avec barreur.
 
 Merci à la Société Nautique de la Basse Seine pour le transport de nos bateaux.
 
-Merci au Rowing club de Port Marly pour l'accueil et la super organisation.
+Merci au Rowing club de Port Marly pour l’accueil et la super organisation.

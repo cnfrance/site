@@ -13,8 +13,7 @@ photos:
   - "/images/actus/rando-aviron-les-trois-rivieres-entre-landes-et-pays-basque/07.jpeg"
 ---
 
-Le week-end de la Pentecôte est chargé en Randonnées 😄. La Vogalonga bien sûr mais aussi les « Les Trois Rivières » entre Landes et Pays Basque.
-
-Lilas nous raconte son week-end :
-
+Le week-end de la Pentecôte est chargé en Randonnées . La Vogalonga bien sûr mais aussi les « Les Trois Rivières » entre Landes et Pays Basque.  
+  
+Lilas nous raconte son week-end :  
 « A la Pentecôte, 20 rameurs et rameuses du CNF ont participé aux mythiques 3 rivières de Bayonne. Au programme : 63 km de rame en 3 jours, sur l'Adour, la Bidouze et la Nive, de la bonne humeur et la découverte de traditions locales (musique, cidrerie, soirée dans une peña) : une randonnée inoubliable ! »

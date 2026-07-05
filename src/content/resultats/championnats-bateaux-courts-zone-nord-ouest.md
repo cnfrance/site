@@ -15,15 +15,36 @@ photos:
   - "/images/resultats/championnats-bateaux-courts-zone-nord-ouest/09.jpeg"
 ---
 
-Le week end du 29 et 30 mars se déroulaient les championnats de zones BTC à Mantes-la-Jolie. Nos rameurs se sont bien battus malgré une concurrence bien présente sur le bassin. Pas de championnats à Cazaubon cette année, de quoi revenir plus fort que jamais l´an prochain !
+Le week end du 29 et 30 mars se déroulaient les championnats de zones BTC à Mantes-la-Jolie.
 
-**Résultats :**
+Nos rameurs se sont bien battus malgré une concurrence bien présente sur le bassin. Pas de championnats à Cazaubon cette année, de quoi revenir plus fort que jamais l´an prochain !
 
-- **SH1x** : Maxime REVOL — 5e Finale B
-- **J18F1x** : Charlotte BAUDIN — 6e Finale C ; Tess HEURTAUT — 1ère Finale E
-- **J18H1x** : Raphael GARDEY — 4e Finale E ; Dimitri AUBRYDUMAND, Cesar DELASSALLE, Julien MARCIANO, Ariel OSIER — non qualifiés en finale
-- **SH2-** : Vincent DOUINEAU, Yohan BARA-BUTEZ — 1e Finale C
+SH1x
 
-Entraîneurs : Skander Cherni et Marc Beaugars
+Maxime REVOL : 5e Finale B
 
-Crédits photo : @despellesetdesbouillons
+J18F1x 
+
+Charlotte BAUDIN : 6e Finale C
+
+Tess HEURTAUT : 1ère Finale E
+
+J18H1x
+
+Raphael GARDEY : 4e Finale E
+
+Dimitri AUBRYDUMAND : non qualifié en finale
+
+Cesar DELASSALLE : non qualifié en finale
+
+Julien MARCIANO : non qualifié en finale
+
+Ariel OSIER : non qualifié en finale
+
+SH2-
+
+Vincent DOUINEAU, Yohan BARA-BUTEZ : 1e Finale C
+
+Bravo à eux et à leurs entraineurs Skander Cherni et Marc Beaugars
+
+ 📷 : @despellesetdesbouillons
