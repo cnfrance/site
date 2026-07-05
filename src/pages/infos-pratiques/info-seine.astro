@@ -1,0 +1,139 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+---
+<PageLayout
+  titre="Info Seine"
+  section="Infos pratiques"
+  chapo="Hauteur et débit de la Seine des 7 derniers jours, en temps réel. Consultez ces niveaux avant toute sortie."
+  description="Suivi en temps réel de la hauteur et du débit de la Seine (données Hub'Eau) pour préparer vos sorties d'aviron."
+>
+  <div class="seine" data-seine>
+    <div class="seine__head">
+      <div class="seine__toggle" role="group" aria-label="Choix de la mesure">
+        <button type="button" data-grandeur="H" class="is-active" aria-pressed="true">Hauteur</button>
+        <button type="button" data-grandeur="Q" aria-pressed="false">Débit</button>
+      </div>
+      <div class="seine__now">
+        <span class="seine__val" data-val>—</span>
+        <span class="seine__meta" data-meta></span>
+      </div>
+    </div>
+    <div class="seine__chart" data-chart aria-live="polite"><p class="seine__loading">Chargement des données…</p></div>
+    <p class="seine__src">Source : <a href="https://hubeau.eaufrance.fr" target="_blank" rel="noopener">Hub'Eau</a> / SCHAPI — Vigicrues. Hauteur mesurée à Suresnes (barrage amont), débit à Paris-Austerlitz.</p>
+  </div>
+</PageLayout>
+
+<style>
+  .seine { margin-block: 1.4rem; }
+  .seine__head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
+  .seine__toggle { display: inline-flex; border: 1px solid var(--gris-bord); border-radius: 999px; overflow: hidden; background: var(--blanc); }
+  .seine__toggle button { border: none; background: none; padding: 0.5rem 1.1rem; font: inherit; font-weight: 600; color: var(--muted); cursor: pointer; }
+  .seine__toggle button.is-active { background: var(--rouge); color: var(--blanc); }
+  .seine__toggle button:focus-visible { outline: 2px solid var(--rouge); outline-offset: 2px; }
+  .seine__now { text-align: right; line-height: 1.2; }
+  .seine__val { display: block; font-family: var(--font-titre); font-size: 1.6rem; color: var(--texte); }
+  .seine__meta { font-size: 0.8rem; color: var(--muted); }
+  .seine__chart { width: 100%; min-height: 300px; border: 1px solid var(--gris-bord); border-radius: 14px; background: var(--blanc); padding: 0.5rem; }
+  .seine__chart svg { width: 100%; height: auto; display: block; }
+  .seine__loading, .seine__err { color: var(--muted); text-align: center; padding: 2.5rem 1rem; }
+  .seine__src { font-size: 0.8rem; color: var(--muted); margin-top: 0.8rem; }
+  .seine__area { fill: color-mix(in srgb, var(--rouge) 12%, transparent); }
+  .seine__line { fill: none; stroke: var(--rouge); stroke-width: 2; }
+  .seine__grid { stroke: var(--gris-bord); stroke-width: 1; }
+  .seine__axis { fill: var(--muted); font-size: 11px; }
+  .seine__dot { fill: var(--rouge); }
+</style>
+
+<script>
+  const SERIES: Record<string, any> = {
+    H: { code: "F704000101", grandeur: "H", factor: 0.001, unit: "m", label: "Hauteur", station: "Suresnes (barrage amont)", dec: 2 },
+    Q: { code: "F700000103", grandeur: "Q", factor: 0.001, unit: "m³/s", label: "Débit", station: "Paris — Austerlitz", dec: 0 },
+  };
+  const root = document.querySelector<HTMLElement>("[data-seine]")!;
+  if (root) {
+    const chartEl = root.querySelector<HTMLElement>("[data-chart]")!;
+    const valEl = root.querySelector<HTMLElement>("[data-val]")!;
+    const metaEl = root.querySelector<HTMLElement>("[data-meta]")!;
+    const cache: Record<string, { t: number; v: number }[]> = {};
+    let current = "H";
+
+    const fmtDate = (t: number) =>
+      new Date(t).toLocaleDateString("fr-FR", { day: "numeric", month: "short" });
+    const fmtDateTime = (t: number) =>
+      new Date(t).toLocaleString("fr-FR", { day: "numeric", month: "long", hour: "2-digit", minute: "2-digit" });
+
+    async function load(key: string) {
+      if (cache[key]) return cache[key];
+      const s = SERIES[key];
+      const debut = new Date(Date.now() - 7 * 86400000).toISOString();
+      const url = `https://hubeau.eaufrance.fr/api/v2/hydrometrie/observations_tr?code_entite=${s.code}&grandeur_hydro=${s.grandeur}&date_debut_obs=${debut}&sort=asc&size=2000&fields=date_obs,resultat_obs`;
+      const r = await fetch(url);
+      if (!r.ok) throw new Error("http " + r.status);
+      const j = await r.json();
+      const pts = (j.data || [])
+        .map((o: any) => ({ t: Date.parse(o.date_obs), v: o.resultat_obs * s.factor }))
+        .filter((p: any) => Number.isFinite(p.t) && Number.isFinite(p.v));
+      cache[key] = pts;
+      return pts;
+    }
+
+    function render(key: string, pts: { t: number; v: number }[]) {
+      const s = SERIES[key];
+      if (!pts.length) { chartEl.innerHTML = '<p class="seine__err">Données momentanément indisponibles.</p>'; valEl.textContent = "—"; metaEl.textContent = ""; return; }
+      const W = 820, H = 320, P = { l: 44, r: 14, t: 14, b: 26 };
+      const xs = pts.map((p) => p.t), ys = pts.map((p) => p.v);
+      const minX = Math.min(...xs), maxX = Math.max(...xs);
+      let minY = Math.min(...ys), maxY = Math.max(...ys);
+      if (minY === maxY) { minY -= 1; maxY += 1; }
+      const pad = (maxY - minY) * 0.1; minY -= pad; maxY += pad;
+      const px = (t: number) => P.l + ((t - minX) / (maxX - minX || 1)) * (W - P.l - P.r);
+      const py = (v: number) => H - P.b - ((v - minY) / (maxY - minY || 1)) * (H - P.t - P.b);
+      const line = pts.map((p, i) => (i ? "L" : "M") + px(p.t).toFixed(1) + " " + py(p.v).toFixed(1)).join(" ");
+      const area = `M${px(pts[0].t).toFixed(1)} ${(H - P.b).toFixed(1)} ` + pts.map((p) => "L" + px(p.t).toFixed(1) + " " + py(p.v).toFixed(1)).join(" ") + ` L${px(pts[pts.length - 1].t).toFixed(1)} ${(H - P.b).toFixed(1)} Z`;
+      // ticks Y
+      let yticks = "";
+      for (let i = 0; i <= 4; i++) {
+        const v = minY + ((maxY - minY) * i) / 4; const y = py(v);
+        yticks += `<line x1="${P.l}" y1="${y.toFixed(1)}" x2="${W - P.r}" y2="${y.toFixed(1)}" stroke="#e6dcd8" stroke-width="1"/>`;
+        yticks += `<text x="${P.l - 6}" y="${(y + 3).toFixed(1)}" text-anchor="end" fill="#6b5d5a" font-size="11">${v.toFixed(s.dec)}</text>`;
+      }
+      // ticks X
+      let xticks = "";
+      for (let i = 0; i <= 4; i++) {
+        const t = minX + ((maxX - minX) * i) / 4; const x = px(t);
+        xticks += `<text x="${x.toFixed(1)}" y="${H - 8}" text-anchor="middle" fill="#6b5d5a" font-size="11">${fmtDate(t)}</text>`;
+      }
+      const last = pts[pts.length - 1];
+      chartEl.innerHTML =
+        `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Évolution ${s.label.toLowerCase()} de la Seine sur 7 jours">` +
+        yticks + xticks +
+        `<path d="${area}" fill="rgba(192,57,43,0.12)"/>` +
+        `<path d="${line}" fill="none" stroke="#c0392b" stroke-width="2"/>` +
+        `<circle cx="${px(last.t).toFixed(1)}" cy="${py(last.v).toFixed(1)}" r="4" fill="#c0392b"/>` +
+        `</svg>`;
+      valEl.textContent = `${last.v.toFixed(s.dec)} ${s.unit}`;
+      metaEl.textContent = `${s.label} · ${s.station} · ${fmtDateTime(last.t)}`;
+    }
+
+    async function show(key: string) {
+      current = key;
+      root.querySelectorAll<HTMLButtonElement>("[data-grandeur]").forEach((b) => {
+        const on = b.dataset.grandeur === key;
+        b.classList.toggle("is-active", on);
+        b.setAttribute("aria-pressed", String(on));
+      });
+      try {
+        chartEl.querySelector(".seine__err") && (chartEl.innerHTML = '<p class="seine__loading">Chargement…</p>');
+        const pts = await load(key);
+        if (current === key) render(key, pts);
+      } catch (e) {
+        chartEl.innerHTML = '<p class="seine__err">Impossible de charger les données pour le moment.</p>';
+      }
+    }
+
+    root.querySelectorAll<HTMLButtonElement>("[data-grandeur]").forEach((b) =>
+      b.addEventListener("click", () => show(b.dataset.grandeur!))
+    );
+    show("H");
+  }
+</script>
