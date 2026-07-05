@@ -25,4 +25,4 @@ Renseignements:
 
 📩 
 
-🌐 [www.cnfrance.fr](https://www.cnfrance.fr)
+🌐 [www.cnfrance.fr](/)

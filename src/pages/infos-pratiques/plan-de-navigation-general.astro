@@ -16,18 +16,20 @@ import PageLayout from "../../layouts/PageLayout.astro";
 
 <style>
   .plan-map {
-    width: min(1100px, 94vw);
-    height: min(70vh, 640px);
+    width: 100%;
+    height: min(74vh, 720px);
     min-height: 420px;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
     border-radius: 14px;
     margin-block: 1.6rem;
     overflow: hidden;
     border: 1px solid var(--gris-bord);
     box-shadow: 0 10px 30px rgba(42, 5, 5, 0.08);
     background: #eef3f6;
+    /* Isole la carte dans son propre contexte d'empilement : ses contrôles
+       Leaflet (z-index jusqu'à 1000) restent alors sous la navbar sticky (z-index 100). */
+    position: relative;
+    z-index: 0;
+    isolation: isolate;
   }
   .plan-note { font-size: 0.92rem; color: var(--muted); }
 </style>
@@ -40,61 +42,45 @@ import PageLayout from "../../layouts/PageLayout.astro";
   if (el) {
     const map = L.map(el, { scrollWheelZoom: false }).setView([48.888, 2.269], 14);
 
-    // Fonds de carte IGN (Géoplateforme, couches ouvertes) + OSM en secours
-    const ign = (layer: string, format: string) =>
+    const ign = (layer: string, fmt: string) =>
       L.tileLayer(
-        `https://data.geopf.fr/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=${layer}&STYLE=normal&TILEMATRIXSET=PM&FORMAT=${format}&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}`,
-        { attribution: 'Cartographie © <a href="https://www.ign.fr" target="_blank" rel="noopener">IGN</a> / Géoplateforme', maxZoom: 19, minZoom: 3 }
+        `https://data.geopf.fr/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=${layer}&STYLE=normal&TILEMATRIXSET=PM&FORMAT=${fmt}&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}`,
+        { attribution: "IGN / Géoplateforme", maxZoom: 19 }
       );
     const planIgn = ign("GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2", "image/png");
     const photo = ign("ORTHOIMAGERY.ORTHOPHOTOS", "image/jpeg");
-    const osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: '© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>',
-      maxZoom: 19,
-    });
+    const osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: "© OpenStreetMap" });
     planIgn.addTo(map);
-    L.control.layers(
-      { "Plan IGN": planIgn, "Photo aérienne": photo, "OpenStreetMap": osm },
-      undefined,
-      { collapsed: true }
-    ).addTo(map);
+    L.control.layers({ "Plan IGN": planIgn, "Photo aérienne": photo, "OpenStreetMap": osm }, undefined, { collapsed: true }).addTo(map);
 
-    const styleOf = (f: any) => {
-      const p = f?.properties ?? {};
-      const o = p._umap_options ?? {};
-      const s = p._style ?? {};
-      const color = o.color || s.color || "#2b6cb0";
-      return {
-        color,
-        weight: o.weight || s.weight || 3,
-        opacity: o.opacity ?? s.opacity ?? 0.9,
-        fillColor: o.fillColor || s.fillColor || color,
-        fillOpacity: o.fillOpacity ?? 0.25,
-      };
+    const styleOf = (p: any) => {
+      const o = p._umap_options ?? {}, s = p._style ?? {};
+      const c = o.color || s.color || "#2b6cb0";
+      return { color: c, weight: o.weight || s.weight || 3, opacity: o.opacity ?? s.opacity ?? 0.9, fillColor: o.fillColor || s.fillColor || c, fillOpacity: o.fillOpacity ?? 0.25 };
     };
+    const toLatLngs = (coords: any): any => (typeof coords[0] === "number" ? L.latLng(coords[1], coords[0]) : coords.map(toLatLngs));
 
+    const group = L.featureGroup().addTo(map);
     try {
-      const res = await fetch("/data/plan-navigation.geojson");
-      const data = await res.json();
-      const layer = L.geoJSON(data, {
-        style: styleOf,
-        pointToLayer: (f: any, latlng: any) => {
-          const st = styleOf(f);
-          return L.circleMarker(latlng, { radius: 6, color: st.color, weight: 2, fillColor: st.fillColor, fillOpacity: 0.9 });
-        },
-        onEachFeature: (f: any, lyr: any) => {
-          const p = f?.properties ?? {};
-          const titre = [p.name, p._layer].filter(Boolean).join(" — ");
-          if (titre) lyr.bindPopup(titre);
-          if (p.name) lyr.bindTooltip(p.name, { direction: "top" });
-        },
-      }).addTo(map);
-      map.fitBounds(layer.getBounds(), { padding: [24, 24] });
+      const fc = await (await fetch("/data/plan-navigation.geojson", { cache: "no-store" })).json();
+      fc.features.forEach((feature: any) => {
+        const g = feature.geometry, st = styleOf(feature.properties);
+        let layer: any;
+        if (g.type === "Point") layer = L.circleMarker([g.coordinates[1], g.coordinates[0]], { radius: 6, color: st.color, weight: 2, fillColor: st.fillColor, fillOpacity: 0.9 });
+        else if (g.type === "LineString") layer = L.polyline(toLatLngs(g.coordinates), st);
+        else if (g.type === "Polygon" || g.type === "MultiPolygon") layer = L.polygon(toLatLngs(g.coordinates), st);
+        else return;
+        const nm = feature.properties.name, lay = feature.properties._layer;
+        const titre = [nm, lay].filter(Boolean).join(" — ");
+        if (titre) layer.bindPopup(titre);
+        if (nm) layer.bindTooltip(nm, { direction: "top" });
+        layer.addTo(group);
+      });
+      map.fitBounds(group.getBounds(), { padding: [24, 24] });
     } catch (e) {
       /* la carte reste centrée sur le club si le chargement échoue */
     }
 
-    // Molette activée seulement après un clic sur la carte (n'attrape pas le scroll de page)
     map.on("click", () => map.scrollWheelZoom.enable());
     map.on("mouseout", () => map.scrollWheelZoom.disable());
   }

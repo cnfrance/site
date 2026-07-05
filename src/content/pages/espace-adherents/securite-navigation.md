@@ -9,7 +9,7 @@ Nous vous invitons toutes et tous à consulter dans sa totalité le guide de sé
 
 **Il s'agit en premier lieu de votre sécurité à tous**
 
-[Livret de navigation](https://www.cnfrance.fr/index.php/espace-adherents/securite-navigation/14-espace-adherents/138-livret-de-navigation)
+[Livret de navigation](/documents/Annexe_3_Livret_de_navigation_CNF_-_SNBS.pdf)
 
 ## Consignes à respecter en cas de chavirage par temps froid !
 

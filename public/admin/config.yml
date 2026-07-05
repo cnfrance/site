@@ -2,6 +2,11 @@
 # Documentation : https://github.com/sveltia/sveltia-cms
 #                 https://docs.astro.build/en/guides/cms/decap-cms/
 
+# Édition en LOCAL sans authentification GitHub : activé uniquement sur
+# localhost (ignoré en production). Nécessite de lancer un serveur proxy
+# (`npx decap-server`) qui lit/écrit les fichiers du dépôt local.
+local_backend: true
+
 backend:
   name: github
   repo: cnfrance/site
@@ -50,7 +55,17 @@ collections:
       - { label: "Titre", name: "titre", widget: "string" }
       - { label: "Date", name: "date", widget: "datetime" }
       - { label: "Résumé", name: "resume", widget: "text" }
-      - { label: "Image", name: "image", widget: "image", required: false }
+      - { label: "Image principale", name: "image", widget: "image", required: false }
+      - { label: "Photos (diaporama)", name: "photos", widget: "list", required: false, field: { label: "Photo", name: "photo", widget: "image" } }
+      - label: "Vidéos"
+        name: "videos"
+        widget: "list"
+        required: false
+        summary: "{{fields.titre}}"
+        fields:
+          - { label: "Lien YouTube / Vimeo", name: "lien", widget: "string", required: false, hint: "Recommandé (léger) : collez un lien de partage YouTube ou Vimeo." }
+          - { label: "…ou importer un fichier vidéo", name: "fichier", widget: "file", required: false, hint: "Clips courts seulement — les gros fichiers alourdissent le site et les déploiements." }
+          - { label: "Titre / légende", name: "titre", widget: "string", required: false }
       - { label: "Contenu", name: "body", widget: "markdown" }
 
   # ---------------------------------------------------------------------
@@ -69,7 +84,17 @@ collections:
       - { label: "Titre", name: "titre", widget: "string" }
       - { label: "Date", name: "date", widget: "datetime" }
       - { label: "Résumé", name: "resume", widget: "text", required: false }
-      - { label: "Image", name: "image", widget: "image", required: false }
+      - { label: "Image principale", name: "image", widget: "image", required: false }
+      - { label: "Photos (diaporama)", name: "photos", widget: "list", required: false, field: { label: "Photo", name: "photo", widget: "image" } }
+      - label: "Vidéos"
+        name: "videos"
+        widget: "list"
+        required: false
+        summary: "{{fields.titre}}"
+        fields:
+          - { label: "Lien YouTube / Vimeo", name: "lien", widget: "string", required: false, hint: "Recommandé (léger) : collez un lien de partage YouTube ou Vimeo." }
+          - { label: "…ou importer un fichier vidéo", name: "fichier", widget: "file", required: false, hint: "Clips courts seulement — les gros fichiers alourdissent le site et les déploiements." }
+          - { label: "Titre / légende", name: "titre", widget: "string", required: false }
       - { label: "Contenu", name: "body", widget: "markdown" }
 
   # ---------------------------------------------------------------------
@@ -270,6 +295,12 @@ collections:
             widget: "object"
             fields:
               - { label: "Accroche", name: "accroche", widget: "text" }
+              - label: "Photos du bandeau d'accueil (hero)"
+                name: "photosHero"
+                widget: "list"
+                required: false
+                hint: "Photos affichées en grand en haut de la page d'accueil (une tirée au hasard à chaque visite)."
+                field: { label: "Photo", name: "photo", widget: "image" }
               - label: "Chiffres clés"
                 name: "chiffres"
                 widget: "list"

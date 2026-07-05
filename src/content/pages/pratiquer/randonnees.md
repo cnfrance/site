@@ -11,9 +11,9 @@ En début de saison un premier programme pour l’année à venir est défini pa
 
 Les organisateurs transmettent ensuite par mail à tous les membres Loisirs une invitation à participer à leur randonnée avec toutes les instructions pour s’y inscrire. 
 
-Pour voir les photos de quelques randonnées, [cliquer ici](https://www.cnfrance.fr/index.php/club-cnf/mediatheque)
+Pour voir les photos de quelques randonnées, [cliquer ici](/le-club/mediatheque)
 
-**[Voir le programme 2023](https://www.cnfrance.fr/index.php/evenements/randonnees/13-evenements/76-programme-a-venir-des-randonnees-du-cnf)**
+**[Voir le programme](https://www.ffaviron.fr/randonnees/)**
 
 CONTACT: Caroline 
 
@@ -31,4 +31,4 @@ Il n’y a pas de classement, il faut seulement franchir la ligne d’arrivée �
 
 Le CNF y participe une année sur deux. Prochain rendez-vous en 2024
 
-[Quelques images des  VOGALONGA 2016 & 2018](https://www.cnfrance.fr/index.php/evenements/randonnees/8-notre-club/84-vogalonga) et de la [VOGALONGA 2022](https://www.cnfrance.fr/index.php/evenements/randonnees/21-mediatheque/123-vogalonga-2022)
+[Quelques images des  VOGALONGA 2016 & 2018](/galerie) et de la [VOGALONGA 2022](/galerie)

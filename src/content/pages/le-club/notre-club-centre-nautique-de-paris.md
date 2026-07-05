@@ -17,11 +17,11 @@ Le site permet en effet de s’entraîner et de se préparer aux compétitions. 
 
 Pour les moins de 16 ans, le CNF propose la pratique de l’aviron en compétition uniquement. Suivis de près par des entraîneurs, ils acquièrent rapidement l’expérience de l’esprit d’équipe.
 
-Ceux qui souhaitent pratiquer en loisir disposent de multiples créneaux -10 au total- en semaine et pendant le week-end (en savoir plus [cliquer ici](https://www.cnfrance.fr/index.php/pratiquer/aviron-loisirs) ). Ils ont aussi accès aux nombreux ergomètres en intérieur ainsi qu’au tank à ramer (en savoir plus sur les équipements, [cliquer ici](https://www.cnfrance.fr/index.php/club-cnf/equipements) )
+Ceux qui souhaitent pratiquer en loisir disposent de multiples créneaux -10 au total- en semaine et pendant le week-end (en savoir plus [cliquer ici](/pratiquer/aviron-loisirs) ). Ils ont aussi accès aux nombreux ergomètres en intérieur ainsi qu’au tank à ramer (en savoir plus sur les équipements, [cliquer ici](/le-club/equipements) )
 
-Pour tout savoir sur les modalités d'inscription **[cliquer ici](https://www.cnfrance.fr/index.php/club-cnf-2/adherez-au-cnf)**
+Pour tout savoir sur les modalités d'inscription **[cliquer ici](/infos-pratiques/adherez-au-cnf)**
 
-Le CNF offre aussi aux adhérents de comités d'entreprises ou d'associations sportives la possibilité de venir ramer du lundi au vendredi de 12h à 14h à des conditions avantageuses. **[En savoir plus](https://www.cnfrance.fr/index.php/partenariat/aviron-comites-d-entreprises)**
+Le CNF offre aussi aux adhérents de comités d'entreprises ou d'associations sportives la possibilité de venir ramer du lundi au vendredi de 12h à 14h à des conditions avantageuses. **[En savoir plus](/partenariat/aviron-comites-d-entreprises)**
 
 Quel que soit le niveau de chacun, débutant ou confirmé, l’objectif premier reste le plaisir. Sérieux et convivialité se conjuguent à chaque sortie sur l’eau et les membres sont souvent conviés à des événements festifs.
 
@@ -69,4 +69,4 @@ Les équipes universitaires, l’Ecole Polytechnique en premier, affichent de be
 
 Jusqu’à aujourd’hui, l’esprit universitaire est profondément ancré au Cercle Nautique. Des liens étroits avec les Grandes Ecoles persistent, preuve que l’aviron partage les mêmes valeurs : persévérance, dépassement de soi, effort, respect des autres…
 
-**Voir les présidents et personnalités qui ont dirigé le CNF: [cliquer ici](https://www.cnfrance.fr/index.php/club-cnf/notre-club-centre-nautique-de-paris/8-notre-club/88-personnalites)**
+**Voir les présidents et personnalités qui ont dirigé le CNF: [cliquer ici](/le-club/personnalites)**

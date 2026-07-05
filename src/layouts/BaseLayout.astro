@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import CookieConsent from "../components/CookieConsent.astro";
 interface Props { title: string; description?: string; }
 const { title, description = "Cercle Nautique de France — l'aviron aux portes de Paris. Club d'aviron à Neuilly-sur-Seine depuis 1875." } = Astro.props;
 const site = Astro.site ?? new URL("https://www.cnfrance.fr");
@@ -27,5 +28,6 @@ const ogImage = new URL("/images/hero/hero-1.jpeg", site).toString();
       <slot />
     </main>
     <slot name="footer" />
+    <CookieConsent />
   </body>
 </html>

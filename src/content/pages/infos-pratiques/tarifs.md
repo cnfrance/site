@@ -53,8 +53,8 @@ Il est calculé au prorata des mois entiers restant dans la saison. Plus de remb
 
 <table><tbody><tr><td><strong>Tarifs déplacements compétitions et championnats</strong></td><td></td></tr><tr><td>Masters et hors classement performance</td><td>&nbsp; &nbsp;100&nbsp;€</td></tr><tr><td>J14 J16 J18 Senior classement performance</td><td>&nbsp; &nbsp; 75 €</td></tr><tr><td>Rameurs de haut niveau sur la liste du ministère</td><td>&nbsp; &nbsp; 50 €</td></tr><tr><td></td><td></td></tr><tr><td>Stages aviron rameurs de haut niveau du ministère</td><td>&nbsp; &nbsp;-50%</td></tr></tbody></table>
 
-[S'inscrire au stage découverte](https://www.cnfrance.fr/index.php/evenements/stages-decouverte)
+[S'inscrire au stage découverte](/pratiquer/stages-decouverte)
 
-[Renouveler mon inscription](https://www.cnfrance.fr/index.php/espace-adherents/renouveler-son-adhesion2)
+[Renouveler mon inscription](/espace-adherents/renouveler-son-adhesion2)
 
-[Première inscription au CNF](https://www.cnfrance.fr/index.php/club-cnf-2/adherez-au-cnf)
+[Première inscription au CNF](/infos-pratiques/adherez-au-cnf)

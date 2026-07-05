@@ -1,0 +1,174 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+import { getCollection } from "astro:content";
+
+const [evenements, actualites, resultats] = await Promise.all([
+  getCollection("evenements"),
+  getCollection("actualites"),
+  getCollection("resultats"),
+]);
+
+// Date -> "YYYY-MM-DD" dans le fuseau Europe/Paris (fr-CA donne ce format ISO)
+const isoParis = (d: Date) =>
+  new Intl.DateTimeFormat("fr-CA", { timeZone: "Europe/Paris", year: "numeric", month: "2-digit", day: "2-digit" }).format(d);
+
+type Ev = { titre: string; debut: string; fin: string; type: "evenement" | "actualite" | "resultat"; lieu: string | null; href: string | null };
+
+const events: Ev[] = [
+  ...evenements.map((e) => ({
+    titre: e.data.titre,
+    debut: isoParis(e.data.date),
+    fin: isoParis(e.data.dateFin ?? e.data.date),
+    type: "evenement" as const,
+    lieu: e.data.lieu ?? null,
+    href: e.data.lien ?? null,
+  })),
+  ...actualites.map((e) => ({
+    titre: e.data.titre,
+    debut: isoParis(e.data.date),
+    fin: isoParis(e.data.date),
+    type: "actualite" as const,
+    lieu: null,
+    href: `/actualites/${e.id}`,
+  })),
+  ...resultats.map((e) => ({
+    titre: e.data.titre,
+    debut: isoParis(e.data.date),
+    fin: isoParis(e.data.date),
+    type: "resultat" as const,
+    lieu: null,
+    href: `/resultats/${e.id}`,
+  })),
+].sort((a, b) => a.debut.localeCompare(b.debut));
+---
+<PageLayout
+  titre="Calendrier"
+  section="Infos pratiques"
+  chapo="Retrouvez tous les événements du club : compétitions, randonnées, actualités et résultats."
+>
+  <div class="cal" data-cal>
+    <div class="cal-head">
+      <div class="cal-nav">
+        <button type="button" data-cal-prev aria-label="Mois précédent">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M15 5 8 12l7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <h2 class="cal-title" data-cal-title aria-live="polite">&nbsp;</h2>
+        <button type="button" data-cal-next aria-label="Mois suivant">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      <button type="button" class="cal-today-btn" data-cal-today>Aujourd'hui</button>
+    </div>
+
+    <div class="cal-legend">
+      <span class="cal-legend__item"><i class="cal-dot cal-dot--evenement"></i>Événement</span>
+      <span class="cal-legend__item"><i class="cal-dot cal-dot--resultat"></i>Résultat</span>
+      <span class="cal-legend__item"><i class="cal-dot cal-dot--actualite"></i>Actualité</span>
+    </div>
+
+    <div class="cal-grid" data-cal-grid></div>
+  </div>
+
+  <script define:vars={{ EVENTS: events }}>
+    (function () {
+      const root = document.querySelector("[data-cal]");
+      if (!root) return;
+      const grid = root.querySelector("[data-cal-grid]");
+      const titleEl = root.querySelector("[data-cal-title]");
+      const MONTHS = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
+      const WD = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"];
+
+      const pad = (n) => String(n).padStart(2, "0");
+      const isoLocal = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+      const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+      const todayISO = isoLocal(new Date());
+      const cur = new Date();
+      cur.setDate(1);
+      cur.setHours(12, 0, 0, 0);
+
+      function eventsOn(iso) {
+        return EVENTS.filter((e) => e.debut <= iso && iso <= e.fin);
+      }
+
+      function render() {
+        const y = cur.getFullYear();
+        const m = cur.getMonth();
+        titleEl.textContent = MONTHS[m] + " " + y;
+
+        const startDow = (new Date(y, m, 1).getDay() + 6) % 7; // lundi = 0
+        const daysInMonth = new Date(y, m + 1, 0).getDate();
+
+        let html = "";
+        for (const w of WD) html += `<div class="cal-wd">${w}</div>`;
+        for (let i = 0; i < startDow; i++) html += `<div class="cal-day cal-day--empty"></div>`;
+
+        for (let d = 1; d <= daysInMonth; d++) {
+          const iso = `${y}-${pad(m + 1)}-${pad(d)}`;
+          const evs = eventsOn(iso);
+          const chips = evs
+            .map((e) => {
+              const tip = esc(e.titre) + (e.lieu ? " — " + esc(e.lieu) : "");
+              const cls = `cal-ev cal-ev--${e.type}`;
+              const inner = esc(e.titre);
+              return e.href
+                ? `<a class="${cls}" href="${esc(e.href)}" title="${tip}">${inner}</a>`
+                : `<span class="${cls}" title="${tip}">${inner}</span>`;
+            })
+            .join("");
+          const today = iso === todayISO ? " cal-day--today" : "";
+          html += `<div class="cal-day${today}"><span class="cal-num">${d}</span><div class="cal-evs">${chips}</div></div>`;
+        }
+        grid.innerHTML = html;
+      }
+
+      root.querySelector("[data-cal-prev]").addEventListener("click", () => { cur.setMonth(cur.getMonth() - 1); render(); });
+      root.querySelector("[data-cal-next]").addEventListener("click", () => { cur.setMonth(cur.getMonth() + 1); render(); });
+      root.querySelector("[data-cal-today]").addEventListener("click", () => { const n = new Date(); cur.setFullYear(n.getFullYear(), n.getMonth(), 1); render(); });
+
+      render();
+    })();
+  </script>
+</PageLayout>
+
+<style>
+  .cal { margin-block: 1.6rem; }
+  .cal-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.8rem; margin-bottom: 1rem; }
+  .cal-nav { display: grid; grid-template-columns: 2.2rem 8.5em 2.2rem; align-items: center; gap: 0.6rem; }
+  .cal-nav button { width: 2.2rem; height: 2.2rem; padding: 0; border-radius: 50%; border: 1px solid var(--gris-bord); background: var(--blanc); color: var(--texte); cursor: pointer; display: grid; place-items: center; }
+  .cal-nav button svg { display: block; }
+  .cal-nav button:hover { border-color: var(--rouge); color: var(--rouge); }
+  .cal-nav .cal-title { margin: 0; height: 2.2rem; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; line-height: 1; text-transform: capitalize; text-align: center; white-space: nowrap; }
+  .cal-today-btn { font: inherit; font-weight: 600; font-size: 0.85rem; padding: 0.4rem 0.9rem; border-radius: 8px; border: 1px solid var(--gris-bord); background: var(--blanc); color: var(--texte); cursor: pointer; }
+  .cal-today-btn:hover { border-color: var(--rouge); color: var(--rouge); }
+
+  .cal-legend { display: flex; flex-wrap: wrap; gap: 0.4rem 1.1rem; margin-bottom: 0.9rem; font-size: 0.85rem; color: var(--muted); }
+  .cal-legend__item { display: inline-flex; align-items: center; gap: 0.4rem; }
+  .cal-dot { width: 0.7rem; height: 0.7rem; border-radius: 3px; display: inline-block; }
+  .cal-dot--evenement { background: var(--rouge); }
+  .cal-dot--resultat { background: #2f855a; }
+  .cal-dot--actualite { background: #2b6cb0; }
+
+  .cal :global(.cal-grid) { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+  .cal :global(.cal-wd) { text-align: center; font-size: 0.78rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.03em; padding-bottom: 0.2rem; }
+  .cal :global(.cal-day) { min-height: 96px; border: 1px solid var(--gris-bord); border-radius: 8px; padding: 4px; background: var(--blanc); display: flex; flex-direction: column; gap: 3px; overflow: hidden; }
+  .cal :global(.cal-day--empty) { background: transparent; border: 0; }
+  .cal :global(.cal-num) { font-size: 0.8rem; font-weight: 600; color: var(--muted); }
+  .cal :global(.cal-day--today) { border-color: var(--rouge); box-shadow: inset 0 0 0 1px var(--rouge); }
+  .cal :global(.cal-day--today .cal-num) { color: var(--rouge); font-weight: 800; }
+  .cal :global(.cal-evs) { display: flex; flex-direction: column; gap: 3px; }
+  .cal :global(.cal-ev) { font-size: 0.72rem; line-height: 1.2; padding: 2px 5px; border-radius: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #fff; text-decoration: none; display: block; }
+  .cal :global(a.cal-ev:hover) { filter: brightness(1.08); text-decoration: underline; }
+  .cal :global(.cal-ev--evenement) { background: var(--rouge); }
+  .cal :global(.cal-ev--resultat) { background: #2f855a; }
+  .cal :global(.cal-ev--actualite) { background: #2b6cb0; }
+
+  @media (max-width: 640px) {
+    .cal-head { flex-direction: column; gap: 0.7rem; }
+    .cal-today-btn { position: static; transform: none; }
+    .cal :global(.cal-grid) { gap: 3px; }
+    .cal :global(.cal-day) { min-height: 68px; padding: 2px; }
+    .cal :global(.cal-wd) { font-size: 0.62rem; }
+    .cal :global(.cal-ev) { font-size: 0; padding: 0; height: 6px; border-radius: 3px; }
+  }
+</style>

@@ -1,0 +1,83 @@
+---
+// Bandeau de consentement léger : GTM/Google Analytics n'est chargé QU'APRÈS
+// acceptation. Le choix (accepté / refusé) est mémorisé dans le navigateur.
+const GTM_ID = "GTM-T583BX7";
+---
+<div class="consent" data-consent hidden role="dialog" aria-label="Consentement aux cookies" aria-live="polite">
+  <p class="consent__txt">
+    Nous utilisons des cookies de <strong>mesure d'audience</strong> pour comprendre la fréquentation du site. Vous pouvez les accepter ou les refuser. <a href="/legal/mentions-legales">En savoir plus</a>.
+  </p>
+  <div class="consent__btns">
+    <button type="button" data-consent-refuse class="consent__btn">Refuser</button>
+    <button type="button" data-consent-accept class="consent__btn consent__btn--accept">Accepter</button>
+  </div>
+</div>
+
+<style>
+  .consent {
+    position: fixed;
+    left: 1rem; right: 1rem; bottom: 1rem;
+    z-index: 1000;
+    max-width: 660px;
+    margin-inline: auto;
+    background: var(--blanc);
+    color: var(--texte);
+    border: 1px solid var(--gris-bord);
+    border-radius: 14px;
+    box-shadow: 0 14px 44px rgba(42, 5, 5, 0.18);
+    padding: 1rem 1.2rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.7rem 1rem;
+  }
+  .consent[hidden] { display: none; }
+  .consent__txt { font-size: 0.9rem; margin: 0; flex: 1; min-width: 240px; line-height: 1.45; }
+  .consent__txt a { color: var(--rouge); text-decoration: underline; }
+  .consent__btns { display: flex; gap: 0.5rem; margin-left: auto; }
+  .consent__btn {
+    font: inherit; font-weight: 600; font-size: 0.88rem;
+    padding: 0.5rem 1.1rem; border-radius: 8px;
+    border: 1px solid var(--gris-bord); background: var(--blanc); color: var(--texte);
+    cursor: pointer;
+  }
+  .consent__btn:hover { border-color: var(--rouge); color: var(--rouge); }
+  .consent__btn--accept { background: var(--rouge); color: var(--blanc); border-color: var(--rouge); }
+  .consent__btn--accept:hover { background: var(--rouge-sombre); color: var(--blanc); }
+  .consent__btn:focus-visible { outline: 2px solid var(--rouge); outline-offset: 2px; }
+  @media (max-width: 520px) { .consent__btns { margin-left: 0; width: 100%; } .consent__btn { flex: 1; } }
+</style>
+
+<script define:vars={{ GTM_ID }}>
+  (function () {
+    var KEY = "cnf-consent";
+    function loadGTM() {
+      if (window.__gtmLoaded) return;
+      window.__gtmLoaded = true;
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", GTM_ID);
+    }
+    var choice = null;
+    try { choice = localStorage.getItem(KEY); } catch (e) {}
+    if (choice === "granted") { loadGTM(); return; }
+    if (choice === "denied") { return; }
+    var banner = document.querySelector("[data-consent]");
+    if (!banner) return;
+    banner.hidden = false;
+    banner.querySelector("[data-consent-accept]").addEventListener("click", function () {
+      try { localStorage.setItem(KEY, "granted"); } catch (e) {}
+      banner.hidden = true;
+      loadGTM();
+    });
+    banner.querySelector("[data-consent-refuse]").addEventListener("click", function () {
+      try { localStorage.setItem(KEY, "denied"); } catch (e) {}
+      banner.hidden = true;
+    });
+  })();
+</script>

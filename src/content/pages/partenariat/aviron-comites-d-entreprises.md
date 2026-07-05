@@ -11,7 +11,7 @@ Nous vous proposons une convention qui permettra à vos collaborateurs d'être e
 
 **Pour connaître les tarifs préférentiels proposés aux comités d'entreprises en 2022/2023** [cliquer ici](/documents/Grille_tarifaire_CE_2022-2023.pdf)
 
-Si vous souhaitez découvrir l'aviron, le CNF organise de mi-juin à mi-octobre des stages découverte pour les débutants. [Voir stage découverte](https://www.cnfrance.fr/index.php/partenariat/aviron-comites-d-entreprises/11-decouvrir/16-stages-decouverte-adultes) 
+Si vous souhaitez découvrir l'aviron, le CNF organise de mi-juin à mi-octobre des stages découverte pour les débutants. [Voir stage découverte](/pratiquer/stages-decouverte) 
 
 Contact au CNF: 
 

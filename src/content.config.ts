@@ -11,14 +11,17 @@ export const reglagesSchema = z.object({
     email: z.string(),
     telephone: z.string().optional(),
   }),
+  photosHero: z.array(z.string()).optional(),
 });
 
 export const evenementSchema = z.object({
   titre: z.string(),
   date: z.coerce.date(),
+  dateFin: z.coerce.date().optional(),
   lieu: z.string().optional(),
   description: z.string(),
   image: z.string().optional(),
+  lien: z.string().optional(),
 });
 
 export const actualiteSchema = z.object({
@@ -27,6 +30,11 @@ export const actualiteSchema = z.object({
   resume: z.string(),
   image: z.string().optional(),
   photos: z.array(z.string()).optional(),
+  videos: z.array(z.object({
+    lien: z.string().optional(),
+    fichier: z.string().optional(),
+    titre: z.string().optional(),
+  })).optional(),
 });
 
 export const partenaireSchema = z.object({
@@ -48,6 +56,11 @@ export const resultatSchema = z.object({
   resume: z.string().optional(),
   image: z.string().optional(),
   photos: z.array(z.string()).optional(),
+  videos: z.array(z.object({
+    lien: z.string().optional(),
+    fichier: z.string().optional(),
+    titre: z.string().optional(),
+  })).optional(),
 });
 
 const reglages = defineCollection({

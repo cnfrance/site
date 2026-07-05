@@ -2,6 +2,7 @@
 import { getCollection, render } from "astro:content";
 import PageLayout from "../../layouts/PageLayout.astro";
 import Carousel from "../../components/Carousel.astro";
+import Videos from "../../components/Videos.astro";
 
 export async function getStaticPaths() {
   const entries = await getCollection("resultats");
@@ -24,6 +25,7 @@ const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", ye
       <Carousel photos={photos} alt={titre} ratio="16 / 9" />
     </div>
   )}
+  <Videos videos={entry.data.videos} />
   <Content />
 </PageLayout>
 <style>

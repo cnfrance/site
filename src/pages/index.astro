@@ -38,15 +38,18 @@ const actus = actualitesArr
 
 const partenaires = partenairesArr.map((p) => p.data);
 
-// Pool de photos hero (photos du club, migrées depuis cnfrance.fr).
-const poolHero: string[] = [
-  "/images/hero/hero-1.jpeg",
-  "/images/hero/hero-2.jpeg",
-  "/images/hero/hero-3.jpeg",
-  "/images/hero/hero-4.jpeg",
-  "/images/hero/hero-5.jpeg",
-  "/images/hero/hero-6.jpg",
-];
+// Pool de photos hero : géré dans l'admin (Réglages → Photos du bandeau
+// d'accueil). Repli sur les photos migrées si le champ est vide.
+const poolHero: string[] = reglages?.photosHero?.length
+  ? reglages.photosHero
+  : [
+      "/images/hero/hero-1.jpeg",
+      "/images/hero/hero-2.jpeg",
+      "/images/hero/hero-3.jpeg",
+      "/images/hero/hero-4.jpeg",
+      "/images/hero/hero-5.jpeg",
+      "/images/hero/hero-6.jpg",
+    ];
 // Pool de la galerie home : photos des actualités et résultats, légendées par
 // le nom de l'événement et pointant vers l'article correspondant.
 const photosActualites = actualitesArr

@@ -13,6 +13,14 @@
       "adresse": "Complexe sportif de l'île du pont de Neuilly, 92200 Neuilly-sur-Seine",
       "email": "club@cnfrance.fr",
       "telephone": ""
-    }
+    },
+    "photosHero": [
+      "/images/hero/hero-1.jpeg",
+      "/images/hero/hero-2.jpeg",
+      "/images/hero/hero-3.jpeg",
+      "/images/hero/hero-4.jpeg",
+      "/images/hero/hero-5.jpeg",
+      "/images/hero/hero-6.jpg"
+    ]
   }
 }

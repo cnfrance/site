@@ -15,9 +15,9 @@ Le CNF vous permet, débutant ou non, de naviguer en toute sécurité sur la Sei
 
 Jusqu'à 12 créneaux par semaine, sans limite et sans réservations préalables.
 
-[Voir les horaires des loisirs et comités d'entreprise.](https://www.cnfrance.fr/index.php/club-cnf-2/horaires) 
+[Voir les horaires des loisirs et comités d'entreprise.](/infos-pratiques/horaires) 
 
-**[En savoir plus sur les sorties sur l'eau...](https://www.cnfrance.fr/index.php/pratiquer/aviron-loisirs/12-pratiquer/80-les-sorties-loisirs)**
+**[En savoir plus sur les sorties sur l'eau...](/pratiquer/aviron-loisirs)**
 
 Le club est ouvert toute l'année (hors fermeture estivale).
 
@@ -35,4 +35,4 @@ Elle organise notamment des randonnées en France et à l’étranger, des défi
 
 Tous les membres du club qui souhaitent s’investir dans le club y sont cordialement invités.
 
-Pour tout savoir sur les modalités d'inscription au CNF  **[cliquer ici](https://www.cnfrance.fr/index.php/club-cnf-2/adherez-au-cnf)**
+Pour tout savoir sur les modalités d'inscription au CNF  **[cliquer ici](/infos-pratiques/adherez-au-cnf)**

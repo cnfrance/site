@@ -11,7 +11,7 @@ section: "Infos pratiques"
 
 #### Bienvenue au Cercle Nautique de France ! 
 
-#### ***Si vous avez déjà été membre du CNF dans le passé*** [cliquer ici](https://www.cnfrance.fr/index.php/espace-adherents/renouveler-son-adhesion2) 
+#### ***Si vous avez déjà été membre du CNF dans le passé*** [cliquer ici](/espace-adherents/renouveler-son-adhesion2) 
 
 ### Comment vous inscrire pour la première fois au CNF ?
 
@@ -19,7 +19,7 @@ section: "Infos pratiques"
 
 - **Vous n'avez jamais pratiqué l'aviron**:
 
-Avant de vous inscrire au CNF vous devez faire un [stage découverte](https://www.cnfrance.fr/index.php/evenements/stages-decouverte) organisé chaque année par le club de mi-juin à mi-octobre.
+Avant de vous inscrire au CNF vous devez faire un [stage découverte](/pratiquer/stages-decouverte) organisé chaque année par le club de mi-juin à mi-octobre.
 
 Pour ce faire faire informez vous sur les places disponibles auprès de:
 
@@ -27,7 +27,7 @@ Pour ce faire faire informez vous sur les places disponibles auprès de:
 
 \> Samia GOLANO-HIRECHE  pour les jeunes nés entre 2012 et 2015.
 
-En savoir plus sur le [stage découverte adultes](https://www.cnfrance.fr/index.php/club-cnf-2/adherez-au-cnf/11-decouvrir/16-stages-decouverte-adultes) ou le [stage découverte jeunes](https://www.cnfrance.fr/index.php/club-cnf-2/adherez-au-cnf/11-decouvrir/15-stages-decouverte-jeunes)
+En savoir plus sur le [stage découverte adultes](/pratiquer/stages-decouverte) ou le [stage découverte jeunes](/pratiquer/stages-decouverte)
 
 Remarque: si vous êtes débutants vous ne pouvez donc pas vous inscrire en cours de saison mais n'hésitez pas à nous contacter à  afin de vous positionner pour l'année suivante.
 
@@ -47,6 +47,6 @@ Le processus de première inscription au CNF est pris en charge par l'applicatio
 
 [Cliquez ici pour accéder au tutoriel](https://docs.google.com/document/d/1ZBApjAo7p3GolLks7C_Vh0xVmO1x7K5mqLGN9uxIS3I/edit?usp=sharing) et laissez-vous guider pas à pas !
 
-[Cliquez ici pour consulter les tarifs de la saison 2025-26.](https://www.cnfrance.fr/index.php/club-cnf-2/tarifs)
+[Cliquez ici pour consulter les tarifs de la saison 2025-26.](/infos-pratiques/tarifs)
 
 En cas de question, merci de prendre contact avec l'équipe administrative à l'adresse [.](mailto:inscription@gmail.com.)
