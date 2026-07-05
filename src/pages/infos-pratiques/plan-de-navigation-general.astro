@@ -1,0 +1,86 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+---
+<PageLayout
+  titre="Plan de navigation"
+  section="Infos pratiques"
+  chapo="Zones de navigation, sens de circulation, demi-tours, ponts et zones interdites sur la Seine autour du club."
+  description="Le plan de navigation du Cercle Nautique de France : zones autorisées, zones interdites, demi-tours et ponts sur la Seine à Neuilly-sur-Seine."
+>
+  <p>Avant chaque sortie, respectez le plan de navigation en vigueur. Cliquez sur un élément de la carte pour afficher son nom. Utilisez les boutons <strong>+ / −</strong> ou la molette (après avoir cliqué sur la carte) pour zoomer.</p>
+
+  <div id="plan-map" class="plan-map" role="application" aria-label="Carte du plan de navigation du CNF"></div>
+
+  <p class="plan-note">La carte présente les zones autorisées, les <strong>zones interdites</strong>, les zones de pause, les demi-tours, les tracés de navigation et les ponts. En cas de doute, renseignez-vous auprès de l'encadrement.</p>
+</PageLayout>
+
+<style>
+  .plan-map {
+    width: min(1100px, 94vw);
+    height: min(70vh, 640px);
+    min-height: 420px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 14px;
+    margin-block: 1.6rem;
+    overflow: hidden;
+    border: 1px solid var(--gris-bord);
+    box-shadow: 0 10px 30px rgba(42, 5, 5, 0.08);
+    background: #eef3f6;
+  }
+  .plan-note { font-size: 0.92rem; color: var(--muted); }
+</style>
+
+<script>
+  import L from "leaflet";
+  import "leaflet/dist/leaflet.css";
+
+  const el = document.getElementById("plan-map");
+  if (el) {
+    const map = L.map(el, { scrollWheelZoom: false }).setView([48.888, 2.269], 14);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      maxZoom: 19,
+    }).addTo(map);
+
+    const styleOf = (f: any) => {
+      const p = f?.properties ?? {};
+      const o = p._umap_options ?? {};
+      const s = p._style ?? {};
+      const color = o.color || s.color || "#2b6cb0";
+      return {
+        color,
+        weight: o.weight || s.weight || 3,
+        opacity: o.opacity ?? s.opacity ?? 0.9,
+        fillColor: o.fillColor || s.fillColor || color,
+        fillOpacity: o.fillOpacity ?? 0.25,
+      };
+    };
+
+    try {
+      const res = await fetch("/data/plan-navigation.geojson");
+      const data = await res.json();
+      const layer = L.geoJSON(data, {
+        style: styleOf,
+        pointToLayer: (f: any, latlng: any) => {
+          const st = styleOf(f);
+          return L.circleMarker(latlng, { radius: 6, color: st.color, weight: 2, fillColor: st.fillColor, fillOpacity: 0.9 });
+        },
+        onEachFeature: (f: any, lyr: any) => {
+          const p = f?.properties ?? {};
+          const titre = [p.name, p._layer].filter(Boolean).join(" — ");
+          if (titre) lyr.bindPopup(titre);
+          if (p.name) lyr.bindTooltip(p.name, { direction: "top" });
+        },
+      }).addTo(map);
+      map.fitBounds(layer.getBounds(), { padding: [24, 24] });
+    } catch (e) {
+      /* la carte reste centrée sur le club si le chargement échoue */
+    }
+
+    // Molette activée seulement après un clic sur la carte (n'attrape pas le scroll de page)
+    map.on("click", () => map.scrollWheelZoom.enable());
+    map.on("mouseout", () => map.scrollWheelZoom.disable());
+  }
+</script>
