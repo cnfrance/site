@@ -1,9 +1,14 @@
 ---
 interface Props { photos: string[]; }
 const { photos } = Astro.props;
-const principale = photos[0] ?? "";
+// Préfixe de base (vide en prod, "/site" sur la démo GitHub Pages) : appliqué ici
+// car les chemins du pool voyagent dans un attribut data-* (JSON) que le
+// préfixage post-build ne réécrit pas.
+const B = import.meta.env.BASE_URL.replace(/\/$/, "");
+const photosBased = photos.map((p) => (p.startsWith("/") ? `${B}${p}` : p));
+const principale = photosBased[0] ?? "";
 // Le pool complet est exposé en JSON pour une rotation client optionnelle (progressive enhancement).
-const poolJson = JSON.stringify(photos);
+const poolJson = JSON.stringify(photosBased);
 ---
 <section class="hero">
   <div class="hero__media">
