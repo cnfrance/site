@@ -9,6 +9,6 @@ Métro ligne 1 station « Pont de Neuilly ».
 Accès à pied ou deux roues par le pont de Neuilly (prendre par le trottoir de gauche quand vous avez la Défense face à vous). 
 Si toutefois vous optez pour la voiture, vous pouvez vous garer le long du boulevard Général Koenig à Neuilly.
 
-# PAR MAIL:
+## Par mail
 
-### [](mailto:contact@stantp.fr)club
+[club@cnfrance.fr](mailto:club@cnfrance.fr)

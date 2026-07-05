@@ -9,4 +9,4 @@ Nous sommes basés au **complexe sportif de l'île du pont de Neuilly 92200 Neui
 
 ## Contact
 
-PAR MAIL: contact@cnfrance.fr
+PAR MAIL : [club@cnfrance.fr](mailto:club@cnfrance.fr)
