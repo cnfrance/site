@@ -30,6 +30,9 @@ const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", ye
   .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; }
   .card { border: 1px solid var(--gris-bord); border-radius: var(--radius); padding: 1.3rem; transition: transform .15s; background: var(--blanc); }
   .card:hover { transform: translateY(-3px); }
+  /* Même correctif que sur la liste des actualités : la carte est un <a> dans
+     `.prose` et hériterait sinon du soulignement des liens de contenu. */
+  .grid a.card, .grid a.card:hover { text-decoration: none; }
   .card__date { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; }
   .card__title { font-size: 1.15rem; color: var(--rouge-sombre); margin: 0.3rem 0; }
   .card__resume { font-size: 0.9rem; color: var(--muted); }

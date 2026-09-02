@@ -29,6 +29,33 @@ const { titre, section, chapo, description } = Astro.props;
   </article>
   <Footer slot="footer" />
 </BaseLayout>
+
+<script>
+  // Les pages migrées contiennent des tableaux HTML larges (tarifs, horaires…)
+  // qui débordent sur téléphone. Plutôt que de les réécrire un par un, on les
+  // enveloppe à l'affichage dans un conteneur défilable, focusable au clavier.
+  for (const table of document.querySelectorAll<HTMLTableElement>(".prose table")) {
+    if (table.parentElement?.classList.contains("table-scroll")) continue;
+
+    // Un tableau à deux colonnes tient sur un téléphone : lui imposer une
+    // largeur plancher créerait un défilement inutile. Seuls les tableaux
+    // larges reçoivent le `min-width` qui les empêche d'être écrasés.
+    const colonnes = Math.max(
+      0,
+      ...Array.from(table.rows, (r) =>
+        Array.from(r.cells).reduce((n, c) => n + (c.colSpan || 1), 0)
+      )
+    );
+
+    const boite = document.createElement("div");
+    boite.className = colonnes > 2 ? "table-scroll table-scroll--large" : "table-scroll";
+    boite.setAttribute("role", "region");
+    boite.setAttribute("tabindex", "0");
+    boite.setAttribute("aria-label", "Tableau — faites glisser horizontalement pour tout voir");
+    table.replaceWith(boite);
+    boite.appendChild(table);
+  }
+</script>
 <style>
   .page__head { padding-block: 2.5rem 1.5rem; border-bottom: 1px solid var(--gris-bord); background: var(--blanc); }
   .page__section { color: var(--rouge); text-transform: uppercase; font-weight: 700; letter-spacing: 0.06em; font-size: 0.82rem; margin-bottom: 0.5rem; }
@@ -53,7 +80,221 @@ const { titre, section, chapo, description } = Astro.props;
      des styles d'images de prose : une marge sur les tuiles décale tout le fond
      de carte par rapport aux tracés. */
   .prose :global(.leaflet-container img) { margin: 0; border-radius: 0; max-width: none; }
+  /* Même logique pour les liens de l'interface Leaflet (zoom + / −, sélecteur
+     de fonds, attribution) : ce sont des contrôles, pas des liens de contenu.
+     Sans cette exception ils héritent du soulignement et du rouge de
+     `.prose a`, dont la spécificité écrase celle de leaflet.css. On restitue
+     donc les valeurs natives de la bibliothèque. */
+  .prose :global(.leaflet-container a) { text-decoration: none; color: #0078a8; }
+  .prose :global(.leaflet-bar a) { color: black; }
   .prose :global(hr) { border: none; border-top: 1px solid var(--gris-bord); margin-block: 2rem; }
+
+  /* Tableaux larges : conteneur défilable posé par le script ci-dessus. Le
+     `min-width` empêche l'écrasement des colonnes sur petit écran — mieux vaut
+     faire glisser qu'un tableau illisible. Le dégradé de droite signale qu'il
+     reste du contenu hors champ. */
+  .prose :global(.table-scroll) {
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+    background:
+      linear-gradient(to right, var(--blanc) 30%, transparent) left / 2rem 100% no-repeat,
+      linear-gradient(to left, var(--blanc) 30%, transparent) right / 2rem 100% no-repeat,
+      radial-gradient(farthest-side at 0 50%, rgba(42, 5, 5, 0.14), transparent) left / 0.7rem 100% no-repeat,
+      radial-gradient(farthest-side at 100% 50%, rgba(42, 5, 5, 0.14), transparent) right / 0.7rem 100% no-repeat;
+    background-attachment: local, local, scroll, scroll;
+  }
+  .prose :global(.table-scroll:focus-visible) { outline: 2px solid var(--rouge); outline-offset: 3px; }
+  .prose :global(.table-scroll table) { margin-bottom: 0; }
+  .prose :global(.table-scroll--large table) { min-width: 34rem; }
+  /* Sans JavaScript, on limite au moins la casse : le tableau ne pousse pas la page. */
+  .prose :global(table) { max-width: 100%; }
+
+  @media (max-width: 720px) {
+    .prose :global(th), .prose :global(td) { padding: 0.45rem 0.55rem; }
+    .prose :global(table) { font-size: 0.84rem; }
+  }
+
+  /* ===== Blocs éditoriaux réutilisables ===== */
+
+  /* Phrase d'attaque, plus grande que le corps de texte. */
+  .prose :global(.lead) {
+    font-size: clamp(1.08rem, 2.2vw, 1.3rem);
+    line-height: 1.55;
+    color: var(--texte);
+    margin-bottom: 2rem;
+  }
+
+  /* Idées-clés en colonnes numérotées. */
+  .prose :global(.pillars) {
+    display: grid;
+    /* 190px permet à trois piliers de tenir sur une ligne dans la colonne de
+       prose (70ch) sans laisser de case orpheline. */
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 1.1rem;
+    margin-block: 2rem;
+  }
+  .prose :global(.pillar) {
+    background: var(--blanc);
+    border: 1px solid var(--gris-bord);
+    border-top: 3px solid var(--rouge);
+    border-radius: var(--radius);
+    padding: 1.3rem 1.2rem;
+  }
+  .prose :global(.pillar__num) {
+    display: block;
+    font-family: var(--font-titre);
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1;
+    color: color-mix(in srgb, var(--rouge) 35%, transparent);
+    margin-bottom: 0.5rem;
+  }
+  .prose :global(.pillar h3) { font-size: 1.05rem; margin: 0 0 0.5rem; color: var(--rouge-sombre); }
+  .prose :global(.pillar p) { font-size: 0.93rem; margin: 0; color: var(--muted); }
+
+  /* Chiffre mis en exergue. */
+  .prose :global(.stat-box) {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    background: var(--fond);
+    border-left: 4px solid var(--rouge);
+    border-radius: var(--radius);
+    padding: 1.3rem 1.4rem;
+    margin-block: 2rem;
+  }
+  .prose :global(.stat-box__valeur) {
+    font-family: var(--font-titre);
+    font-size: clamp(2rem, 6vw, 2.9rem);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--rouge);
+    white-space: nowrap;
+  }
+  .prose :global(.stat-box__legende) { font-size: 0.95rem; color: var(--muted); margin: 0; flex: 1 1 14rem; }
+
+  /* Énumération en pastilles, plus lisible qu'une liste à puces noyée. */
+  .prose :global(.chips) {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0;
+    margin-block: 1.2rem 2rem;
+  }
+  .prose :global(.chips li) {
+    margin: 0;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--rouge-sombre);
+    background: var(--blanc);
+    border: 1px solid var(--gris-bord);
+    border-radius: 999px;
+    padding: 0.4rem 0.9rem;
+  }
+
+  /* Citation de clôture, pleine largeur. */
+  .prose :global(.pullquote) {
+    margin: 2.6rem 0 0;
+    padding: 1.6rem 1.4rem;
+    border: 0;
+    border-top: 2px solid var(--rouge);
+    border-bottom: 2px solid var(--rouge);
+    font-family: var(--font-titre);
+    font-size: clamp(1.3rem, 3.6vw, 1.85rem);
+    line-height: 1.25;
+    font-style: normal;
+    color: var(--rouge-sombre);
+    text-align: center;
+  }
+  .prose :global(.pullquote p) { margin: 0; }
+
+  /* ===== Cartes tarifaires ===== */
+  /* Remplacent un tableau à 7 colonnes illisible sur téléphone : une carte par
+     profil, empilées sur mobile, 3 à 4 par ligne sur grand écran. */
+  .prose :global(.tarif-grid) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 1rem;
+    margin-block: 1.2rem 2.2rem;
+  }
+  .prose :global(.tarif-card) {
+    display: flex;
+    flex-direction: column;
+    background: var(--blanc);
+    border: 1px solid var(--gris-bord);
+    border-radius: var(--radius);
+    padding: 1.1rem 1.15rem;
+  }
+  .prose :global(.tarif-card__profil) {
+    font-family: var(--font-titre);
+    font-size: 1.02rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--texte);
+    margin-bottom: 0.15rem;
+  }
+  .prose :global(.tarif-card__lieu) {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--rouge);
+    margin-bottom: 0.8rem;
+  }
+  .prose :global(.tarif-card__lignes) { margin: 0 0 0.9rem; font-size: 0.86rem; }
+  .prose :global(.tarif-card__ligne) {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.8rem;
+    padding: 0.32rem 0;
+    border-bottom: 1px dashed var(--gris-bord);
+    color: var(--muted);
+  }
+  .prose :global(.tarif-card__ligne b) { color: var(--texte); font-weight: 600; white-space: nowrap; }
+  .prose :global(.tarif-card__total) {
+    margin-top: auto;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.6rem;
+  }
+  .prose :global(.tarif-card__total span) {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+  }
+  .prose :global(.tarif-card__total b) {
+    font-family: var(--font-titre);
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--rouge);
+    white-space: nowrap;
+  }
+
+  /* Boutons d'action en bas de page (inscription, renouvellement…). */
+  .prose :global(.actions) { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-block: 2rem 0; }
+  .prose :global(.actions a) {
+    display: inline-block;
+    padding: 0.7rem 1.2rem;
+    border-radius: 999px;
+    background: var(--rouge);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.92rem;
+    text-decoration: none;
+  }
+  .prose :global(.actions a:hover) { background: var(--rouge-sombre); color: #fff; }
+  .prose :global(.actions a.actions__secondaire) {
+    background: var(--blanc);
+    color: var(--rouge);
+    border: 1px solid var(--rouge);
+  }
+  .prose :global(.actions a.actions__secondaire:hover) { background: var(--fond); }
 
   /* Grille d'équipe : photos uniformes (portraits carrés) */
   .prose :global(.team-grid) { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 1.6rem 1.1rem; margin-block: 1.8rem; }
