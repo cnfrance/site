@@ -1,6 +1,7 @@
 ---
 titre: "21ème course des impressionnistes"
 date: 2025-05-01
+categorie: "competition"
 resume: "Le Collectif Régate du CNF termine 2e et 3e à la 21e Course des Impressionnistes, boucle de 21 km entre Chatou et Maisons-Laffitte."
 image: "/images/actus/21eme-course-des-impressionnistes/01.jpg"
 photos:

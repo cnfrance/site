@@ -54,6 +54,15 @@ collections:
     fields:
       - { label: "Titre", name: "titre", widget: "string" }
       - { label: "Date", name: "date", widget: "datetime" }
+      - label: "Univers"
+        name: "categorie"
+        widget: "select"
+        required: false
+        hint: "Sert à colorer le badge de l'article et à filtrer la liste des actualités. Laisser vide si l'article n'entre dans aucune de ces trois familles."
+        options:
+          - { label: "Compétition", value: "competition" }
+          - { label: "Loisir & randonnées", value: "loisir" }
+          - { label: "Vie du club", value: "club" }
       - { label: "Résumé", name: "resume", widget: "text" }
       - { label: "Image principale", name: "image", widget: "image", required: false }
       - { label: "Photos (diaporama)", name: "photos", widget: "list", required: false, field: { label: "Photo", name: "photo", widget: "image" } }

@@ -3,6 +3,7 @@ import { getCollection, render } from "astro:content";
 import PageLayout from "../../layouts/PageLayout.astro";
 import Carousel from "../../components/Carousel.astro";
 import Videos from "../../components/Videos.astro";
+import { LIBELLES_CATEGORIE_ACTU } from "../../lib/categories-actus";
 
 export async function getStaticPaths() {
   const entries = await getCollection("actualites");
@@ -14,12 +15,16 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
-const { titre, date, image, resume } = entry.data;
+const { titre, date, image, resume, categorie } = entry.data;
 const photos = entry.data.photos ?? (image ? [image] : []);
 
 const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric", timeZone: "Europe/Paris" });
+
+// L'univers de l'article s'affiche dans le surtitre plutôt que comme un badge
+// isolé : « Actualités · Compétition » situe l'article sans le cloisonner.
+const section = categorie ? `Actualités · ${LIBELLES_CATEGORIE_ACTU[categorie]}` : "Actualités";
 ---
-<PageLayout titre={titre} section="Actualités" chapo={fmt.format(date)} description={resume}>
+<PageLayout titre={titre} section={section} chapo={fmt.format(date)} description={resume}>
   {photos.length > 0 && (
     <div class="article__carousel">
       <Carousel photos={photos} alt={titre} ratio="16 / 9" />

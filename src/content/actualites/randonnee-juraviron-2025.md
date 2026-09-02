@@ -1,6 +1,7 @@
 ---
 titre: "Randonnée JURAVIRON 2025"
 date: 2025-08-23
+categorie: "loisir"
 resume: "3 yolettes et 16 rameurs du CNF à la Juraviron sur le lac de Vouglans, 35 km dans le Jura."
 image: "/images/actus/randonnee-juraviron-2025/01.jpeg"
 photos:

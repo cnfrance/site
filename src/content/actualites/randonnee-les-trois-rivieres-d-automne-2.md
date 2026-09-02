@@ -1,6 +1,7 @@
 ---
 titre: "Randonnée « les trois rivières d'automne »"
 date: 2024-10-27
+categorie: "loisir"
 resume: "11 rameurs du CNF à la randonnée « Les 3 Rivières » de Bayonne : 26 km le samedi puis 14 km sur la Nive le dimanche."
 image: "/images/actus/randonnee-les-trois-rivieres-d-automne-2/01.jpg"
 photos:

@@ -1,6 +1,7 @@
 ---
 titre: "Championnats de France longue distance"
 date: 2025-03-02
+categorie: "competition"
 resume: "Championnats de France longue distance à Mâcon : les rameurs masters du CNF décrochent trois médailles sur 8000 m."
 image: "/images/actus/championnats-de-france-longue-distance/01.jpg"
 photos:

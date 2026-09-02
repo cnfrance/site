@@ -1,6 +1,7 @@
 ---
 titre: "39eme Raid Jersey-Carteret 2025"
 date: 2025-07-19
+categorie: "competition"
 resume: "Le CNF termine 3e du 39e Raid Jersey-Carteret en 4 de couple barré, 28 km de course en mer en 2h05."
 image: "/images/actus/39eme-raid-jersey-carteret-2025/01.jpeg"
 photos:

@@ -1,6 +1,7 @@
 ---
 titre: "Championnats nationaux Longue Distance Master"
 date: 2026-03-07
+categorie: "competition"
 resume: "Championnats nationaux longue distance master à Bourges : une médaille d'or et deux bronzes pour le CNF."
 image: "/images/actus/championnats-nationaux-longue-distance-master/01.jpg"
 photos:

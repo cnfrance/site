@@ -1,6 +1,7 @@
 ---
 titre: 'Randonnée : "la Pelle de Dordogne"'
 date: 2026-04-18
+categorie: "loisir"
 resume: "Une vingtaine de yolettes du CNF descendent la Dordogne sur 28 km lors de la randonnée « La Pelle de Dordogne »."
 ---
 

@@ -1,6 +1,7 @@
 ---
 titre: "Bayonne - Randonnée des 3 Rivières"
 date: 2026-04-04
+categorie: "loisir"
 resume: "Trois yolettes du CNF à Bayonne pour une version allégée des 3 Rivières : 22 km puis 14 km entre Adour et Nive."
 image: "/images/actus/bayonne-randonnee-des-3-rivieres/01.jpeg"
 photos:

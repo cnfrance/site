@@ -1,6 +1,7 @@
 ---
 titre: "Randonnée des Tulipes entre Haarlem et Leiden le 17 et 18 avril 2026"
 date: 2026-04-17
+categorie: "loisir"
 resume: "Randonnée des Tulipes entre Haarlem et Leiden : canaux de Leiden puis 30 km en yolette parmi les champs fleuris."
 image: "/images/actus/randonnee-des-tulipes-entre-haarlem-et-leiden-le-17-et-18-avril-2026/01.jpg"
 photos:

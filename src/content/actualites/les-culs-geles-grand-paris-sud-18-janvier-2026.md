@@ -1,6 +1,7 @@
 ---
 titre: "Les culs gelés Grand-Paris-Sud 18 janvier 2026"
 date: 2026-01-18
+categorie: "competition"
 resume: "Deux équipages du CNF aux Culs Gelés du Grand Paris Sud : 25 km contre la montre dans le froid en yolette."
 image: "/images/actus/les-culs-geles-grand-paris-sud-18-janvier-2026/01.jpeg"
 photos:

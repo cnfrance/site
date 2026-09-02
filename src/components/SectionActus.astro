@@ -1,5 +1,8 @@
 ---
-interface Actu { titre: string; date: Date; resume: string; slug: string; }
+import { LIBELLES_CATEGORIE_ACTU } from "../lib/categories-actus";
+
+type Categorie = keyof typeof LIBELLES_CATEGORIE_ACTU;
+interface Actu { titre: string; date: Date; resume: string; slug: string; categorie?: Categorie; }
 interface Props { actus: Actu[]; }
 const { actus } = Astro.props;
 const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric", timeZone: "Europe/Paris" });
@@ -14,8 +17,11 @@ const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", ye
       ? <p class="act__vide">Pas encore d'article publié.</p>
       : <div class="act__grid">
           {actus.map((a) => (
-            <a class="act__card" href={`/actualites/${a.slug}`}>
-              <time class="act__date" datetime={a.date.toISOString()}>{fmt.format(a.date)}</time>
+            <a class="act__card" href={`/actualites/${a.slug}`} data-categorie={a.categorie ?? ""}>
+              <div class="act__meta">
+                <time class="act__date" datetime={a.date.toISOString()}>{fmt.format(a.date)}</time>
+                {a.categorie && <span class="act__badge">{LIBELLES_CATEGORIE_ACTU[a.categorie]}</span>}
+              </div>
               <h3 class="act__title">{a.titre}</h3>
               <p class="act__resume">{a.resume}</p>
             </a>
@@ -29,9 +35,19 @@ const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", ye
   .act__h { font-size: clamp(1.6rem, 3.5vw, 2.4rem); }
   .act__all { font-weight: 700; color: var(--rouge); font-size: 0.9rem; }
   .act__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; }
-  .act__card { border: 1px solid var(--gris-bord); border-radius: var(--radius); padding: 1.3rem; transition: transform .15s; background: var(--fond); }
+  .act__card { border: 1px solid var(--gris-bord); border-radius: var(--radius); padding: 1.3rem; transition: transform .15s; background: var(--fond); border-top: 3px solid var(--teinte, var(--gris-bord)); }
+  .act__card[data-categorie="competition"] { --teinte: var(--cat-competition); }
+  .act__card[data-categorie="loisir"] { --teinte: var(--cat-loisir); }
+  .act__card[data-categorie="club"] { --teinte: var(--cat-club); }
   .act__card:hover { transform: translateY(-3px); }
+  .act__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
   .act__date { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; }
+  .act__badge {
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+    padding: 0.16rem 0.5rem; border-radius: 999px; white-space: nowrap;
+    color: var(--teinte, var(--muted));
+    background: color-mix(in srgb, var(--teinte, var(--muted)) 12%, transparent);
+  }
   .act__title { font-size: 1.15rem; color: var(--rouge-sombre); margin: 0.3rem 0; }
   .act__resume { font-size: 0.9rem; color: var(--muted); }
   .act__vide { color: var(--muted); }

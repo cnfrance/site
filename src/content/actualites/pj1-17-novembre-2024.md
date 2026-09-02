@@ -1,6 +1,7 @@
 ---
 titre: "PJ1 17 novembre 2024"
 date: 2024-11-17
+categorie: "competition"
 resume: "Première étape du programme jeunes de la LIFA au CNF : 7 yolettes et un double canoë sur 3000 m autour de la Jatte."
 image: "/images/actus/pj1-17-novembre-2024/01.jpeg"
 photos:

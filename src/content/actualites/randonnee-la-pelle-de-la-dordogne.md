@@ -1,6 +1,7 @@
 ---
 titre: "Randonnée : « la Pelle de la Dordogne »"
 date: 2025-04-05
+categorie: "loisir"
 resume: "Ouverture de la saison des randonnées : dix rameurs du CNF à la Pelle de la Dordogne, 28 km entre Sainte-Foy et Castillon."
 image: "/images/actus/randonnee-la-pelle-de-la-dordogne/01.jpeg"
 photos:

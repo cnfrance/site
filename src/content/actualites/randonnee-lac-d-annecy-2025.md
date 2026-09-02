@@ -1,6 +1,7 @@
 ---
 titre: "Randonnée Lac d'Annecy 2025"
 date: 2025-10-12
+categorie: "loisir"
 resume: "9 rameurs du CNF à la Rand'Eau ancilevienne sur le lac d'Annecy : boucle de 25 km parmi 47 yolettes engagées."
 image: "/images/actus/randonnee-lac-d-annecy-2025/01.jpeg"
 photos:

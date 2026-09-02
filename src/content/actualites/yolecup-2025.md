@@ -1,6 +1,7 @@
 ---
 titre: "Yolecup 2025"
 date: 2025-05-17
+categorie: "competition"
 resume: "Le CNF 1 remporte la Yolecup des débutants à Meulan-les-Mureaux, devant 18 clubs engagés sur 300 m."
 image: "/images/actus/yolecup-2025/01.jpeg"
 photos:

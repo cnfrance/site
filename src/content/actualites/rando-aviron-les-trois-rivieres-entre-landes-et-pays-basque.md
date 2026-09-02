@@ -1,6 +1,7 @@
 ---
 titre: "Rando aviron « Les Trois Rivières » entre Landes et Pays Basque"
 date: 2025-06-09
+categorie: "loisir"
 resume: "20 rameurs du CNF aux mythiques 3 Rivières de Bayonne pour le week-end de Pentecôte : 63 km sur l'Adour, la Bidouze et la Nive."
 image: "/images/actus/rando-aviron-les-trois-rivieres-entre-landes-et-pays-basque/01.jpeg"
 photos:

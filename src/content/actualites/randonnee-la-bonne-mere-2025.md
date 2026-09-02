@@ -1,6 +1,7 @@
 ---
 titre: "Randonnée La Bonne Mère 2025"
 date: 2025-09-06
+categorie: "loisir"
 resume: "5 rameurs du CNF à La Bonne Mère à Marseille, jusqu'à l'île Maïre puis vers le cap Canaille avec le club de Cassis."
 image: "/images/actus/randonnee-la-bonne-mere-2025/01.jpeg"
 photos:

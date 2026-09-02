@@ -1,5 +1,6 @@
 import { defineCollection, z } from 'astro:content';
 import { glob, file } from 'astro/loaders';
+import { CATEGORIES_ACTU } from './lib/categories-actus';
 
 export const reglagesSchema = z.object({
   accroche: z.string(),
@@ -28,6 +29,7 @@ export const actualiteSchema = z.object({
   titre: z.string(),
   date: z.coerce.date(),
   resume: z.string(),
+  categorie: z.enum(CATEGORIES_ACTU).optional(),
   image: z.string().optional(),
   photos: z.array(z.string()).optional(),
   videos: z.array(z.object({

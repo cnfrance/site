@@ -1,6 +1,7 @@
 ---
 titre: "Le CNF en Régate Internationale en Chine"
 date: 2026-01-05
+categorie: "competition"
 resume: "Les rameurs du CNF affrontent de grandes équipes internationales en huit lors d'une régate en Chine."
 image: "/images/actus/le-cnf-en-regate-internationale-en-chine/01.jpeg"
 photos:

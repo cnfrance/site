@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import PageLayout from "../../layouts/PageLayout.astro";
+import { LIBELLES_CATEGORIE_ACTU } from "../../lib/categories-actus";
 
 const entries = await getCollection("actualites");
 const actus = entries
@@ -8,6 +9,13 @@ const actus = entries
   .sort((a, b) => b.date.getTime() - a.date.getTime());
 
 const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric", timeZone: "Europe/Paris" });
+
+// Les pastilles de filtre ne listent que les univers réellement présents : on
+// évite un filtre qui ne renverrait aucun article.
+const presentes = new Set(actus.map((a) => a.categorie).filter(Boolean) as string[]);
+const filtres = (Object.keys(LIBELLES_CATEGORIE_ACTU) as (keyof typeof LIBELLES_CATEGORIE_ACTU)[])
+  .filter((c) => presentes.has(c))
+  .map((c) => ({ valeur: c, libelle: LIBELLES_CATEGORIE_ACTU[c] }));
 ---
 <PageLayout
   titre="Actualités"
@@ -16,21 +24,125 @@ const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", ye
 >
   {actus.length === 0
     ? <p class="vide">Pas encore d'article publié.</p>
-    : <div class="grid">
-        {actus.map((a) => (
-          <a class="card" href={`/actualites/${a.slug}`}>
-            <time class="card__date" datetime={a.date.toISOString()}>{fmt.format(a.date)}</time>
-            <h2 class="card__title">{a.titre}</h2>
-            <p class="card__resume">{a.resume}</p>
-          </a>
-        ))}
+    : <div class="actus" data-actus>
+        {filtres.length > 1 && (
+          <div class="filtres" role="group" aria-label="Filtrer les actualités par univers">
+            <button type="button" class="filtre is-actif" data-filtre="tout" aria-pressed="true">Tout</button>
+            {filtres.map((f) => (
+              <button type="button" class={`filtre filtre--${f.valeur}`} data-filtre={f.valeur} aria-pressed="false">
+                {f.libelle}
+              </button>
+            ))}
+          </div>
+        )}
+
+        <p class="compte" data-compte aria-live="polite">{actus.length} articles</p>
+
+        <div class="grid">
+          {actus.map((a) => (
+            <a class="card" href={`/actualites/${a.slug}`} data-categorie={a.categorie ?? ""}>
+              <div class="card__meta">
+                <time class="card__date" datetime={a.date.toISOString()}>{fmt.format(a.date)}</time>
+                {a.categorie && (
+                  <span class={`badge badge--${a.categorie}`}>{LIBELLES_CATEGORIE_ACTU[a.categorie]}</span>
+                )}
+              </div>
+              <h2 class="card__title">{a.titre}</h2>
+              <p class="card__resume">{a.resume}</p>
+            </a>
+          ))}
+        </div>
       </div>}
 </PageLayout>
+
+<script>
+  // Filtrage côté client : une seule liste chronologique, on masque simplement
+  // les cartes hors univers. Aucun rechargement, aucune page séparée — les
+  // familles restent perméables plutôt que cloisonnées.
+  const racine = document.querySelector<HTMLElement>("[data-actus]");
+  if (racine) {
+    const boutons = Array.from(racine.querySelectorAll<HTMLButtonElement>("[data-filtre]"));
+    const cartes = Array.from(racine.querySelectorAll<HTMLElement>(".card"));
+    const compte = racine.querySelector<HTMLElement>("[data-compte]");
+
+    const appliquer = (choix: string) => {
+      let visibles = 0;
+      for (const carte of cartes) {
+        const garde = choix === "tout" || carte.dataset.categorie === choix;
+        carte.hidden = !garde;
+        if (garde) visibles++;
+      }
+      for (const b of boutons) {
+        const actif = b.dataset.filtre === choix;
+        b.classList.toggle("is-actif", actif);
+        b.setAttribute("aria-pressed", String(actif));
+      }
+      if (compte) compte.textContent = visibles > 1 ? `${visibles} articles` : `${visibles} article`;
+    };
+
+    for (const b of boutons) {
+      b.addEventListener("click", () => appliquer(b.dataset.filtre ?? "tout"));
+    }
+  }
+</script>
+
 <style>
+  .filtres { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+  .filtre {
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.42rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid var(--gris-bord);
+    background: var(--blanc);
+    color: var(--muted);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .filtre:hover { border-color: var(--teinte, var(--rouge)); color: var(--teinte, var(--rouge)); }
+  .filtre:focus-visible { outline: 2px solid var(--teinte, var(--rouge)); outline-offset: 2px; }
+  .filtre.is-actif { background: var(--teinte, var(--texte)); border-color: var(--teinte, var(--texte)); color: #fff; }
+  .filtre--competition { --teinte: var(--cat-competition); }
+  .filtre--loisir { --teinte: var(--cat-loisir); }
+  .filtre--club { --teinte: var(--cat-club); }
+
+  .compte { font-size: 0.82rem; color: var(--muted); margin-bottom: 1.2rem; }
+
   .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; }
-  .card { border: 1px solid var(--gris-bord); border-radius: var(--radius); padding: 1.3rem; transition: transform .15s; background: var(--blanc); }
+  .card {
+    border: 1px solid var(--gris-bord);
+    border-radius: var(--radius);
+    padding: 1.3rem;
+    transition: transform .15s;
+    background: var(--blanc);
+    border-top: 3px solid var(--teinte, var(--gris-bord));
+  }
+  /* La carte est un <a> placé dans `.prose` : sans cette règle elle hérite du
+     soulignement des liens de contenu et tout son texte est souligné. Le
+     sélecteur descendant est nécessaire pour l'emporter sur `.prose a`. */
+  .grid a.card, .grid a.card:hover { text-decoration: none; }
+  .card[hidden] { display: none; }
+  .card[data-categorie="competition"] { --teinte: var(--cat-competition); }
+  .card[data-categorie="loisir"] { --teinte: var(--cat-loisir); }
+  .card[data-categorie="club"] { --teinte: var(--cat-club); }
   .card:hover { transform: translateY(-3px); }
+  .card__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem; }
   .card__date { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; }
+  .badge {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 0.16rem 0.5rem;
+    border-radius: 999px;
+    color: var(--teinte);
+    background: color-mix(in srgb, var(--teinte) 12%, transparent);
+    white-space: nowrap;
+  }
+  .badge--competition { --teinte: var(--cat-competition); }
+  .badge--loisir { --teinte: var(--cat-loisir); }
+  .badge--club { --teinte: var(--cat-club); }
   .card__title { font-size: 1.15rem; color: var(--rouge-sombre); margin: 0.3rem 0; }
   .card__resume { font-size: 0.9rem; color: var(--muted); }
   .vide { color: var(--muted); }

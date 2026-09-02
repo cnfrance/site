@@ -2,6 +2,7 @@ import { expect, test, describe } from 'vitest';
 import {
   reglagesSchema, evenementSchema, actualiteSchema, partenaireSchema,
 } from '../src/content.config';
+import { CATEGORIES_ACTU, LIBELLES_CATEGORIE_ACTU } from '../src/lib/categories-actus';
 
 describe('reglagesSchema', () => {
   test('accepte des réglages valides', () => {
@@ -33,6 +34,22 @@ describe('actualiteSchema', () => {
   test('accepte une actu valide', () => {
     const a = actualiteSchema.parse({ titre: 'Rando', date: '2026-05-01', resume: 'court' });
     expect(a.titre).toBe('Rando');
+  });
+  test('la catégorie est optionnelle', () => {
+    expect(actualiteSchema.parse({ titre: 'Rando', date: '2026-05-01', resume: 'x' }).categorie).toBeUndefined();
+  });
+  test('accepte les trois univers éditoriaux', () => {
+    for (const c of CATEGORIES_ACTU) {
+      expect(actualiteSchema.parse({ titre: 'x', date: '2026-05-01', resume: 'x', categorie: c }).categorie).toBe(c);
+    }
+  });
+  test("rejette un univers inconnu", () => {
+    expect(() => actualiteSchema.parse({ titre: 'x', date: '2026-05-01', resume: 'x', categorie: 'peche' })).toThrow();
+  });
+  test('chaque univers a un libellé affichable', () => {
+    for (const c of CATEGORIES_ACTU) {
+      expect(LIBELLES_CATEGORIE_ACTU[c]).toBeTruthy();
+    }
   });
 });
 

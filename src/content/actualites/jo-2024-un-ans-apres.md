@@ -1,6 +1,7 @@
 ---
 titre: "JO 2024 un ans après"
 date: 2025-07-26
+categorie: "loisir"
 resume: "Deux équipages du CNF ont célébré le premier anniversaire des JO de Paris 2024 lors d'une descente de la Seine en yolette."
 image: "/images/actus/jo-2024-un-ans-apres/01.jpg"
 photos:

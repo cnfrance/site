@@ -1,6 +1,7 @@
 ---
 titre: "Assemblée Générale 2025"
 date: 2025-12-13
+categorie: "club"
 resume: "Assemblée générale du CNF : bilan de l'année des 150 ans, approbation des comptes et élection de deux nouvelles membres."
 image: "/images/actus/assemblee-generale-2025/01.jpeg"
 photos:

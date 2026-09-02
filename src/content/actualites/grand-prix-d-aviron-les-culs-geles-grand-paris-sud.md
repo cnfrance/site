@@ -1,6 +1,7 @@
 ---
 titre: "Grand Prix d'Aviron Les culs gelés Grand-Paris-Sud"
 date: 2025-01-19
+categorie: "competition"
 resume: "Deux équipages du CNF au 28e Grand Prix « Les culs gelés » du Coudray-Montceaux, 25 km contre la montre dans le froid."
 image: "/images/actus/grand-prix-d-aviron-les-culs-geles-grand-paris-sud/01.jpg"
 photos:
