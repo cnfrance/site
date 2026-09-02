@@ -1,6 +1,6 @@
 ---
 titre: "Formation / Perfectionnement"
-section: "Espace adhérents"
+section: "Information adhérent"
 ---
 
 ## **LES CAPSULES TECHNIQUES VIDEO de la FFA**

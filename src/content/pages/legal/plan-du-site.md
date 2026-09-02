@@ -32,7 +32,7 @@ section: "Légal"
 - Randonnées
 - Stages découverte
 
-## Espace adhérents
+## Information adhérent
 - Renouveler mon inscription
 - Bon usage du matériel
 - Sécurité & navigation

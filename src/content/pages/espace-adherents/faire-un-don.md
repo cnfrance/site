@@ -1,6 +1,6 @@
 ---
 titre: "Faire un don"
-section: "Espace adhérents"
+section: "Information adhérent"
 ---
 
 Vous souhaitez soutenir le Cercle Nautique de France ? Vous pouvez effectuer un don en ligne, en toute sécurité, via le formulaire ci-dessous. S'il ne s'affiche pas, vous pouvez y accéder [en cliquant ici](https://www.payasso.fr/cnfrance/don).

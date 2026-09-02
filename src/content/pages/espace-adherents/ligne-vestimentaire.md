@@ -1,6 +1,6 @@
 ---
 titre: "Ligne Vestimentaire"
-section: "Espace adhérents"
+section: "Information adhérent"
 ---
 
 Retrouvez et commandez la ligne vestimentaire aux couleurs du Cercle Nautique de France directement en ligne. Si la boutique ne s'affiche pas ci-dessous, vous pouvez y accéder [en cliquant ici](https://www.payasso.fr/cnfrance/fashionweek).

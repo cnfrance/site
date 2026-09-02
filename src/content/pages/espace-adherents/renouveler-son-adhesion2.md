@@ -1,6 +1,6 @@
 ---
 titre: "Renouveler mon inscription pour la saison 2025/2026"
-section: "Espace adhérents"
+section: "Information adhérent"
 ---
 
 Si vous n’avez jamais été adhérent·e au CNF et que vous souhaitez nous rejoindre, veuillez consulter la rubrique « [Adhérer au CNF](/infos-pratiques/adherez-au-cnf) ».

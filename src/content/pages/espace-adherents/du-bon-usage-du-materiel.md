@@ -1,6 +1,6 @@
 ---
 titre: "Bon usage du matériel"
-section: "Espace adhérents"
+section: "Information adhérent"
 ---
 
 * * *

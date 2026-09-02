@@ -1,6 +1,6 @@
 ---
 titre: "Sécurité & navigation"
-section: "Espace adhérents"
+section: "Information adhérent"
 ---
 
 Le CNF bénéficie d'une belle zone de navigation dédiée à la pratique de l'aviron. Nous devons la préserver en respectant la réglementation fluviale et en adoptant les règles définies par le club.

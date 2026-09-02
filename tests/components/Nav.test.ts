@@ -11,7 +11,7 @@ test('la nav reproduit fidèlement les rubriques de l\'ancien site', async () =>
     'Infos Pratiques',
     'Pratiquer',
     'Découvrir',
-    'Espace adhérents',
+    'Information adhérent',
     'Partenariat',
     'Team Building',
     '150 Ans',
