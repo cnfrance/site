@@ -43,12 +43,76 @@ const events: Ev[] = [
     href: `${B}/resultats/${e.id}`,
   })),
 ].sort((a, b) => a.debut.localeCompare(b.debut));
+
+// « Prochains rendez-vous » : uniquement les événements du club (pas les actus
+// ni les résultats, qui sont par nature passés). On rend au build tous ceux à
+// venir ; un script client écarte ensuite ceux devenus caducs depuis le dernier
+// déploiement et n'en affiche que trois.
+const aujourdhui = isoParis(new Date());
+const prochains = evenements
+  .map((e) => ({
+    titre: e.data.titre,
+    debut: isoParis(e.data.date),
+    fin: isoParis(e.data.dateFin ?? e.data.date),
+    lieu: e.data.lieu ?? null,
+    description: e.data.description,
+    lien: e.data.lien ?? null,
+  }))
+  .filter((e) => e.fin >= aujourdhui)
+  .sort((a, b) => a.debut.localeCompare(b.debut))
+  .slice(0, 8);
+
+const MOIS_COURT = ["janv.", "févr.", "mars", "avril", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."];
+
+// Libellé de date lisible : « 13 sept. » ou « 17 → 18 oct. » si l'événement
+// s'étale sur plusieurs jours.
+function pastille(debut: string, fin: string) {
+  const [, md, jd] = debut.split("-");
+  const [, mf, jf] = fin.split("-");
+  const jour = debut === fin ? String(Number(jd)) : `${Number(jd)}–${Number(jf)}`;
+  const mois = md === mf ? MOIS_COURT[Number(md) - 1] : `${MOIS_COURT[Number(md) - 1]}/${MOIS_COURT[Number(mf) - 1]}`;
+  return { jour, mois, annee: debut.slice(0, 4) };
+}
 ---
 <PageLayout
   titre="Calendrier"
   section="Infos pratiques"
   chapo="Retrouvez tous les événements du club : compétitions, randonnées, actualités et résultats."
 >
+  {prochains.length > 0 && (
+    <section class="prochains" data-prochains aria-labelledby="prochains-titre">
+      <h2 class="prochains__h" id="prochains-titre">Les prochains rendez-vous</h2>
+      <ul class="prochains__liste">
+        {prochains.map((e) => {
+          const p = pastille(e.debut, e.fin);
+          return (
+            <li class={e.debut === e.fin ? "rdv" : "rdv rdv--intervalle"} data-fin={e.fin} hidden>
+              <div class="rdv__date" aria-hidden="true">
+                <span class="rdv__jour">{p.jour}</span>
+                <span class="rdv__mois">{p.mois}</span>
+                <span class="rdv__annee">{p.annee}</span>
+              </div>
+              <div class="rdv__corps">
+                <h3 class="rdv__titre">{e.titre}</h3>
+                {e.lieu && <p class="rdv__lieu">{e.lieu}</p>}
+                <p class="rdv__desc">{e.description}</p>
+                {e.lien && (
+                  <a class="rdv__lien" href={e.lien} target="_blank" rel="noopener noreferrer">
+                    Informations &amp; inscriptions →
+                  </a>
+                )}
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+      <p class="prochains__vide" data-prochains-vide hidden>
+        Aucun rendez-vous à venir pour le moment. Consultez le calendrier ci-dessous.
+      </p>
+    </section>
+  )}
+
+  <h2 class="cal__h">Tout le calendrier</h2>
   <div class="cal" data-cal>
     <div class="cal-head">
       <div class="cal-nav">
@@ -71,6 +135,29 @@ const events: Ev[] = [
 
     <div class="cal-grid" data-cal-grid></div>
   </div>
+
+  <script>
+    // Le site étant statique, la liste rendue au build peut contenir des dates
+    // déjà passées. On refiltre à l'affichage et on n'en garde que trois.
+    (function () {
+      const bloc = document.querySelector<HTMLElement>("[data-prochains]");
+      if (!bloc) return;
+      const pad = (n: number) => String(n).padStart(2, "0");
+      const d = new Date();
+      const aujourdhui = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+      let affiches = 0;
+      for (const li of bloc.querySelectorAll<HTMLLIElement>(".rdv")) {
+        if (affiches < 3 && (li.dataset.fin ?? "") >= aujourdhui) {
+          li.hidden = false;
+          affiches++;
+        }
+      }
+      if (affiches === 0) {
+        const vide = bloc.querySelector<HTMLElement>("[data-prochains-vide]");
+        if (vide) vide.hidden = false;
+      }
+    })();
+  </script>
 
   <script define:vars={{ EVENTS: events }}>
     (function () {
@@ -135,6 +222,54 @@ const events: Ev[] = [
 </PageLayout>
 
 <style>
+  /* ===== Prochains rendez-vous ===== */
+  .prochains { margin-block: 0 3rem; }
+  .prochains__h { font-size: clamp(1.4rem, 3vw, 1.9rem); margin-bottom: 1.1rem; }
+  .prochains__liste { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.9rem; }
+  .prochains__vide { color: var(--muted); }
+
+  .rdv {
+    display: flex;
+    gap: 1.1rem;
+    align-items: flex-start;
+    background: var(--blanc);
+    border: 1px solid var(--gris-bord);
+    border-left: 4px solid var(--rouge);
+    border-radius: var(--radius);
+    padding: 1.1rem 1.2rem;
+  }
+  /* `display: flex` neutraliserait le `display: none` de l'attribut [hidden]. */
+  .rdv[hidden] { display: none; }
+  .rdv__date {
+    flex: 0 0 auto;
+    min-width: 4.6rem;
+    text-align: center;
+    line-height: 1.05;
+    padding-top: 0.15rem;
+  }
+  .rdv__jour { display: block; font-family: var(--font-titre); font-size: 1.9rem; font-weight: 700; color: var(--rouge); white-space: nowrap; }
+  /* Un intervalle « 17–18 » est deux fois plus large qu'un jour seul : on le
+     rétrécit pour que toutes les pastilles gardent la même emprise. */
+  .rdv--intervalle .rdv__jour { font-size: 1.3rem; padding-block: 0.28rem; }
+  .rdv__mois { display: block; font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--rouge); }
+  .rdv__annee { display: block; font-size: 0.72rem; color: var(--muted); margin-top: 0.15rem; }
+  .rdv__corps { min-width: 0; }
+  .rdv__titre { font-size: 1.15rem; margin: 0 0 0.25rem; }
+  .rdv__lieu { font-size: 0.85rem; color: var(--muted); margin: 0 0 0.4rem; }
+  .rdv__desc { font-size: 0.92rem; margin: 0; }
+  .rdv__lien { display: inline-block; margin-top: 0.55rem; font-size: 0.88rem; font-weight: 700; color: var(--rouge); }
+  .rdv__lien:hover { color: var(--rouge-sombre); text-decoration: underline; }
+
+  @media (max-width: 520px) {
+    .rdv { gap: 0.85rem; padding: 0.95rem 1rem; }
+    .rdv__date { min-width: 3.6rem; }
+    .rdv__jour { font-size: 1.45rem; }
+    .rdv--intervalle .rdv__jour { font-size: 1.05rem; }
+    .rdv__mois { font-size: 0.72rem; }
+  }
+
+  /* ===== Calendrier mensuel ===== */
+  .cal__h { font-size: clamp(1.4rem, 3vw, 1.9rem); }
   .cal { margin-block: 1.6rem; }
   .cal-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.8rem; margin-bottom: 1rem; }
   .cal-nav { display: grid; grid-template-columns: 2.2rem 8.5em 2.2rem; align-items: center; gap: 0.6rem; }
