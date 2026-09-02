@@ -38,9 +38,25 @@ test('la nav expose des sous-menus avec les liens des pages migrées', async () 
     '/actualites',
     '/partenariat/sponsor',
     '/partenariat/team-building',
-    '/150-ans/boutique',
+    '/150-ans/histoire-150-d-aviron',
   ]) {
     expect(html).toContain(href);
   }
   expect(html).toContain('nav__menu');
+});
+
+test("le sous-menu 150 ans ne garde que les photos et l'histoire", async () => {
+  const container = await AstroContainer.create();
+  const html = await container.renderToString(Nav);
+  expect(html).toContain('/150-ans/photos-videos-du-week-end-150-ans-ici');
+  expect(html).toContain("/150-ans/histoire-150-d-aviron");
+  for (const supprime of [
+    '/150-ans/boutique',
+    '/150-ans/grande-soiree-du-12-juillet-2025',
+    '/150-ans/row-500-edition-speciale-150-ans',
+    '/150-ans/sponsors-de-la-row-500',
+    '/150-ans/relais-indoor-sur-100-km-21-juin-2025-edition-speciale-150-ans',
+  ]) {
+    expect(html).not.toContain(supprime);
+  }
 });

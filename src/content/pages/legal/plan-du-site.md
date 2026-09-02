@@ -50,12 +50,8 @@ section: "Légal"
 - Sponsors club
 
 ## 150 Ans du Cercle Nautique de France
-- Photos vidéos du week end 150 ans
-- Grande soirée du 12 Juillet 2025
-- ROW 500 : édition spéciale 150 ans
-- Relais Indoor 21 juin 2025
-- Histoire : 150 d'aviron
-- Boutique 150 ans
+- Photos & vidéos du week-end 150 ans
+- Histoire : 150 ans d'aviron
 
 ## Liens Utiles
 - Nous Contacter
