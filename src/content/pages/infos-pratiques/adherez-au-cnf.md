@@ -47,6 +47,6 @@ Le processus de première inscription au CNF est pris en charge par l'applicatio
 
 [Cliquez ici pour accéder au tutoriel](https://docs.google.com/document/d/1ZBApjAo7p3GolLks7C_Vh0xVmO1x7K5mqLGN9uxIS3I/edit?usp=sharing) et laissez-vous guider pas à pas !
 
-[Cliquez ici pour consulter les tarifs de la saison 2025-26.](/infos-pratiques/tarifs)
+[Cliquez ici pour consulter les tarifs de la saison 2026-27.](/infos-pratiques/tarifs)
 
 En cas de question, merci de prendre contact avec l'équipe administrative à l'adresse [.](mailto:inscription@gmail.com.)

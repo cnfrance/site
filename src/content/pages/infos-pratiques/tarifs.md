@@ -1,5 +1,5 @@
 ---
-titre: "Tarifs 2025/2026"
+titre: "Tarifs 2026/2027"
 section: "Infos pratiques"
 chapo: "La saison commence le 1er septembre et se termine le 31 août de l'année suivante."
 ---
@@ -19,9 +19,9 @@ Sauf dans les cas prévus ci-dessous :
     <div class="tarif-card__lignes">
       <div class="tarif-card__ligne">Droit d'adhésion <b>—</b></div>
       <div class="tarif-card__ligne">Cotisation annuelle <b>290 €</b></div>
-      <div class="tarif-card__ligne">Licence FFA &amp; frais <b>80 €</b></div>
+      <div class="tarif-card__ligne">Licence FFA &amp; frais <b>85 €</b></div>
     </div>
-    <p class="tarif-card__total"><span>Total à régler</span> <b>370 €</b></p>
+    <p class="tarif-card__total"><span>Total à régler</span> <b>375 €</b></p>
   </div>
   <div class="tarif-card">
     <p class="tarif-card__profil">Majeurs</p>
@@ -29,9 +29,9 @@ Sauf dans les cas prévus ci-dessous :
     <div class="tarif-card__lignes">
       <div class="tarif-card__ligne">Droit d'adhésion <b>—</b></div>
       <div class="tarif-card__ligne">Cotisation annuelle <b>525 €</b></div>
-      <div class="tarif-card__ligne">Licence FFA &amp; frais <b>80 €</b></div>
+      <div class="tarif-card__ligne">Licence FFA &amp; frais <b>85 €</b></div>
     </div>
-    <p class="tarif-card__total"><span>Total à régler</span> <b>605 €</b></p>
+    <p class="tarif-card__total"><span>Total à régler</span> <b>610 €</b></p>
   </div>
 </div>
 
@@ -44,9 +44,9 @@ Sauf dans les cas prévus ci-dessous :
     <div class="tarif-card__lignes">
       <div class="tarif-card__ligne">Droit d'adhésion <b>100 €</b></div>
       <div class="tarif-card__ligne">Cotisation annuelle <b>290 €</b></div>
-      <div class="tarif-card__ligne">Licence FFA &amp; frais <b>80 €</b></div>
+      <div class="tarif-card__ligne">Licence FFA &amp; frais <b>85 €</b></div>
     </div>
-    <p class="tarif-card__total"><span>Total à régler</span> <b>470 €</b></p>
+    <p class="tarif-card__total"><span>Total à régler</span> <b>475 €</b></p>
   </div>
   <div class="tarif-card">
     <p class="tarif-card__profil">Mineurs, étudiants (-30 ans), recherche d'emploi et minimas sociaux</p>
@@ -54,9 +54,9 @@ Sauf dans les cas prévus ci-dessous :
     <div class="tarif-card__lignes">
       <div class="tarif-card__ligne">Droit d'adhésion <b>150 €</b></div>
       <div class="tarif-card__ligne">Cotisation annuelle <b>290 €</b></div>
-      <div class="tarif-card__ligne">Licence FFA &amp; frais <b>80 €</b></div>
+      <div class="tarif-card__ligne">Licence FFA &amp; frais <b>85 €</b></div>
     </div>
-    <p class="tarif-card__total"><span>Total à régler</span> <b>520 €</b></p>
+    <p class="tarif-card__total"><span>Total à régler</span> <b>525 €</b></p>
   </div>
   <div class="tarif-card">
     <p class="tarif-card__profil">Majeurs</p>
@@ -64,9 +64,9 @@ Sauf dans les cas prévus ci-dessous :
     <div class="tarif-card__lignes">
       <div class="tarif-card__ligne">Droit d'adhésion <b>200 €</b></div>
       <div class="tarif-card__ligne">Cotisation annuelle <b>525 €</b></div>
-      <div class="tarif-card__ligne">Licence FFA &amp; frais <b>80 €</b></div>
+      <div class="tarif-card__ligne">Licence FFA &amp; frais <b>85 €</b></div>
     </div>
-    <p class="tarif-card__total"><span>Total à régler</span> <b>805 €</b></p>
+    <p class="tarif-card__total"><span>Total à régler</span> <b>810 €</b></p>
   </div>
   <div class="tarif-card">
     <p class="tarif-card__profil">Majeurs</p>
@@ -74,9 +74,9 @@ Sauf dans les cas prévus ci-dessous :
     <div class="tarif-card__lignes">
       <div class="tarif-card__ligne">Droit d'adhésion <b>250 €</b></div>
       <div class="tarif-card__ligne">Cotisation annuelle <b>525 €</b></div>
-      <div class="tarif-card__ligne">Licence FFA &amp; frais <b>80 €</b></div>
+      <div class="tarif-card__ligne">Licence FFA &amp; frais <b>85 €</b></div>
     </div>
-    <p class="tarif-card__total"><span>Total à régler</span> <b>855 €</b></p>
+    <p class="tarif-card__total"><span>Total à régler</span> <b>860 €</b></p>
   </div>
 </div>
 
@@ -101,7 +101,7 @@ Cas donnant droit à une réduction de cotisation annuelle :
 
 Le montant de la réduction sur la cotisation annuelle est de 25% à partir du 1er janvier et de 50% à partir du 1er avril :
 
-<table><thead><tr><th>Profil</th><th>À partir du 1er janvier</th><th>À partir du 1er avril</th></tr></thead><tbody><tr><td><strong>Renouvellement</strong> — Mineurs et étudiants &lt; 30 ans (Neuilly ou autre)</td><td>297,50 €</td><td>225,00 €</td></tr><tr><td><strong>Renouvellement</strong> — Majeurs (Neuilly ou autre)</td><td>473,75 €</td><td>342,50 €</td></tr><tr><td><strong>1ère inscription</strong> — Mineurs et étudiants &lt; 30 ans (Neuilly)</td><td>397,50 €</td><td>325,00 €</td></tr><tr><td><strong>1ère inscription</strong> — Mineurs et étudiants &lt; 30 ans (autres)</td><td>447,50 €</td><td>375,00 €</td></tr><tr><td><strong>1ère inscription</strong> — Majeurs (Neuilly)</td><td>673,75 €</td><td>542,50 €</td></tr><tr><td><strong>1ère inscription</strong> — Majeurs (autres)</td><td>723,75 €</td><td>592,50 €</td></tr></tbody></table>
+<table><thead><tr><th>Profil</th><th>À partir du 1er janvier</th><th>À partir du 1er avril</th></tr></thead><tbody><tr><td><strong>Renouvellement</strong> — Mineurs et étudiants &lt; 30 ans (Neuilly ou autre)</td><td>302,50 €</td><td>230,00 €</td></tr><tr><td><strong>Renouvellement</strong> — Majeurs (Neuilly ou autre)</td><td>478,75 €</td><td>347,50 €</td></tr><tr><td><strong>1ère inscription</strong> — Mineurs et étudiants &lt; 30 ans (Neuilly)</td><td>402,50 €</td><td>330,00 €</td></tr><tr><td><strong>1ère inscription</strong> — Mineurs et étudiants &lt; 30 ans (autres)</td><td>452,50 €</td><td>380,00 €</td></tr><tr><td><strong>1ère inscription</strong> — Majeurs (Neuilly)</td><td>678,75 €</td><td>547,50 €</td></tr><tr><td><strong>1ère inscription</strong> — Majeurs (autres)</td><td>728,75 €</td><td>597,50 €</td></tr></tbody></table>
 
 ## Remboursement partiel en cours d'année
 
@@ -116,15 +116,15 @@ Il est calculé au prorata des mois entiers restant dans la saison. Plus de remb
 
 ## Autres tarifs
 
-- **Tarif "expatriés" :** 150 € licence FFA incluse. **Ce tarif concerne les adhérents du CNF séjournant en province ou à l'étranger pendant toute la saison et qui souhaitent garder un lien avec le club et venir ramer lors d'un séjour occasionnel dans la région parisienne**
-- **Tarif des stages "découverte" adultes 2025 :** 90 € pour trois séances.
-- **Tarif des stages "découverte" jeunes 2025 :** 75 € pour trois séances. Pas de déduction sur la cotisation annuelle
+- **Tarif "expatriés" :** 150 € licence FFA incluse. **Ce tarif concerne les adhérents du CNF séjournant en province ou à l'étranger pendant toute la saison et qui souhaitent garder un lien avec le club et venir ramer lors d'un séjour occasionnel dans la région parisienne. Cette remise ne se cumule pas avec la remise étudiant de moins de 30 ans.**
+- **Tarif des stages "découverte" adultes 2026 :** 90 € pour trois séances.
+- **Tarif des stages "découverte" jeunes 2026 :** 75 € pour trois séances. Pas de déduction sur la cotisation annuelle
 - **Location d'un vestiaire** (en fonction des disponibilités - priorité aux bénévoles et compétiteurs) : 30 €
 - **Jeunes pratiquant les activités via leur collège** (ex. les Bouvets) : 150 € + licence & frais s'ils s'inscrivent en compétition
 
 ### Déplacements compétitions et championnats
 
-<table><tbody><tr><td>Masters et hors classement performance</td><td>100 €</td></tr><tr><td>J14 J16 J18 Senior classement performance</td><td>75 €</td></tr><tr><td>Rameurs de haut niveau sur la liste du ministère</td><td>50 €</td></tr><tr><td>Stages aviron rameurs de haut niveau du ministère</td><td>-50 %</td></tr></tbody></table>
+<table><tbody><tr><td>Masters et hors classement performance</td><td>115 €</td></tr><tr><td>J14 J16 J18 Senior classement performance</td><td>75 €</td></tr><tr><td>Rameurs de haut niveau sur la liste du ministère</td><td>50 €</td></tr><tr><td>Stages aviron rameurs de haut niveau du ministère</td><td>-50 %</td></tr></tbody></table>
 
 <div class="actions">
   <a href="/infos-pratiques/adherez-au-cnf">Première inscription au CNF</a>
