@@ -1,0 +1,7 @@
+# www.cnfrance.fr — Cercle Nautique de France
+
+User-agent: *
+Allow: /
+
+# L'espace d'administration du CMS n'a rien à faire dans un index.
+Disallow: /admin/

@@ -11,6 +11,21 @@ backend:
   name: github
   repo: cnfrance/site
   branch: main
+
+  # Identifiant du site auprès du relais OAuth de Netlify.
+  #
+  # Sans cette ligne, Sveltia envoie `site_id=<hostname courant>`, donc
+  # `site_id=www.cnfrance.fr` — un site que Netlify ne connaît pas, puisque le
+  # domaine public est servi par l'hébergement Reverine (via le proxy) et non
+  # par Netlify. L'appel à https://api.netlify.com/auth répond alors 404 et la
+  # connexion au CMS échoue.
+  #
+  # En forçant le nom réel du site Netlify, l'appel repart correctement (302
+  # vers GitHub). Vérifié :
+  #   site_id=www.cnfrance.fr      -> 404
+  #   site_id=cnfrance.netlify.app -> 302 vers github.com/login/oauth/authorize
+  site_domain: cnfrance.netlify.app
+
   # L'authentification GitHub (OAuth) N'EST PAS configurée ici : aucun secret
   # ne doit jamais figurer dans ce fichier. Il faut fournir un point d'entrée
   # OAuth externe, via l'UNE des deux options suivantes (voir docs/CMS-SETUP.md
