@@ -1,0 +1,48 @@
+# ⚠️ Ce fichier n'est PAS lu par l'hébergement actuel.
+#
+# Le serveur est un nginx + php-fpm (en-têtes ETag au format nginx, message
+# « File not found. » de php-fpm sur un .php absent), et nginx ne lit pas les
+# .htaccess. Vérifié en production : ni la réécriture ci-dessous ni les
+# RedirectMatch n'ont le moindre effet.
+#
+# Si le routage fonctionne malgré tout, c'est grâce à la configuration nginx de
+# l'hébergeur, héritée de Joomla, qui fait déjà l'équivalent d'un
+# `try_files $uri $uri/ /index.php` : toute adresse ne correspondant à aucun
+# fichier sur le disque est confiée à index.php, donc à notre proxy.
+#
+# Conséquence importante : les fichiers de l'ancien site encore présents sur le
+# disque (/administrator/index.php, /media/, /templates/, *.txt…) sont servis
+# directement par nginx et nous ne pouvons pas les fermer d'ici. Seul
+# l'hébergeur peut les supprimer — voir NETTOYAGE-HEBERGEUR.md.
+#
+# On conserve ce fichier comme filet de sécurité : il ne coûte rien et prendrait
+# le relais si l'hébergement repassait un jour sous Apache.
+
+DirectoryIndex index.php
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Le proxy lui-même, sinon la règle suivante boucle sur elle-même.
+    RewriteRule ^index\.php$ - [L]
+
+    # Sans condition `!-f` / `!-d` : on veut masquer *aussi* les fichiers de
+    # l'ancien site Joomla encore présents sur le disque.
+    RewriteRule ^ index.php [QSA,L]
+</IfModule>
+
+# Fermeture explicite des chemins de l'ancien site.
+#
+# Les parenthèses `(/|$)` sont indispensables : sans elles, `media` bloquerait
+# aussi `/medias/` et `administrator` bloquerait `/admin/`, qui sont deux
+# chemins du NOUVEAU site.
+<IfModule mod_alias.c>
+    RedirectMatch 404 ^/(administrator|bin|cache|cli|components|images|includes|language|layouts|libraries|media|modules|plugins|templates|tmp)(/|$)
+    RedirectMatch 404 ^/(configuration\.php|htaccess\.txt|README\.txt|LICENSE\.txt|robots\.txt\.dist)$
+</IfModule>
+
+<IfModule mod_headers.c>
+    <FilesMatch "\.(php)$">
+        Header always set X-Content-Type-Options "nosniff"
+    </FilesMatch>
+</IfModule>
