@@ -1,0 +1,74 @@
+name: Déploiement production
+
+# Le CMS (Sveltia, `publish_mode: simple`) commite directement sur `main` :
+# chaque enregistrement dans l'espace d'administration déclenche donc une
+# publication automatique sur www.cnfrance.fr.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      force_full:
+        description: "Retransférer tous les médias (et pas seulement ceux dont la taille a changé)"
+        type: boolean
+        default: false
+      dry_run:
+        description: "Simulation : lister les transferts sans rien modifier sur le serveur"
+        type: boolean
+        default: false
+
+# Deux déploiements ne doivent jamais écrire en même temps sur le serveur, et un
+# transfert entamé ne doit pas être interrompu à mi-parcours (le site resterait
+# dans un état incohérent) : on met en file d'attente au lieu d'annuler.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://www.cnfrance.fr
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Construit le site
+        env:
+          PUBLIC_SITE_URL: https://www.cnfrance.fr
+        run: npm run build
+
+      - name: Installe lftp
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends lftp
+
+      - name: Publie sur le serveur de production
+        env:
+          SFTP_SERVER: ${{ vars.SFTP_SERVER || secrets.SFTP_SERVER }}
+          SFTP_USER: ${{ vars.SFTP_USER || secrets.SFTP_USER }}
+          SFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD || vars.SFTP_PASSWORD }}
+          DEPLOY_FORCE_FULL: ${{ inputs.force_full }}
+          DEPLOY_DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          if [ -z "${{ secrets.SFTP_PASSWORD }}" ]; then
+            echo "::warning::SFTP_PASSWORD est stocké comme « variable » d'environnement, donc en clair et lisible par toute personne ayant accès au dépôt. Déplacez-le dans les « secrets » de l'environnement production."
+          fi
+          ./scripts/deploy-sftp.sh
+
+      - name: Vérifie que le site répond
+        if: ${{ inputs.dry_run != true }}
+        run: |
+          code=$(curl -sS -o /dev/null -w '%{http_code}' --retry 3 --retry-delay 5 https://www.cnfrance.fr/)
+          echo "GET https://www.cnfrance.fr/ -> $code"
+          test "$code" = "200"
