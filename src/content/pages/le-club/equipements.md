@@ -17,8 +17,8 @@ section: "Le club"
 | Bateaux découverte | 10 | — | **10** |
 | **Total** | **69** | **41** | **110** |
 
-![Le parc de bateaux du CNF](/images/pages/le-club/equipements/equipement_bateaux02.jpg)
+![Le parc de bateaux du CNF](/medias/pages/le-club/equipements/equipement_bateaux02.jpg)
 
 ### Un tank à ramer, 40 ergomètres et une salle de musculation
 
-![Le tank à ramer du CNF](/images/pages/le-club/equipements/equipement_tank.jpg)
+![Le tank à ramer du CNF](/medias/pages/le-club/equipements/equipement_tank.jpg)

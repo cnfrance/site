@@ -3,12 +3,12 @@ titre: "Championnats de France longue distance"
 date: 2025-03-02
 categorie: "competition"
 resume: "Championnats de France longue distance à Mâcon : les rameurs masters du CNF décrochent trois médailles sur 8000 m."
-image: "/images/actus/championnats-de-france-longue-distance/01.jpg"
+image: "/medias/actus/championnats-de-france-longue-distance/01.jpg"
 photos:
-  - "/images/actus/championnats-de-france-longue-distance/01.jpg"
-  - "/images/actus/championnats-de-france-longue-distance/02.jpg"
-  - "/images/actus/championnats-de-france-longue-distance/03.jpg"
-  - "/images/actus/championnats-de-france-longue-distance/04.jpg"
+  - "/medias/actus/championnats-de-france-longue-distance/01.jpg"
+  - "/medias/actus/championnats-de-france-longue-distance/02.jpg"
+  - "/medias/actus/championnats-de-france-longue-distance/03.jpg"
+  - "/medias/actus/championnats-de-france-longue-distance/04.jpg"
 ---
 
 Le week-end du 1er et 2 mars avait lieu à Macon, les championnats de france longue distance.  

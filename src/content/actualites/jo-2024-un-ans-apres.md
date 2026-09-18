@@ -3,14 +3,14 @@ titre: "JO 2024 un ans après"
 date: 2025-07-26
 categorie: "loisir"
 resume: "Deux équipages du CNF ont célébré le premier anniversaire des JO de Paris 2024 lors d'une descente de la Seine en yolette."
-image: "/images/actus/jo-2024-un-ans-apres/01.jpg"
+image: "/medias/actus/jo-2024-un-ans-apres/01.jpg"
 photos:
-  - "/images/actus/jo-2024-un-ans-apres/01.jpg"
-  - "/images/actus/jo-2024-un-ans-apres/02.jpg"
-  - "/images/actus/jo-2024-un-ans-apres/03.jpg"
-  - "/images/actus/jo-2024-un-ans-apres/04.jpg"
-  - "/images/actus/jo-2024-un-ans-apres/05.jpg"
-  - "/images/actus/jo-2024-un-ans-apres/06.jpg"
+  - "/medias/actus/jo-2024-un-ans-apres/01.jpg"
+  - "/medias/actus/jo-2024-un-ans-apres/02.jpg"
+  - "/medias/actus/jo-2024-un-ans-apres/03.jpg"
+  - "/medias/actus/jo-2024-un-ans-apres/04.jpg"
+  - "/medias/actus/jo-2024-un-ans-apres/05.jpg"
+  - "/medias/actus/jo-2024-un-ans-apres/06.jpg"
 ---
 
 Le samedi 26 juillet 2025, la Seine était mise à l’honneur!  

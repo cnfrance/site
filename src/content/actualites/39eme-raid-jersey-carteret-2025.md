@@ -3,12 +3,12 @@ titre: "39eme Raid Jersey-Carteret 2025"
 date: 2025-07-19
 categorie: "competition"
 resume: "Le CNF termine 3e du 39e Raid Jersey-Carteret en 4 de couple barré, 28 km de course en mer en 2h05."
-image: "/images/actus/39eme-raid-jersey-carteret-2025/01.jpeg"
+image: "/medias/actus/39eme-raid-jersey-carteret-2025/01.jpeg"
 photos:
-  - "/images/actus/39eme-raid-jersey-carteret-2025/01.jpeg"
-  - "/images/actus/39eme-raid-jersey-carteret-2025/02.jpeg"
-  - "/images/actus/39eme-raid-jersey-carteret-2025/03.jpeg"
-  - "/images/actus/39eme-raid-jersey-carteret-2025/04.jpeg"
+  - "/medias/actus/39eme-raid-jersey-carteret-2025/01.jpeg"
+  - "/medias/actus/39eme-raid-jersey-carteret-2025/02.jpeg"
+  - "/medias/actus/39eme-raid-jersey-carteret-2025/03.jpeg"
+  - "/medias/actus/39eme-raid-jersey-carteret-2025/04.jpeg"
 ---
 
 39eme raid international d’aviron en haute mer : Jersey Carteret commenté par Yves :

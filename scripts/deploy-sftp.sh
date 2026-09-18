@@ -27,15 +27,17 @@ for var in SFTP_SERVER SFTP_USER SFTP_PASSWORD; do
   fi
 done
 
-if [ ! -f "$LOCAL_DIR/index.html" ]; then
-  echo "::error::$LOCAL_DIR/index.html est introuvable — le build a-t-il bien tourné ?" >&2
+if [ ! -f "$LOCAL_DIR/index.html" ] || [ ! -d "$LOCAL_DIR/medias" ]; then
+  echo "::error::$LOCAL_DIR semble incomplet (index.html ou medias/ manquant) — le build a-t-il bien tourné ?" >&2
   exit 1
 fi
 
 # La racine web héberge encore les fichiers de l'ancien site Joomla, qui
 # appartiennent à root et que notre compte SFTP ne peut ni écrire ni supprimer.
 # On les exclut de la synchronisation pour que `--delete` n'y touche jamais.
-JOOMLA_LEFTOVERS='^(_joomla-old|administrator|bin|cache|cli|components|includes|language|layouts|libraries|media|modules|plugins|templates|tmp)/|^(LICENSE\.txt|README\.txt|configuration\.php|htaccess\.txt|index\.php|robots\.txt|robots\.txt\.dist)$'
+# `images/` en fait partie : le nouveau site publie ses médias dans `medias/`,
+# précisément pour ne pas entrer en conflit avec ce dossier verrouillé.
+JOOMLA_LEFTOVERS='^(administrator|bin|cache|cli|components|images|includes|language|layouts|libraries|media|modules|plugins|templates|tmp)/|^(LICENSE\.txt|README\.txt|configuration\.php|htaccess\.txt|index\.php|robots\.txt|robots\.txt\.dist)$'
 
 DRY_RUN=""
 if [ "${DEPLOY_DRY_RUN:-}" = "true" ]; then
@@ -43,7 +45,7 @@ if [ "${DEPLOY_DRY_RUN:-}" = "true" ]; then
   echo "== MODE SIMULATION : aucun fichier ne sera réellement transféré =="
 fi
 
-# Les médias (images/ et documents/, ~205 Mo) sont comparés à la taille seule
+# Les médias (medias/ et documents/, ~205 Mo) sont comparés à la taille seule
 # (--ignore-time) : un build régénère dist/ entièrement, donc toutes les dates
 # locales sont plus récentes et une comparaison par date renverrait 205 Mo à
 # chaque déploiement. Les pages HTML/CSS/JS (~3 Mo, 103 fichiers) sont, elles,
@@ -67,13 +69,14 @@ set net:max-retries 3
 set net:timeout 30
 set net:reconnect-interval-base 5
 set mirror:parallel-transfer-count 4
+set cmd:fail-exit yes
 set xfer:clobber on
 open -u "$SFTP_USER","$SFTP_PASSWORD" "sftp://$SFTP_SERVER"
 
 # 1/3 — médias volumineux, comparaison par taille
 mirror --reverse --delete --no-perms --no-symlinks $MEDIA_COMPARE $DRY_RUN \
   --parallel=4 --verbose=1 \
-  "$LOCAL_DIR/images" "$REMOTE_DIR/images"
+  "$LOCAL_DIR/medias" "$REMOTE_DIR/medias"
 mirror --reverse --delete --no-perms --no-symlinks $MEDIA_COMPARE $DRY_RUN \
   --parallel=4 --verbose=1 \
   "$LOCAL_DIR/documents" "$REMOTE_DIR/documents"
@@ -81,7 +84,7 @@ mirror --reverse --delete --no-perms --no-symlinks $MEDIA_COMPARE $DRY_RUN \
 # 2/3 — pages et assets, renvoyés à chaque déploiement
 mirror --reverse --delete --no-perms --no-symlinks $DRY_RUN \
   --parallel=4 --verbose=1 \
-  --exclude '^images/' --exclude '^documents/' \
+  --exclude '^medias/' --exclude '^documents/' \
   --exclude '$JOOMLA_LEFTOVERS' \
   "$LOCAL_DIR" "$REMOTE_DIR"
 

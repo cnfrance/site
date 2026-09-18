@@ -3,7 +3,7 @@ titre: "Aviron universitaire"
 section: "Partenariat"
 ---
 
-![arton22 1f537](/images/pages/partenariat/aviron-universitaire/arton22-1f537.jpg)
+![arton22 1f537](/medias/pages/partenariat/aviron-universitaire/arton22-1f537.jpg)
 
 Le Cercle Nautique de France, anciennement Cercle Nautique de France Universitaire, a de longue date une vocation universitaire. Le CNF s'était associé en 1955 avec le célèbre Paris Université Club (PUC) jusqu'en 1978. C'est durant ces 23 années que le CNF s'appelait le CNFU. 
 

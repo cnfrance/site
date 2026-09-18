@@ -3,15 +3,15 @@ titre: "Championnats nationaux Longue Distance Master"
 date: 2026-03-07
 categorie: "competition"
 resume: "Championnats nationaux longue distance master à Bourges : une médaille d'or et deux bronzes pour le CNF."
-image: "/images/actus/championnats-nationaux-longue-distance-master/01.jpg"
+image: "/medias/actus/championnats-nationaux-longue-distance-master/01.jpg"
 photos:
-  - "/images/actus/championnats-nationaux-longue-distance-master/01.jpg"
-  - "/images/actus/championnats-nationaux-longue-distance-master/02.jpg"
-  - "/images/actus/championnats-nationaux-longue-distance-master/03.jpg"
-  - "/images/actus/championnats-nationaux-longue-distance-master/04.jpeg"
-  - "/images/actus/championnats-nationaux-longue-distance-master/05.jpg"
-  - "/images/actus/championnats-nationaux-longue-distance-master/06.jpeg"
-  - "/images/actus/championnats-nationaux-longue-distance-master/07.jpg"
+  - "/medias/actus/championnats-nationaux-longue-distance-master/01.jpg"
+  - "/medias/actus/championnats-nationaux-longue-distance-master/02.jpg"
+  - "/medias/actus/championnats-nationaux-longue-distance-master/03.jpg"
+  - "/medias/actus/championnats-nationaux-longue-distance-master/04.jpeg"
+  - "/medias/actus/championnats-nationaux-longue-distance-master/05.jpg"
+  - "/medias/actus/championnats-nationaux-longue-distance-master/06.jpeg"
+  - "/medias/actus/championnats-nationaux-longue-distance-master/07.jpg"
 ---
 
 Le week-end des 7 et 8 mars se trouvaient à Bourges les championnats Nationaux longue distance.  

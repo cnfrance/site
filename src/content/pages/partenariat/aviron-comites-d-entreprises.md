@@ -3,7 +3,7 @@ titre: "Aviron Comités d'entreprises"
 section: "Partenariat"
 ---
 
-**Le CNF offre la possibilité aux adhérents de comités d’entreprises ou d'associations sportives de venir ramer du lundi au vendredi de 12h à 14h à des conditions financières avantageuses. ![photo CE01](/images/pages/partenariat/aviron-comites-d-entreprises/photo_CE01.jpg)** 
+**Le CNF offre la possibilité aux adhérents de comités d’entreprises ou d'associations sportives de venir ramer du lundi au vendredi de 12h à 14h à des conditions financières avantageuses. ![photo CE01](/medias/pages/partenariat/aviron-comites-d-entreprises/photo_CE01.jpg)** 
 
 Par sa proximité avec le quartier de la Défense, le CNF est idéalement situé pour pratiquer l'aviron toute l'année pendant la pause déjeuner.
 

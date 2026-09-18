@@ -3,15 +3,15 @@ titre: "Randonnée de la côte bleue* - Marseille"
 date: 2026-05-09
 categorie: "loisir"
 resume: "Trois équipages du CNF ramment en mer sur la rade de Marseille, entre l'île de la Tortue et les îles du Frioul."
-image: "/images/actus/randonnee-de-la-cote-bleue-marseille/01.jpg"
+image: "/medias/actus/randonnee-de-la-cote-bleue-marseille/01.jpg"
 photos:
-  - "/images/actus/randonnee-de-la-cote-bleue-marseille/01.jpg"
-  - "/images/actus/randonnee-de-la-cote-bleue-marseille/02.jpg"
-  - "/images/actus/randonnee-de-la-cote-bleue-marseille/03.jpg"
-  - "/images/actus/randonnee-de-la-cote-bleue-marseille/04.jpg"
-  - "/images/actus/randonnee-de-la-cote-bleue-marseille/05.jpg"
-  - "/images/actus/randonnee-de-la-cote-bleue-marseille/06.jpg"
-  - "/images/actus/randonnee-de-la-cote-bleue-marseille/07.jpg"
+  - "/medias/actus/randonnee-de-la-cote-bleue-marseille/01.jpg"
+  - "/medias/actus/randonnee-de-la-cote-bleue-marseille/02.jpg"
+  - "/medias/actus/randonnee-de-la-cote-bleue-marseille/03.jpg"
+  - "/medias/actus/randonnee-de-la-cote-bleue-marseille/04.jpg"
+  - "/medias/actus/randonnee-de-la-cote-bleue-marseille/05.jpg"
+  - "/medias/actus/randonnee-de-la-cote-bleue-marseille/06.jpg"
+  - "/medias/actus/randonnee-de-la-cote-bleue-marseille/07.jpg"
 ---
 
 Le CNF lors d’une magnifique randonnée à Marseille le 9 mai   

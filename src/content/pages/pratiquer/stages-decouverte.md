@@ -43,4 +43,4 @@ Les mauvaises conditions météorologiques ne sont pas prétextes à annuler une
 
 À bientôt !
 
-![Stage découverte](/images/pages/pratiquer/stages-decouverte/stage_decouverte.png)
+![Stage découverte](/medias/pages/pratiquer/stages-decouverte/stage_decouverte.png)

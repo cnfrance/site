@@ -35,25 +35,25 @@ Attention de porter les bateaux par les **préceintes** \[A\]
 
 Le pieds se posent exclusivement sur la **planchette** \[B\]
 
-![bateau](/images/pages/espace-adherents/du-bon-usage-du-materiel/bateau.png) 
+![bateau](/medias/pages/espace-adherents/du-bon-usage-du-materiel/bateau.png) 
 
 * * *
 
 ## uTILISATION DES ERGOMeTRES
 
-![](/images/pages/espace-adherents/du-bon-usage-du-materiel/nettoyage_rail.jpg)
+![](/medias/pages/espace-adherents/du-bon-usage-du-materiel/nettoyage_rail.jpg)
 
 Après chaque utilisation, vous devez nettoyer la glissière de votre ergomètre (avec le produit lavant bleu) pour éviter une usure accélérée, garder une « glisse » agréable et aussi préserver les roulements de la coulisse
 
-![](/images/pages/espace-adherents/du-bon-usage-du-materiel/dsinfection.jpg)
+![](/medias/pages/espace-adherents/du-bon-usage-du-materiel/dsinfection.jpg)
 
 Après chaque utilisation, vous devez nettoyer le manche et le siège avec le produit désinfectant.
 
-![](/images/pages/espace-adherents/du-bon-usage-du-materiel/bad.png)    ![](/images/pages/espace-adherents/du-bon-usage-du-materiel/bien.jpg)
+![](/medias/pages/espace-adherents/du-bon-usage-du-materiel/bad.png)    ![](/medias/pages/espace-adherents/du-bon-usage-du-materiel/bien.jpg)
 
 Après chaque utilisation, remettre le manche dans son socle
 
-![](/images/pages/espace-adherents/du-bon-usage-du-materiel/inclinaison.jpg)
+![](/medias/pages/espace-adherents/du-bon-usage-du-materiel/inclinaison.jpg)
 
 Ne pas modifier la position initiale del’ordinateur (bras articulé à 45°).
 

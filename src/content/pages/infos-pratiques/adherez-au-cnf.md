@@ -3,7 +3,7 @@ titre: "Adhérer au CNF"
 section: "Infos pratiques"
 ---
 
-#### ![adherer2](/images/pages/infos-pratiques/adherez-au-cnf/adherer2.jpg)
+#### ![adherer2](/medias/pages/infos-pratiques/adherez-au-cnf/adherer2.jpg)
 
 #### Vous recherchez un véritable sport d’équipe, complet, en plein air, aux portes de Paris dans un cadre convivial et dynamique, en loisir ou en compétition ?
 

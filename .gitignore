@@ -5,3 +5,7 @@ dist/
 *.log
 .env
 .env.*
+
+# Fichiers de travail locaux, non versionnés
+NETTOYAGE-HEBERGEUR.md
+docs/DEPLOIEMENT-PRODUCTION.md

@@ -3,7 +3,7 @@ titre: "Aviron Compétition"
 section: "Pratiquer"
 ---
 
-![IMG 2876](/images/pages/pratiquer/aviron-competition/IMG_2876.jpg)
+![IMG 2876](/medias/pages/pratiquer/aviron-competition/IMG_2876.jpg)
 
 Le Cercle Nautique de France a pour vocation la formation et l’éducation par la compétition.
 
@@ -16,4 +16,4 @@ Il propose une activité sportive de plein air qui permet le développement harm
 -   les séniors, à partir de 19 ans,
 -   les masters, à partir de 27 ans.
 
-![competition 02](/images/pages/pratiquer/aviron-competition/competition_02.jpg)![C France 07 21 01](/images/pages/pratiquer/aviron-competition/C_France-07-21_01.jpg)
+![competition 02](/medias/pages/pratiquer/aviron-competition/competition_02.jpg)![C France 07 21 01](/medias/pages/pratiquer/aviron-competition/C_France-07-21_01.jpg)

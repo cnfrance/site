@@ -3,7 +3,7 @@ titre: "Les randonnées"
 section: "Pratiquer"
 ---
 
-![photo rando 01](/images/pages/pratiquer/randonnees/photo_rando_01.jpeg)
+![photo rando 01](/medias/pages/pratiquer/randonnees/photo_rando_01.jpeg)
 
  Le CNF participe chaque année à une dizaine de randonnées en France figurant au catalogue **« RANDON’AVIRON » de la FFA.**
 
@@ -19,7 +19,7 @@ CONTACT: Caroline 
 
 ##  LA VOGALONGA
 
-![photo rando 02](/images/pages/pratiquer/randonnees/photo_rando_02.jpeg)
+![photo rando 02](/medias/pages/pratiquer/randonnees/photo_rando_02.jpeg)
 
 La **VOGALONGA** se déroule chaque année le dimanche de la Pentecôte à VENISE.
 

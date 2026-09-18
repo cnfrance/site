@@ -3,7 +3,7 @@ titre: "Aviron scolaire"
 section: "Partenariat"
 ---
 
-Depuis quelques années, le collège ‘’Les Bouvets’’ situé à Puteaux vient ramer au CNF.![scolaire 01](/images/pages/partenariat/aviron-scolaire/scolaire_01.jpeg)
+Depuis quelques années, le collège ‘’Les Bouvets’’ situé à Puteaux vient ramer au CNF.![scolaire 01](/medias/pages/partenariat/aviron-scolaire/scolaire_01.jpeg)
 
 Les élèves, après avoir intégré l’Association Sportive de leur établissement, viennent accompagner de leurs professeurs d’EPS, pratiquer l’aviron sur les heures de cours, et le mercredi après-midi.
 
@@ -17,7 +17,7 @@ La pratique et les différentes compétitions organisées sur la saison, permett
 
 Les élèves s’initient en bateaux individuels et en équipages dans le petit bras de Seine, entre le barrage de Suresnes et le Pont de Neuilly.
 
-![scolaire 02](/images/pages/partenariat/aviron-scolaire/scolaire_02.jpeg)
+![scolaire 02](/medias/pages/partenariat/aviron-scolaire/scolaire_02.jpeg)
 
 Lorsque les conditions météorologiques sont défavorables, la séance s’effectue sur nos ergomètres en salle.
 

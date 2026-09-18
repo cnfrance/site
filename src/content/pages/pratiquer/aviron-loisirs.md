@@ -3,7 +3,7 @@ titre: "Aviron Loisirs"
 section: "Pratiquer"
 ---
 
-![Loisirs 2](/images/pages/pratiquer/aviron-loisirs/Loisirs_2.jpg)
+![Loisirs 2](/medias/pages/pratiquer/aviron-loisirs/Loisirs_2.jpg)
 
 La pratique de l’aviron en loisirs au CNF est ouverte à celles et ceux qui souhaitent pratiquer un sport complet, seuls ou en équipe, pour goûter au plaisir de la glisse et s’entretenir physiquement.
 
@@ -11,7 +11,7 @@ Le CNF vous permet, débutant ou non, de naviguer en toute sécurité sur la Sei
 
 ## **Les sorties sur l’eau**  
 
-![Loisirs 1](/images/pages/pratiquer/aviron-loisirs/Loisirs_1.jpg)
+![Loisirs 1](/medias/pages/pratiquer/aviron-loisirs/Loisirs_1.jpg)
 
 Jusqu'à 12 créneaux par semaine, sans limite et sans réservations préalables.
 

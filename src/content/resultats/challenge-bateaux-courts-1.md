@@ -1,22 +1,22 @@
 ---
-image: "/images/resultats/challenge-bateaux-courts-1/01.jpeg"
+image: "/medias/resultats/challenge-bateaux-courts-1/01.jpeg"
 titre: "Challenge BTC 1 LIFA"
 date: 2025-12-01
 resume: "Les rameurs du CNF ont disputé le challenge bateaux courts 1 LIFA à Vaires-sur-Marne avec des résultats encourageants pour la suite de la saison."
 photos:
-  - "/images/resultats/challenge-bateaux-courts-1/01.jpeg"
-  - "/images/resultats/challenge-bateaux-courts-1/02.jpeg"
-  - "/images/resultats/challenge-bateaux-courts-1/03.jpeg"
-  - "/images/resultats/challenge-bateaux-courts-1/04.jpeg"
-  - "/images/resultats/challenge-bateaux-courts-1/05.jpeg"
-  - "/images/resultats/challenge-bateaux-courts-1/06.jpeg"
-  - "/images/resultats/challenge-bateaux-courts-1/07.jpeg"
-  - "/images/resultats/challenge-bateaux-courts-1/08.jpeg"
-  - "/images/resultats/challenge-bateaux-courts-1/09.jpeg"
-  - "/images/resultats/challenge-bateaux-courts-1/10.jpeg"
-  - "/images/resultats/challenge-bateaux-courts-1/11.jpeg"
-  - "/images/resultats/challenge-bateaux-courts-1/12.jpeg"
-  - "/images/resultats/challenge-bateaux-courts-1/13.jpeg"
+  - "/medias/resultats/challenge-bateaux-courts-1/01.jpeg"
+  - "/medias/resultats/challenge-bateaux-courts-1/02.jpeg"
+  - "/medias/resultats/challenge-bateaux-courts-1/03.jpeg"
+  - "/medias/resultats/challenge-bateaux-courts-1/04.jpeg"
+  - "/medias/resultats/challenge-bateaux-courts-1/05.jpeg"
+  - "/medias/resultats/challenge-bateaux-courts-1/06.jpeg"
+  - "/medias/resultats/challenge-bateaux-courts-1/07.jpeg"
+  - "/medias/resultats/challenge-bateaux-courts-1/08.jpeg"
+  - "/medias/resultats/challenge-bateaux-courts-1/09.jpeg"
+  - "/medias/resultats/challenge-bateaux-courts-1/10.jpeg"
+  - "/medias/resultats/challenge-bateaux-courts-1/11.jpeg"
+  - "/medias/resultats/challenge-bateaux-courts-1/12.jpeg"
+  - "/medias/resultats/challenge-bateaux-courts-1/13.jpeg"
 ---
 
 **🔴Challenge BTC 1 LIFA🔴**

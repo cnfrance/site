@@ -3,7 +3,7 @@ titre: "Aviron indoor"
 section: "Pratiquer"
 ---
 
-![indoor 02 2022 05](/images/pages/pratiquer/aviron-in-door/indoor_02-2022-05.jpg)
+![indoor 02 2022 05](/medias/pages/pratiquer/aviron-in-door/indoor_02-2022-05.jpg)
 
 L'aviron indoor est une activité sportive qui se pratique sur un ergomètre d'aviron (appelé aussi "rameur")
 
