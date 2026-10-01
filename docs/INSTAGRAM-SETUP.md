@@ -136,8 +136,50 @@ S'il expire, il faut **redemander un clic au gestionnaire du compte**
 doit être automatisé par un job planifié qui réécrit le jeton dans les
 secrets du dépôt, avec une marge confortable (mensuel, pas tous les 59 jours).
 
-Cette automatisation n'est pas encore en place — voir la suite du chantier
-« sync Instagram ».
+La synchro hebdomadaire (ci-dessous) tente ce rafraîchissement à chaque
+passage et ouvre une issue « Jeton Instagram à renouveler » quand il reste
+moins de 15 jours ou que le jeton est refusé.
+
+## 7. Synchro hebdomadaire
+
+Le workflow `.github/workflows/instagram-sync.yml` tourne chaque lundi matin
+(et à la demande : onglet `Actions` → `Synchro Instagram` → `Run workflow`).
+Il lit les publications depuis le 10 juillet 2026, demande à GitHub Models de
+trier et titrer chacune, puis ouvre une PR `sync/instagram` avec les nouvelles
+actualités. **Rien n'est publié tant que la PR n'est pas fusionnée.**
+
+### Mise en place (une fois)
+
+1. Dépôt → `Settings` → `Secrets and variables` → `Actions` →
+   `New repository secret` : `INSTAGRAM_TOKEN` = le jeton de l'étape 5.
+2. Dépôt → `Settings` → `Actions` → `General` → cocher
+   **« Allow GitHub Actions to create and approve pull requests »**.
+3. Lancer le workflow à la main une première fois et vérifier la PR.
+
+### Relire la PR
+
+- Corriger titre, résumé ou catégorie directement dans les fichiers de la PR :
+  la semaine suivante, la synchro repart de cette branche et garde les
+  corrections.
+- Une publication ignorée par erreur : retirer sa ligne de
+  `src/content/site/instagram-ignores.json`, elle sera reproposée au passage
+  suivant.
+- Fermer la PR sans la fusionner : tout sera reproposé la semaine suivante.
+
+### Issue « Jeton Instagram à renouveler »
+
+1. En local : `npm run instagram:token refresh` (si le jeton n'a pas expiré),
+   sinon refaire l'étape 5 avec le gestionnaire du compte.
+2. Remplacer le secret `INSTAGRAM_TOKEN` du dépôt par le nouveau jeton.
+3. Relancer le workflow à la main, puis fermer l'issue.
+
+### Essai en local
+
+```sh
+GITHUB_TOKEN=$(gh auth token) npm run instagram:sync -- --dry-run
+```
+
+Affiche ce que la synchro proposerait, sans rien écrire (Node 24 requis).
 
 ## Révocation
 

@@ -1,0 +1,99 @@
+name: Synchro Instagram
+
+# Chaque lundi, propose en PR les nouvelles publications Instagram du club sous
+# forme d'actualités. Voir docs/INSTAGRAM-SETUP.md (« Synchro hebdomadaire »).
+on:
+  schedule:
+    - cron: "0 4 * * 1" # lundi 4 h UTC : 6 h à Paris en été, 5 h en hiver
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  models: read
+
+concurrency:
+  group: instagram-sync
+  cancel-in-progress: false
+
+env:
+  INSTAGRAM_SYNC_DEPUIS: "2026-07-10"
+  INSTAGRAM_SYNC_MODELE: "openai/gpt-4.1-mini"
+  BRANCHE: sync/instagram
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Si une PR de synchro est déjà ouverte, on repart de sa branche pour
+      # garder les corrections faites à la main, en y fusionnant main.
+      - name: Choisir la branche
+        id: base
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          pr=$(gh pr list --head "$BRANCHE" --state open --json number --jq '.[0].number // ""')
+          echo "pr=$pr" >> "$GITHUB_OUTPUT"
+          if [ -n "$pr" ]; then
+            git switch "$BRANCHE"
+            git merge --no-edit origin/main
+          else
+            git switch -C "$BRANCHE"
+          fi
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Synchroniser
+        env:
+          INSTAGRAM_TOKEN: ${{ secrets.INSTAGRAM_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/instagram-sync/main.ts --rapport "$RUNNER_TEMP/rapport.json" --corps-pr "$RUNNER_TEMP/pr.md"
+
+      - name: Alerter si le jeton Instagram faiblit
+        if: always()
+        run: |
+          f="$RUNNER_TEMP/rapport.json"
+          [ -f "$f" ] || exit 0
+          [ "$(jq -r '.jeton.alerte' "$f")" = "true" ] || exit 0
+          ok=$(jq -r '.jeton.ok' "$f")
+          if [ "$ok" = "true" ]; then
+            msg="Le jeton Instagram expire dans $(jq -r '.jeton.joursRestants' "$f") jours."
+          else
+            msg="Le jeton Instagram est refusé : $(jq -r '.jeton.erreur' "$f")"
+          fi
+          body=$(printf '%s\n\nRenouveler le jeton : voir docs/INSTAGRAM-SETUP.md, section « Synchro hebdomadaire ».\n\nRun : %s' \
+            "$msg" "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID")
+          gh label create instagram-jeton --color B60205 --description "Jeton Instagram à renouveler" --force
+          issue=$(gh issue list --label instagram-jeton --state open --json number --jq '.[0].number // ""')
+          if [ -z "$issue" ]; then
+            gh issue create --title "Jeton Instagram à renouveler" --label instagram-jeton --body "$body"
+          elif [ "$ok" != "true" ]; then
+            gh issue comment "$issue" --body "$body"
+          fi
+
+      - name: Ouvrir ou compléter la PR
+        run: |
+          git add src/content/actualites public/medias/actus src/content/site/instagram-ignores.json
+          if git diff --cached --quiet; then
+            echo "Aucune nouveauté."
+            exit 0
+          fi
+          git commit -m "Synchro Instagram du $(date -u +%F)"
+          pr="${{ steps.base.outputs.pr }}"
+          if [ -n "$pr" ]; then
+            git push origin "$BRANCHE"
+            gh pr comment "$pr" --body-file "$RUNNER_TEMP/pr.md"
+          else
+            git push --force origin "$BRANCHE"
+            gh pr create --base main --head "$BRANCHE" \
+              --title "Synchro Instagram : nouvelles actualités" --body-file "$RUNNER_TEMP/pr.md"
+          fi

@@ -50,9 +50,11 @@ Déclencheurs : `schedule` (`0 4 * * 1`, lundi 6 h heure d'été de Paris) et
    ci-dessous).
 5. **Écriture** des actus et des photos ; ajout des ignorées au fichier
    d'ignorés.
-6. **PR.** Si des fichiers ont changé : commit sur `sync/instagram` (branche
-   recréée depuis `main` à chaque run, push forcé), puis `gh pr create` ou mise
-   à jour du corps de la PR ouverte. Rien de changé → fin du run, sans PR.
+6. **PR.** Si une PR `sync/instagram` est ouverte, le run repart de sa branche
+   (en y fusionnant `main`) pour conserver les corrections faites à la main, et
+   ajoute le rapport de la semaine en commentaire. Sinon, la branche est
+   recréée depuis `main` (push forcé) et une PR est ouverte. Rien de changé →
+   fin du run, sans PR.
 
 ## Contenu produit
 
