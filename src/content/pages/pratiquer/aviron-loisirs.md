@@ -25,6 +25,19 @@ Le club est ouvert toute l'année (hors fermeture estivale).
 
 *Et en l'absence de bénévoles, le club est fermé !!*
 
+## **L'aviron indoor**
+
+![Aviron indoor au CNF](/medias/pages/pratiquer/aviron-in-door/indoor_02-2022-05.jpg)
+
+Avec près de 40 ergomètres, le CNF permet aussi de ramer en salle, toute l'année et quelle que soit la météo.
+
+**Perfectionner son geste.** L'ergomètre est l'outil idéal pour travailler la technique à son rythme : placement, enchaînement jambes-dos-bras, coordination et régularité de la cadence. Les progrès faits en salle se retrouvent ensuite sur l'eau, en bateau.
+
+**Partager des moments forts.** L'indoor, c'est aussi des événements qui rassemblent tout le club, débutants comme confirmés, loisirs comme compétiteurs :
+
+-   les **7 Défis Capitaux**, des défis indoor où les rameurs du club relèvent ensemble des challenges en équipe ;
+-   le **[semi-marathon de Noël](/actualites/semi-marathon-de-noel-2025)**, chaque année en décembre : des équipes de tous âges se relaient par tranches de 250 m pour boucler les 21,1 km, avant de se retrouver autour d'un déjeuner pour fêter la fin d'année.
+
 ## **La commission Loisirs**
 
 C’est une instance d’animation des activités loisirs du CNF pilotée par une équipe de bénévoles du club.

@@ -4,3 +4,9 @@
 
 [build.environment]
   NODE_VERSION = "20"
+
+# Ancienne page « Aviron indoor », intégrée aux pages Compétition et Loisirs.
+[[redirects]]
+  from = "/pratiquer/aviron-in-door"
+  to = "/pratiquer/aviron-loisirs"
+  status = 301

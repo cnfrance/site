@@ -27,7 +27,7 @@ test('la nav expose des sous-menus avec les liens des pages migrées', async () 
   const html = await container.renderToString(Nav);
   for (const href of [
     '/le-club/nos-valeurs',
-    '/pratiquer/aviron-in-door',
+    '/pratiquer/aviron-loisirs',
     '/infos-pratiques/adherez-au-cnf',
     '/infos-pratiques/plan-de-navigation-general',
     '/infos-pratiques/calendrier',
