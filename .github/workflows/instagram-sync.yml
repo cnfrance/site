@@ -65,11 +65,7 @@ jobs:
           [ -f "$f" ] || exit 0
           [ "$(jq -r '.jeton.alerte' "$f")" = "true" ] || exit 0
           ok=$(jq -r '.jeton.ok' "$f")
-          if [ "$ok" = "true" ]; then
-            msg="Le jeton Instagram expire dans $(jq -r '.jeton.joursRestants' "$f") jours."
-          else
-            msg="Le jeton Instagram est refusé : $(jq -r '.jeton.erreur' "$f")"
-          fi
+          msg=$(jq -r '.jeton.motif // "Le jeton Instagram est à vérifier."' "$f")
           body=$(printf '%s\n\nRenouveler le jeton : voir docs/INSTAGRAM-SETUP.md, section « Synchro hebdomadaire ».\n\nRun : %s' \
             "$msg" "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID")
           gh label create instagram-jeton --color B60205 --description "Jeton Instagram à renouveler" --force
@@ -79,6 +75,11 @@ jobs:
           elif [ "$ok" != "true" ]; then
             gh issue comment "$issue" --body "$body"
           fi
+
+      - name: Résumé du passage
+        if: always()
+        run: |
+          [ -f "$RUNNER_TEMP/pr.md" ] && cat "$RUNNER_TEMP/pr.md" >> "$GITHUB_STEP_SUMMARY" || true
 
       - name: Ouvrir ou compléter la PR
         run: |

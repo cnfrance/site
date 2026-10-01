@@ -138,7 +138,11 @@ secrets du dépôt, avec une marge confortable (mensuel, pas tous les 59 jours).
 
 La synchro hebdomadaire (ci-dessous) tente ce rafraîchissement à chaque
 passage et ouvre une issue « Jeton Instagram à renouveler » quand il reste
-moins de 15 jours ou que le jeton est refusé.
+moins de 15 jours, quand le rafraîchissement échoue lors d'un passage
+planifié, quand Instagram renvoie un nouveau jeton (le secret n'est alors pas
+prolongé) ou quand le jeton est refusé. Si GitHub Models ne répond pour aucune
+publication, le passage est en échec (notification GitHub d'échec de
+workflow).
 
 ## 7. Synchro hebdomadaire
 
@@ -161,9 +165,15 @@ actualités. **Rien n'est publié tant que la PR n'est pas fusionnée.**
 - Corriger titre, résumé ou catégorie directement dans les fichiers de la PR :
   la semaine suivante, la synchro repart de cette branche et garde les
   corrections.
-- Une publication ignorée par erreur : retirer sa ligne de
-  `src/content/site/instagram-ignores.json`, elle sera reproposée au passage
-  suivant.
+- Écarter une actu proposée : supprimer son fichier et son dossier de photos
+  dans la PR. Elle ne reviendra pas : chaque publication traitée (importée ou
+  ignorée) est notée dans `src/content/site/instagram-ignores.json`.
+- Reproposer une publication (ignorée par erreur ou écartée) : retirer sa
+  ligne de `src/content/site/instagram-ignores.json`, elle sera reproposée au
+  passage suivant.
+- Si `main` et la PR ont modifié le même fichier, la fusion automatique de
+  `main` dans la PR échoue et le passage est en échec : résoudre le conflit
+  dans la PR (ou la fermer) puis relancer.
 - Fermer la PR sans la fusionner : tout sera reproposé la semaine suivante.
 
 ### Issue « Jeton Instagram à renouveler »

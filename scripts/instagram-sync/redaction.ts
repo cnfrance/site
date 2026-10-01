@@ -16,6 +16,24 @@ export function retirerHashtagsFinaux(legende: string): string {
   return lignes.join("\n").trim();
 }
 
+// La légende reste brute pour le lecteur : on neutralise la syntaxe Markdown
+// (une légende Instagram n'en contient pas volontairement) et on garde chaque
+// retour à la ligne, que Markdown fusionnerait sinon en une espace.
+function echapperLigne(ligne: string): string {
+  return ligne
+    .replace(/[\\`*_[\]<>#&|~]/g, "\\$&")
+    .replace(/^(\s*)([-+=])/, "$1\\$2")
+    .replace(/^(\s*\d+)([.)])/, "$1\\$2");
+}
+
+export function legendeEnMarkdown(legende: string): string {
+  if (!legende) return "";
+  return legende
+    .split(/\n{2,}/)
+    .map((bloc) => bloc.split("\n").map(echapperLigne).join("\\\n"))
+    .join("\n\n");
+}
+
 export function slugifier(texte: string): string {
   return texte
     .normalize("NFD")

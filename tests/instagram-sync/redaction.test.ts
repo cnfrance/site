@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest';
 import { actualiteSchema } from '../../src/content.config';
 import {
-  cheminPhoto, mediasDe, rendreMarkdown, retirerHashtagsFinaux, slugifier, slugLibre,
+  cheminPhoto, legendeEnMarkdown, mediasDe, rendreMarkdown, retirerHashtagsFinaux, slugifier, slugLibre,
   type ActuGeneree,
 } from '../../scripts/instagram-sync/redaction.ts';
 import type { PublicationInstagram } from '../../scripts/instagram-sync/selection.ts';
@@ -110,5 +110,24 @@ describe('rendreMarkdown', () => {
     const md = rendreMarkdown({ ...actu, video: undefined, corps: '' });
     expect(md).not.toContain('videos:');
     expect(md.endsWith('---\n')).toBe(true);
+  });
+});
+
+describe('legendeEnMarkdown', () => {
+  test('chaque retour à la ligne devient un saut de ligne forcé, les lignes vides séparent les paragraphes', () => {
+    expect(legendeEnMarkdown('Équipage :\nLéonie\nLouise\n\nBravo !')).toBe('Équipage :\\\nLéonie\\\nLouise\n\nBravo !');
+  });
+  test('neutralise la syntaxe Markdown : emphase, liens, HTML, titres, listes, séparateurs', () => {
+    expect(legendeEnMarkdown('*Bravo* _à_ [tous] <b>x</b> & #cnf | ~ `code`'))
+      .toBe('\\*Bravo\\* \\_à\\_ \\[tous\\] \\<b\\>x\\</b\\> \\& \\#cnf \\| \\~ \\`code\\`');
+    expect(legendeEnMarkdown('- point\n+ plus\n1. premier\n12) douze\n---\n===')).toBe(
+      '\\- point\\\n\\+ plus\\\n1\\. premier\\\n12\\) douze\\\n\\---\\\n\\===',
+    );
+  });
+  test('les emojis et le texte ordinaire restent intacts', () => {
+    expect(legendeEnMarkdown('🥇 Clément et Arthur, 2ᵉ de la finale B.')).toBe('🥇 Clément et Arthur, 2ᵉ de la finale B.');
+  });
+  test('légende vide', () => {
+    expect(legendeEnMarkdown('')).toBe('');
   });
 });

@@ -35,11 +35,14 @@ Déclencheurs : `schedule` (`0 4 * * 1`, lundi 6 h heure d'été de Paris) et
    - Échec (jeton expiré/révoqué) → ouvrir (ou commenter si déjà ouverte) une
      issue « Jeton Instagram à renouveler », faire échouer le run, pas de PR.
    - Expiration < 15 jours → même issue, mais le run continue.
-   - À vérifier à l'implémentation : si le jeton renvoyé est identique à celui
-     stocké, le rafraîchissement hebdomadaire suffit à le garder valide et
-     l'alerte ne sert que de filet. S'il diffère, le nouveau jeton ne peut pas
-     être réécrit (pas de droit sur les secrets) : l'alerte devient le
-     mécanisme principal, la doc le dit.
+   - Jeton renvoyé différent du jeton stocké → même issue : le nouveau jeton
+     ne peut pas être réécrit (pas de droit sur les secrets), le stocké n'est
+     donc pas prolongé.
+   - Rafraîchissement refusé alors que la lecture marche → issue lors d'un
+     passage planifié ; pas d'alerte lors d'un lancement manuel (cas du jeton
+     de moins de 24 h tout juste créé).
+   - Aucune publication traitée alors que certaines étaient à traiter (IA en
+     panne) → run en échec.
 2. **Lecture.** `GET /me/media` (champs : `id, caption, media_type,
    media_url, thumbnail_url, permalink, timestamp, children{media_type,
    media_url, thumbnail_url}`), pagination jusqu'à dépasser la date de départ.
@@ -110,7 +113,9 @@ même publication sont donc reconnues.
 ```
 
 Ajouté au commit de la PR : une fois fusionnée, ces publications ne sont plus
-proposées. Retirer une entrée la fait reproposer au run suivant. Ce fichier
+proposées. Les publications **importées** y sont aussi notées (raison
+« Importée en actu (<slug>) »), pour qu'une actu supprimée de la PR ne
+revienne pas (correction issue de la relecture). Retirer une entrée la fait reproposer au run suivant. Ce fichier
 n'est pas une collection Astro (lu seulement par le script).
 
 ### Description de la PR

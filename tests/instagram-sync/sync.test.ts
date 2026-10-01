@@ -5,7 +5,7 @@ import { describe, expect, test } from 'vitest';
 import type { Clients } from '../../scripts/instagram-sync/clients.ts';
 import type { PublicationInstagram } from '../../scripts/instagram-sync/selection.ts';
 import {
-  corpsPR, FICHIER_IGNORES, synchroniser, type OptionsSync, type RapportSync,
+  corpsPR, echecGlobal, FICHIER_IGNORES, synchroniser, type OptionsSync, type RapportSync,
 } from '../../scripts/instagram-sync/sync.ts';
 
 async function depot(actus: Record<string, string> = {}): Promise<string> {
@@ -151,16 +151,54 @@ describe('synchroniser', () => {
   });
 });
 
+describe('synchroniser — corrections de la relecture', () => {
+  test('la légende est écrite avec des sauts de ligne forcés et la syntaxe Markdown neutralisée', async () => {
+    const racine = await depot();
+    await synchroniser(options(racine, faux({ pubs: [pub('MMM', { caption: 'Équipage :\n---\nLéonie\n#cnf' })] })));
+    const md = await lire(racine, 'src/content/actualites/regate-de-test.md');
+    expect(md.endsWith('---\nÉquipage :\\\n\\---\\\nLéonie\n')).toBe(true);
+  });
+
+  test('une actu supprimée de la PR n\'est pas reproposée : les publications importées sont notées dans le fichier des traitées', async () => {
+    const racine = await depot();
+    await synchroniser(options(racine, faux({ pubs: [pub('NNN')] })));
+    expect(JSON.parse(await lire(racine, FICHIER_IGNORES)).ignores).toEqual([
+      { code: 'NNN', date: '2026-09-14', raison: 'Importée en actu (regate-de-test)' },
+    ]);
+    const { rm } = await import('node:fs/promises');
+    await rm(path.join(racine, 'src/content/actualites/regate-de-test.md'));
+    const r = await synchroniser(options(racine, faux({ pubs: [pub('NNN')] })));
+    expect(r.actus).toEqual([]);
+  });
+});
+
 describe('synchroniser — jeton', () => {
   test('jeton rafraîchi, identique, loin de l\'expiration : pas d\'alerte', async () => {
     const r = await synchroniser(options(await depot(), faux()));
     expect(r.jeton).toEqual({ ok: true, alerte: false, joursRestants: 50, identique: true });
   });
 
+  test('rafraîchissement qui renvoie un nouveau jeton : alerte, car le jeton stocké n\'est pas prolongé', async () => {
+    const rafraichir: Clients['rafraichirJeton'] = async () => ({ jeton: 'NOUVEAU', expireDansSecondes: 59 * 86400 });
+    const r = await synchroniser(options(await depot(), faux({ rafraichir })));
+    expect(r.jeton.ok).toBe(true);
+    expect(r.jeton.alerte).toBe(true);
+    expect(r.jeton.motif).toContain('nouveau jeton');
+  });
+
+  test('rafraîchissement refusé lors d\'un passage planifié : alerte même si la lecture fonctionne', async () => {
+    const rafraichir: Clients['rafraichirJeton'] = async () => { throw new Error('permission manquante'); };
+    const r = await synchroniser(options(await depot(), faux({ rafraichir }), { alerteSiRefusRafraichissement: true }));
+    expect(r.jeton.ok).toBe(true);
+    expect(r.jeton.alerte).toBe(true);
+    expect(r.jeton.motif).toContain('permission manquante');
+  });
+
   test('expiration dans moins de 15 jours : alerte, mais le run continue', async () => {
-    const rafraichir: Clients['rafraichirJeton'] = async () => ({ jeton: 'NOUVEAU', expireDansSecondes: 10 * 86400 });
+    const rafraichir: Clients['rafraichirJeton'] = async (j) => ({ jeton: j, expireDansSecondes: 10 * 86400 });
     const r = await synchroniser(options(await depot(), faux({ pubs: [pub('KKK')], rafraichir })));
-    expect(r.jeton).toEqual({ ok: true, alerte: true, joursRestants: 10, identique: false });
+    expect(r.jeton).toMatchObject({ ok: true, alerte: true, joursRestants: 10, identique: true });
+    expect(r.jeton.motif).toContain('expire dans 10 jours');
     expect(r.actus).toHaveLength(1);
   });
 
@@ -175,7 +213,8 @@ describe('synchroniser — jeton', () => {
     const rafraichir: Clients['rafraichirJeton'] = async () => { throw new Error('expired'); };
     const lister: Clients['listerPublications'] = async () => { throw new Error('invalid token'); };
     const r = await synchroniser(options(await depot(), faux({ rafraichir, lister })));
-    expect(r.jeton).toEqual({ ok: false, alerte: true, erreur: 'expired / invalid token' });
+    expect(r.jeton).toMatchObject({ ok: false, alerte: true, erreur: 'expired / invalid token' });
+    expect(r.jeton.motif).toContain('refusé');
     expect(r.actus).toEqual([]);
   });
 
@@ -187,7 +226,7 @@ describe('synchroniser — jeton', () => {
 
 describe('corpsPR', () => {
   const rapport: RapportSync = {
-    jeton: { ok: true, alerte: true, joursRestants: 9, identique: false },
+    jeton: { ok: true, alerte: true, joursRestants: 9, identique: true, motif: 'Le jeton Instagram expire dans 9 jours.' },
     actus: [{ slug: 's', titre: 'Titre | avec barre', categorie: 'loisir', date: '2026-09-14', instagram: 'https://www.instagram.com/p/A/' }],
     ignorees: [{ code: 'B', date: '2026-09-15', raison: 'repost', instagram: 'https://www.instagram.com/p/B/' }],
     reportees: [{ instagram: 'https://www.instagram.com/p/C/', raison: 'Réponse de l\'IA illisible' }],
@@ -210,5 +249,17 @@ describe('corpsPR', () => {
     const vide = corpsPR({ jeton: { ok: true, alerte: false }, actus: [], ignorees: [], reportees: [] });
     expect(vide).toContain('Aucune.');
     expect(vide).not.toContain('expire dans');
+  });
+});
+
+describe('echecGlobal', () => {
+  const base: RapportSync = { jeton: { ok: true, alerte: false }, actus: [], ignorees: [], reportees: [] };
+  const reportee = { instagram: 'https://www.instagram.com/p/A/', raison: 'IA indisponible : HTTP 403' };
+  test('toutes les publications reportées : le passage est un échec', () => {
+    expect(echecGlobal({ ...base, reportees: [reportee] })).toContain('HTTP 403');
+  });
+  test('au moins une publication traitée, ou rien à traiter : pas d\'échec', () => {
+    expect(echecGlobal(base)).toBeNull();
+    expect(echecGlobal({ ...base, reportees: [reportee], ignorees: [{ code: 'B', date: 'd', raison: 'r', instagram: 'u' }] })).toBeNull();
   });
 });

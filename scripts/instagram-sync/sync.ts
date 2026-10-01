@@ -6,7 +6,7 @@ import path from "node:path";
 import { LIBELLES_CATEGORIE_ACTU, type CategorieActu } from "../../src/lib/categories-actus.ts";
 import type { Clients } from "./clients.ts";
 import { construireMessages, lireDecision, type ExempleActu } from "./ia.ts";
-import { cheminPhoto, mediasDe, rendreMarkdown, retirerHashtagsFinaux, slugLibre } from "./redaction.ts";
+import { cheminPhoto, legendeEnMarkdown, mediasDe, rendreMarkdown, retirerHashtagsFinaux, slugLibre } from "./redaction.ts";
 import { codeDepuisPermalien, codesDejaImportes, dateParis, selectionnerNouvelles } from "./selection.ts";
 
 export interface OptionsSync {
@@ -18,6 +18,9 @@ export interface OptionsSync {
   ecrire: boolean;
   pauseMs?: number;
   seuilAlerteJours?: number;
+  // Passage planifié : un rafraîchissement refusé n'est alors plus le cas
+  // bénin du jeton de moins de 24 h (testé à la main juste après sa création).
+  alerteSiRefusRafraichissement?: boolean;
 }
 
 export interface IgnoreeInstagram {
@@ -27,7 +30,8 @@ export interface IgnoreeInstagram {
 }
 
 export interface RapportSync {
-  jeton: { ok: boolean; alerte: boolean; joursRestants?: number; identique?: boolean; erreur?: string };
+  // motif : message de l'issue d'alerte, présent quand alerte vaut true.
+  jeton: { ok: boolean; alerte: boolean; joursRestants?: number; identique?: boolean; erreur?: string; motif?: string };
   actus: { slug: string; titre: string; categorie: CategorieActu; date: string; instagram: string }[];
   ignorees: (IgnoreeInstagram & { instagram: string })[];
   reportees: { instagram: string; raison: string }[];
@@ -76,10 +80,20 @@ export async function synchroniser(o: OptionsSync): Promise<RapportSync> {
   try {
     const r = await o.clients.rafraichirJeton(o.jeton);
     const joursRestants = Math.floor(r.expireDansSecondes / 86400);
-    rapport.jeton = { ok: true, alerte: joursRestants < seuil, joursRestants, identique: r.jeton === o.jeton };
+    const identique = r.jeton === o.jeton;
+    rapport.jeton = { ok: true, alerte: false, joursRestants, identique };
+    // Un nouveau jeton ne peut pas être réécrit dans les secrets : le jeton
+    // stocké n'est alors pas prolongé et finira par expirer.
+    if (!identique) {
+      rapport.jeton = { ...rapport.jeton, alerte: true, motif: "Instagram a renvoyé un nouveau jeton lors du rafraîchissement : le jeton stocké dans le secret INSTAGRAM_TOKEN n'est pas prolongé. Y reporter un jeton à jour (npm run instagram:token refresh)." };
+    } else if (joursRestants < seuil) {
+      rapport.jeton = { ...rapport.jeton, alerte: true, motif: `Le jeton Instagram expire dans ${joursRestants} jours.` };
+    }
   } catch (e) {
     erreurRafraichissement = message(e);
-    rapport.jeton = { ok: true, alerte: false, erreur: erreurRafraichissement };
+    rapport.jeton = o.alerteSiRefusRafraichissement
+      ? { ok: true, alerte: true, erreur: erreurRafraichissement, motif: `Le rafraîchissement du jeton Instagram a échoué : ${erreurRafraichissement}` }
+      : { ok: true, alerte: false, erreur: erreurRafraichissement };
   }
 
   // 2. Lecture.
@@ -88,7 +102,8 @@ export async function synchroniser(o: OptionsSync): Promise<RapportSync> {
     pubs = await o.clients.listerPublications(o.jeton, o.depuis);
   } catch (e) {
     if (erreurRafraichissement === undefined) throw e;
-    rapport.jeton = { ok: false, alerte: true, erreur: `${erreurRafraichissement} / ${message(e)}` };
+    const erreur = `${erreurRafraichissement} / ${message(e)}`;
+    rapport.jeton = { ok: false, alerte: true, erreur, motif: `Le jeton Instagram est refusé : ${erreur}` };
     return rapport;
   }
 
@@ -156,7 +171,7 @@ export async function synchroniser(o: OptionsSync): Promise<RapportSync> {
       photos: fichiers.map((f) => f.chemin),
       video: aUneVideo ? pub.permalink : undefined,
       instagram: pub.permalink,
-      corps: legende,
+      corps: legendeEnMarkdown(legende),
     });
     if (o.ecrire) {
       await mkdir(path.join(o.racine, "public/medias/actus", slug), { recursive: true });
@@ -164,12 +179,22 @@ export async function synchroniser(o: OptionsSync): Promise<RapportSync> {
       await writeFile(path.join(o.racine, DOSSIER_ACTUS, `${slug}.md`), markdown);
     }
     rapport.actus.push({ slug, titre: decision.titre, categorie: decision.categorie, date, instagram: pub.permalink });
+    // Notée aussi parmi les publications traitées : si l'actu est supprimée de
+    // la PR, elle ne revient pas la semaine suivante.
+    ignores.push({ code, date, raison: `Importée en actu (${slug})` });
   }
 
-  if (o.ecrire && rapport.ignorees.length > 0) {
+  if (o.ecrire && rapport.ignorees.length + rapport.actus.length > 0) {
     await writeFile(path.join(o.racine, FICHIER_IGNORES), `${JSON.stringify({ ignores }, null, 2)}\n`);
   }
   return rapport;
+}
+
+// Passage à faire échouer : des publications étaient à traiter et aucune n'a
+// pu l'être (GitHub Models indisponible, quota épuisé, modèle retiré…).
+export function echecGlobal(r: RapportSync): string | null {
+  if (r.reportees.length === 0 || r.actus.length + r.ignorees.length > 0) return null;
+  return `Aucune publication n'a pu être traitée (${r.reportees.length} reportée(s)), par exemple : ${r.reportees[0].raison}`;
 }
 
 const cellule = (s: string) => s.replace(/\|/g, "\\|");
@@ -181,8 +206,8 @@ export function corpsPR(r: RapportSync): string {
     "**Relire les titres, résumés et catégories proposés par l'IA (et corriger directement dans cette PR si besoin) : la fusion met le site en ligne.**",
     "",
   ];
-  if (r.jeton.ok && r.jeton.alerte) {
-    l.push(`> ⚠️ Le jeton Instagram expire dans ${r.jeton.joursRestants} jours : voir l'issue « Jeton Instagram à renouveler ».`, "");
+  if (r.jeton.ok && r.jeton.alerte && r.jeton.motif) {
+    l.push(`> ⚠️ ${r.jeton.motif} Voir l'issue « Jeton Instagram à renouveler ».`, "");
   }
   l.push(`### Actualités proposées (${r.actus.length})`, "");
   if (r.actus.length > 0) {
@@ -196,10 +221,13 @@ export function corpsPR(r: RapportSync): string {
   l.push("", `### Publications ignorées (${r.ignorees.length})`, "");
   if (r.ignorees.length > 0) {
     for (const i of r.ignorees) l.push(`- ${i.date} — [publication](${i.instagram}) : ${i.raison}`);
-    l.push("", "Pour en reproposer une : retirer sa ligne de `src/content/site/instagram-ignores.json` (dans cette PR ou après fusion).");
   } else {
     l.push("Aucune.");
   }
+  l.push(
+    "",
+    "Pour écarter une actu proposée : supprimer son fichier et son dossier de photos, elle ne reviendra pas. Pour reproposer une publication (ignorée ou écartée) : retirer sa ligne de `src/content/site/instagram-ignores.json`.",
+  );
   if (r.reportees.length > 0) {
     l.push("", `### Publications reportées (${r.reportees.length})`, "", "Retentées au prochain passage :", "");
     for (const x of r.reportees) l.push(`- [publication](${x.instagram}) : ${x.raison}`);

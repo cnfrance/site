@@ -11,7 +11,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { parseArgs } from "node:util";
 import { clientsReels } from "./clients.ts";
-import { corpsPR, synchroniser } from "./sync.ts";
+import { corpsPR, echecGlobal, synchroniser } from "./sync.ts";
 
 // .env minimal (même règle que instagram-token.mjs) : ne surcharge jamais
 // l'environnement réel.
@@ -58,6 +58,9 @@ const rapport = await synchroniser({
   clients: clientsReels(requis("GITHUB_TOKEN")),
   ecrire: !essai,
   pauseMs: 4000, // reste sous la limite par minute de l'offre gratuite de GitHub Models
+  // Lancé à la main, un jeton tout juste créé (< 24 h) ne peut pas encore être
+  // rafraîchi : seul le passage planifié alerte sur un refus.
+  alerteSiRefusRafraichissement: process.env.GITHUB_EVENT_NAME === "schedule",
 });
 
 if (values.rapport) await writeFile(values.rapport, `${JSON.stringify(rapport, null, 2)}\n`);
@@ -79,4 +82,10 @@ for (const i of rapport.ignorees) console.log(`  - ${i.date} ignorée : ${i.rais
 for (const x of rapport.reportees) console.log(`  ~ reportée : ${x.raison} (${x.instagram})`);
 if (rapport.actus.length + rapport.ignorees.length + rapport.reportees.length === 0) {
   console.log("  aucune nouvelle publication.");
+}
+if (j.alerte && j.motif) console.log(`::warning::${j.motif}`);
+const echec = echecGlobal(rapport);
+if (echec) {
+  console.error(`[instagram-sync] ${echec}`);
+  process.exit(1);
 }
