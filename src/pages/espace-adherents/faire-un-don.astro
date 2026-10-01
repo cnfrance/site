@@ -1,0 +1,181 @@
+---
+// Page « Faire un don » : texte éditable (src/content/pages/espace-adherents/
+// faire-un-don.md), jauge de la campagne (src/content/site/don.json, éditable
+// dans le CMS) et choix du montant avec calcul de la réduction d'impôt.
+//
+// Le paiement reste chez Monetico : le formulaire envoie vers leur page, montant
+// pré-rempli via `?amount=` ; le donateur y saisit ses coordonnées (reçu fiscal)
+// et paie. Pas d'iframe : Monetico pose son cookie de session en
+// `SameSite=Lax`, que le navigateur n'envoie pas depuis une iframe d'un autre
+// site — le panier est perdu et la validation échoue (« Il y a des erreurs sur
+// certains champs »).
+import { getCollection, getEntry, render } from "astro:content";
+import PageLayout from "../../layouts/PageLayout.astro";
+import { MONTANTS_DON, TAUX_REDUCTION, URL_DON_MONETICO, coutReel, formatEuros } from "../../lib/don";
+
+const page = await getEntry("pages", "espace-adherents/faire-un-don");
+if (!page) throw new Error("Contenu manquant : src/content/pages/espace-adherents/faire-un-don.md");
+const { Content } = await render(page);
+const { titre, section, chapo } = page.data;
+
+const [{ data: campagne }] = await getCollection("campagneDon");
+const pourcentage = Math.min(100, Math.round((campagne.collecte / campagne.objectif) * 100));
+const dateMaj = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(campagne.miseAJour);
+const taux = Math.round(TAUX_REDUCTION * 100);
+const montantDefaut = 100;
+---
+<PageLayout titre={titre} section={section} chapo={chapo} description={chapo}>
+  <Content />
+
+  <section class="jauge" aria-labelledby="jauge-titre">
+    <h2 id="jauge-titre" class="jauge__titre">{campagne.titre}</h2>
+    <p class="jauge__texte">{campagne.description}</p>
+    <div
+      class="jauge__barre"
+      role="progressbar"
+      aria-label="Avancement de la collecte"
+      aria-valuemin="0"
+      aria-valuemax={campagne.objectif}
+      aria-valuenow={campagne.collecte}
+      aria-valuetext={`${formatEuros(campagne.collecte)} collectés sur ${formatEuros(campagne.objectif)}`}
+    >
+      <span class="jauge__rempli" style={`width: ${pourcentage}%`}></span>
+    </div>
+    <p class="jauge__chiffres">
+      <span><strong>{formatEuros(campagne.collecte)}</strong> collectés sur {formatEuros(campagne.objectif)}</span>
+      <span class="jauge__pct">{pourcentage} %</span>
+    </p>
+    <p class="jauge__maj">Mis à jour le {dateMaj}</p>
+  </section>
+
+  <form class="don" data-don method="get" action={URL_DON_MONETICO} novalidate>
+    <h2 class="don__titre">Votre don</h2>
+    <fieldset class="don__montants">
+      <legend class="sr-only">Montant du don</legend>
+      {MONTANTS_DON.map((m) => (
+        <label class="don__choix">
+          <input type="radio" name="amount" value={m} checked={m === montantDefaut} />
+          <span class="don__valeur">{formatEuros(m)}</span>
+          <span class="don__cout">soit {formatEuros(coutReel(m))} après réduction</span>
+        </label>
+      ))}
+      <label class="don__choix don__choix--libre">
+        <input type="radio" name="amount" value="" data-radio-libre />
+        <span class="don__valeur">Montant libre</span>
+        <span class="don__saisie">
+          <input type="text" inputmode="decimal" autocomplete="off" placeholder="0" aria-label="Montant libre, en euros" data-libre />
+          <span aria-hidden="true">€</span>
+        </span>
+      </label>
+    </fieldset>
+
+    <div class="don__calcul" aria-live="polite" data-calcul></div>
+    <p class="don__erreur" role="alert" data-erreur hidden>Indiquez un montant valide (par exemple 75 ou 75,50).</p>
+
+    <p class="don__note">
+      La réduction d'impôt est de {taux} % du montant du don, dans la limite de 20 % de votre revenu imposable
+      (l'excédent est reportable sur les cinq années suivantes).
+    </p>
+
+    <button type="submit" class="btn don__envoyer">Continuer : coordonnées et paiement</button>
+    <p class="don__suite">
+      Vous serez redirigé vers la page de paiement sécurisé Monetico (Crédit Mutuel), votre montant déjà indiqué :
+      il vous restera à saisir vos coordonnées, nécessaires au reçu fiscal, puis à payer.
+    </p>
+  </form>
+
+</PageLayout>
+
+<style>
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  /* Jauge */
+  .jauge { margin-block: 2rem; padding: 1.4rem 1.5rem; background: var(--blanc); border: 1px solid var(--gris-bord); border-radius: var(--radius); }
+  :global(.prose) .jauge__titre { margin: 0 0 0.5rem; color: var(--rouge); font-size: 1.35rem; }
+  :global(.prose) .jauge__texte { margin-bottom: 1.1rem; color: var(--muted); }
+  .jauge__barre { height: 14px; border-radius: 999px; background: var(--fond); border: 1px solid var(--gris-bord); overflow: hidden; }
+  .jauge__rempli { display: block; height: 100%; min-width: 6px; background: linear-gradient(90deg, var(--rouge-sombre), var(--rouge)); border-radius: inherit; transition: width 0.6s ease; }
+  :global(.prose) .jauge__chiffres { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem; margin: 0.7rem 0 0.2rem; }
+  .jauge__chiffres strong { color: var(--rouge); font-size: 1.15rem; }
+  .jauge__pct { font-weight: 700; }
+  :global(.prose) .jauge__maj { margin: 0; font-size: 0.8rem; color: var(--muted); }
+
+  /* Choix du montant */
+  :global(.prose) .don__titre { margin-top: 0; }
+  .don__montants { border: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
+  @media (min-width: 560px) { .don__montants { grid-template-columns: repeat(3, 1fr); } }
+  .don__choix {
+    position: relative; display: flex; flex-direction: column; gap: 0.15rem;
+    padding: 0.85rem 1rem; background: var(--blanc); border: 1.5px solid var(--gris-bord); border-radius: var(--radius);
+    cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .don__choix:hover { border-color: color-mix(in srgb, var(--rouge) 50%, var(--gris-bord)); }
+  .don__choix:has(input[type="radio"]:checked) { border-color: var(--rouge); box-shadow: 0 0 0 3px color-mix(in srgb, var(--rouge) 15%, transparent); }
+  .don__choix:has(input[type="radio"]:focus-visible) { outline: 2px solid var(--rouge); outline-offset: 2px; }
+  .don__choix input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+  .don__valeur { font-family: var(--font-titre); font-weight: 700; font-size: 1.35rem; color: var(--texte); }
+  .don__cout { font-size: 0.82rem; color: var(--muted); }
+  .don__choix--libre { grid-column: 1 / -1; flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.6rem 1rem; }
+  .don__saisie { display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 700; font-size: 1.2rem; }
+  .don__saisie input {
+    width: 8.5rem; padding: 0.45rem 0.7rem; font: inherit; text-align: right;
+    border: 1.5px solid var(--gris-bord); border-radius: 8px; background: var(--fond); color: var(--texte);
+  }
+  .don__saisie input:focus { outline: none; border-color: var(--rouge); background: var(--blanc); }
+
+  .don__calcul { margin-top: 1.2rem; padding: 1rem 1.2rem; border-radius: var(--radius); background: color-mix(in srgb, var(--rouge) 7%, var(--blanc)); min-height: 3.2rem; }
+  .don__calcul:empty { display: none; }
+  .don__calcul :global(p) { margin: 0; }
+  .don__calcul :global(.don__gros) { color: var(--rouge); font-weight: 700; font-size: 1.15rem; }
+  :global(.prose) .don__erreur { margin: 0.8rem 0 0; color: var(--rouge-sombre); font-weight: 600; }
+  :global(.prose) .don__note { margin: 0.8rem 0 1.2rem; font-size: 0.85rem; color: var(--muted); }
+  .don__envoyer { border: 0; font: inherit; font-weight: 700; cursor: pointer; }
+  .don__envoyer:focus-visible { outline: 2px solid var(--rouge); outline-offset: 3px; }
+
+  :global(.prose) .don__suite { margin: 0.9rem 0 0; font-size: 0.85rem; color: var(--muted); }
+</style>
+
+<script>
+  import { coutReel, formatEuros, lireMontant, reductionImpot, urlMonetico } from "../../lib/don";
+
+  const form = document.querySelector<HTMLFormElement>("[data-don]");
+  if (form) {
+    const libre = form.querySelector<HTMLInputElement>("[data-libre]")!;
+    const radioLibre = form.querySelector<HTMLInputElement>("[data-radio-libre]")!;
+    const calcul = form.querySelector<HTMLElement>("[data-calcul]")!;
+    const erreur = form.querySelector<HTMLElement>("[data-erreur]")!;
+
+    const montantChoisi = (): number | null => {
+      const coche = form.querySelector<HTMLInputElement>('input[name="amount"]:checked');
+      if (!coche) return null;
+      return coche === radioLibre ? lireMontant(libre.value) : Number(coche.value);
+    };
+
+    const majCalcul = () => {
+      const m = montantChoisi();
+      erreur.hidden = true;
+      calcul.innerHTML = m
+        ? `<p>Votre don de <strong>${formatEuros(m)}</strong> ne vous coûte que <span class="don__gros">${formatEuros(coutReel(m))}</span>, après une réduction d'impôt de ${formatEuros(reductionImpot(m))}.</p>`
+        : "";
+    };
+
+    libre.addEventListener("focus", () => { radioLibre.checked = true; majCalcul(); });
+    libre.addEventListener("input", () => { radioLibre.checked = true; majCalcul(); });
+    form.addEventListener("change", majCalcul);
+    majCalcul();
+
+    // Sans JavaScript, le formulaire GET envoie déjà `?amount=` pour les montants
+    // proposés ; ici on gère aussi le montant libre (saisie à la française).
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const m = montantChoisi();
+      if (!m) {
+        radioLibre.checked = true;
+        libre.focus(); // déclenche majCalcul, qui masque l'erreur : on l'affiche après
+        erreur.hidden = false;
+        return;
+      }
+      window.location.assign(urlMonetico(m));
+    });
+  }
+</script>

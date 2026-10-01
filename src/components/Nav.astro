@@ -17,6 +17,11 @@ const rubriques = [
     ],
   },
   {
+    label: "Faire un don",
+    href: "/espace-adherents/faire-un-don",
+    sousMenu: [],
+  },
+  {
     label: "Infos Pratiques",
     href: "/infos-pratiques/horaires",
     sousMenu: [
@@ -57,7 +62,6 @@ const rubriques = [
       { label: "Actualités", href: "/actualites" },
       { label: "Ligne Vestimentaire", href: "/espace-adherents/ligne-vestimentaire" },
       { label: "Formation / Perfectionnement", href: "/espace-adherents/formation-perfectionnement" },
-      { label: "Faire un don", href: "/espace-adherents/faire-un-don" },
     ],
   },
   {
@@ -346,7 +350,7 @@ const rubriques = [
   .nav__drawer { display: none; }
 
   /* Sur le desktop compact, l'écusson (qui contient déjà le nom du club)
-     suffit : on masque le wordmark pour laisser la place aux 9 rubriques. */
+     suffit : on masque le wordmark pour laisser la place aux 10 rubriques. */
   @media (min-width: 1280px) { .nav__word { display: none; } }
 
   /* ===== Responsive : bascule en menu burger sous 1280px ===== */

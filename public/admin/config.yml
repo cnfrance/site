@@ -299,6 +299,31 @@ collections:
               - { label: "Identifiant", name: "id", widget: "hidden", required: false }
 
   # ---------------------------------------------------------------------
+  # Campagne de dons — src/content/site/don.json
+  # Alimente la jauge de la page « Faire un don ». Monetico ne permet pas de
+  # lire le total collecté automatiquement : le bureau relève le montant dans
+  # son espace Monetico et le reporte ici. Même enveloppe que les Réglages :
+  # un unique champ racine "campagne".
+  # ---------------------------------------------------------------------
+  - name: "campagne_don"
+    label: "Campagne de dons"
+    files:
+      - name: "campagne_don"
+        label: "Campagne de dons (jauge)"
+        file: "src/content/site/don.json"
+        format: "json"
+        fields:
+          - label: "Campagne"
+            name: "campagne"
+            widget: "object"
+            fields:
+              - { label: "Titre de l'objectif", name: "titre", widget: "string", hint: "Ex. : Notre objectif 2026 : une nouvelle yolette !" }
+              - { label: "Description de l'objectif", name: "description", widget: "text" }
+              - { label: "Montant à atteindre (€)", name: "objectif", widget: "number", value_type: "int", min: 1 }
+              - { label: "Montant collecté (€)", name: "collecte", widget: "number", value_type: "float", min: 0, hint: "Total des dons relevé dans l'espace Monetico." }
+              - { label: "Date de mise à jour", name: "miseAJour", widget: "datetime", time_format: false, date_format: "DD/MM/YYYY", format: "YYYY-MM-DD" }
+
+  # ---------------------------------------------------------------------
   # Réglages — src/content/site/reglages.json
   # Le contenu réel est enveloppé sous une clé racine "reglages". Ce n'est
   # PAS une limitation : il suffit de déclarer un unique champ racine de

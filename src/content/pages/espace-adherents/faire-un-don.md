@@ -1,8 +1,11 @@
 ---
 titre: "Faire un don"
 section: "Information adhérent"
+chapo: "Vous aussi, devenez Membre Bienfaiteur du Cercle Nautique de France ! Ensemble, améliorons notre parc à bateaux."
 ---
 
-Vous souhaitez soutenir le Cercle Nautique de France ? Vous pouvez effectuer un don en ligne, en toute sécurité, via le formulaire ci-dessous. S'il ne s'affiche pas, vous pouvez y accéder [en cliquant ici](https://www.payasso.fr/cnfrance/don).
+Chaque année, les membres bienfaiteurs du CNF lui permettent d'investir dans son **parc à bateaux**.
 
-<iframe title="Faire un don au Cercle Nautique de France" src="https://www.payasso.fr/cnfrance/don" width="100%" height="900" style="border:0;border-radius:12px;margin-top:1.5rem;" loading="lazy"></iframe>
+Le CNF étant une association reconnue d'intérêt général, **chaque don entraîne une réduction d'impôt de 66 %**. C'est très simple : il suffit d'indiquer le montant de votre don sur votre déclaration annuelle pour en bénéficier.
+
+**En faisant un don, vous contribuez concrètement à ce projet.** Le CNF appartient à ses membres : ensemble, améliorons nos conditions de pratique de l'aviron !

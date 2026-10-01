@@ -52,6 +52,16 @@ export const pageSchema = z.object({
   ordre: z.number().optional(),
 });
 
+// Campagne de dons : jauge de la page « Faire un don », mise à jour à la main
+// par le bureau depuis le CMS (montant collecté relevé sur Monetico).
+export const campagneDonSchema = z.object({
+  titre: z.string(),
+  description: z.string(),
+  objectif: z.number().positive(),
+  collecte: z.number().min(0),
+  miseAJour: z.coerce.date(),
+});
+
 export const resultatSchema = z.object({
   titre: z.string(),
   date: z.coerce.date(),
@@ -68,6 +78,11 @@ export const resultatSchema = z.object({
 const reglages = defineCollection({
   loader: file('src/content/site/reglages.json'),
   schema: reglagesSchema,
+});
+
+const campagneDon = defineCollection({
+  loader: file('src/content/site/don.json'),
+  schema: campagneDonSchema,
 });
 
 const evenements = defineCollection({
@@ -95,4 +110,4 @@ const resultats = defineCollection({
   schema: resultatSchema,
 });
 
-export const collections = { reglages, evenements, actualites, partenaires, pages, resultats };
+export const collections = { reglages, campagneDon, evenements, actualites, partenaires, pages, resultats };

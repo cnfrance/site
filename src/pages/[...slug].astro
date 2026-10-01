@@ -3,7 +3,8 @@ import { getCollection, render } from "astro:content";
 import PageLayout from "../layouts/PageLayout.astro";
 
 export async function getStaticPaths() {
-  const entries = await getCollection("pages");
+  // « Faire un don » a sa propre page (formulaire, jauge) qui rend ce contenu.
+  const entries = (await getCollection("pages")).filter((e) => e.id !== "espace-adherents/faire-un-don");
   return entries.map((entry) => ({
     params: { slug: entry.id },
     props: { entry },
