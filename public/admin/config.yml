@@ -87,7 +87,7 @@ collections:
         required: false
         summary: "{{fields.titre}}"
         fields:
-          - { label: "Lien YouTube / Vimeo", name: "lien", widget: "string", required: false, hint: "Recommandé (léger) : collez un lien de partage YouTube ou Vimeo." }
+          - { label: "Lien YouTube / Vimeo / Instagram", name: "lien", widget: "string", required: false, hint: "Recommandé (léger) : collez un lien de partage YouTube, Vimeo ou d'une publication Instagram (le lecteur Instagram ne se charge qu'au clic)." }
           - { label: "…ou importer un fichier vidéo", name: "fichier", widget: "file", required: false, hint: "Clips courts seulement — les gros fichiers alourdissent le site et les déploiements." }
           - { label: "Titre / légende", name: "titre", widget: "string", required: false }
       - { label: "Publication Instagram", name: "instagram", widget: "string", required: false, hint: "Lien de la publication Instagram d'origine. Renseigné par la synchro automatique : ne pas modifier, il évite que la publication soit importée deux fois." }
@@ -117,7 +117,7 @@ collections:
         required: false
         summary: "{{fields.titre}}"
         fields:
-          - { label: "Lien YouTube / Vimeo", name: "lien", widget: "string", required: false, hint: "Recommandé (léger) : collez un lien de partage YouTube ou Vimeo." }
+          - { label: "Lien YouTube / Vimeo / Instagram", name: "lien", widget: "string", required: false, hint: "Recommandé (léger) : collez un lien de partage YouTube, Vimeo ou d'une publication Instagram (le lecteur Instagram ne se charge qu'au clic)." }
           - { label: "…ou importer un fichier vidéo", name: "fichier", widget: "file", required: false, hint: "Clips courts seulement — les gros fichiers alourdissent le site et les déploiements." }
           - { label: "Titre / légende", name: "titre", widget: "string", required: false }
       - { label: "Contenu", name: "body", widget: "markdown" }

@@ -11,15 +11,32 @@ function embed(url: string): string | null {
   if (m) return `https://player.vimeo.com/video/${m[1]}`;
   return null;
 }
+// Publication Instagram : le lecteur officiel (…/embed/) n'est chargé qu'au
+// clic, pour ne contacter Instagram (et ses cookies) que si le visiteur le veut.
+function instagram(url: string): { embed: string; lien: string } | null {
+  const m = url.match(/instagram\.com\/(p|reel|reels|tv)\/([\w-]+)/);
+  if (!m) return null;
+  const type = m[1] === "p" ? "p" : "reel";
+  return { embed: `https://www.instagram.com/${type}/${m[2]}/embed/`, lien: url };
+}
 const items = videos.filter((v) => v.lien || v.fichier);
 ---
 {items.length > 0 && (
   <div class="videos">
     {items.map((v) => {
       const emb = v.lien ? embed(v.lien) : null;
+      const ig = v.lien ? instagram(v.lien) : null;
       return (
         <figure class="videos__item">
-          {emb ? (
+          {ig ? (
+            <div class="videos__ig" data-ig-embed={ig.embed}>
+              <a class="videos__ig-play" href={ig.lien} target="_blank" rel="noopener">
+                <span class="videos__ig-icone" aria-hidden="true">▶</span>
+                <span class="videos__ig-label">Lire la vidéo</span>
+                <span class="videos__ig-note">Lecteur Instagram</span>
+              </a>
+            </div>
+          ) : emb ? (
             <div class="videos__frame">
               <iframe src={emb} title={v.titre || "Vidéo"} loading="lazy" allowfullscreen
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
@@ -35,11 +52,35 @@ const items = videos.filter((v) => v.lien || v.fichier);
     })}
   </div>
 )}
+<script>
+  // Au clic, le bouton est remplacé par l'iframe Instagram. Sans JS, le lien
+  // ouvre la publication sur Instagram.
+  document.querySelectorAll<HTMLElement>("[data-ig-embed]").forEach((cadre) => {
+    cadre.querySelector("a")?.addEventListener("click", (e) => {
+      e.preventDefault();
+      const iframe = document.createElement("iframe");
+      iframe.src = cadre.dataset.igEmbed ?? "";
+      iframe.title = "Vidéo Instagram";
+      iframe.allow = "autoplay; encrypted-media; picture-in-picture";
+      iframe.allowFullscreen = true;
+      cadre.replaceChildren(iframe);
+    });
+  });
+</script>
 <style>
   .videos { display: grid; gap: 1.4rem; margin-block: 1.6rem; }
   .videos__item { margin: 0; }
   .videos__frame { position: relative; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: #000; }
   .videos__frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
   .videos__video { width: 100%; border-radius: 12px; background: #000; display: block; }
+  /* Cadre vertical : le lecteur Instagram (en-tête + vidéo + pied) est en portrait. */
+  .videos__ig { position: relative; width: 100%; max-width: 380px; aspect-ratio: 9 / 16; margin-inline: auto; border-radius: 12px; overflow: hidden; background: #0a1f33; }
+  .videos__ig iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: #fff; }
+  .videos__ig-play { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem; color: #fff; text-decoration: none; }
+  .videos__ig-icone { display: grid; place-items: center; width: 4rem; height: 4rem; border-radius: 50%; background: rgba(255,255,255,.18); font-size: 1.6rem; padding-left: 0.25rem; transition: background .2s; }
+  .videos__ig-play:hover .videos__ig-icone, .videos__ig-play:focus-visible .videos__ig-icone { background: rgba(255,255,255,.32); }
+  .videos__ig-play:focus-visible { outline: 3px solid #fff; outline-offset: -6px; }
+  .videos__ig-label { font-weight: 700; font-size: 1.05rem; }
+  .videos__ig-note { font-size: 0.8rem; opacity: .75; }
   .videos figcaption { font-size: 0.9rem; color: var(--muted); margin-top: 0.4rem; text-align: center; }
 </style>
