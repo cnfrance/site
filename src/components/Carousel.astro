@@ -33,15 +33,16 @@ const {
     <div class="carousel__viewport">
       <div class="carousel__track" data-carousel-track>
         {photos.map((photo, i) => (
-          <img
-            class="carousel__img"
-            src={photo}
-            alt={`${alt} — photo ${i + 1}/${photos.length}`}
-            style={`aspect-ratio: ${ratio};`}
-            loading={i === 0 ? "eager" : "lazy"}
-            fetchpriority={i === 0 ? "high" : "auto"}
-            decoding={i === 0 ? "sync" : "async"}
-          />
+          <div class="carousel__slide" style={`aspect-ratio: ${ratio}; --photo: url(${JSON.stringify(photo)});`}>
+            <img
+              class="carousel__img"
+              src={photo}
+              alt={`${alt} — photo ${i + 1}/${photos.length}`}
+              loading={i === 0 ? "eager" : "lazy"}
+              fetchpriority={i === 0 ? "high" : "auto"}
+              decoding={i === 0 ? "sync" : "async"}
+            />
+          </div>
         ))}
       </div>
 
@@ -107,11 +108,34 @@ const {
   .carousel__track::-webkit-scrollbar {
     display: none;
   }
-  .carousel__img {
+  .carousel__slide {
+    position: relative;
     flex: 0 0 100%;
-    width: 100%;
-    object-fit: cover;
+    overflow: hidden;
     scroll-snap-align: center;
+  }
+  /* margin/radius neutralisés : la mise en page des articles en ajoute à
+     toutes les images de la prose. */
+  .carousel .carousel__img {
+    position: relative;
+    display: block;
+    margin: 0;
+    border-radius: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  /* Grand format : la photo est montrée en entier (un portrait n'est plus
+     tronqué), sur un fond fait de la même photo, floutée et assombrie. */
+  [data-variant="full"] .carousel__slide::before {
+    content: "";
+    position: absolute;
+    inset: -24px;
+    background: var(--photo) center / cover no-repeat;
+    filter: blur(18px) brightness(0.6);
+  }
+  .carousel[data-variant="full"] .carousel__img {
+    object-fit: contain;
   }
   .carousel__btn {
     position: absolute;
