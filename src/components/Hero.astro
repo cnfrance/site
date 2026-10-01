@@ -1,20 +1,26 @@
 ---
-interface Props { photos: string[]; }
-const { photos } = Astro.props;
+interface Props { photos: string[]; interval?: number; }
+const { photos, interval = 6000 } = Astro.props;
 // Préfixe de base (vide en prod, "/site" sur la démo GitHub Pages) : appliqué ici
-// car les chemins du pool voyagent dans un attribut data-* (JSON) que le
-// préfixage post-build ne réécrit pas.
+// pour que les chemins des photos fonctionnent aussi sur la démo.
 const B = import.meta.env.BASE_URL.replace(/\/$/, "");
 const photosBased = photos.map((p) => (p.startsWith("/") ? `${B}${p}` : p));
-const principale = photosBased[0] ?? "";
-// Le pool complet est exposé en JSON pour une rotation client optionnelle (progressive enhancement).
-const poolJson = JSON.stringify(photosBased);
 ---
-<section class="hero">
+<section class="hero" data-hero data-interval={interval} aria-roledescription="carrousel" aria-label="Photos du club">
   <div class="hero__media">
-    {principale
-      ? <img class="hero__img" src={principale} alt="Aviron au Cercle Nautique de France" fetchpriority="high" data-pool={poolJson} />
-      : <div class="hero__img hero__img--placeholder" data-pool={poolJson}></div>}
+    {photosBased.length
+      ? photosBased.map((src, i) => (
+          <img
+            class="hero__img"
+            src={src}
+            alt={i === 0 ? "Aviron au Cercle Nautique de France" : ""}
+            data-active={i === 0 ? "true" : "false"}
+            loading={i === 0 ? "eager" : "lazy"}
+            fetchpriority={i === 0 ? "high" : "auto"}
+            decoding={i === 0 ? "sync" : "async"}
+          />
+        ))
+      : <div class="hero__img hero__img--placeholder" data-active="true"></div>}
     <div class="hero__overlay"></div>
   </div>
   <div class="wrap hero__copy">
@@ -22,23 +28,53 @@ const poolJson = JSON.stringify(photosBased);
     <h1 class="hero__title">L'aviron aux<br />portes de Paris</h1>
     <a class="btn hero__cta" href="/#infos">Nous rejoindre</a>
   </div>
+  {photosBased.length > 1 && (
+    <div class="hero__dots">
+      {photosBased.map((_, i) => (
+        <button type="button" class="hero__dot" data-hero-dot={i} aria-label={`Photo ${i + 1} sur ${photosBased.length}`} aria-current={i === 0 ? "true" : "false"}></button>
+      ))}
+    </div>
+  )}
 </section>
 <script>
-  // Rotation aléatoire du pool côté client (n'affecte pas le LCP : l'image initiale est déjà rendue).
-  const el = document.querySelector<HTMLElement>(".hero__img");
-  if (el) {
-    try {
-      const pool: string[] = JSON.parse(el.dataset.pool || "[]");
-      if (pool.length > 1 && el instanceof HTMLImageElement) {
-        el.src = pool[Math.floor(Math.random() * pool.length)];
-      }
-    } catch {}
-  }
+  // Fondu enchaîné entre les photos (progressive enhancement : sans JS, la
+  // première photo reste affichée). Pas de défilement auto si l'utilisateur
+  // préfère réduire les animations ; pause au survol et au focus.
+  document.querySelectorAll<HTMLElement>("[data-hero]").forEach((hero) => {
+    const imgs = [...hero.querySelectorAll<HTMLElement>(".hero__img")];
+    const dots = [...hero.querySelectorAll<HTMLButtonElement>("[data-hero-dot]")];
+    if (imgs.length < 2) return;
+    const interval = Number(hero.dataset.interval) || 6000;
+    const reduit = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let courant = 0;
+    let timer: number | undefined;
+
+    const afficher = (i: number) => {
+      courant = (i + imgs.length) % imgs.length;
+      imgs.forEach((img, j) => (img.dataset.active = String(j === courant)));
+      dots.forEach((d, j) => d.setAttribute("aria-current", String(j === courant)));
+    };
+    const demarrer = () => {
+      if (reduit) return;
+      arreter();
+      timer = window.setInterval(() => afficher(courant + 1), interval);
+    };
+    const arreter = () => window.clearInterval(timer);
+
+    dots.forEach((d, j) => d.addEventListener("click", () => { afficher(j); demarrer(); }));
+    hero.addEventListener("mouseenter", arreter);
+    hero.addEventListener("mouseleave", demarrer);
+    hero.addEventListener("focusin", arreter);
+    hero.addEventListener("focusout", demarrer);
+    document.addEventListener("visibilitychange", () => (document.hidden ? arreter() : demarrer()));
+    demarrer();
+  });
 </script>
 <style>
   .hero { position: relative; height: min(82vh, 680px); overflow: hidden; display: flex; align-items: flex-end; }
-  .hero__media { position: absolute; inset: 0; }
-  .hero__img { width: 100%; height: 120%; object-fit: cover; will-change: transform; }
+  .hero__media { position: absolute; inset: 0; will-change: transform; }
+  .hero__img { position: absolute; inset: 0; width: 100%; height: 120%; object-fit: cover; opacity: 0; transition: opacity 1.2s ease; }
+  .hero__img[data-active="true"] { opacity: 1; }
   .hero__img--placeholder { background: linear-gradient(#0a3d62, #1e6091 70%, #2a7fb0); }
   .hero__overlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(6,30,50,.72), rgba(6,30,50,.15) 55%, transparent); }
   .hero__copy { position: relative; padding-bottom: 3rem; color: var(--blanc); }
@@ -46,11 +82,19 @@ const poolJson = JSON.stringify(photosBased);
   .hero__title { font-size: clamp(2.2rem, 6vw, 4.2rem); margin: 0.4rem 0 1.4rem; text-shadow: 0 2px 18px rgba(0,0,0,.45); }
   .hero__cta { font-size: 1.05rem; }
 
+  .hero__dots { position: absolute; right: 1.5rem; bottom: 1.5rem; display: flex; gap: 0.5rem; z-index: 1; }
+  .hero__dot { width: 12px; height: 12px; padding: 0; border-radius: 50%; border: 2px solid rgba(255,255,255,.85); background: transparent; cursor: pointer; transition: background .2s; }
+  .hero__dot[aria-current="true"] { background: var(--blanc); }
+  .hero__dot:focus-visible { outline: 2px solid var(--blanc); outline-offset: 3px; }
+
   /* Parallax : scroll-driven animation native, avec fallback silencieux */
   @supports (animation-timeline: scroll()) {
     @media (prefers-reduced-motion: no-preference) {
-      .hero__img { animation: hero-parallax linear both; animation-timeline: scroll(root); animation-range: 0 600px; }
+      .hero__media { animation: hero-parallax linear both; animation-timeline: scroll(root); animation-range: 0 600px; }
       @keyframes hero-parallax { to { transform: translateY(-16%); } }
     }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero__img { transition: none; }
   }
 </style>

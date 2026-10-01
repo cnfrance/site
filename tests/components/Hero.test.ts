@@ -18,3 +18,12 @@ test('le hero gère un pool vide sans planter', async () => {
   const html = await container.renderToString(Hero, { props: { photos: [] } });
   expect(html).toContain('portes de Paris');
 });
+
+test('le hero rend toutes les photos du slider et un point par photo', async () => {
+  const container = await AstroContainer.create();
+  const photos = ['/img/a.jpg', '/img/b.jpg', '/img/c.jpg', '/img/d.jpg'];
+  const html = await container.renderToString(Hero, { props: { photos } });
+  for (const p of photos) expect(html).toContain(p);
+  expect(html.match(/data-hero-dot=/g)).toHaveLength(4);
+  expect(html.match(/data-active="true"/g)).toHaveLength(1);
+});

@@ -15,12 +15,10 @@
       "telephone": ""
     },
     "photosHero": [
+      "/medias/hero/competition-huit.jpeg",
       "/medias/hero/hero-1.jpeg",
-      "/medias/hero/hero-2.jpeg",
-      "/medias/hero/hero-3.jpeg",
-      "/medias/hero/hero-4.jpeg",
-      "/medias/hero/hero-5.jpeg",
-      "/medias/hero/hero-6.jpg"
+      "/medias/hero/competition-macon.jpeg",
+      "/medias/hero/hero-3.jpeg"
     ]
   }
 }

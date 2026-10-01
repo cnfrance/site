@@ -323,7 +323,7 @@ collections:
                 name: "photosHero"
                 widget: "list"
                 required: false
-                hint: "Photos affichées en grand en haut de la page d'accueil (une tirée au hasard à chaque visite)."
+                hint: "Photos affichées en grand en haut de la page d'accueil (elles défilent dans l'ordre de la liste)."
                 field: { label: "Photo", name: "photo", widget: "image" }
               - label: "Chiffres clés"
                 name: "chiffres"
