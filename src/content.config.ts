@@ -32,6 +32,9 @@ export const actualiteSchema = z.object({
   categorie: z.enum(CATEGORIES_ACTU).optional(),
   image: z.string().optional(),
   photos: z.array(z.string()).optional(),
+  // Lien de la publication Instagram d'origine : clé de déduplication de la
+  // synchro hebdomadaire (scripts/instagram-sync).
+  instagram: z.string().url().optional(),
   videos: z.array(z.object({
     lien: z.string().optional(),
     fichier: z.string().optional(),

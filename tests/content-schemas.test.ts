@@ -35,6 +35,16 @@ describe('actualiteSchema', () => {
     const a = actualiteSchema.parse({ titre: 'Rando', date: '2026-05-01', resume: 'court' });
     expect(a.titre).toBe('Rando');
   });
+  test('accepte le lien de la publication Instagram d\'origine', () => {
+    const a = actualiteSchema.parse({
+      titre: 'x', date: '2026-09-14', resume: 'x',
+      instagram: 'https://www.instagram.com/p/C1a2B3c4D5e/',
+    });
+    expect(a.instagram).toBe('https://www.instagram.com/p/C1a2B3c4D5e/');
+  });
+  test('rejette un champ instagram qui n\'est pas une URL', () => {
+    expect(() => actualiteSchema.parse({ titre: 'x', date: '2026-09-14', resume: 'x', instagram: 'C1a2B3' })).toThrow();
+  });
   test('la catégorie est optionnelle', () => {
     expect(actualiteSchema.parse({ titre: 'Rando', date: '2026-05-01', resume: 'x' }).categorie).toBeUndefined();
   });
