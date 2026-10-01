@@ -8,7 +8,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "test": "vitest run"
+    "test": "vitest run",
+    "instagram:token": "node scripts/instagram-token.mjs"
   },
   "dependencies": {
     "astro": "^5.0.0",
