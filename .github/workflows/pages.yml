@@ -1,4 +1,4 @@
-name: Déploiement démo GitHub Pages
+name: Déploiement GitHub Pages
 
 on:
   push:
@@ -17,10 +17,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      # Sert la démo sous https://<org>.github.io/site/
-      PUBLIC_BASE_PATH: /site
-      PUBLIC_SITE_URL: https://cnfrance.github.io
+    # Build de production : www.cnfrance.fr relaie https://cnfrance.github.io/site
+    # via proxy/index.php, qui sert le site à la racine. Pas de PUBLIC_BASE_PATH :
+    # liens et URL canoniques visent directement www.cnfrance.fr.
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

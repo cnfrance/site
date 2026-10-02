@@ -1,9 +1,10 @@
 <?php
 /**
- * Proxy inverse — www.cnfrance.fr → cnfrance.netlify.app
+ * Proxy inverse — www.cnfrance.fr → cnfrance.github.io/site
  *
- * Le site est construit et hébergé par Netlify. Ce serveur-ci n'en sert aucune
- * copie : il se contente de relayer chaque requête vers Netlify et de renvoyer
+ * Le site est construit et hébergé par GitHub Pages (workflow pages.yml, build
+ * de production à la racine). Ce serveur-ci n'en sert aucune copie : il se
+ * contente de relayer chaque requête vers GitHub Pages et de renvoyer
  * la réponse telle quelle. Les visiteurs gardent donc www.cnfrance.fr dans leur
  * barre d'adresse.
  *
@@ -25,8 +26,12 @@
 
 declare(strict_types=1);
 
-/** Domaine servant réellement le site. Seule ligne à changer en cas de bascule. */
-$targetDomain = 'https://cnfrance.netlify.app';
+/**
+ * Origine servant réellement le site (sans slash final). Seule ligne à changer
+ * en cas de bascule. Historique : https://cnfrance.netlify.app jusqu'à
+ * l'épuisement du crédit de publication Netlify (octobre 2026).
+ */
+$targetDomain = 'https://cnfrance.github.io/site';
 
 /** Domaine public, tel que les visiteurs le voient. */
 $publicDomain = 'https://www.cnfrance.fr';
@@ -71,7 +76,7 @@ $passThrough = [
     'HTTP_ACCEPT_LANGUAGE'   => 'Accept-Language',
     'HTTP_USER_AGENT'        => 'User-Agent',
     'HTTP_REFERER'           => 'Referer',
-    // Revalidation : permet à Netlify de répondre 304 et d'économiser le transfert.
+    // Revalidation : permet à l'origine de répondre 304 et d'économiser le transfert.
     'HTTP_IF_NONE_MATCH'     => 'If-None-Match',
     'HTTP_IF_MODIFIED_SINCE' => 'If-Modified-Since',
     'HTTP_RANGE'             => 'Range',
@@ -81,7 +86,7 @@ foreach ($passThrough as $serverKey => $headerName) {
         $forward[] = $headerName . ': ' . $_SERVER[$serverKey];
     }
 }
-// Sans cela, Netlify ne voit que l'IP du serveur mutualisé.
+// Sans cela, l'origine ne voit que l'IP du serveur mutualisé.
 $clientIp = $_SERVER['REMOTE_ADDR'] ?? '';
 if ($clientIp !== '') {
     $forward[] = 'X-Forwarded-For: ' . $clientIp;
@@ -112,7 +117,7 @@ curl_setopt_array($ch, [
 $response = curl_exec($ch);
 
 if ($response === false) {
-    // Netlify injoignable : on le dit franchement plutôt que de servir une page
+    // Origine injoignable : on le dit franchement plutôt que de servir une page
     // blanche, et on demande aux robots de ne pas retenir cette réponse.
     http_response_code(502);
     header('Content-Type: text/html; charset=utf-8');
@@ -157,7 +162,8 @@ foreach (explode("\r\n", $rawHeaders) as $line) {
     if (!in_array($name, $allowed, true)) {
         continue;
     }
-    // Une redirection vers Netlify doit ramener le visiteur sur notre domaine.
+    // Une redirection vers l'origine (ex. ajout du « / » final par GitHub Pages)
+    // doit ramener le visiteur sur notre domaine.
     if ($name === 'location') {
         $value = str_replace($targetDomain, $publicDomain, $value);
     }
@@ -165,7 +171,7 @@ foreach (explode("\r\n", $rawHeaders) as $line) {
 }
 
 // Dans le HTML, le CSS et les données, toute référence écrite en dur vers
-// Netlify est ramenée sur le domaine public, pour que rien ne laisse fuiter
+// l'origine est ramenée sur le domaine public, pour que rien ne laisse fuiter
 // l'hébergement réel ni ne fasse sortir le visiteur du domaine.
 $contentType = '';
 foreach (headers_list() as $h) {
@@ -184,9 +190,9 @@ if ($isTextual && $body !== '') {
     $body = str_replace($targetDomain, $publicDomain, $body);
 }
 
-// Netlify insère dans chaque page un commentaire et une balise <meta> qui font
-// la promotion de son offre. Rien à y faire côté build : on les retire ici pour
-// que les pages du club restent les siennes.
+// Netlify insérait dans chaque page un commentaire et une balise <meta> de
+// promotion ; retrait conservé, sans effet sur GitHub Pages, au cas où l'on
+// rebasculerait.
 if ($body !== '' && strpos($contentType, 'html') !== false) {
     $body = preg_replace('#<meta\s+name="netlify-deploy"[^>]*>#i', '', $body) ?? $body;
     $body = preg_replace('#<!--(?:(?!-->).)*?netlify\.new(?:(?!-->).)*?-->#is', '', $body) ?? $body;
