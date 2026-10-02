@@ -33,8 +33,9 @@ export const actualiteSchema = z.object({
   image: z.string().optional(),
   photos: z.array(z.string()).optional(),
   // Lien de la publication Instagram d'origine : clé de déduplication de la
-  // synchro hebdomadaire (scripts/instagram-sync).
-  instagram: z.string().url().optional(),
+  // synchro hebdomadaire (scripts/instagram-sync). Le CMS écrit '' quand le
+  // champ est laissé vide.
+  instagram: z.string().url().or(z.literal('')).optional(),
   videos: z.array(z.object({
     lien: z.string().optional(),
     fichier: z.string().optional(),

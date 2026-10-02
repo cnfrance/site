@@ -42,6 +42,9 @@ describe('actualiteSchema', () => {
     });
     expect(a.instagram).toBe('https://www.instagram.com/p/C1a2B3c4D5e/');
   });
+  test('accepte un champ instagram vide écrit par le CMS', () => {
+    expect(actualiteSchema.parse({ titre: 'x', date: '2026-09-14', resume: 'x', instagram: '' }).instagram).toBeFalsy();
+  });
   test('rejette un champ instagram qui n\'est pas une URL', () => {
     expect(() => actualiteSchema.parse({ titre: 'x', date: '2026-09-14', resume: 'x', instagram: 'C1a2B3' })).toThrow();
   });
