@@ -52,7 +52,8 @@ export const pageSchema = z.object({
   titre: z.string(),
   section: z.string(),
   chapo: z.string().optional(),
-  ordre: z.number().optional(),
+  // nullish : le CMS écrit « ordre: null » quand le champ est laissé vide.
+  ordre: z.number().nullish(),
 });
 
 // Campagne de dons : jauge de la page « Faire un don », mise à jour à la main

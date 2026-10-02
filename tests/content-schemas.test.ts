@@ -1,6 +1,6 @@
 import { expect, test, describe } from 'vitest';
 import {
-  reglagesSchema, evenementSchema, actualiteSchema, partenaireSchema,
+  reglagesSchema, evenementSchema, actualiteSchema, partenaireSchema, pageSchema,
 } from '../src/content.config';
 import { CATEGORIES_ACTU, LIBELLES_CATEGORIE_ACTU } from '../src/lib/categories-actus';
 
@@ -66,5 +66,16 @@ describe('actualiteSchema', () => {
 describe('partenaireSchema', () => {
   test('accepte un partenaire avec juste un nom', () => {
     expect(partenaireSchema.parse({ nom: 'FFA' }).nom).toBe('FFA');
+  });
+});
+
+describe('pageSchema', () => {
+  test('accepte un ordre vide écrit par le CMS (null)', () => {
+    const p = pageSchema.parse({ titre: 'Aviron Compétition', section: 'Pratiquer', chapo: '', ordre: null });
+    expect(p.ordre ?? undefined).toBeUndefined();
+  });
+  test('accepte un ordre numérique et rejette un ordre non numérique', () => {
+    expect(pageSchema.parse({ titre: 'x', section: 'y', ordre: 2 }).ordre).toBe(2);
+    expect(() => pageSchema.parse({ titre: 'x', section: 'y', ordre: 'deux' })).toThrow();
   });
 });
