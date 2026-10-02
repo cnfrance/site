@@ -5,7 +5,7 @@ chapo: ''
 ordre: null
 ---
 
-![IMG 2876](/medias/f0dbcd61-4a68-4ea3-95f8-bdaa2e28fd36.jpeg)
+![CDF U17 2026](/medias/f0dbcd61-4a68-4ea3-95f8-bdaa2e28fd36.jpeg)
 
 Le Cercle Nautique de France a pour vocation la formation et l’éducation par la compétition.
 
@@ -18,7 +18,7 @@ Il propose une activité sportive de plein air qui permet le développement harm
 -   les séniors, à partir de 19 ans,
 -   les masters, à partir de 27 ans.
 
-![competition 02](/medias/IMG_3773.jpeg)![C France 07 21 01](/medias/8d648417-55c4-4d61-bc67-80339093cb7c.jpeg)
+![ROW 500 2025](/medias/IMG_3773.jpeg)![CDF 2024](/medias/8d648417-55c4-4d61-bc67-80339093cb7c.jpeg)
 
 ## **L'aviron indoor**
 
