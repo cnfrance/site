@@ -1,11 +1,29 @@
 {
   "reglages": {
     "accroche": "Depuis 1875, le Cercle Nautique de France fait vivre l'aviron aux portes de Paris, à Neuilly-sur-Seine. Compétition, loisir ou découverte : on y rame été comme hiver, dans un cadre de verdure au pied de la Défense.",
+    "photosHero": [
+      "/medias/unnamed(2).jpg",
+      "/medias/hero/hero-1.jpeg",
+      "/medias/hero/competition-macon.jpeg",
+      "/medias/hero/hero-3.jpeg"
+    ],
     "chiffres": [
-      { "valeur": "1875", "label": "fondé en" },
-      { "valeur": "150 ans", "label": "en 2025" },
-      { "valeur": "110", "label": "bateaux" },
-      { "valeur": "3★", "label": "École Française d'Aviron" }
+      {
+        "valeur": "1875",
+        "label": "fondé en"
+      },
+      {
+        "valeur": "150 ans",
+        "label": "en 2025"
+      },
+      {
+        "valeur": "110",
+        "label": "bateaux"
+      },
+      {
+        "valeur": "3★",
+        "label": "École Française d'Aviron"
+      }
     ],
     "infos": {
       "horaires": "Sorties sur l'eau le midi en semaine et le week-end, séances en soirée les lundi, mardi, jeudi et vendredi (horaires d'été mi-avril à mi-octobre ; les sorties du soir sont remplacées par des séances Indoor en hiver).",
@@ -13,12 +31,6 @@
       "adresse": "Complexe sportif de l'île du pont de Neuilly, 92200 Neuilly-sur-Seine",
       "email": "club@cnfrance.fr",
       "telephone": ""
-    },
-    "photosHero": [
-      "/medias/hero/competition-huit.jpeg",
-      "/medias/hero/hero-1.jpeg",
-      "/medias/hero/competition-macon.jpeg",
-      "/medias/hero/hero-3.jpeg"
-    ]
+    }
   }
 }
