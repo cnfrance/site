@@ -1,5 +1,5 @@
 ---
-titre: Nettoyage des berges et Narbecue de rentrée
+titre: Nettoyage des berges et Barbecue de rentrée
 date: 2026-10-17T11:30
 lieu: Cercle Nautique de France
 description: |-
