@@ -9,6 +9,8 @@ description: |-
 
   En 2024, notre participation avait permis de collecter près de 100 kg de déchets ! 💪
 
+  Rendez vous à 11h30 devant le club pour la distribution des gants, sacs poubelles et pinces 
+
   Pour prolonger ce moment collectif dans la convivialité, notre traditionnel barbecue de rentrée aura lieu à l’issue du nettoyage. L’occasion de joindre l’utile à l’agréable et d’accueillir ensemble les nouveaux membres du club !
 
   Merci à la Mairie pour le prêt de matériel ! 🙏
