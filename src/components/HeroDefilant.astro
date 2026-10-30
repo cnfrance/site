@@ -1,0 +1,195 @@
+---
+// Prototype de bandeau d'accueil (page cachée /essai-bandeau).
+// - Ordinateur : fondu enchaîné, comme le bandeau actuel.
+// - Écran en hauteur (téléphone) : plein écran ; chaque photo paysage glisse
+//   latéralement pour être vue en entier avant de passer à la suivante.
+// - Vidéo (option C) : muette, cadrée sur son point d'intérêt, sans défilement ;
+//   jouée une fois (15 s au plus) avant de passer à la suite.
+interface Media { src: string; position?: "gauche" | "centre" | "droite"; }
+interface Props { medias: Media[]; }
+const { medias } = Astro.props;
+
+const B = import.meta.env.BASE_URL.replace(/\/$/, "");
+const POSITIONS = { gauche: "0%", centre: "50%", droite: "100%" } as const;
+const estVideo = (src: string) => /\.(mp4|m4v|mov|webm)$/i.test(src);
+const diapos = medias.map((m) => ({
+  src: m.src.startsWith("/") ? `${B}${m.src}` : m.src,
+  type: estVideo(m.src) ? "video" : "image",
+  position: POSITIONS[m.position ?? "centre"],
+}));
+---
+<section class="hd" data-hd aria-roledescription="carrousel" aria-label="Photos et vidéos du club">
+  <div class="hd__media">
+    {diapos.length
+      ? diapos.map((d, i) => (
+          <div class="hd__slide" data-type={d.type} data-active={i === 0 ? "true" : "false"} style={`--position: ${d.position}`}>
+            {d.type === "video" ? (
+              <video class="hd__video" muted playsinline preload={i === 0 ? "auto" : "metadata"} aria-hidden="true">
+                <source src={d.src} type="video/mp4" />
+              </video>
+            ) : (
+              <img
+                class="hd__img"
+                src={d.src}
+                alt={i === 0 ? "Aviron au Cercle Nautique de France" : ""}
+                fetchpriority={i === 0 ? "high" : "auto"}
+                decoding={i === 0 ? "sync" : "async"}
+              />
+            )}
+          </div>
+        ))
+      : <div class="hd__vide"></div>}
+    <div class="hd__overlay"></div>
+  </div>
+  <div class="wrap hd__copy">
+    <p class="hd__kicker">Cercle Nautique de France · depuis 1875</p>
+    <h1 class="hd__title">L'aviron aux<br />portes de Paris</h1>
+    <a class="btn hd__cta" href="/#infos">Nous rejoindre</a>
+  </div>
+  {diapos.length > 1 && (
+    <div class="hd__dots">
+      {diapos.map((_, i) => (
+        <button type="button" class="hd__dot" data-hd-dot={i} aria-label={`Média ${i + 1} sur ${diapos.length}`} aria-current={i === 0 ? "true" : "false"}></button>
+      ))}
+    </div>
+  )}
+  <a class="hd__suite" href="#suite" aria-label="Voir la suite de la page">
+    <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" /></svg>
+  </a>
+</section>
+<script>
+  // Vitesse de défilement des photos sur écran en hauteur : constante, pour
+  // qu'une photo panoramique ne glisse pas plus vite qu'une 4/3.
+  const VITESSE = 60; // px/s
+  const DUREE_MIN = 5000;
+  const DUREE_MAX = 12000; // une photo très large glisse plus vite plutôt que plus longtemps
+  const DUREE_BUREAU = 6000;
+  const VIDEO_MAX = 15000;
+  const FONDU = 1300;
+
+  document.querySelectorAll<HTMLElement>("[data-hd]").forEach((hero) => {
+    const slides = [...hero.querySelectorAll<HTMLElement>(".hd__slide")];
+    const dots = [...hero.querySelectorAll<HTMLButtonElement>("[data-hd-dot]")];
+    if (slides.length === 0) return;
+    const portrait = window.matchMedia("(max-aspect-ratio: 1/1)");
+    const reduit = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let courant = 0;
+    let timer: number | undefined;
+    let anim: Animation | null = null;
+
+    const defile = () => !reduit && portrait.matches;
+    const majMode = () => hero.classList.toggle("hd--defile", defile());
+
+    function arreter() {
+      window.clearTimeout(timer);
+      const v = slides[courant].querySelector("video");
+      if (v) v.pause();
+    }
+
+    function suivant() {
+      afficher(courant + 1);
+    }
+
+    function programmer(i: number) {
+      window.clearTimeout(timer);
+      if (reduit || slides.length < 2) return; // pas de défilement automatique
+      const slide = slides[i];
+
+      if (slide.dataset.type === "video") {
+        const v = slide.querySelector("video")!;
+        v.currentTime = 0;
+        v.play()
+          .then(() => {
+            const d = Number.isFinite(v.duration) ? Math.min(v.duration * 1000, VIDEO_MAX) : VIDEO_MAX;
+            timer = window.setTimeout(suivant, d);
+          })
+          // Lecture refusée (mode économie d'énergie sur iOS…) : on reste sur
+          // la première image le temps d'une photo.
+          .catch(() => { timer = window.setTimeout(suivant, DUREE_BUREAU); });
+        return;
+      }
+
+      if (!defile()) {
+        timer = window.setTimeout(suivant, DUREE_BUREAU);
+        return;
+      }
+      const img = slide.querySelector("img")!;
+      const lancer = () => {
+        const distance = img.getBoundingClientRect().width - slide.clientWidth;
+        if (distance < 8) { // photo verticale ou carrée : rien à faire défiler
+          timer = window.setTimeout(suivant, DUREE_MIN);
+          return;
+        }
+        const duree = Math.min(DUREE_MAX, Math.max(DUREE_MIN, (distance / VITESSE) * 1000));
+        // Sens alterné : gauche → droite, puis droite → gauche.
+        const [de, a] = i % 2 === 0 ? [0, -distance] : [-distance, 0];
+        anim = img.animate(
+          [{ transform: `translateX(${de}px)` }, { transform: `translateX(${a}px)` }],
+          { duration: duree, easing: "ease-in-out", fill: "forwards" },
+        );
+        timer = window.setTimeout(suivant, duree);
+      };
+      if (img.complete && img.naturalWidth) lancer();
+      else img.addEventListener("load", lancer, { once: true });
+    }
+
+    function afficher(i: number) {
+      arreter();
+      // L'animation sortante est gardée le temps du fondu, sinon l'image
+      // sauterait à sa position de départ pendant qu'elle disparaît.
+      const sortante = anim;
+      if (sortante) window.setTimeout(() => sortante.cancel(), FONDU);
+      anim = null;
+      courant = (i + slides.length) % slides.length;
+      slides.forEach((s, j) => (s.dataset.active = String(j === courant)));
+      dots.forEach((d, j) => d.setAttribute("aria-current", String(j === courant)));
+      programmer(courant);
+    }
+
+    dots.forEach((d, j) => d.addEventListener("click", () => afficher(j)));
+    document.addEventListener("visibilitychange", () => (document.hidden ? arreter() : afficher(courant)));
+    portrait.addEventListener("change", () => { majMode(); afficher(courant); });
+    majMode();
+    programmer(0);
+  });
+</script>
+<style>
+  .hd { position: relative; height: min(82vh, 680px); overflow: hidden; display: flex; align-items: flex-end; background: #0a3d62; }
+  .hd__media { position: absolute; inset: 0; }
+  .hd__slide { position: absolute; inset: 0; overflow: hidden; opacity: 0; transition: opacity 1.2s ease; }
+  .hd__slide[data-active="true"] { opacity: 1; }
+  .hd__img, .hd__video { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: var(--position) 50%; }
+  .hd__vide { position: absolute; inset: 0; background: linear-gradient(#0a3d62, #1e6091 70%, #2a7fb0); }
+  .hd__overlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(6,30,50,.72), rgba(6,30,50,.15) 55%, transparent); }
+  .hd__copy { position: relative; padding-bottom: 3rem; color: var(--blanc); }
+  .hd__kicker { text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; font-weight: 700; color: #cfe6f4; }
+  .hd__title { font-size: clamp(2.2rem, 6vw, 4.2rem); margin: 0.4rem 0 1.4rem; text-shadow: 0 2px 18px rgba(0,0,0,.45); }
+  .hd__cta { font-size: 1.05rem; }
+
+  .hd__dots { position: absolute; right: 1.5rem; bottom: 1.5rem; display: flex; gap: 0.5rem; z-index: 1; }
+  .hd__dot { width: 12px; height: 12px; padding: 0; border-radius: 50%; border: 2px solid rgba(255,255,255,.85); background: transparent; cursor: pointer; transition: background .2s; }
+  .hd__dot[aria-current="true"] { background: var(--blanc); }
+  .hd__dot:focus-visible { outline: 2px solid var(--blanc); outline-offset: 3px; }
+  .hd__suite { display: none; }
+
+  /* Écran en hauteur : plein écran (sous la barre de navigation, ~64 px). */
+  @media (max-aspect-ratio: 1/1) {
+    .hd { height: calc(100svh - 64px); min-height: 480px; }
+    .hd__overlay { background: linear-gradient(to top, rgba(6,30,50,.85), rgba(6,30,50,.25) 50%, rgba(6,30,50,.05)); }
+    .hd__copy { padding-bottom: 4.5rem; }
+    .hd__kicker { font-size: 0.68rem; letter-spacing: 1.2px; }
+    .hd__dots { left: 50%; right: auto; transform: translateX(-50%); bottom: auto; top: 1rem; }
+    .hd__suite { display: grid; place-items: center; position: absolute; left: 50%; bottom: 0.6rem; transform: translateX(-50%); width: 44px; height: 44px; color: var(--blanc); z-index: 1; }
+  }
+  /* Mode défilement (posé par le script) : la photo garde sa largeur
+     naturelle à pleine hauteur, puis glisse. */
+  .hd--defile .hd__img { right: auto; width: auto; min-width: 100%; }
+
+  @media (prefers-reduced-motion: no-preference) and (max-aspect-ratio: 1/1) {
+    .hd__suite svg { animation: hd-rebond 2s ease-in-out infinite; }
+    @keyframes hd-rebond { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hd__slide { transition: none; }
+  }
+</style>

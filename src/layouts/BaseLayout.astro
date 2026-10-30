@@ -1,8 +1,8 @@
 ---
 import "../styles/global.css";
 import CookieConsent from "../components/CookieConsent.astro";
-interface Props { title: string; description?: string; }
-const { title, description = "Cercle Nautique de France — l'aviron aux portes de Paris. Club d'aviron à Neuilly-sur-Seine depuis 1875." } = Astro.props;
+interface Props { title: string; description?: string; noindex?: boolean; }
+const { title, noindex = false, description = "Cercle Nautique de France — l'aviron aux portes de Paris. Club d'aviron à Neuilly-sur-Seine depuis 1875." } = Astro.props;
 const site = Astro.site ?? new URL("https://www.cnfrance.fr");
 const canonical = new URL(Astro.url.pathname, site).toString();
 const ogImage = new URL("/medias/hero/hero-1.jpeg", site).toString();
@@ -17,6 +17,7 @@ const ogImage = new URL("/medias/hero/hero-1.jpeg", site).toString();
     <link rel="apple-touch-icon" href={`${import.meta.env.BASE_URL.replace(/\/$/, "")}/apple-touch-icon.png`} />
     <link rel="canonical" href={canonical} />
     <title>{title}</title>
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <meta name="description" content={description} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
