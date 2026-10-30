@@ -25,9 +25,18 @@ export const evenementSchema = z.object({
   lien: z.string().optional(),
 });
 
+// Le CMS écrit '' (ou null) pour un champ laissé vide.
+const sansVide = (v: unknown) => (v === "" || v === null ? undefined : v);
+
 export const actualiteSchema = z.object({
   titre: z.string(),
   date: z.coerce.date(),
+  // Rendez-vous : fin (plusieurs jours), lieu, présentation affichée avant la
+  // date, lien d'inscription ou d'infos. Le corps Markdown est le compte rendu.
+  dateFin: z.preprocess(sansVide, z.coerce.date().optional()),
+  lieu: z.preprocess(sansVide, z.string().optional()),
+  presentation: z.preprocess(sansVide, z.string().optional()),
+  lien: z.preprocess(sansVide, z.string().url().optional()),
   resume: z.string(),
   categorie: z.enum(CATEGORIES_ACTU).optional(),
   image: z.string().optional(),

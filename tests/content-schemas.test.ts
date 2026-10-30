@@ -31,6 +31,24 @@ describe('evenementSchema', () => {
 });
 
 describe('actualiteSchema', () => {
+  test('accepte les champs d\'événement', () => {
+    const a = actualiteSchema.parse({
+      titre: 'Fermeture', date: '2026-12-20', dateFin: '2027-01-03', resume: 'x',
+      lieu: 'Club', presentation: '**Club fermé**', lien: 'https://exemple.fr/inscription',
+    });
+    expect(a.dateFin?.getUTCDate()).toBe(3);
+    expect(a.lieu).toBe('Club');
+    expect(a.presentation).toBe('**Club fermé**');
+    expect(a.lien).toBe('https://exemple.fr/inscription');
+  });
+  test('les champs d\'événement laissés vides par le CMS sont ignorés', () => {
+    const a = actualiteSchema.parse({ titre: 'x', date: '2026-12-20', resume: 'x', dateFin: '', lieu: '', presentation: '', lien: '' });
+    expect([a.dateFin, a.lieu, a.presentation, a.lien]).toEqual([undefined, undefined, undefined, undefined]);
+    expect(actualiteSchema.parse({ titre: 'x', date: '2026-12-20', resume: 'x', dateFin: null }).dateFin).toBeUndefined();
+  });
+  test('un lien d\'inscription doit être une adresse', () => {
+    expect(() => actualiteSchema.parse({ titre: 'x', date: '2026-12-20', resume: 'x', lien: 'inscription' })).toThrow();
+  });
   test('une date saisie sans fuseau dans le CMS garde son heure murale', () => {
     const a = actualiteSchema.parse({ titre: 'x', date: '2026-10-27T19:00', resume: 'x' });
     expect(a.date.getUTCHours()).toBe(19);

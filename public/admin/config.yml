@@ -64,8 +64,11 @@ collections:
   # Actualités — src/content/actualites/*.md
   # ---------------------------------------------------------------------
   - name: "actualites"
-    label: "Actualités"
-    label_singular: "Actualité"
+    label: "Actualités & événements"
+    label_singular: "Actualité ou événement"
+    description: "Une fiche par rendez-vous. AVANT la date : remplissez la présentation (et le lien d'inscription) — la fiche apparaît dans « Événements à venir » et l'agenda. APRÈS : rouvrez la même fiche et ajoutez le compte rendu et les photos — elle apparaît alors dans les actualités. Une fermeture du club est une fiche « Vie du club » avec date de fin."
+    summary: "{{date | date('DD/MM/YYYY')}} — {{titre}}"
+    sortable_fields: ["date", "titre"]
     folder: "src/content/actualites"
     create: true
     delete: true
@@ -76,6 +79,8 @@ collections:
     fields:
       - { label: "Titre", name: "titre", widget: "string" }
       - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Date de fin", name: "dateFin", widget: "datetime", required: false, hint: "Pour un rendez-vous sur plusieurs jours (stage, fermeture du club…)." }
+      - { label: "Lieu", name: "lieu", widget: "string", required: false }
       - label: "Univers"
         name: "categorie"
         widget: "select"
@@ -86,6 +91,8 @@ collections:
           - { label: "Loisir & randonnées", value: "loisir" }
           - { label: "Vie du club", value: "club" }
       - { label: "Résumé", name: "resume", widget: "text" }
+      - { label: "Présentation (avant le rendez-vous)", name: "presentation", widget: "markdown", required: false, hint: "Programme, horaires, infos pratiques. Affichée tant que la date n'est pas passée, et sur la page si aucun compte rendu n'est écrit." }
+      - { label: "Lien d'inscription ou d'infos", name: "lien", widget: "string", required: false, hint: "Adresse complète (https://…). Bouton affiché tant que la date n'est pas passée." }
       - { label: "Image principale", name: "image", widget: "image", required: false }
       - { label: "Photos (diaporama)", name: "photos", widget: "list", required: false, field: { label: "Photo", name: "photo", widget: "image" } }
       - label: "Vidéos"
@@ -98,7 +105,7 @@ collections:
           - { label: "…ou importer un fichier vidéo", name: "fichier", widget: "file", required: false, hint: "Clips courts seulement — les gros fichiers alourdissent le site et les déploiements." }
           - { label: "Titre / légende", name: "titre", widget: "string", required: false }
       - { label: "Publication Instagram", name: "instagram", widget: "string", required: false, hint: "Lien de la publication Instagram d'origine. Renseigné par la synchro automatique : ne pas modifier, il évite que la publication soit importée deux fois." }
-      - { label: "Contenu", name: "body", widget: "markdown" }
+      - { label: "Compte rendu (après le rendez-vous)", name: "body", widget: "markdown", required: false, hint: "Récit, résultats. Tant qu'il est vide, la fiche n'apparaît pas dans les actualités." }
 
   # ---------------------------------------------------------------------
   # Événements — src/content/evenements/*.md
