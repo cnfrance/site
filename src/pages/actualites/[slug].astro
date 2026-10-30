@@ -1,38 +1,51 @@
 ---
 import { getCollection, render } from "astro:content";
+import { createMarkdownProcessor } from "@astrojs/markdown-remark";
 import PageLayout from "../../layouts/PageLayout.astro";
 import Carousel from "../../components/Carousel.astro";
 import Videos from "../../components/Videos.astro";
 import { LIBELLES_CATEGORIE_ACTU } from "../../lib/categories-actus";
+import { aujourdhuiParis, estAVenir, heureDe, plageDates } from "../../lib/agenda";
 
 export async function getStaticPaths() {
   const entries = await getCollection("actualites");
-  return entries.map((entry) => ({
-    params: { slug: entry.id },
-    props: { entry },
-  }));
+  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
 }
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
-const { titre, date, image, resume, categorie } = entry.data;
+const { titre, date, dateFin, image, resume, categorie, lieu, presentation, lien } = entry.data;
 const photos = entry.data.photos ?? (image ? [image] : []);
 
-const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric", timeZone: "Europe/Paris" });
+const aVenir = estAVenir(entry.data, aujourdhuiParis());
+const compteRendu = (entry.body ?? "").trim() !== "";
+const plage = plageDates(date, dateFin);
+const heure = heureDe(date);
+const quand = heure ? `${plage} · ${heure}` : plage;
+const presentationHtml = presentation && (aVenir || !compteRendu)
+  ? (await (await createMarkdownProcessor()).render(presentation)).code
+  : "";
 
-// L'univers de l'article s'affiche dans le surtitre plutôt que comme un badge
-// isolé : « Actualités · Compétition » situe l'article sans le cloisonner.
 const section = categorie ? `Actualités · ${LIBELLES_CATEGORIE_ACTU[categorie]}` : "Actualités";
 ---
-<PageLayout titre={titre} section={section} chapo={fmt.format(date)} description={resume}>
-  {photos.length > 0 && (
+<PageLayout titre={titre} section={section} chapo={quand} description={resume}>
+  {aVenir && <p class="fiche__statut">À venir</p>}
+  {!aVenir && !compteRendu && <p class="fiche__statut fiche__statut--passe">Ce rendez-vous a eu lieu le {plage}.</p>}
+  {lieu && <p class="fiche__lieu">📍 {lieu}</p>}
+  {photos.length > 0 && !aVenir && (
     <div class="article__carousel">
       <Carousel photos={photos} alt={titre} ratio="16 / 9" />
     </div>
   )}
-  <Videos videos={entry.data.videos} />
-  <Content />
+  {presentationHtml && <div class="fiche__presentation" set:html={presentationHtml} />}
+  {aVenir && lien && <p><a class="btn fiche__lien" href={lien} target="_blank" rel="noopener">S'inscrire / en savoir plus</a></p>}
+  {compteRendu && !aVenir && <Videos videos={entry.data.videos} />}
+  {compteRendu && !aVenir && <Content />}
 </PageLayout>
 <style>
   .article__carousel { margin-bottom: 1.5rem; }
+  .fiche__statut { display: inline-block; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--blanc); background: var(--rouge); border-radius: 999px; padding: 0.25rem 0.8rem; margin-bottom: 1rem; }
+  .fiche__statut--passe { background: var(--muted); text-transform: none; letter-spacing: 0; }
+  .fiche__lieu { color: var(--muted); margin-bottom: 1rem; }
+  .fiche__lien { margin-top: 0.5rem; }
 </style>
