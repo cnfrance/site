@@ -5,7 +5,9 @@ on:
     branches: [main]
   workflow_dispatch:
   # Chaque nuit : les rendez-vous passés sortent des « à venir » et de
-  # l'agenda, sans attendre une modification du site.
+  # l'agenda, sans attendre une modification du site. GitHub suspend cette
+  # tâche après 60 jours sans activité sur le dépôt (aucune publication
+  # depuis l'admin) : la réactiver alors dans l'onglet Actions.
   schedule:
     - cron: "15 2 * * *"
 

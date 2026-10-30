@@ -8,7 +8,9 @@ const fiches: FicheIcs[] = [
   { slug: 'fermeture', titre: 'Fermeture', date: new Date('2026-12-20T00:00:00Z'), dateFin: new Date('2027-01-03T00:00:00Z'), resume: 'Club fermé', categorie: 'club' },
   { slug: 'defi', titre: 'Défi', date: new Date('2026-11-21T00:00:00Z'), resume: 'Régate', categorie: 'competition' },
   { slug: 'sans-univers', titre: 'Sans univers', date: new Date('2026-11-22T00:00:00Z'), resume: 'x' },
-  { slug: 'ancien', titre: 'Ancien', date: new Date('2026-07-01T00:00:00Z'), resume: 'x', categorie: 'club' },
+  { slug: 'ancien', titre: 'Ancien', date: new Date('2026-07-01T00:00:00Z'), resume: 'x', categorie: 'club', lieu: 'Club' },
+  { slug: 'simple-actu', titre: 'Simple actu', date: new Date('2026-10-17T10:10:00Z'), resume: 'Récit', categorie: 'club', corps: 'Récit' },
+  { slug: 'evenement-passe', titre: 'Événement passé', date: new Date('2026-10-01T00:00:00Z'), resume: 'x', categorie: 'club', lieu: 'Club', corps: 'Récit' },
 ];
 const lignes = (ics: string) => ics.replace(/\r\n /g, '').split('\r\n');
 
@@ -51,6 +53,10 @@ describe('genererIcs', () => {
     expect(tout).toContain('SUMMARY:Défi');
     expect(tout).toContain('SUMMARY:Sans univers');
     expect(lignes(tout)).toContain('X-WR-CALNAME:CNF — Tout le club');
+  });
+  test('les actus ordinaires ne sont pas des rendez-vous ; les événements passés récents restent', () => {
+    expect(club).not.toContain('SUMMARY:Simple actu');
+    expect(club).toContain('SUMMARY:Événement passé');
   });
   test('fenêtre : à venir et 90 derniers jours', () => {
     expect(club).not.toContain('SUMMARY:Ancien'); // 1er juillet : plus de 90 jours

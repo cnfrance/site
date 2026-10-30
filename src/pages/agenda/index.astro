@@ -2,12 +2,12 @@
 import { getCollection } from "astro:content";
 import PageLayout from "../../layouts/PageLayout.astro";
 import { LIBELLES_CATEGORIE_ACTU } from "../../lib/categories-actus";
-import { aujourdhuiParis, estAVenir, finDe, heureDe, jourMural, plageDates } from "../../lib/agenda";
+import { aujourdhuiParis, estAVenir, finDe, heureAffichee, jourMural, plageDates } from "../../lib/agenda";
 import { CANAUX } from "../../lib/ics";
 
 const aujourdhui = aujourdhuiParis();
 const fiches = (await getCollection("actualites"))
-  .filter((e) => estAVenir(e.data, aujourdhui))
+  .filter((e) => estAVenir(e.data, aujourdhui, e.body))
   .sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
 
 const MOIS = new Intl.DateTimeFormat("fr-FR", { month: "long", year: "numeric", timeZone: "UTC" });
@@ -21,7 +21,7 @@ const presentes = CANAUX.filter((c) => c.valeur !== "tout" && fiches.some((f) =>
 const hote = (Astro.site ?? new URL("https://www.cnfrance.fr")).host;
 const webcal = (canal: string) => `webcal://${hote}/agenda/${canal}.ics`;
 const google = (canal: string) => `https://calendar.google.com/calendar/r?cid=${encodeURIComponent(webcal(canal))}`;
-const quand = (d: Date, fin?: Date) => { const h = heureDe(d); return h ? `${plageDates(d, fin)} · ${h}` : plageDates(d, fin); };
+const quand = (f: (typeof fiches)[number]["data"]) => { const h = heureAffichee(f); return h ? `${plageDates(f.date, f.dateFin)} · ${h}` : plageDates(f.date, f.dateFin); };
 ---
 <PageLayout titre="Agenda" section="Infos pratiques" chapo="Tous les rendez-vous à venir du club : compétitions, randonnées et vie du club.">
   <section class="abo" aria-labelledby="abo-titre" data-abo data-hote={hote}>
@@ -57,7 +57,7 @@ const quand = (d: Date, fin?: Date) => { const h = heureDe(d); return h ? `${pla
           {liste.map((f) => (
             <li class="rdv" data-fin={jourMural(finDe(f.data))} data-categorie={f.data.categorie ?? ""}>
               <a href={`/actualites/${f.id}`} class="rdv__lien">
-                <span class="rdv__quand">{quand(f.data.date, f.data.dateFin)}</span>
+                <span class="rdv__quand">{quand(f.data)}</span>
                 <span class="rdv__titre">{f.data.titre}</span>
                 {f.data.lieu && <span class="rdv__lieu">📍 {f.data.lieu}</span>}
                 <span class="rdv__resume">{f.data.resume}</span>

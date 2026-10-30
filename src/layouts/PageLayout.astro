@@ -69,8 +69,8 @@ const { titre, section, chapo, description } = Astro.props;
   .prose :global(ul), .prose :global(ol) { margin-bottom: 1.1rem; padding-left: 1.4rem; }
   .prose :global(li) { margin-bottom: 0.4rem; }
   /* Les boutons (.btn) gardent leur propre style. */
-  .prose :global(a:not(.btn)) { color: var(--rouge); text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--rouge) 40%, transparent); }
-  .prose :global(a:not(.btn):hover) { color: var(--rouge-sombre); }
+  .prose :global(a:where(:not(.btn))) { color: var(--rouge); text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--rouge) 40%, transparent); }
+  .prose :global(a:where(:not(.btn)):hover) { color: var(--rouge-sombre); }
   .prose :global(blockquote) { border-left: 3px solid var(--rouge); padding-left: 1rem; color: var(--muted); font-style: italic; margin-bottom: 1.1rem; }
   .prose :global(strong) { font-weight: 700; }
   .prose :global(table) { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; font-size: 0.92rem; }

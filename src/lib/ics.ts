@@ -1,7 +1,7 @@
 // Flux iCalendar (RFC 5545) des fiches, un par canal (voir la spec du
 // 2026-10-30). Fonctions pures : la route statique ne fait que les appeler.
 import { CATEGORIES_ACTU, LIBELLES_CATEGORIE_ACTU, type CategorieActu } from "./categories-actus";
-import { finDe, heureDe, jourMural } from "./agenda";
+import { aujourdhuiParis, estAVenir, estEvenement, finDe, heureAffichee, jourMural } from "./agenda";
 
 export type Canal = "tout" | CategorieActu;
 export const CANAUX: { valeur: Canal; libelle: string }[] = [
@@ -17,6 +17,9 @@ export interface FicheIcs {
   lieu?: string;
   resume: string;
   categorie?: CategorieActu;
+  presentation?: string;
+  lien?: string;
+  corps?: string;
 }
 
 const FENETRE_JOURS = 90;
@@ -71,13 +74,14 @@ export function genererIcs(fiches: FicheIcs[], o: { canal: Canal; site: string; 
   ];
   const retenues = fiches
     .filter((f) => o.canal === "tout" || f.categorie === o.canal)
-    .filter((f) => jourMural(finDe(f)) >= limite)
+    // À venir, ou rendez-vous passé récent ; jamais une simple actu.
+    .filter((f) => estAVenir(f, aujourdhuiParis(o.maintenant), f.corps) || (estEvenement(f) && jourMural(finDe(f)) >= limite))
     .sort((a, b) => a.date.getTime() - b.date.getTime());
 
   for (const f of retenues) {
     const url = `${site}/actualites/${f.slug}/`;
     const fin = finDe(f);
-    const dates = heureDe(f.date)
+    const dates = heureAffichee(f)
       ? [
           `DTSTART;TZID=Europe/Paris:${heureIcs(f.date)}`,
           `DTEND;TZID=Europe/Paris:${heureIcs(f.dateFin && f.dateFin > f.date ? f.dateFin : new Date(f.date.getTime() + DUREE_MS))}`,

@@ -9,7 +9,12 @@
 export interface Datee {
   date: Date;
   dateFin?: Date | null;
+  lieu?: string;
+  presentation?: string;
+  lien?: string;
 }
+
+const aCompteRendu = (corps: string | undefined) => (corps ?? "").trim() !== "";
 
 const JOUR_PARIS = new Intl.DateTimeFormat("en-CA", {
   timeZone: "Europe/Paris", year: "numeric", month: "2-digit", day: "2-digit",
@@ -29,13 +34,31 @@ export function finDe(f: Datee): Date {
   return f.dateFin ?? f.date;
 }
 
-export function estAVenir(f: Datee, aujourdhui: string): boolean {
-  return jourMural(finDe(f)) >= aujourdhui;
+/**
+ * À venir : pas encore de compte rendu et fin pas encore passée. Une fiche qui
+ * a un compte rendu n'est jamais « à venir » : c'est une actu, même publiée le
+ * jour même (date proposée par défaut dans l'admin).
+ */
+export function estAVenir(f: Datee, aujourdhui: string, corps?: string): boolean {
+  return !aCompteRendu(corps) && jourMural(finDe(f)) >= aujourdhui;
 }
 
-/** Fiche à montrer parmi les actualités : passée et dotée d'un compte rendu. */
+/** Fiche à montrer parmi les actualités : un compte rendu, et une date atteinte. */
 export function dansLeFil(f: Datee, corps: string | undefined, aujourdhui: string): boolean {
-  return !estAVenir(f, aujourdhui) && (corps ?? "").trim() !== "";
+  return aCompteRendu(corps) && jourMural(f.date) <= aujourdhui;
+}
+
+/** Fiche de rendez-vous (et non simple actu) : lieu, présentation, lien ou date de fin. */
+export function estEvenement(f: Datee): boolean {
+  return Boolean(f.lieu || f.presentation || f.lien || f.dateFin);
+}
+
+/**
+ * Heure à afficher : seulement pour un rendez-vous. Sur une simple actu,
+ * l'heure est celle de sa création dans l'admin et n'a pas de sens.
+ */
+export function heureAffichee(f: Datee): string | null {
+  return estEvenement(f) ? heureDe(f.date) : null;
 }
 
 /** « 19 h », « 9 h 30 » ; null quand aucune heure n'a été saisie (minuit). */

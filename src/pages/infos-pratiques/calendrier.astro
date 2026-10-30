@@ -14,7 +14,7 @@ const events: Ev[] = actualites
     titre: e.data.titre,
     debut: jourMural(e.data.date),
     fin: jourMural(finDe(e.data)),
-    type: estAVenir(e.data, aujourdhui) ? ("evenement" as const)
+    type: estAVenir(e.data, aujourdhui, e.body) ? ("evenement" as const)
       : e.data.categorie === "competition" ? ("resultat" as const) : ("actualite" as const),
     lieu: e.data.lieu ?? null,
     href: `${B}/actualites/${e.id}`,
@@ -22,7 +22,7 @@ const events: Ev[] = actualites
   .sort((a, b) => a.debut.localeCompare(b.debut));
 
 const prochains = actualites
-  .filter((e) => estAVenir(e.data, aujourdhui))
+  .filter((e) => estAVenir(e.data, aujourdhui, e.body))
   .map((e) => ({
     titre: e.data.titre,
     debut: jourMural(e.data.date),

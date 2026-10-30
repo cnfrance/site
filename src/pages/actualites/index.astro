@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content";
 import PageLayout from "../../layouts/PageLayout.astro";
 import { LIBELLES_CATEGORIE_ACTU } from "../../lib/categories-actus";
-import { aujourdhuiParis, dansLeFil } from "../../lib/agenda";
+import { aujourdhuiParis, dansLeFil, jourMural } from "../../lib/agenda";
 
 const entries = await getCollection("actualites");
 const aujourdhui = aujourdhuiParis();
@@ -11,7 +11,7 @@ const actus = entries
   .map((e) => ({ ...e.data, slug: e.id }))
   .sort((a, b) => b.date.getTime() - a.date.getTime());
 
-const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric", timeZone: "Europe/Paris" });
+const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" /* heure murale, voir src/lib/agenda.ts */ });
 
 // Les pastilles de filtre ne listent que les univers réellement présents : on
 // évite un filtre qui ne renverrait aucun article.
@@ -45,7 +45,7 @@ const filtres = (Object.keys(LIBELLES_CATEGORIE_ACTU) as (keyof typeof LIBELLES_
           {actus.map((a) => (
             <a class="card" href={`/actualites/${a.slug}`} data-categorie={a.categorie ?? ""}>
               <div class="card__meta">
-                <time class="card__date" datetime={a.date.toISOString()}>{fmt.format(a.date)}</time>
+                <time class="card__date" datetime={jourMural(a.date)}>{fmt.format(a.date)}</time>
                 {a.categorie && (
                   <span class={`badge badge--${a.categorie}`}>{LIBELLES_CATEGORIE_ACTU[a.categorie]}</span>
                 )}

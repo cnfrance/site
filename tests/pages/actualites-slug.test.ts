@@ -61,3 +61,18 @@ test('fiche passée avec compte rendu : le récit remplace la présentation', as
   expect(html).not.toContain('À venir');
   expect(html).not.toContain('a eu lieu');
 });
+
+test('actu publiée le jour même : récit visible, pas « À venir »', async () => {
+  const html = await rendre({ id: 'regate', body: 'Récit', data: {
+    titre: 'Régate du jour', date: new Date(`${new Date().toISOString().slice(0, 10)}T20:11:00Z`), resume: 'x',
+  } });
+  expect(html).toContain('adhérents actifs');
+  expect(html).not.toContain('À venir');
+});
+
+test("actu ordinaire : pas d'heure (celle de création dans l'admin), pas de mention « a eu lieu »", async () => {
+  const html = await rendre({ id: 'head', body: '', data: { titre: 'Head', date: new Date('2026-10-17T10:10:00Z'), resume: 'x' } });
+  expect(html).toContain('17 octobre 2026');
+  expect(html).not.toContain('10 h 10');
+  expect(html).not.toContain('a eu lieu');
+});

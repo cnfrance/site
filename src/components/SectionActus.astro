@@ -1,11 +1,12 @@
 ---
+import { jourMural } from "../lib/agenda";
 import { LIBELLES_CATEGORIE_ACTU } from "../lib/categories-actus";
 
 type Categorie = keyof typeof LIBELLES_CATEGORIE_ACTU;
 interface Actu { titre: string; date: Date; resume: string; slug: string; categorie?: Categorie; }
 interface Props { actus: Actu[]; }
 const { actus } = Astro.props;
-const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric", timeZone: "Europe/Paris" });
+const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" /* heure murale, voir src/lib/agenda.ts */ });
 ---
 <section id="actus" class="act">
   <div class="wrap">
@@ -19,7 +20,7 @@ const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", ye
           {actus.map((a) => (
             <a class="act__card" href={`/actualites/${a.slug}`} data-categorie={a.categorie ?? ""}>
               <div class="act__meta">
-                <time class="act__date" datetime={a.date.toISOString()}>{fmt.format(a.date)}</time>
+                <time class="act__date" datetime={jourMural(a.date)}>{fmt.format(a.date)}</time>
                 {a.categorie && <span class="act__badge">{LIBELLES_CATEGORIE_ACTU[a.categorie]}</span>}
               </div>
               <h3 class="act__title">{a.titre}</h3>

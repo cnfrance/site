@@ -18,7 +18,7 @@ const evenements = [
   .filter((e) => e.photos.length > 0)
   .sort((a, b) => b.date.getTime() - a.date.getTime());
 
-const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric", timeZone: "Europe/Paris" });
+const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" /* heure murale, voir src/lib/agenda.ts */ });
 ---
 <PageLayout
   titre="En images"

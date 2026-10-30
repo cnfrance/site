@@ -1,13 +1,13 @@
 ---
 import type { CategorieActu } from "../lib/categories-actus";
 import { LIBELLES_CATEGORIE_ACTU } from "../lib/categories-actus";
-import { finDe, heureDe, jourMural, plageDates } from "../lib/agenda";
+import { finDe, heureAffichee, jourMural, plageDates } from "../lib/agenda";
 
-interface Evenement { titre: string; date: Date; dateFin?: Date; lieu?: string; resume: string; slug: string; categorie?: CategorieActu; }
+interface Evenement { titre: string; date: Date; dateFin?: Date; lieu?: string; presentation?: string; lien?: string; resume: string; slug: string; categorie?: CategorieActu; }
 interface Props { evenements: Evenement[]; }
 const { evenements } = Astro.props;
 const quand = (e: Evenement) => {
-  const h = heureDe(e.date);
+  const h = heureAffichee(e);
   return h ? `${plageDates(e.date, e.dateFin)} · ${h}` : plageDates(e.date, e.dateFin);
 };
 ---

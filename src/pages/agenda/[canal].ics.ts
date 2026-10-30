@@ -8,6 +8,7 @@ export const GET: APIRoute = async ({ params, site }) => {
   const fiches = (await getCollection("actualites")).map((e) => ({
     slug: e.id, titre: e.data.titre, date: e.data.date, dateFin: e.data.dateFin,
     lieu: e.data.lieu, resume: e.data.resume, categorie: e.data.categorie,
+    presentation: e.data.presentation, lien: e.data.lien, corps: e.body,
   }));
   const ics = genererIcs(fiches, {
     canal: params.canal as Canal,

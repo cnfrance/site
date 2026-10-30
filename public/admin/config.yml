@@ -92,7 +92,7 @@ collections:
           - { label: "Vie du club", value: "club" }
       - { label: "Résumé", name: "resume", widget: "text" }
       - { label: "Présentation (avant le rendez-vous)", name: "presentation", widget: "markdown", required: false, hint: "Programme, horaires, infos pratiques. Affichée tant que la date n'est pas passée, et sur la page si aucun compte rendu n'est écrit." }
-      - { label: "Lien d'inscription ou d'infos", name: "lien", widget: "string", required: false, hint: "Adresse complète (https://…). Bouton affiché tant que la date n'est pas passée." }
+      - { label: "Lien d'inscription ou d'infos", name: "lien", widget: "string", required: false, pattern: ["^https?://\\S+$", "L'adresse doit commencer par https:// (sinon le site ne peut pas être publié)."], hint: "Adresse complète (https://…). Bouton affiché tant que la date n'est pas passée." }
       - { label: "Image principale", name: "image", widget: "image", required: false }
       - { label: "Photos (diaporama)", name: "photos", widget: "list", required: false, field: { label: "Photo", name: "photo", widget: "image" } }
       - label: "Vidéos"

@@ -26,7 +26,7 @@ const reglages = reglagesArr[0]?.data;
 const aujourdhui = aujourdhuiParis();
 const fiches = actualitesArr.map((e) => ({ ...e.data, slug: e.id, corps: e.body ?? "" }));
 const evenements = fiches
-  .filter((f) => estAVenir(f, aujourdhui))
+  .filter((f) => estAVenir(f, aujourdhui, f.corps))
   .sort((a, b) => a.date.getTime() - b.date.getTime())
   .slice(0, 3);
 const actus = fiches

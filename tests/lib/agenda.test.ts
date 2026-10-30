@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import {
-  aujourdhuiParis, dansLeFil, estAVenir, finDe, heureDe, jourMural, plageDates,
+  aujourdhuiParis, dansLeFil, estAVenir, estEvenement, finDe, heureAffichee, heureDe, jourMural, plageDates,
 } from '../../src/lib/agenda';
 
 const d = (iso: string) => new Date(`${iso}Z`);
@@ -36,7 +36,27 @@ describe('à venir et fil', () => {
     expect(dansLeFil(soir, '', '2026-10-28')).toBe(false);
     expect(dansLeFil(soir, '  \n ', '2026-10-28')).toBe(false);
     expect(dansLeFil(soir, undefined, '2026-10-28')).toBe(false);
-    expect(dansLeFil(soir, 'Récit', '2026-10-27')).toBe(false);
+    expect(dansLeFil(soir, 'Récit', '2026-10-26')).toBe(false); // datée de demain
+  });
+  test('une actu publiée le jour même est dans le fil, jamais « à venir »', () => {
+    expect(dansLeFil(soir, 'Récit', '2026-10-27')).toBe(true);
+    expect(estAVenir(soir, '2026-10-27', 'Récit')).toBe(false);
+    expect(estAVenir(soir, '2026-10-27', '')).toBe(true);
+  });
+});
+
+describe('fiche événement', () => {
+  test('est un événement une fiche qui a un lieu, une présentation, un lien ou une date de fin', () => {
+    const base = { date: d('2026-10-27T19:00:00') };
+    expect(estEvenement(base)).toBe(false);
+    expect(estEvenement({ ...base, lieu: 'Club' })).toBe(true);
+    expect(estEvenement({ ...base, presentation: 'x' })).toBe(true);
+    expect(estEvenement({ ...base, lien: 'https://x.fr' })).toBe(true);
+    expect(estEvenement({ ...base, dateFin: d('2026-10-28T00:00:00') })).toBe(true);
+  });
+  test("l'heure n'est affichée que pour un événement (sinon c'est l'heure de création dans l'admin)", () => {
+    expect(heureAffichee({ date: d('2026-10-17T10:10:00') })).toBeNull();
+    expect(heureAffichee({ date: d('2026-10-27T19:00:00'), lieu: 'Au Huit' })).toBe('19 h');
   });
 });
 
