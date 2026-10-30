@@ -1,5 +1,9 @@
 import { defineConfig } from 'astro/config';
 
+// Heure murale : les dates du CMS n'ont pas de fuseau ; on les lit en UTC
+// pour qu'elles gardent l'heure saisie (voir src/lib/agenda.ts).
+process.env.TZ = 'UTC';
+
 // `base` piloté par un env de build : '/' par défaut, y compris pour la
 // production (GitHub Pages relayé par le proxy de www.cnfrance.fr, qui sert le
 // site à la racine). PUBLIC_BASE_PATH=/site ne sert qu'à consulter directement

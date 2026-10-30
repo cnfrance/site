@@ -31,6 +31,10 @@ describe('evenementSchema', () => {
 });
 
 describe('actualiteSchema', () => {
+  test('une date saisie sans fuseau dans le CMS garde son heure murale', () => {
+    const a = actualiteSchema.parse({ titre: 'x', date: '2026-10-27T19:00', resume: 'x' });
+    expect(a.date.getUTCHours()).toBe(19);
+  });
   test('accepte une actu valide', () => {
     const a = actualiteSchema.parse({ titre: 'Rando', date: '2026-05-01', resume: 'court' });
     expect(a.titre).toBe('Rando');
