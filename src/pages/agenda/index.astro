@@ -117,15 +117,20 @@ const quand = (d: Date, fin?: Date) => { const h = heureDe(d); return h ? `${pla
 </script>
 <style>
   .abo { background: var(--blanc); border: 1px solid var(--gris-bord); border-radius: var(--radius); padding: 1.3rem; margin-bottom: 2rem; }
-  .abo__h { font-size: 1.25rem; margin: 0 0 0.3rem; }
+  .abo h2.abo__h { font-size: 1.25rem; margin: 0 0 0.3rem; }
   .abo__txt { color: var(--muted); margin-bottom: 0.9rem; }
   .abo__ligne { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.9rem; }
   .abo__ligne select { font: inherit; padding: 0.4rem 0.6rem; border-radius: 8px; border: 1px solid var(--gris-bord); }
   .abo__boutons { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .abo__boutons button.btn { font: inherit; font-weight: 700; cursor: pointer; }
   .mois__h { font-size: 1.3rem; margin: 1.8rem 0 0.8rem; }
-  .mois__liste { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.8rem; }
-  .rdv__lien { display: grid; gap: 0.25rem; padding: 1rem 1.2rem; background: var(--blanc); border: 1px solid var(--gris-bord); border-left: 4px solid var(--rouge); border-radius: var(--radius); color: inherit; text-decoration: none; }
-  .rdv__lien:hover, .rdv__lien:focus-visible { box-shadow: 0 6px 18px rgba(0,0,0,.08); }
+  /* Sélecteurs renforcés : la mise en page des contenus (.prose) stylise
+     listes et liens. */
+  .mois ul.mois__liste { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.8rem; }
+  .mois__liste li.rdv { margin: 0; }
+  .rdv a.rdv__lien { display: grid; gap: 0.25rem; padding: 1rem 1.2rem; background: var(--blanc); border: 1px solid var(--gris-bord); border-left: 4px solid var(--rouge); border-radius: var(--radius); color: inherit; text-decoration: none; }
+  .rdv a.rdv__lien:hover, .rdv a.rdv__lien:focus-visible { box-shadow: 0 6px 18px rgba(0,0,0,.08); color: inherit; }
+  .rdv__lien .badge { justify-self: start; }
   .rdv__quand { font-weight: 700; color: var(--rouge); font-size: 0.85rem; text-transform: uppercase; }
   .rdv__titre { font-weight: 700; font-size: 1.1rem; }
   .rdv__lieu, .rdv__resume { font-size: 0.92rem; color: var(--muted); }

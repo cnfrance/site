@@ -4,6 +4,10 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # Chaque nuit : les rendez-vous passés sortent des « à venir » et de
+  # l'agenda, sans attendre une modification du site.
+  schedule:
+    - cron: "15 2 * * *"
 
 permissions:
   contents: read
