@@ -1,6 +1,6 @@
 import { expect, test, describe } from 'vitest';
 import {
-  reglagesSchema, evenementSchema, actualiteSchema, partenaireSchema, pageSchema,
+  reglagesSchema, actualiteSchema, partenaireSchema, pageSchema,
 } from '../src/content.config';
 import { CATEGORIES_ACTU, LIBELLES_CATEGORIE_ACTU } from '../src/lib/categories-actus';
 
@@ -17,16 +17,6 @@ describe('reglagesSchema', () => {
     expect(() => reglagesSchema.parse({
       accroche: 'x', chiffres: [], infos: { horaires: 'x', tarifs: 'x', adresse: 'x' },
     })).toThrow();
-  });
-});
-
-describe('evenementSchema', () => {
-  test('coerce une date string', () => {
-    const e = evenementSchema.parse({ titre: 'Défi', date: '2026-06-14', description: 'x' });
-    expect(e.date instanceof Date).toBe(true);
-  });
-  test('rejette sans titre', () => {
-    expect(() => evenementSchema.parse({ date: '2026-06-14', description: 'x' })).toThrow();
   });
 });
 

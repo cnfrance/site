@@ -15,16 +15,6 @@ export const reglagesSchema = z.object({
   photosHero: z.array(z.string()).optional(),
 });
 
-export const evenementSchema = z.object({
-  titre: z.string(),
-  date: z.coerce.date(),
-  dateFin: z.coerce.date().optional(),
-  lieu: z.string().optional(),
-  description: z.string(),
-  image: z.string().optional(),
-  lien: z.string().optional(),
-});
-
 // Le CMS écrit '' (ou null) pour un champ laissé vide.
 const sansVide = (v: unknown) => (v === "" || v === null ? undefined : v);
 
@@ -86,11 +76,6 @@ const campagneDon = defineCollection({
   schema: campagneDonSchema,
 });
 
-const evenements = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/evenements' }),
-  schema: evenementSchema,
-});
-
 const actualites = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/actualites' }),
   schema: actualiteSchema,
@@ -106,4 +91,4 @@ const pages = defineCollection({
   schema: pageSchema,
 });
 
-export const collections = { reglages, campagneDon, evenements, actualites, partenaires, pages };
+export const collections = { reglages, campagneDon, actualites, partenaires, pages };

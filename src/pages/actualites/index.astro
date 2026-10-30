@@ -2,9 +2,12 @@
 import { getCollection } from "astro:content";
 import PageLayout from "../../layouts/PageLayout.astro";
 import { LIBELLES_CATEGORIE_ACTU } from "../../lib/categories-actus";
+import { aujourdhuiParis, dansLeFil } from "../../lib/agenda";
 
 const entries = await getCollection("actualites");
+const aujourdhui = aujourdhuiParis();
 const actus = entries
+  .filter((e) => dansLeFil(e.data, e.body, aujourdhui))
   .map((e) => ({ ...e.data, slug: e.id }))
   .sort((a, b) => b.date.getTime() - a.date.getTime());
 

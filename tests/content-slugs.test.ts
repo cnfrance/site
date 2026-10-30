@@ -5,7 +5,7 @@ import { describe, expect, test } from 'vitest';
 // (identifier_field: titre dans public/admin/config.yml), pas par un
 // identifiant aléatoire : leur nom devient l'adresse de la page.
 describe('noms des fichiers de contenu', () => {
-  for (const dossier of ['actualites', 'evenements']) {
+  for (const dossier of ['actualites']) {
     test(`${dossier} : pas d'identifiant aléatoire, uniquement minuscules sans accents`, () => {
       const noms = readdirSync(`src/content/${dossier}`).filter((f) => f.endsWith('.md')).map((f) => f.slice(0, -3));
       expect(noms.filter((n) => /^[0-9a-f]{12}$/.test(n))).toEqual([]);
@@ -16,4 +16,8 @@ describe('noms des fichiers de contenu', () => {
 
 test('les résultats sont des actus « Compétition » : plus de collection séparée', () => {
   expect(existsSync('src/content/resultats')).toBe(false);
+});
+
+test('les événements sont des fiches de la collection actualités : plus de dossier séparé', () => {
+  expect(existsSync('src/content/evenements')).toBe(false);
 });

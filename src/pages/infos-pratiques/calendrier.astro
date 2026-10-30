@@ -1,57 +1,36 @@
 ---
 import PageLayout from "../../layouts/PageLayout.astro";
 import { getCollection } from "astro:content";
+import { aujourdhuiParis, estAVenir, finDe, jourMural } from "../../lib/agenda";
 
-const [evenements, actualites] = await Promise.all([
-  getCollection("evenements"),
-  getCollection("actualites"),
-]);
-
-// Date -> "YYYY-MM-DD" dans le fuseau Europe/Paris (fr-CA donne ce format ISO)
-const isoParis = (d: Date) =>
-  new Intl.DateTimeFormat("fr-CA", { timeZone: "Europe/Paris", year: "numeric", month: "2-digit", day: "2-digit" }).format(d);
-
-// Préfixe de base (vide en prod, "/site" sur la démo GitHub Pages).
+const actualites = await getCollection("actualites");
 const B = import.meta.env.BASE_URL.replace(/\/$/, "");
-
 type Ev = { titre: string; debut: string; fin: string; type: "evenement" | "actualite" | "resultat"; lieu: string | null; href: string | null };
+const aujourdhui = aujourdhuiParis();
 
-const events: Ev[] = [
-  ...evenements.map((e) => ({
-    titre: e.data.titre,
-    debut: isoParis(e.data.date),
-    fin: isoParis(e.data.dateFin ?? e.data.date),
-    type: "evenement" as const,
-    lieu: e.data.lieu ?? null,
-    href: e.data.lien ?? null,
-  })),
-  // Les actus « Compétition » (anciens résultats compris) gardent leur
-  // couleur propre dans le calendrier.
-  ...actualites.map((e) => ({
-    titre: e.data.titre,
-    debut: isoParis(e.data.date),
-    fin: isoParis(e.data.date),
-    type: e.data.categorie === "competition" ? ("resultat" as const) : ("actualite" as const),
-    lieu: null,
-    href: `${B}/actualites/${e.id}`,
-  })),
-].sort((a, b) => a.debut.localeCompare(b.debut));
-
-// « Prochains rendez-vous » : uniquement les événements du club (pas les actus
-// ni les résultats, qui sont par nature passés). On rend au build tous ceux à
-// venir ; un script client écarte ensuite ceux devenus caducs depuis le dernier
-// déploiement et n'en affiche que trois.
-const aujourdhui = isoParis(new Date());
-const prochains = evenements
+// Couleurs : rouge = à venir, vert = compétition passée, bleu = autre fiche passée.
+const events: Ev[] = actualites
   .map((e) => ({
     titre: e.data.titre,
-    debut: isoParis(e.data.date),
-    fin: isoParis(e.data.dateFin ?? e.data.date),
+    debut: jourMural(e.data.date),
+    fin: jourMural(finDe(e.data)),
+    type: estAVenir(e.data, aujourdhui) ? ("evenement" as const)
+      : e.data.categorie === "competition" ? ("resultat" as const) : ("actualite" as const),
     lieu: e.data.lieu ?? null,
-    description: e.data.description,
-    lien: e.data.lien ?? null,
+    href: `${B}/actualites/${e.id}`,
   }))
-  .filter((e) => e.fin >= aujourdhui)
+  .sort((a, b) => a.debut.localeCompare(b.debut));
+
+const prochains = actualites
+  .filter((e) => estAVenir(e.data, aujourdhui))
+  .map((e) => ({
+    titre: e.data.titre,
+    debut: jourMural(e.data.date),
+    fin: jourMural(finDe(e.data)),
+    lieu: e.data.lieu ?? null,
+    description: e.data.resume,
+    lien: `${B}/actualites/${e.id}`,
+  }))
   .sort((a, b) => a.debut.localeCompare(b.debut))
   .slice(0, 8);
 
@@ -90,8 +69,8 @@ function pastille(debut: string, fin: string) {
                 {e.lieu && <p class="rdv__lieu">{e.lieu}</p>}
                 <p class="rdv__desc">{e.description}</p>
                 {e.lien && (
-                  <a class="rdv__lien" href={e.lien} target="_blank" rel="noopener noreferrer">
-                    Informations &amp; inscriptions →
+                  <a class="rdv__lien" href={e.lien}>
+                    Voir le rendez-vous →
                   </a>
                 )}
               </div>
@@ -121,7 +100,7 @@ function pastille(debut: string, fin: string) {
     </div>
 
     <div class="cal-legend">
-      <span class="cal-legend__item"><i class="cal-dot cal-dot--evenement"></i>Événement</span>
+      <span class="cal-legend__item"><i class="cal-dot cal-dot--evenement"></i>À venir</span>
       <span class="cal-legend__item"><i class="cal-dot cal-dot--resultat"></i>Compétition</span>
       <span class="cal-legend__item"><i class="cal-dot cal-dot--actualite"></i>Actualité</span>
     </div>

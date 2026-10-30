@@ -7,9 +7,9 @@ import ActualitesIndex from '../../src/pages/actualites/index.astro';
 vi.mock('astro:content', async () => {
   return {
     getCollection: async () => [
-      { id: 'rando-cote-bleue', data: { titre: 'Rando Côte Bleue', date: new Date('2026-05-18'), resume: 'Images', categorie: 'loisir' } },
-      { id: 'boat-race-2026', data: { titre: '"BOAT RACE" 2026', date: new Date('2026-04-11'), resume: 'Victoire à Cambridge.', categorie: 'competition' } },
-      { id: 'ag-2026', data: { titre: 'Assemblée générale', date: new Date('2026-03-02'), resume: 'Bilan.' } },
+      { id: 'rando-cote-bleue', body: 'Récit', data: { titre: 'Rando Côte Bleue', date: new Date('2026-05-18'), resume: 'Images', categorie: 'loisir' } },
+      { id: 'boat-race-2026', body: 'Récit', data: { titre: '"BOAT RACE" 2026', date: new Date('2026-04-11'), resume: 'Victoire à Cambridge.', categorie: 'competition' } },
+      { id: 'ag-2026', body: 'Récit', data: { titre: 'Assemblée générale', date: new Date('2026-03-02'), resume: 'Bilan.' } },
     ],
   };
 });

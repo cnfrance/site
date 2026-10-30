@@ -1,5 +1,6 @@
 ---
-interface Evenement { titre: string; date: Date; lieu?: string; description: string; }
+import type { CategorieActu } from "../lib/categories-actus";
+interface Evenement { titre: string; date: Date; dateFin?: Date; lieu?: string; resume: string; slug: string; categorie?: CategorieActu; }
 interface Props { evenements: Evenement[]; }
 const { evenements } = Astro.props;
 const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric", timeZone: "Europe/Paris" });
@@ -18,7 +19,7 @@ const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", ye
               <time class="evt__date" datetime={e.date.toISOString()}>{fmt.format(e.date)}</time>
               <h3 class="evt__title">{e.titre}</h3>
               {e.lieu && <p class="evt__lieu">📍 {e.lieu}</p>}
-              <p class="evt__desc">{e.description}</p>
+              <p class="evt__desc">{e.resume}</p>
             </article>
           ))}
         </div>}

@@ -108,26 +108,6 @@ collections:
       - { label: "Compte rendu (après le rendez-vous)", name: "body", widget: "markdown", required: false, hint: "Récit, résultats. Tant qu'il est vide, la fiche n'apparaît pas dans les actualités." }
 
   # ---------------------------------------------------------------------
-  # Événements — src/content/evenements/*.md
-  # ---------------------------------------------------------------------
-  - name: "evenements"
-    label: "Événements"
-    label_singular: "Événement"
-    folder: "src/content/evenements"
-    create: true
-    delete: true
-    slug: "{{slug}}"
-    identifier_field: "titre" # sinon Sveltia cherche un champ « title » et nomme le fichier au hasard
-    extension: "md"
-    format: "frontmatter"
-    fields:
-      - { label: "Titre", name: "titre", widget: "string" }
-      - { label: "Date", name: "date", widget: "datetime" }
-      - { label: "Lieu", name: "lieu", widget: "string", required: false }
-      - { label: "Description", name: "description", widget: "text" }
-      - { label: "Image", name: "image", widget: "image", required: false }
-
-  # ---------------------------------------------------------------------
   # Pages — src/content/pages/<section>/*.md
   #
   # Le loader Astro (glob récursif) accepte des sous-dossiers, mais une seule

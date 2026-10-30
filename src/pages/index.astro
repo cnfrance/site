@@ -11,27 +11,26 @@ import SectionActus from "../components/SectionActus.astro";
 import SectionGalerie from "../components/SectionGalerie.astro";
 import SectionInfosPratiques from "../components/SectionInfosPratiques.astro";
 import SectionPartenaires from "../components/SectionPartenaires.astro";
+import { aujourdhuiParis, dansLeFil, estAVenir } from "../lib/agenda";
 
-const [reglagesArr, evenementsArr, actualitesArr, partenairesArr] = await Promise.all([
+const [reglagesArr, actualitesArr, partenairesArr] = await Promise.all([
   getCollection("reglages"),
-  getCollection("evenements"),
   getCollection("actualites"),
   getCollection("partenaires"),
 ]);
 
 const reglages = reglagesArr[0]?.data;
 
-// Événements : uniquement à venir, triés par date croissante, max 3.
-const maintenant = new Date();
-const evenements = evenementsArr
-  .map((e) => e.data)
-  .filter((e) => e.date >= maintenant)
+// Une fiche par rendez-vous : à venir tant que sa date n'est pas passée, puis
+// dans le fil des actualités dès qu'elle a un compte rendu.
+const aujourdhui = aujourdhuiParis();
+const fiches = actualitesArr.map((e) => ({ ...e.data, slug: e.id, corps: e.body ?? "" }));
+const evenements = fiches
+  .filter((f) => estAVenir(f, aujourdhui))
   .sort((a, b) => a.date.getTime() - b.date.getTime())
   .slice(0, 3);
-
-// Actus : 3 plus récentes, avec slug depuis l'id de collection.
-const actus = actualitesArr
-  .map((e) => ({ ...e.data, slug: e.id }))
+const actus = fiches
+  .filter((f) => dansLeFil(f, f.corps, aujourdhui))
   .sort((a, b) => b.date.getTime() - a.date.getTime())
   .slice(0, 3);
 
