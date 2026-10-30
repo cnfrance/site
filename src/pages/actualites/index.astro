@@ -144,20 +144,6 @@ const filtres = (Object.keys(LIBELLES_CATEGORIE_ACTU) as (keyof typeof LIBELLES_
   .card:hover { transform: translateY(-3px); }
   .card__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem; }
   .card__date { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; }
-  .badge {
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    padding: 0.16rem 0.5rem;
-    border-radius: 999px;
-    color: var(--teinte);
-    background: color-mix(in srgb, var(--teinte) 12%, transparent);
-    white-space: nowrap;
-  }
-  .badge--competition { --teinte: var(--cat-competition); }
-  .badge--loisir { --teinte: var(--cat-loisir); }
-  .badge--club { --teinte: var(--cat-club); }
   .card__title { font-size: 1.15rem; color: var(--rouge-sombre); margin: 0.3rem 0; }
   .card__resume { font-size: 0.9rem; color: var(--muted); }
   .vide { color: var(--muted); }

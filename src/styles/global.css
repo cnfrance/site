@@ -20,3 +20,19 @@ img { max-width: 100%; display: block; }
 .btn:hover { background: var(--rouge-sombre); }
 /* Verrou de défilement quand le tiroir de navigation mobile est ouvert */
 html.no-scroll, html.no-scroll body { overflow: hidden; }
+
+/* Pastille d'univers (actualités, rendez-vous de l'accueil, agenda). */
+.badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.16rem 0.5rem;
+  border-radius: 999px;
+  color: var(--teinte);
+  background: color-mix(in srgb, var(--teinte) 12%, transparent);
+  white-space: nowrap;
+}
+.badge--competition { --teinte: var(--cat-competition); }
+.badge--loisir { --teinte: var(--cat-loisir); }
+.badge--club { --teinte: var(--cat-club); }

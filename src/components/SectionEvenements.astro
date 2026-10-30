@@ -1,39 +1,56 @@
 ---
 import type { CategorieActu } from "../lib/categories-actus";
+import { LIBELLES_CATEGORIE_ACTU } from "../lib/categories-actus";
+import { finDe, heureDe, jourMural, plageDates } from "../lib/agenda";
+
 interface Evenement { titre: string; date: Date; dateFin?: Date; lieu?: string; resume: string; slug: string; categorie?: CategorieActu; }
 interface Props { evenements: Evenement[]; }
 const { evenements } = Astro.props;
-const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric", timeZone: "Europe/Paris" });
+const quand = (e: Evenement) => {
+  const h = heureDe(e.date);
+  return h ? `${plageDates(e.date, e.dateFin)} · ${h}` : plageDates(e.date, e.dateFin);
+};
 ---
 <section id="evenements" class="evt">
   <div class="wrap">
     <div class="evt__head">
       <h2 class="evt__h">Événements à venir</h2>
-      <a class="evt__all" href="/infos-pratiques/calendrier">Voir tout le calendrier →</a>
+      <a class="evt__all" href="/agenda/">Voir tout l'agenda →</a>
     </div>
-    {evenements.length === 0
-      ? <p class="evt__vide">Aucun événement à venir pour le moment. Revenez bientôt !</p>
-      : <div class="evt__grid">
-          {evenements.map((e) => (
-            <article class="evt__card">
-              <time class="evt__date" datetime={e.date.toISOString()}>{fmt.format(e.date)}</time>
-              <h3 class="evt__title">{e.titre}</h3>
-              {e.lieu && <p class="evt__lieu">📍 {e.lieu}</p>}
-              <p class="evt__desc">{e.resume}</p>
-            </article>
-          ))}
-        </div>}
+    {evenements.length > 0 && (
+      <div class="evt__grid" data-a-venir>
+        {evenements.map((e) => (
+          <a class="evt__card" href={`/actualites/${e.slug}`} data-fin={jourMural(finDe(e))}>
+            <div class="evt__meta">
+              <time class="evt__date" datetime={jourMural(e.date)}>{quand(e)}</time>
+              {e.categorie && <span class={`badge badge--${e.categorie}`}>{LIBELLES_CATEGORIE_ACTU[e.categorie]}</span>}
+            </div>
+            <h3 class="evt__title">{e.titre}</h3>
+            {e.lieu && <p class="evt__lieu">📍 {e.lieu}</p>}
+            <p class="evt__desc">{e.resume}</p>
+          </a>
+        ))}
+      </div>
+    )}
+    <p class="evt__vide" data-a-venir-vide hidden={evenements.length > 0}>
+      Aucun rendez-vous annoncé pour le moment. <a href="/agenda/">Consulter l'agenda</a>.
+    </p>
   </div>
 </section>
+<script>
+  import "../scripts/masquer-passes";
+</script>
 <style>
   .evt { padding-block: 3.5rem; }
   .evt__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; margin-bottom: 1.8rem; gap: 0.4rem 1rem; }
   .evt__h { font-size: clamp(1.6rem, 3.5vw, 2.4rem); }
   .evt__all { font-weight: 700; color: var(--rouge); font-size: 0.9rem; }
   .evt__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem; }
-  .evt__card { background: var(--blanc); border: 1px solid var(--gris-bord); border-left: 4px solid var(--rouge); border-radius: var(--radius); padding: 1.3rem; }
+  .evt__card { display: block; color: inherit; text-decoration: none; background: var(--blanc); border: 1px solid var(--gris-bord); border-left: 4px solid var(--rouge); border-radius: var(--radius); padding: 1.3rem; transition: box-shadow .2s, transform .2s; }
+  .evt__card:hover, .evt__card:focus-visible { box-shadow: 0 6px 18px rgba(0,0,0,.08); transform: translateY(-2px); }
+  .evt__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.6rem; }
   .evt__date { font-weight: 700; color: var(--rouge); font-size: 0.85rem; text-transform: uppercase; }
-  .evt__title { font-size: 1.2rem; margin: 0.3rem 0; }
+  .evt__title { font-size: 1.2rem; margin: 0.4rem 0 0.3rem; }
   .evt__lieu { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.5rem; }
   .evt__desc { font-size: 0.92rem; color: var(--texte); }
   .evt__vide { color: var(--muted); }
