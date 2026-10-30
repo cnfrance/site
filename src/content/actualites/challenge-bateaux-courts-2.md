@@ -1,6 +1,7 @@
 ---
 titre: "Challenge bateaux courts 2"
 date: 2025-02-16
+categorie: competition
 resume: "Deux rameurs seniors du CNF ont participé au challenge BTC 2 pour préparer les championnats bateaux courts à venir."
 ---
 

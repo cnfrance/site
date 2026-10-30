@@ -1,6 +1,7 @@
 ---
 titre: "Lifa 1 26 janvier 2025"
 date: 2025-01-26
+categorie: competition
 resume: "Les rameurs J16 et Masters du CNF ont signé de très bons résultats lors de la coupe LIFA 1 sur le bassin olympique de Vaires-sur-Marne."
 image: "/medias/resultats/lifa-1-26-janvier-2025/01.jpeg"
 photos:

@@ -1,6 +1,7 @@
 ---
 titre: "Championnats Bateaux courts zone Nord ouest"
 date: 2025-03-29
+categorie: competition
 resume: "Les rameurs du CNF se sont bien battus lors des championnats de zone bateaux courts à Mantes-la-Jolie, malgré une concurrence bien présente."
 image: "/medias/resultats/championnats-bateaux-courts-zone-nord-ouest/01.jpeg"
 photos:

@@ -1,6 +1,7 @@
 ---
 titre: "Régate de Fontainebleau 2025"
 date: 2025-11-11
+categorie: competition
 resume: "Le collectif régate du CNF termine 3e sur 6 en 8 de couple lors de la régate de Fontainebleau, forte de 33 équipages engagés."
 image: "/medias/resultats/regate-de-fontainebleau-2025/01.jpeg"
 photos:

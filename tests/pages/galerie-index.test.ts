@@ -2,7 +2,7 @@ import { experimental_AstroContainer as AstroContainer } from 'astro/container';
 import { expect, test, vi } from 'vitest';
 import GalerieIndex from '../../src/pages/galerie/index.astro';
 
-// La galerie assemble actualités et résultats via getCollection ; on le mocke pour un rendu isolé,
+// La galerie lit les actualités via getCollection ; on le mocke pour un rendu isolé,
 // comme pour index.test.ts.
 vi.mock('astro:content', async () => {
   return {
@@ -21,16 +21,13 @@ vi.mock('astro:content', async () => {
               ],
             },
           },
-        ];
-      }
-      if (name === 'resultats') {
-        return [
           {
             id: 'regate-de-fontainebleau-2025',
             data: {
               titre: 'Régate de Fontainebleau 2025',
               date: new Date('2025-11-11'),
               resume: '3e sur 6.',
+              categorie: 'competition',
               image: '/images/resultats/regate-de-fontainebleau-2025.jpg',
             },
           },
@@ -39,6 +36,11 @@ vi.mock('astro:content', async () => {
             data: { titre: 'Sans photo', date: new Date('2024-01-01'), resume: 'x' },
           },
         ];
+      }
+      // Les résultats sont désormais des actus « Compétition » : la galerie ne
+      // doit plus lire l'ancienne collection.
+      if (name === 'resultats') {
+        return [{ id: 'ancien', data: { titre: 'Ancien résultat', date: new Date('2026-01-01'), resume: 'x', image: '/x.jpg' } }];
       }
       return [];
     },
@@ -57,7 +59,8 @@ test('la galerie affiche un mini-carrousel par événement avec titre et lien', 
   expect(html).toContain('/images/actus/rando-cote-bleue/01.jpg');
 
   expect(html).toContain('Régate de Fontainebleau 2025');
-  expect(html).toContain('href="/resultats/regate-de-fontainebleau-2025"');
+  expect(html).toContain('href="/actualites/regate-de-fontainebleau-2025"');
+  expect(html).not.toContain('Ancien résultat');
   expect(html).toContain('/images/resultats/regate-de-fontainebleau-2025.jpg');
 
   // L'événement sans photo n'a pas de carte.

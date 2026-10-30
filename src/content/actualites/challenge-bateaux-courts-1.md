@@ -2,6 +2,7 @@
 image: "/medias/resultats/challenge-bateaux-courts-1/01.jpeg"
 titre: "Challenge BTC 1 LIFA"
 date: 2025-12-01
+categorie: competition
 resume: "Les rameurs du CNF ont disputé le challenge bateaux courts 1 LIFA à Vaires-sur-Marne avec des résultats encourageants pour la suite de la saison."
 photos:
   - "/medias/resultats/challenge-bateaux-courts-1/01.jpeg"

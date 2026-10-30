@@ -81,8 +81,20 @@ const filtres = (Object.keys(LIBELLES_CATEGORIE_ACTU) as (keyof typeof LIBELLES_
     };
 
     for (const b of boutons) {
-      b.addEventListener("click", () => appliquer(b.dataset.filtre ?? "tout"));
+      b.addEventListener("click", () => {
+        const choix = b.dataset.filtre ?? "tout";
+        appliquer(choix);
+        // L'adresse reflète le filtre : partageable, et cible du menu
+        // « Résultats » (/actualites/?univers=competition).
+        const url = new URL(location.href);
+        if (choix === "tout") url.searchParams.delete("univers");
+        else url.searchParams.set("univers", choix);
+        history.replaceState(null, "", url);
+      });
     }
+
+    const demande = new URLSearchParams(location.search).get("univers");
+    if (demande && boutons.some((b) => b.dataset.filtre === demande)) appliquer(demande);
   }
 </script>
 

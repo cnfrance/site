@@ -12,12 +12,11 @@ import SectionGalerie from "../components/SectionGalerie.astro";
 import SectionInfosPratiques from "../components/SectionInfosPratiques.astro";
 import SectionPartenaires from "../components/SectionPartenaires.astro";
 
-const [reglagesArr, evenementsArr, actualitesArr, partenairesArr, resultatsArr] = await Promise.all([
+const [reglagesArr, evenementsArr, actualitesArr, partenairesArr] = await Promise.all([
   getCollection("reglages"),
   getCollection("evenements"),
   getCollection("actualites"),
   getCollection("partenaires"),
-  getCollection("resultats"),
 ]);
 
 const reglages = reglagesArr[0]?.data;
@@ -48,17 +47,13 @@ const poolHero: string[] = reglages?.photosHero?.length
       "/medias/hero/competition-macon.jpeg",
       "/medias/hero/hero-3.jpeg",
     ];
-// Pool de la galerie home : photos des actualités et résultats, légendées par
+// Pool de la galerie home : photos des actualités (résultats compris), légendées par
 // le nom de l'événement et pointant vers l'article correspondant.
 const photosActualites = actualitesArr
   .filter((e) => e.data.image)
   .map((e) => ({ titre: e.data.titre, date: e.data.date, src: e.data.image as string, href: `/actualites/${e.id}` }));
 
-const photosResultats = resultatsArr
-  .filter((e) => e.data.image)
-  .map((e) => ({ titre: e.data.titre, date: e.data.date, src: e.data.image as string, href: `/resultats/${e.id}` }));
-
-const poolGalerie = [...photosActualites, ...photosResultats]
+const poolGalerie = photosActualites
   .sort((a, b) => b.date.getTime() - a.date.getTime())
   .slice(0, 8)
   .map(({ src, titre, href }) => ({ src, alt: titre, href }));

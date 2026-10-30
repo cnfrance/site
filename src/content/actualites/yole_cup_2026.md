@@ -1,6 +1,7 @@
 ---
 titre: 6ᵉ édition de la Yole Cup des Débutants - 2026
 date: 2026-05-31T10:40
+categorie: competition
 resume: Compétition pour les débutants. Une année de rame.
 image: /medias/IMG_6982.jpeg
 photos:

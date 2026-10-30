@@ -1,6 +1,7 @@
 ---
 titre: "Damala 2025 : course en skiff"
 date: 2025-11-11
+categorie: competition
 resume: "Le CNF était représenté par trois rameurs Masters et sept U17 lors du Damala, tête de rivière en skiff sur la Marne."
 image: "/medias/resultats/damala-2025-course-en-skiff/01.jpeg"
 photos:

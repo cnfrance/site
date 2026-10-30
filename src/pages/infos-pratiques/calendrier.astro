@@ -2,10 +2,9 @@
 import PageLayout from "../../layouts/PageLayout.astro";
 import { getCollection } from "astro:content";
 
-const [evenements, actualites, resultats] = await Promise.all([
+const [evenements, actualites] = await Promise.all([
   getCollection("evenements"),
   getCollection("actualites"),
-  getCollection("resultats"),
 ]);
 
 // Date -> "YYYY-MM-DD" dans le fuseau Europe/Paris (fr-CA donne ce format ISO)
@@ -26,21 +25,15 @@ const events: Ev[] = [
     lieu: e.data.lieu ?? null,
     href: e.data.lien ?? null,
   })),
+  // Les actus « Compétition » (anciens résultats compris) gardent leur
+  // couleur propre dans le calendrier.
   ...actualites.map((e) => ({
     titre: e.data.titre,
     debut: isoParis(e.data.date),
     fin: isoParis(e.data.date),
-    type: "actualite" as const,
+    type: e.data.categorie === "competition" ? ("resultat" as const) : ("actualite" as const),
     lieu: null,
     href: `${B}/actualites/${e.id}`,
-  })),
-  ...resultats.map((e) => ({
-    titre: e.data.titre,
-    debut: isoParis(e.data.date),
-    fin: isoParis(e.data.date),
-    type: "resultat" as const,
-    lieu: null,
-    href: `${B}/resultats/${e.id}`,
   })),
 ].sort((a, b) => a.debut.localeCompare(b.debut));
 
@@ -129,7 +122,7 @@ function pastille(debut: string, fin: string) {
 
     <div class="cal-legend">
       <span class="cal-legend__item"><i class="cal-dot cal-dot--evenement"></i>Événement</span>
-      <span class="cal-legend__item"><i class="cal-dot cal-dot--resultat"></i>Résultat</span>
+      <span class="cal-legend__item"><i class="cal-dot cal-dot--resultat"></i>Compétition</span>
       <span class="cal-legend__item"><i class="cal-dot cal-dot--actualite"></i>Actualité</span>
     </div>
 

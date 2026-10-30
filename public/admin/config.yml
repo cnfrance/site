@@ -80,7 +80,7 @@ collections:
         name: "categorie"
         widget: "select"
         required: false
-        hint: "Sert à colorer le badge de l'article et à filtrer la liste des actualités. Laisser vide si l'article n'entre dans aucune de ces trois familles."
+        hint: "Sert à colorer le badge de l'article et à filtrer la liste des actualités. « Compétition » regroupe aussi les résultats (le menu Résultats affiche ces actus). Laisser vide si l'article n'entre dans aucune de ces trois familles."
         options:
           - { label: "Compétition", value: "competition" }
           - { label: "Loisir & randonnées", value: "loisir" }
@@ -98,36 +98,6 @@ collections:
           - { label: "…ou importer un fichier vidéo", name: "fichier", widget: "file", required: false, hint: "Clips courts seulement — les gros fichiers alourdissent le site et les déploiements." }
           - { label: "Titre / légende", name: "titre", widget: "string", required: false }
       - { label: "Publication Instagram", name: "instagram", widget: "string", required: false, hint: "Lien de la publication Instagram d'origine. Renseigné par la synchro automatique : ne pas modifier, il évite que la publication soit importée deux fois." }
-      - { label: "Contenu", name: "body", widget: "markdown" }
-
-  # ---------------------------------------------------------------------
-  # Résultats — src/content/resultats/*.md
-  # ---------------------------------------------------------------------
-  - name: "resultats"
-    label: "Résultats"
-    label_singular: "Résultat"
-    folder: "src/content/resultats"
-    create: true
-    delete: true
-    slug: "{{slug}}"
-    identifier_field: "titre" # sinon Sveltia cherche un champ « title » et nomme le fichier au hasard
-    extension: "md"
-    format: "frontmatter"
-    fields:
-      - { label: "Titre", name: "titre", widget: "string" }
-      - { label: "Date", name: "date", widget: "datetime" }
-      - { label: "Résumé", name: "resume", widget: "text", required: false }
-      - { label: "Image principale", name: "image", widget: "image", required: false }
-      - { label: "Photos (diaporama)", name: "photos", widget: "list", required: false, field: { label: "Photo", name: "photo", widget: "image" } }
-      - label: "Vidéos"
-        name: "videos"
-        widget: "list"
-        required: false
-        summary: "{{fields.titre}}"
-        fields:
-          - { label: "Lien YouTube / Vimeo / Instagram", name: "lien", widget: "string", required: false, hint: "Recommandé (léger) : collez un lien de partage YouTube, Vimeo ou d'une publication Instagram (le lecteur Instagram ne se charge qu'au clic)." }
-          - { label: "…ou importer un fichier vidéo", name: "fichier", widget: "file", required: false, hint: "Clips courts seulement — les gros fichiers alourdissent le site et les déploiements." }
-          - { label: "Titre / légende", name: "titre", widget: "string", required: false }
       - { label: "Contenu", name: "body", widget: "markdown" }
 
   # ---------------------------------------------------------------------

@@ -1,6 +1,7 @@
 ---
 titre: "Régate de sélection : Coupe de France 2025"
 date: 2025-09-01
+categorie: competition
 resume: "Tess Heurtaut et Raphaël Gardey se qualifient tous les deux lors de la régate de sélection LIFA-Coupe de France à Mantes-la-Jolie."
 image: "/medias/resultats/regate-de-selection-coupe-de-france-2025/01.jpeg"
 photos:

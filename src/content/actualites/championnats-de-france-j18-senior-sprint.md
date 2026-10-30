@@ -1,6 +1,7 @@
 ---
 titre: "CHAMPIONNATS DE FRANCE J18 / SENIOR SPRINT"
 date: 2025-06-06
+categorie: competition
 resume: "Les équipages junior et sénior du CNF ont disputé les championnats de France J18/Sénior sprint sur le lac des Dageys à Libourne."
 image: "/medias/resultats/championnats-de-france-j18-senior-sprint/01.jpeg"
 photos:

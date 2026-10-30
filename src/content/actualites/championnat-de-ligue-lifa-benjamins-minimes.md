@@ -1,6 +1,7 @@
 ---
 titre: "Championnat de Ligue LIFA Benjamins-Minimes"
 date: 2025-05-25
+categorie: competition
 resume: "Les jeunes rameurs du CNF ont participé au Championnat de Ligue LIFA Benjamins-Minimes à Mantes-la-Jolie, malgré des conditions venteuses."
 image: "/medias/resultats/championnat-de-ligue-lifa-benjamins-minimes/01.jpeg"
 photos:

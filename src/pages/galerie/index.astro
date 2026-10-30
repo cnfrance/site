@@ -3,21 +3,17 @@ import { getCollection } from "astro:content";
 import PageLayout from "../../layouts/PageLayout.astro";
 import Carousel from "../../components/Carousel.astro";
 
-// Galerie = mini-carrousels par événement (actualités et résultats), légendés par le nom
-// de l'événement et pointant vers l'article correspondant (migration cnfrance.fr).
-const [actualitesArr, resultatsArr] = await Promise.all([
-  getCollection("actualites"),
-  getCollection("resultats"),
-]);
+// Galerie = mini-carrousels par événement (actualités, résultats compris), légendés par le
+// nom de l'événement et pointant vers l'article correspondant (migration cnfrance.fr).
+const actualitesArr = await getCollection("actualites");
 
-function toEvenement(e: (typeof actualitesArr)[number] | (typeof resultatsArr)[number], href: string) {
+function toEvenement(e: (typeof actualitesArr)[number], href: string) {
   const photos = e.data.photos ?? (e.data.image ? [e.data.image] : []);
   return { titre: e.data.titre, date: e.data.date, photos: photos.slice(0, 6), href };
 }
 
 const evenements = [
   ...actualitesArr.map((e) => toEvenement(e, `/actualites/${e.id}`)),
-  ...resultatsArr.map((e) => toEvenement(e, `/resultats/${e.id}`)),
 ]
   .filter((e) => e.photos.length > 0)
   .sort((a, b) => b.date.getTime() - a.date.getTime());

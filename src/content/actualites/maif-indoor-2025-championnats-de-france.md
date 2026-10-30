@@ -1,6 +1,7 @@
 ---
 titre: "Maif Indoor 2025 Championnats de France"
 date: 2025-01-30
+categorie: competition
 resume: "Samia Hireche et Jean-Marc Bastin décrochent respectivement le titre de vice-championne et de champion de France lors des championnats de France Maif aviron indoor 2025."
 image: "/medias/resultats/maif-indoor-2025-championnats-de-france/01.jpeg"
 photos:

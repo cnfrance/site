@@ -1,6 +1,7 @@
 ---
 titre: "Championnats de France de beach rowing sprint et aviron de mer"
 date: 2025-05-08
+categorie: competition
 resume: "L'équipage du CNF termine 8e sur 20 participants en 4x+ aux championnats de France de beach rowing sprint et aviron de mer à Aix."
 image: "/medias/resultats/championnats-de-france-de-beach-rowing-sprint-et-aviron-de-mer/01.jpg"
 photos:

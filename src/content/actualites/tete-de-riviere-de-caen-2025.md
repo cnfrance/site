@@ -1,6 +1,7 @@
 ---
 titre: "Tête de Rivière de Caen 2025"
 date: 2025-11-08
+categorie: competition
 resume: "Les rameurs du CNF ont participé à la première échéance de la saison bateaux courts, la Tête de Rivière de Caen."
 image: "/medias/resultats/tete-de-riviere-de-caen-2025/01.jpeg"
 photos:

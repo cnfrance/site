@@ -1,6 +1,7 @@
 ---
 titre: "Coupes des Dames Angers 2025"
 date: 2025-10-25
+categorie: competition
 resume: "Le Collectif Régate du CNF décroche la 4e place en course des dames et la médaille d'argent en course messieurs à la Coupe des Dames d'Angers."
 image: "/medias/resultats/coupes-des-dames-angers-2025/01.png"
 photos:

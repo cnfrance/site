@@ -67,19 +67,6 @@ export const campagneDonSchema = z.object({
   miseAJour: z.coerce.date(),
 });
 
-export const resultatSchema = z.object({
-  titre: z.string(),
-  date: z.coerce.date(),
-  resume: z.string().optional(),
-  image: z.string().optional(),
-  photos: z.array(z.string()).optional(),
-  videos: z.array(z.object({
-    lien: z.string().optional(),
-    fichier: z.string().optional(),
-    titre: z.string().optional(),
-  })).optional(),
-});
-
 const reglages = defineCollection({
   loader: file('src/content/site/reglages.json'),
   schema: reglagesSchema,
@@ -110,9 +97,4 @@ const pages = defineCollection({
   schema: pageSchema,
 });
 
-const resultats = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/resultats' }),
-  schema: resultatSchema,
-});
-
-export const collections = { reglages, campagneDon, evenements, actualites, partenaires, pages, resultats };
+export const collections = { reglages, campagneDon, evenements, actualites, partenaires, pages };

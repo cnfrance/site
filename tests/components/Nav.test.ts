@@ -34,7 +34,7 @@ test('la nav expose des sous-menus avec les liens des pages migrées', async () 
     '/pratiquer/randonnees',
     '/espace-adherents/renouveler-son-adhesion2',
     '/espace-adherents/securite-navigation',
-    '/resultats',
+    '/actualites/?univers=competition',
     '/actualites',
     '/partenariat/sponsor',
     '/partenariat/team-building',
