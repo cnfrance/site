@@ -57,6 +57,8 @@ const diapos = medias.map((m) => ({
     <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" /></svg>
   </a>
 </section>
+<!-- Cible de la flèche : le contenu qui suit le bandeau. -->
+<div id="suite" class="hd__ancre"></div>
 <script>
   // Vitesse de défilement des photos sur écran en hauteur : constante, pour
   // qu'une photo panoramique ne glisse pas plus vite qu'une 4/3.
@@ -171,6 +173,8 @@ const diapos = medias.map((m) => ({
   .hd__dot[aria-current="true"] { background: var(--blanc); }
   .hd__dot:focus-visible { outline: 2px solid var(--blanc); outline-offset: 3px; }
   .hd__suite { display: none; }
+  /* Décalée de la barre de navigation collante (~64 px). */
+  .hd__ancre { scroll-margin-top: 64px; }
 
   /* Écran en hauteur : plein écran (sous la barre de navigation, ~64 px). */
   @media (max-aspect-ratio: 1/1) {

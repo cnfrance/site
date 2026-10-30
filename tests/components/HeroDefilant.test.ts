@@ -33,6 +33,9 @@ test('garde le titre, le bouton et l\'invitation à faire défiler la page', asy
   expect(html).toContain('portes de Paris');
   expect(html).toContain('Nous rejoindre');
   expect(html).toContain('href="#suite"');
+  // La cible de la flèche est fournie par le bandeau lui-même, juste après lui.
+  expect(html.indexOf('id="suite"')).toBeGreaterThan(html.indexOf('</section>'));
+  expect(html).toContain('id="suite"');
 });
 
 test('liste vide : pas de plantage, fond de repli', async () => {
