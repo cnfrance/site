@@ -15,5 +15,12 @@ export default defineConfig({
   redirects: {
     // Ancienne page « Aviron indoor », intégrée aux pages Compétition et Loisirs.
     '/pratiquer/aviron-in-door': '/pratiquer/aviron-loisirs',
+    // Actus créées depuis l'admin avant le réglage identifier_field : leur
+    // nom de fichier était aléatoire. Anciennes adresses → nom tiré du titre.
+    '/actualites/14994191e95a': '/actualites/la-head-of-the-charles-nous-en-revions-nous-l-avons-fait',
+    '/actualites/7977f999b12b': '/actualites/la-reunion-a-4-on-etait-venu-pour-ramer-et-pas-que',
+    '/actualites/7d61087a417b': '/actualites/championnats-nationaux-u15-libourne',
+    '/actualites/976310b7c28b': '/actualites/randonnee-de-la-brouillarta-saint-jean-de-luz',
+    '/actualites/ab77cbd3f858': '/actualites/randonnee-le-tour-du-golf-du-morbihan',
   },
 });

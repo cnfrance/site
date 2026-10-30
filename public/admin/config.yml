@@ -53,6 +53,12 @@ public_folder: "/medias"
 
 locale: "fr"
 
+# Noms de fichiers (donc adresses des pages) tirés du titre, sans accents ni
+# caractères spéciaux : « Régate d'été » → regate-d-ete.
+slug:
+  encoding: "ascii"
+  clean_accents: true
+
 collections:
   # ---------------------------------------------------------------------
   # Actualités — src/content/actualites/*.md
@@ -64,6 +70,7 @@ collections:
     create: true
     delete: true
     slug: "{{slug}}"
+    identifier_field: "titre" # sinon Sveltia cherche un champ « title » et nomme le fichier au hasard
     extension: "md"
     format: "frontmatter"
     fields:
@@ -103,6 +110,7 @@ collections:
     create: true
     delete: true
     slug: "{{slug}}"
+    identifier_field: "titre" # sinon Sveltia cherche un champ « title » et nomme le fichier au hasard
     extension: "md"
     format: "frontmatter"
     fields:
@@ -132,6 +140,7 @@ collections:
     create: true
     delete: true
     slug: "{{slug}}"
+    identifier_field: "titre" # sinon Sveltia cherche un champ « title » et nomme le fichier au hasard
     extension: "md"
     format: "frontmatter"
     fields:
@@ -161,6 +170,7 @@ collections:
     create: true
     delete: true
     slug: "{{slug}}"
+    identifier_field: "titre" # sinon Sveltia cherche un champ « title » et nomme le fichier au hasard
     extension: "md"
     format: "frontmatter"
     fields:
@@ -177,6 +187,7 @@ collections:
     create: true
     delete: true
     slug: "{{slug}}"
+    identifier_field: "titre" # sinon Sveltia cherche un champ « title » et nomme le fichier au hasard
     extension: "md"
     format: "frontmatter"
     fields:
@@ -193,6 +204,7 @@ collections:
     create: true
     delete: true
     slug: "{{slug}}"
+    identifier_field: "titre" # sinon Sveltia cherche un champ « title » et nomme le fichier au hasard
     extension: "md"
     format: "frontmatter"
     fields:
@@ -209,6 +221,7 @@ collections:
     create: true
     delete: true
     slug: "{{slug}}"
+    identifier_field: "titre" # sinon Sveltia cherche un champ « title » et nomme le fichier au hasard
     extension: "md"
     format: "frontmatter"
     fields:
@@ -225,6 +238,7 @@ collections:
     create: true
     delete: true
     slug: "{{slug}}"
+    identifier_field: "titre" # sinon Sveltia cherche un champ « title » et nomme le fichier au hasard
     extension: "md"
     format: "frontmatter"
     fields:
@@ -241,6 +255,7 @@ collections:
     create: true
     delete: true
     slug: "{{slug}}"
+    identifier_field: "titre" # sinon Sveltia cherche un champ « title » et nomme le fichier au hasard
     extension: "md"
     format: "frontmatter"
     fields:
@@ -257,6 +272,7 @@ collections:
     create: true
     delete: true
     slug: "{{slug}}"
+    identifier_field: "titre" # sinon Sveltia cherche un champ « title » et nomme le fichier au hasard
     extension: "md"
     format: "frontmatter"
     fields:
