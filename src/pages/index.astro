@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
-import Hero from "../components/Hero.astro";
+import HeroDefilant from "../components/HeroDefilant.astro";
 import SectionChiffres from "../components/SectionChiffres.astro";
 import SectionDisciplines from "../components/SectionDisciplines.astro";
 import SectionEvenements from "../components/SectionEvenements.astro";
@@ -60,7 +60,7 @@ const poolGalerie = photosActualites
 ---
 <BaseLayout title="Cercle Nautique de France — L'aviron aux portes de Paris">
   <Nav slot="header" />
-  <Hero photos={poolHero} />
+  <HeroDefilant medias={poolHero.map((src) => ({ src }))} />
   {reglages && <SectionChiffres accroche={reglages.accroche} chiffres={reglages.chiffres} />}
   <SectionDisciplines />
   <SectionEvenements evenements={evenements} />

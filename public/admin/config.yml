@@ -335,8 +335,8 @@ collections:
                 name: "photosHero"
                 widget: "list"
                 required: false
-                hint: "Photos affichées en grand en haut de la page d'accueil (elles défilent dans l'ordre de la liste)."
-                field: { label: "Photo", name: "photo", widget: "image" }
+                hint: "Bandeau de la page d'accueil, dans l'ordre de la liste. PHOTOS : paysage, 1920 px de large minimum, moins de 500 Ko, sans texte incrusté (sur téléphone, la photo défile latéralement et le texte serait coupé). VIDÉOS : MP4 ou MOV, 15 s maximum (au-delà, le diaporama passe à la suite), sans son (elles sont jouées muettes), moins de 5 Mo ; sur téléphone, elles sont cadrées au centre."
+                field: { label: "Photo ou vidéo", name: "photo", widget: "file" }
               - label: "Chiffres clés"
                 name: "chiffres"
                 widget: "list"

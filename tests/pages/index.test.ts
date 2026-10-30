@@ -23,6 +23,7 @@ test('la home assemble hero, sections et footer', async () => {
   const container = await AstroContainer.create();
   const html = await container.renderToString(Index);
   expect(html).toContain('portes de Paris');       // hero
+  expect(html).toContain('data-hd');               // bandeau défilant (photos et vidéos)
   expect(html).toContain('Bienvenue');              // chiffres
   expect(html).toContain('Pratiquer');              // disciplines/nav
   expect(html).toContain('41ème Défi CNF');         // événements
