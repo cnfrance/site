@@ -42,7 +42,12 @@ const items = videos.filter((v) => v.lien || v.fichier);
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
             </div>
           ) : v.fichier ? (
-            <video class="videos__video" src={v.fichier} controls preload="metadata"></video>
+            // Annoncé en MP4 : les .mov d'iPhone (H.264) sont servis en
+            // video/quicktime, que Firefox et une partie des Chrome refusent ;
+            // déclarés video/mp4, ils sont lus partout.
+            <video class="videos__video" controls preload="metadata">
+              <source src={v.fichier} type="video/mp4" />
+            </video>
           ) : (
             <a href={v.lien} target="_blank" rel="noopener">{v.titre || v.lien}</a>
           )}

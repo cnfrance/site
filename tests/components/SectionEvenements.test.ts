@@ -18,3 +18,12 @@ test('affiche un message si aucun événement', async () => {
   const html = await container.renderToString(SectionEvenements, { props: { evenements: [] } });
   expect(html).toContain('Aucun événement');
 });
+
+test('renvoie vers le calendrier complet, qu\'il y ait des événements ou non', async () => {
+  const container = await AstroContainer.create();
+  for (const evenements of [[], [{ titre: 'Apérow', date: new Date('2026-11-14'), description: 'x' }]]) {
+    const html = await container.renderToString(SectionEvenements, { props: { evenements } });
+    expect(html).toContain('href="/infos-pratiques/calendrier"');
+    expect(html).toContain('Voir tout le calendrier');
+  }
+});
