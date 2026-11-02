@@ -3,7 +3,7 @@ titre: Tour des Iles, Régate du 11 novembre
 date: 2026-11-11T08:27
 dateFin: 2026-11-11T08:27
 lieu: ''
-categorie: ''
+categorie: competition
 resume: |-
   La régate et tête de rivière traditionnelle d'aviron organisée chaque année le 11 novembre à Mantes-la-Jolie
   Stade Nautique Didier Simond (Boulevard Sully, 78200 Mantes-la-Jolie), sur la base de l' AS Mantaise Aviron
