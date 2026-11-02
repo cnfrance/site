@@ -1,7 +1,7 @@
 ---
 titre: Tour des Iles, Régate du 11 novembre
-date: 2026-11-11T08:27
-dateFin: 2026-11-11T08:27
+date: 2026-11-11T08:00
+dateFin: 2026-11-11T15:00
 lieu: Boulevard SULLY 78200 MANTES-LA-JOLIE France (AS MANTAISE AVIRON - STADE NAUTIQUE DIDIER SIMOND)
 categorie: competition
 resume: |-
