@@ -17,6 +17,9 @@ presentation: |-
 lien: https://www.ffaviron.fr/wp-content/uploads/2026/10/avant-programme-4bb4b881109db17bf0984bd3746552ae.pdf
 image: ''
 photos: []
-videos: []
+videos:
+  - lien: ''
+    fichier: /medias/film_tour_des_iles_v2.mp4
+    titre: ''
 instagram: ''
 ---
