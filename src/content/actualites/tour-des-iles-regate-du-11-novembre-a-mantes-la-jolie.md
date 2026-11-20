@@ -36,9 +36,6 @@ image: ''
 photos: []
 videos:
   - lien: ''
-    fichier: ''
-    titre: ''
-  - lien: ''
     fichier: /medias/tour-des-iles-partie1.mp4
     titre: ''
   - lien: ''
@@ -46,6 +43,9 @@ videos:
     titre: ''
   - lien: ''
     fichier: /medias/tour-des-iles-partie3.mp4
+    titre: ''
+  - lien: ''
+    fichier: ''
     titre: ''
 instagram: ''
 ---
