@@ -36,7 +36,7 @@ image: ''
 photos: []
 videos:
   - lien: ''
-    fichier: /medias/tour-des-iles-partie1.mp4
+    fichier: /medias/tour-des-iles-diaporama-16-9-web.mp4
     titre: ''
   - lien: ''
     fichier: /medias/tour-des-iles-partie2.mp4
