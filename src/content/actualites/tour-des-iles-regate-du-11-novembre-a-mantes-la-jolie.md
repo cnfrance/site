@@ -6,8 +6,6 @@ lieu: Mantes la Jolie
 categorie: competition
 resume: Belle regate de 4km organisée par l’association sportive  Mantaise.
 presentation: |-
-  Belle regate de 4km organisée par l’association sportive  Mantaise.
-
   Des conditions idéales, un beau bassin et une journée ensoleillée, les 6 équipages master et le 8x du collectif ont bien défendu les couleurs du CNF.
 
   Bravo à eux 
@@ -38,7 +36,7 @@ image: ''
 photos: []
 videos:
   - lien: ''
-    fichier: /medias/54edab60-4aec-4d4b-994d-8dc02260a9dc.mp4
+    fichier: /medias/tour-des-iles-compresse.mp4
     titre: ''
 instagram: ''
 ---
