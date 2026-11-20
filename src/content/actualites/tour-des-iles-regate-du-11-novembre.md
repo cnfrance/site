@@ -19,7 +19,7 @@ image: ''
 photos: []
 videos:
   - lien: ''
-    fichier: /medias/film_tour_des_iles_v2.mp4
+    fichier: /medias/tour-des-iles-compresse.mp4
     titre: ''
 instagram: ''
 ---
