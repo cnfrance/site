@@ -36,7 +36,16 @@ image: ''
 photos: []
 videos:
   - lien: ''
-    fichier: /medias/tour-des-iles-compresse.mp4
+    fichier: ''
+    titre: ''
+  - lien: ''
+    fichier: /medias/tour-des-iles-partie1.mp4
+    titre: ''
+  - lien: ''
+    fichier: /medias/tour-des-iles-partie2.mp4
+    titre: ''
+  - lien: ''
+    fichier: /medias/tour-des-iles-partie3.mp4
     titre: ''
 instagram: ''
 ---
