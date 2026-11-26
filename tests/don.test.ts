@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest';
 import { campagneDonSchema } from '../src/content.config';
 import {
-  coutReel, formatEuros, lireMontant, reductionImpot, urlMonetico,
+  collecteArrondie, coutReel, formatEuros, lireMontant, reductionImpot, urlMonetico,
 } from '../src/lib/don';
 
 describe('réduction d\'impôt', () => {
@@ -45,4 +45,11 @@ describe('campagneDonSchema', () => {
   test('refuse un objectif nul', () => {
     expect(() => campagneDonSchema.parse({ titre: 'x', description: 'x', objectif: 0, collecte: 0, miseAJour: '2026-10-01' })).toThrow();
   });
+});
+
+test('collecteArrondie donne un chiffre rond', () => {
+  expect(collecteArrondie(1950)).toBe('près de 2 000 €');
+  expect(collecteArrondie(2100)).toBe('plus de 2 000 €');
+  expect(collecteArrondie(2000)).toBe('2 000 €');
+  expect(collecteArrondie(80)).toBe('près de 100 €');
 });

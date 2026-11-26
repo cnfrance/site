@@ -1,7 +1,7 @@
 ---
 // Page « Faire un don » : texte éditable (src/content/pages/espace-adherents/
-// faire-un-don.md), jauge de la campagne (src/content/site/don.json, éditable
-// dans le CMS) et choix du montant avec calcul de la réduction d'impôt.
+// faire-un-don.md), encart de la campagne (src/content/site/don.json, éditable
+// dans le CMS : montant collecté affiché arrondi, sans jauge ni date) et choix du montant avec calcul de la réduction d'impôt.
 //
 // Le paiement reste chez Monetico : le formulaire envoie vers leur page, montant
 // pré-rempli via `?amount=` ; le donateur y saisit ses coordonnées (reçu fiscal)
@@ -11,7 +11,7 @@
 // certains champs »).
 import { getCollection, getEntry, render } from "astro:content";
 import PageLayout from "../../layouts/PageLayout.astro";
-import { MONTANTS_DON, TAUX_REDUCTION, URL_DON_MONETICO, coutReel, formatEuros } from "../../lib/don";
+import { MONTANTS_DON, TAUX_REDUCTION, URL_DON_MONETICO, collecteArrondie, coutReel, formatEuros } from "../../lib/don";
 
 const page = await getEntry("pages", "espace-adherents/faire-un-don");
 if (!page) throw new Error("Contenu manquant : src/content/pages/espace-adherents/faire-un-don.md");
@@ -19,8 +19,6 @@ const { Content } = await render(page);
 const { titre, section, chapo } = page.data;
 
 const [{ data: campagne }] = await getCollection("campagneDon");
-const pourcentage = Math.min(100, Math.round((campagne.collecte / campagne.objectif) * 100));
-const dateMaj = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(campagne.miseAJour);
 const taux = Math.round(TAUX_REDUCTION * 100);
 const montantDefaut = 100;
 ---
@@ -30,22 +28,10 @@ const montantDefaut = 100;
   <section class="jauge" aria-labelledby="jauge-titre">
     <h2 id="jauge-titre" class="jauge__titre">{campagne.titre}</h2>
     <p class="jauge__texte">{campagne.description}</p>
-    <div
-      class="jauge__barre"
-      role="progressbar"
-      aria-label="Avancement de la collecte"
-      aria-valuemin="0"
-      aria-valuemax={campagne.objectif}
-      aria-valuenow={campagne.collecte}
-      aria-valuetext={`${formatEuros(campagne.collecte)} collectés sur ${formatEuros(campagne.objectif)}`}
-    >
-      <span class="jauge__rempli" style={`width: ${pourcentage}%`}></span>
-    </div>
     <p class="jauge__chiffres">
-      <span><strong>{formatEuros(campagne.collecte)}</strong> collectés sur {formatEuros(campagne.objectif)}</span>
-      <span class="jauge__pct">{pourcentage} %</span>
+      Déjà <strong>{collecteArrondie(campagne.collecte)}</strong> collectés grâce aux premiers donateurs.
+      Objectif : {formatEuros(campagne.objectif)}.
     </p>
-    <p class="jauge__maj">Mis à jour le {dateMaj}</p>
   </section>
 
   <form class="don" data-don method="get" action={URL_DON_MONETICO} novalidate>
@@ -93,12 +79,8 @@ const montantDefaut = 100;
   .jauge { margin-block: 2rem; padding: 1.4rem 1.5rem; background: var(--blanc); border: 1px solid var(--gris-bord); border-radius: var(--radius); }
   :global(.prose) .jauge__titre { margin: 0 0 0.5rem; color: var(--rouge); font-size: 1.35rem; }
   :global(.prose) .jauge__texte { margin-bottom: 1.1rem; color: var(--muted); }
-  .jauge__barre { height: 14px; border-radius: 999px; background: var(--fond); border: 1px solid var(--gris-bord); overflow: hidden; }
-  .jauge__rempli { display: block; height: 100%; min-width: 6px; background: linear-gradient(90deg, var(--rouge-sombre), var(--rouge)); border-radius: inherit; transition: width 0.6s ease; }
-  :global(.prose) .jauge__chiffres { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem; margin: 0.7rem 0 0.2rem; }
+  :global(.prose) .jauge__chiffres { margin: 0; }
   .jauge__chiffres strong { color: var(--rouge); font-size: 1.15rem; }
-  .jauge__pct { font-weight: 700; }
-  :global(.prose) .jauge__maj { margin: 0; font-size: 0.8rem; color: var(--muted); }
 
   /* Choix du montant */
   :global(.prose) .don__titre { margin-top: 0; }

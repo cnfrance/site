@@ -34,3 +34,15 @@ export function lireMontant(saisie: string): number | null {
 }
 
 export const urlMonetico = (montant: number) => `${URL_DON_MONETICO}?amount=${montant}`;
+
+/**
+ * Montant collecté en chiffre rond, pour la page de don :
+ * 1 950 → « près de 2 000 € », 2 100 → « plus de 2 000 € », 2 000 → « 2 000 € ».
+ * Arrondi à la centaine sous 1 000 €, au demi-millier au-delà.
+ */
+export function collecteArrondie(collecte: number): string {
+  const pas = collecte < 1000 ? 100 : 500;
+  const rond = Math.round(collecte / pas) * pas;
+  if (rond === collecte || rond === 0) return formatEuros(collecte);
+  return `${rond > collecte ? "près de" : "plus de"} ${formatEuros(rond)}`;
+}
